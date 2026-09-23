@@ -29,16 +29,15 @@ class PopularScreen extends StatelessWidget {
       repo.getInterests(),
     ).wait;
 
-    final popular = places.where((d) => d.featured || (d.rating ?? 0) >= 4.6).toList()
-      ..sort((a, b) {
-        final byFeatured = (b.featured ? 1 : 0).compareTo(a.featured ? 1 : 0);
-        if (byFeatured != 0) return byFeatured;
-        final byRating = (b.rating ?? 0).compareTo(a.rating ?? 0);
-        return byRating != 0 ? byRating : (b.reviewCount ?? 0).compareTo(a.reviewCount ?? 0);
-      });
+    places.sort((a, b) {
+      final byFeatured = (b.featured ? 1 : 0).compareTo(a.featured ? 1 : 0);
+      if (byFeatured != 0) return byFeatured;
+      final byRating = (b.rating ?? 0).compareTo(a.rating ?? 0);
+      return byRating != 0 ? byRating : (b.reviewCount ?? 0).compareTo(a.reviewCount ?? 0);
+    });
 
     // Corridors are not places, so they have no category to filter by.
-    return (provinces, popular, interests.where((i) => i.categories.isNotEmpty).toList());
+    return (provinces, places, interests.where((i) => i.categories.isNotEmpty).toList());
   }
 
   @override
@@ -50,8 +49,8 @@ class PopularScreen extends StatelessWidget {
         child: AsyncView<(List<Province>, List<Destination>, List<Interest>)>(
           load: () => _load(repo),
           builder: (context, data, _) {
-            final (provinces, popular, interests) = data;
-            return _Body(provinces: provinces, popular: popular, interests: interests);
+            final (provinces, places, interests) = data;
+            return _Body(provinces: provinces, places: places, interests: interests);
           },
         ),
       ),
@@ -60,9 +59,11 @@ class PopularScreen extends StatelessWidget {
 }
 
 class _Body extends StatefulWidget {
-  const _Body({required this.provinces, required this.popular, required this.interests});
+  const _Body({required this.provinces, required this.places, required this.interests});
   final List<Province> provinces;
-  final List<Destination> popular;
+
+  /// Every place, the best known first.
+  final List<Destination> places;
   final List<Interest> interests;
 
   @override
@@ -73,20 +74,27 @@ class _BodyState extends State<_Body> {
   /// The interest being looked at, or null for everything.
   Interest? _interest;
 
-  /// Provinces with enough to show, the fullest first.
+  /// Every province, or only the ones with a few places worth seeing.
+  bool _allProvinces = false;
+
+  /// Provinces and their places, the fullest first.
   List<(Province, List<Destination>)> get _groups {
     final categories = _interest?.categories.toSet();
     final byProvince = <String, List<Destination>>{};
-    for (final d in widget.popular) {
+    for (final d in widget.places) {
       if (categories != null && !categories.contains(d.category)) continue;
+      if (!_allProvinces && !d.featured && (d.rating ?? 0) < 4.6) continue;
       (byProvince[d.province] ??= []).add(d);
     }
     // With a category chosen there is less to go round, so one place is enough.
     final least = _interest == null ? 3 : 1;
-    return <(Province, List<Destination>)>[
+    final groups = <(Province, List<Destination>)>[
       for (final p in widget.provinces)
-        if ((byProvince[p.name] ?? const []).length >= least) (p, byProvince[p.name]!),
-    ]..sort((a, b) => b.$2.length.compareTo(a.$2.length));
+        if (_allProvinces || (byProvince[p.name] ?? const []).length >= least)
+          (p, byProvince[p.name] ?? const []),
+    ];
+    if (_allProvinces) return groups;
+    return groups..sort((a, b) => b.$2.length.compareTo(a.$2.length));
   }
 
   @override
@@ -110,9 +118,7 @@ class _BodyState extends State<_Body> {
               return _CategoryChip(
                 interest: interest,
                 selected: interest.slug == _interest?.slug,
-                onTap: () => setState(
-                  () => _interest = interest.slug == _interest?.slug ? null : interest,
-                ),
+                onTap: () => setState(() => _interest = interest.slug == _interest?.slug ? null : interest),
               );
             },
           ),
@@ -120,12 +126,31 @@ class _BodyState extends State<_Body> {
         const SizedBox(height: 14),
         Expanded(
           child: groups.isEmpty
-              ? Center(child: Text(s.noResults, style: AppText.sans(14.5, color: AppColors.sand500)))
+              ? Center(
+                  child: Text(s.noResults, style: AppText.sans(14.5, color: AppColors.sand500)),
+                )
               : ListView(
                   padding: EdgeInsets.only(bottom: 20 + MediaQuery.paddingOf(context).bottom),
                   children: [
                     for (final (province, places) in groups)
                       _ProvinceGroup(province: province, places: places),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 4, 16, 8),
+                      child: OutlinedButton(
+                        onPressed: () => setState(() => _allProvinces = !_allProvinces),
+                        style: OutlinedButton.styleFrom(
+                          minimumSize: const Size.fromHeight(50),
+                          side: const BorderSide(color: _violet),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                        ),
+                        child: Text(
+                          _allProvinces
+                              ? s.showLess
+                              : s.showAllProvinces.replaceFirst('{n}', '${widget.provinces.length}'),
+                          style: AppText.sans(14.5, weight: FontWeight.w700, color: _violet),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
         ),
@@ -279,16 +304,19 @@ class _ProvinceGroup extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 12),
-          SizedBox(
-            height: 176,
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.only(right: 14),
-              itemCount: places.length,
-              separatorBuilder: (_, _) => const SizedBox(width: 10),
-              itemBuilder: (_, i) => _PlaceCard(destination: places[i]),
+          if (places.isEmpty)
+            Text(S.of(context).notListedYet, style: AppText.sans(13, color: AppColors.sand500))
+          else
+            SizedBox(
+              height: 176,
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.only(right: 14),
+                itemCount: places.length,
+                separatorBuilder: (_, _) => const SizedBox(width: 10),
+                itemBuilder: (_, i) => _PlaceCard(destination: places[i]),
+              ),
             ),
-          ),
         ],
       ),
     );
