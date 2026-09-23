@@ -19,6 +19,7 @@ import '../../features/profile/achievement_screen.dart';
 import '../../features/profile/badges_screen.dart';
 import '../../features/profile/my_reviews_screen.dart';
 import '../../features/home/popular_screen.dart';
+import '../../features/interest/interest_explore_screen.dart';
 import '../../features/home/popular_search_screen.dart';
 import '../../features/profile/help_support_screen.dart';
 import '../../features/profile/preference_pages.dart';
@@ -117,6 +118,7 @@ GoRouter createRouter({bool showWelcome = false}) {
       ),
       page('/regions/:region', (s) => RegionScreen(slug: s.pathParameters['region']!)),
       page('/provinces/:province', (s) => ProvinceScreen(slug: s.pathParameters['province']!)),
+      page(Routes.exploreInterests, (_) => const InterestExploreScreen()),
       page('/interests/:interest', (s) => InterestScreen(slug: s.pathParameters['interest']!)),
       page(Routes.allInterests, (_) => const InterestScreen()),
       page('/corridors/:corridor', (s) => CorridorScreen(slug: s.pathParameters['corridor']!)),
