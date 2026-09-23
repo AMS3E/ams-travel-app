@@ -152,7 +152,7 @@ class _HomeBody extends StatelessWidget {
         const SizedBox(height: 22),
 
         // Popular places
-        _SectionHeader(title: s.exploreByPopular, onMore: () => context.go(Routes.exploreTab('interests'))),
+        _SectionHeader(title: s.exploreByPopular, onMore: () => context.push(Routes.popular)),
         SizedBox(
           height: 166,
           child: ListView.separated(

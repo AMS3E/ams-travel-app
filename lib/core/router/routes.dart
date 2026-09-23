@@ -5,6 +5,7 @@ class Routes {
 
   static const welcome = '/welcome';
   static const interests = '/your-interests';
+  static const popular = '/popular';
   static const badges = '/badges';
   static const account = '/account';
   static const help = '/help';
