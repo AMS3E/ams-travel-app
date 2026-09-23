@@ -9,7 +9,6 @@ import '../../core/theme/app_theme.dart';
 import '../../core/utils/geo.dart';
 import '../../data/models/models.dart';
 import '../../data/repositories/travel_repository.dart';
-import '../../state/collections_provider.dart';
 import '../../widgets/app_image.dart';
 import '../../widgets/async_view.dart';
 import '../../widgets/common.dart';
@@ -265,20 +264,7 @@ class _PlaceCard extends StatelessWidget {
             SizedBox(
               height: 112,
               width: double.infinity,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(14),
-                child: Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    AppImage(d.image),
-                    Positioned(
-                      right: 2,
-                      top: 2,
-                      child: SaveButton(kind: SavedKind.destination, itemKey: d.key, plain: true),
-                    ),
-                  ],
-                ),
-              ),
+              child: AppImage(d.image, radius: BorderRadius.circular(14)),
             ),
             const SizedBox(height: 8),
             Text(
