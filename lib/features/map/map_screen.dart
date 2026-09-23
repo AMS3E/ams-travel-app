@@ -19,10 +19,13 @@ import '../../widgets/interest_card.dart';
 import '../../widgets/map_view.dart';
 
 class MapScreen extends StatelessWidget {
-  const MapScreen({super.key, this.focusKey});
+  const MapScreen({super.key, this.focusKey, this.corridorSlug});
 
   /// Destination key (`region/slug`) to select on open, from `?place=`.
   final String? focusKey;
+
+  /// Corridor to open on, from `?corridor=` — the map starts on that route.
+  final String? corridorSlug;
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +46,7 @@ class MapScreen extends StatelessWidget {
             interests: data.$3,
             corridors: data.$4,
             focusKey: focusKey,
+            corridorSlug: corridorSlug,
           ),
         ),
       ),
@@ -102,6 +106,7 @@ class _FullMap extends StatefulWidget {
     required this.interests,
     required this.corridors,
     this.focusKey,
+    this.corridorSlug,
   });
 
   final List<Destination> destinations;
@@ -109,6 +114,7 @@ class _FullMap extends StatefulWidget {
   final List<Interest> interests;
   final List<Corridor> corridors;
   final String? focusKey;
+  final String? corridorSlug;
 
   @override
   State<_FullMap> createState() => _FullMapState();
@@ -116,7 +122,7 @@ class _FullMap extends StatefulWidget {
 
 class _FullMapState extends State<_FullMap> {
   final _controller = MapController();
-  _Layer _layer = _Layer.places;
+  late _Layer _layer = widget.corridorSlug == null ? _Layer.places : _Layer.corridors;
   bool _savedOnly = false;
   String _query = '';
   late String? _selected = widget.focusKey;
@@ -124,7 +130,7 @@ class _FullMapState extends State<_FullMap> {
   /// Opened from a place page: the map shows that one place until the
   /// traveller searches, switches layer, recentres or taps the map.
   late bool _onlyFocused = widget.focusKey != null;
-  String? _selectedGroup;
+  late String? _selectedGroup = widget.corridorSlug;
   double _zoom = 6.4;
 
   /// Below this zoom the group markers are counted dots; above it they show
