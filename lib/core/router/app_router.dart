@@ -79,7 +79,10 @@ GoRouter createRouter({bool showWelcome = false}) {
             routes: [
               GoRoute(
                 path: Routes.map,
-                builder: (_, s) => MapScreen(focusKey: s.uri.queryParameters['place']),
+                builder: (_, s) => MapScreen(
+                  focusKey: s.uri.queryParameters['place'],
+                  corridorSlug: s.uri.queryParameters['corridor'],
+                ),
               ),
             ],
           ),

@@ -44,4 +44,5 @@ class Routes {
   static String interest(String slug) => '/interests/$slug';
   static String corridor(String slug) => '/corridors/$slug';
   static String mapFocus(String destinationKey) => '/map?place=${Uri.encodeComponent(destinationKey)}';
+  static String mapCorridor(String slug) => '/map?corridor=${Uri.encodeComponent(slug)}';
 }

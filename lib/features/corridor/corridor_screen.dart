@@ -15,8 +15,39 @@ import '../../widgets/app_image.dart';
 import '../../widgets/async_view.dart';
 import '../../widgets/common.dart';
 import '../../widgets/destination_card.dart';
-import '../../widgets/detail_scaffold.dart';
 import '../../widgets/map_view.dart';
+
+/// The sights a stop is known for, so the route overview shows a temple
+/// rather than the coffee shop that happens to sit next to it.
+const _sightCategories = {
+  'Temples',
+  'Ancient Cities',
+  'Ancient Roads',
+  'Archaeological Sites',
+  'Museums',
+  'Sacred Mountain',
+  'Mountain',
+  'National Park',
+  'Waterfall',
+  'Viewpoint',
+  'Cave',
+  'Bridges',
+  'Village',
+};
+
+/// Stay categories, for the "Where to Stay" row.
+const _stayCategories = {'Homestay', 'Eco Lodge', 'Luxury Hotel', 'Private Island'};
+
+/// What a traveller may want along the way, and the categories that answer it.
+/// TODO(api): fuel, groceries and pharmacies need a places-of-interest feed.
+const _experiences = <String, Set<String>>{
+  'Restaurants': {'Traditional Food', 'Fine Dining', 'Seafood', 'Michelin'},
+  'Hotels': _stayCategories,
+  'Street food': {'Street Food', 'Night Market'},
+  'Coffee': {'Coffee'},
+  'Markets': {'Night Market', 'Shopping'},
+  'Hospitals': {'Hospitals'},
+};
 
 class CorridorScreen extends StatelessWidget {
   const CorridorScreen({super.key, required this.slug});
@@ -44,6 +75,8 @@ class _CorridorView extends StatefulWidget {
 
 class _CorridorViewState extends State<_CorridorView> {
   final _map = MapController();
+  final _photos = PageController();
+  int _photo = 0;
 
   /// The place picked out of the day-by-day plan, pinned on the map. The day
   /// is part of it because the same place can appear on more than one day.
@@ -52,6 +85,38 @@ class _CorridorViewState extends State<_CorridorView> {
 
   Corridor get corridor => widget.corridor;
   List<Destination> get all => widget.all;
+
+  /// Places within 35 km of any stop, nearest to the route first.
+  late final List<Destination> _along = () {
+    final list = <(Destination, double)>[];
+    for (final d in all) {
+      var best = double.infinity;
+      for (final st in corridor.stops) {
+        final km = distanceKm(st.lat, st.lng, d.lat, d.lng);
+        if (km < best) best = km;
+      }
+      if (best <= 35) list.add((d, best));
+    }
+    list.sort((a, b) => a.$2.compareTo(b.$2));
+    return [for (final (d, _) in list) d];
+  }();
+
+  /// The corridor's own photo, then the places it passes.
+  List<String> get _gallery => <String>{
+    corridor.image,
+    for (final d in _along.where((d) => d.featured)) d.image,
+    for (final d in _along) d.image,
+  }.take(6).toList();
+
+  /// A corridor has no score of its own, so it carries the places along it.
+  /// TODO(api): send a rating and review count per corridor.
+  (double?, int) get _score {
+    final rated = _along.where((d) => d.rating != null).toList();
+    if (rated.isEmpty) return (null, 0);
+    final sum = rated.map((d) => d.rating!).reduce((a, b) => a + b);
+    final reviews = _along.fold(0, (n, d) => n + (d.reviewCount ?? 0));
+    return (sum / rated.length, reviews);
+  }
 
   /// Moves the map to a place from the plan and marks it, on that day only.
   void _focusOn(int day, Destination d) {
@@ -64,14 +129,25 @@ class _CorridorViewState extends State<_CorridorView> {
     } catch (_) {}
   }
 
-  /// Up to three places within 35 km of a stop, nearest first.
-  List<(Destination, double)> _near(CorridorStop stop) {
-    final list = [
-      for (final d in all)
-        if (distanceKm(stop.lat, stop.lng, d.lat, d.lng) <= 35) (d, distanceKm(stop.lat, stop.lng, d.lat, d.lng)),
-    ]..sort((a, b) => a.$2.compareTo(b.$2));
-    final seen = <String>{};
-    return list.where((e) => seen.add(e.$1.name)).take(3).toList();
+  /// The place that stands for a stop in the route overview: one that carries
+  /// its name if there is one, else the nearest sight, else the nearest place.
+  Destination? _faceOf(CorridorStop stop) {
+    final name = stop.name.toLowerCase();
+    Destination? best;
+    var bestScore = -1e9;
+    for (final d in all) {
+      final km = distanceKm(stop.lat, stop.lng, d.lat, d.lng);
+      if (km > 45) continue;
+      var score = -km;
+      if (d.name.toLowerCase().contains(name) || name.contains(d.name.toLowerCase())) score += 500;
+      if (_sightCategories.contains(d.category)) score += 200;
+      if (d.featured) score += 50;
+      if (score > bestScore) {
+        bestScore = score;
+        best = d;
+      }
+    }
+    return best;
   }
 
   @override
@@ -79,76 +155,273 @@ class _CorridorViewState extends State<_CorridorView> {
     final s = S.of(context);
     final c = corridor;
     final points = [for (final st in c.stops) LatLng(st.lat, st.lng)];
+    final (rating, reviews) = _score;
+    final stays = _along.where((d) => _stayCategories.contains(d.category)).take(6).toList();
+    final categories = _along.map((d) => d.category).toSet();
+    final experiences = [
+      for (final e in _experiences.entries)
+        if (e.value.any(categories.contains)) e.key,
+    ];
 
-    return DetailScaffold(
-      title: c.name,
-      image: c.image,
-      expandedHeight: 380,
-      actions: [
-        SaveButton(kind: SavedKind.corridor, itemKey: c.slug, size: 44),
-        GlassIconButton(
-          icon: Icons.ios_share_rounded,
-          tooltip: s.share,
-          onPressed: () => SharePlus.instance.share(
-            ShareParams(text: '${c.name} (${c.duration}): ${c.stops.map((e) => e.name).join(' → ')}'),
-          ),
-        ),
-      ],
-      header: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: ListView(
+        padding: EdgeInsets.only(bottom: 28 + MediaQuery.paddingOf(context).bottom),
         children: [
-          Pill.onImage(c.duration, icon: Icons.schedule_rounded),
-          const SizedBox(height: 12),
-          Text(c.name, style: AppText.display(32, color: Colors.white)),
-          const SizedBox(height: 8),
-          Text(c.description, style: AppText.sans(14.5, color: Colors.white.withValues(alpha: 0.85), height: 1.45)),
-          const SizedBox(height: 12),
-          Text(
-            '${c.stops.length} ${s.stops.toLowerCase()}',
-            style: AppText.sans(13, weight: FontWeight.w600, color: AppColors.sunset200),
-          ),
-        ],
-      ),
-      slivers: [
-        SliverToBoxAdapter(
-          child: DetailSection(
-            title: s.theRoute,
-            child: MapPreview(
-              height: 300,
-              child: AppMap(
-                controller: _map,
-                routes: [if (c.sequential) MapRoute(points)],
-                fitPadding: const EdgeInsets.all(40),
-                pins: [
-                  for (var i = 0; i < c.stops.length; i++)
-                    MapPin(id: c.stops[i].name, point: points[i], label: '${i + 1}', color: AppColors.route),
-                  if (_focus != null)
-                    MapPin(
-                      id: _focus!.key,
-                      point: LatLng(_focus!.lat, _focus!.lng),
-                      highlighted: true,
-                      onTap: () => context.push(Routes.destination(_focus!.region, _focus!.slug)),
+          // Photos, with the corridor's own first.
+          SizedBox(
+            height: 300,
+            child: Stack(
+              children: [
+                Positioned.fill(
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.vertical(bottom: Radius.circular(28)),
+                    child: PageView(
+                      controller: _photos,
+                      onPageChanged: (i) => setState(() => _photo = i),
+                      children: [for (final url in _gallery) AppImage(url)],
                     ),
+                  ),
+                ),
+                Positioned(
+                  left: 10,
+                  right: 10,
+                  top: MediaQuery.paddingOf(context).top + 4,
+                  child: Row(
+                    children: [
+                      GlassIconButton(
+                        icon: Icons.chevron_left_rounded,
+                        tooltip: s.back,
+                        onPressed: () => context.pop(),
+                      ),
+                      const Spacer(),
+                      SaveButton(kind: SavedKind.corridor, itemKey: c.slug, dark: true, size: 40),
+                      const SizedBox(width: 8),
+                      GlassIconButton(
+                        icon: Icons.ios_share_rounded,
+                        tooltip: s.share,
+                        onPressed: () => SharePlus.instance.share(
+                          ShareParams(
+                            text: '${c.name} (${c.duration}): ${c.stops.map((e) => e.name).join(' → ')}',
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  bottom: 18,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      for (var i = 0; i < _gallery.length; i++)
+                        Container(
+                          width: i == _photo ? 18 : 6,
+                          height: 6,
+                          margin: const EdgeInsets.symmetric(horizontal: 3),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withValues(alpha: i == _photo ? 1 : 0.5),
+                            borderRadius: BorderRadius.circular(99),
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+                Positioned(
+                  right: 14,
+                  bottom: 14,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withValues(alpha: 0.45),
+                      borderRadius: BorderRadius.circular(99),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(Icons.photo_library_outlined, size: 14, color: Colors.white),
+                        const SizedBox(width: 6),
+                        Text(
+                          '${s.gallery} ${_gallery.length}',
+                          style: AppText.sans(12, weight: FontWeight.w600, color: Colors.white),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          Padding(
+            padding: const EdgeInsets.fromLTRB(18, 18, 18, 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(c.name, style: AppText.display(26)),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    const Icon(Icons.verified_rounded, size: 15, color: Color(0xFF34D399)),
+                    const SizedBox(width: 5),
+                    Text(s.recommendByTraveler, style: AppText.sans(12.5, color: AppColors.sand600)),
+                    if (rating != null) ...[
+                      const SizedBox(width: 12),
+                      const Icon(Icons.star_rounded, size: 16, color: AppColors.star),
+                      const SizedBox(width: 3),
+                      Flexible(
+                        child: Text(
+                          '${rating.toStringAsFixed(1)} (${thousands(reviews)} ${s.reviewsWord.toLowerCase()})',
+                          style: AppText.sans(12.5, color: AppColors.sand600),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
+                const SizedBox(height: 14),
+
+                // Every stop, as a chip.
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: [
+                    for (final st in c.stops)
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(99),
+                          border: Border.all(color: AppColors.violet.withValues(alpha: 0.45)),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(Icons.place_outlined, size: 14, color: AppColors.violet),
+                            const SizedBox(width: 5),
+                            Text(
+                              st.name,
+                              style: AppText.sans(12.5, weight: FontWeight.w600, color: AppColors.violet),
+                            ),
+                          ],
+                        ),
+                      ),
+                  ],
+                ),
+                const SizedBox(height: 22),
+                Text(s.routeOverview, style: AppText.sans(17, weight: FontWeight.w700, color: AppColors.sand900)),
+              ],
+            ),
+          ),
+          const SizedBox(height: 12),
+
+          // The stops in order: a photo each, numbered along a line.
+          SizedBox(
+            height: 112,
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.symmetric(horizontal: 18),
+              itemCount: c.stops.length,
+              separatorBuilder: (_, _) => const SizedBox(width: 8),
+              itemBuilder: (_, i) => _StopStep(
+                index: i + 1,
+                stop: c.stops[i],
+                face: _faceOf(c.stops[i]),
+                isLast: i == c.stops.length - 1,
+              ),
+            ),
+          ),
+          const SizedBox(height: 18),
+
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 18),
+            child: FilledButton(
+              style: FilledButton.styleFrom(
+                backgroundColor: AppColors.violet,
+                minimumSize: const Size.fromHeight(52),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+              ),
+              onPressed: () => context.go(Routes.mapCorridor(c.slug)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(s.startThisTrip, style: AppText.sans(15.5, weight: FontWeight.w700, color: Colors.white)),
+                  const SizedBox(width: 8),
+                  const Icon(Icons.arrow_forward_rounded, size: 18, color: Colors.white),
                 ],
               ),
             ),
           ),
-        ),
-        if (c.itinerary.isNotEmpty)
-          SliverToBoxAdapter(
-            child: DetailSection(
-              title: s.dayByDay,
-              subtitle: '${c.days ?? c.itinerary.length} ${s.daysWord}',
+          const SizedBox(height: 22),
+
+          // The route on a map, stops named.
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 18),
+            padding: const EdgeInsets.all(14),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(18),
+              border: Border.all(color: AppColors.sand200),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(s.corridorsMap, style: AppText.sans(16, weight: FontWeight.w700, color: AppColors.sand900)),
+                const SizedBox(height: 3),
+                Text(
+                  '${s.exploreThrough} ${c.name}',
+                  style: AppText.sans(12.5, color: AppColors.sand500),
+                ),
+                const SizedBox(height: 12),
+                MapPreview(
+                  height: 300,
+                  child: AppMap(
+                    controller: _map,
+                    routes: [if (c.sequential) MapRoute(points)],
+                    fitPadding: const EdgeInsets.all(40),
+                    pins: [
+                      for (var i = 0; i < c.stops.length; i++)
+                        MapPin(
+                          id: c.stops[i].name,
+                          point: points[i],
+                          pillText: c.stops[i].name,
+                          color: AppColors.violet,
+                        ),
+                      if (_focus != null)
+                        MapPin(
+                          id: _focus!.key,
+                          point: LatLng(_focus!.lat, _focus!.lng),
+                          highlighted: true,
+                          onTap: () => context.push(Routes.destination(_focus!.region, _focus!.slug)),
+                        ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          if (c.itinerary.isNotEmpty) ...[
+            const SizedBox(height: 22),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 18),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Text(s.dayByDay, style: AppText.sans(17, weight: FontWeight.w700, color: AppColors.sand900)),
+                  Text(
+                    '${c.days ?? c.itinerary.length} ${s.daysWord}',
+                    style: AppText.sans(12.5, color: AppColors.sand500),
+                  ),
+                  const SizedBox(height: 14),
                   for (var i = 0; i < c.itinerary.length; i++)
                     _DayRow(
                       day: c.itinerary[i],
                       isLast: i == c.itinerary.length - 1,
                       places: [
-                        for (final key in c.itinerary[i].places)
-                          ...all.where((d) => d.key == key),
+                        for (final key in c.itinerary[i].places) ...all.where((d) => d.key == key),
                       ],
                       focused: _focusDay == c.itinerary[i].day ? _focus : null,
                       onPlace: (d) => _focusOn(c.itinerary[i].day, d),
@@ -156,25 +429,188 @@ class _CorridorViewState extends State<_CorridorView> {
                 ],
               ),
             ),
-          ),
-        SliverToBoxAdapter(
-          child: DetailSection(
-            title: s.stops,
-            child: Column(
-              children: [
-                for (var i = 0; i < c.stops.length; i++)
-                  _StopRow(
-                    index: i + 1,
-                    stop: c.stops[i],
-                    isLast: i == c.stops.length - 1,
-                    sequential: c.sequential,
-                    near: _near(c.stops[i]),
+          ],
+
+          if (stays.isNotEmpty) ...[
+            const SizedBox(height: 24),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(18, 0, 18, 12),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      s.whereToStay,
+                      style: AppText.sans(17, weight: FontWeight.w700, color: AppColors.sand900),
+                    ),
                   ),
+                  Material(
+                    color: AppColors.violet,
+                    shape: const CircleBorder(),
+                    child: InkWell(
+                      customBorder: const CircleBorder(),
+                      onTap: () => context.push('${Routes.search}?q=${Uri.encodeQueryComponent(c.stops.first.name)}'),
+                      child: const Padding(
+                        padding: EdgeInsets.all(5),
+                        child: Icon(Icons.arrow_forward_rounded, color: Colors.white, size: 16),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 178,
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.symmetric(horizontal: 18),
+                itemCount: stays.length,
+                separatorBuilder: (_, _) => const SizedBox(width: 10),
+                itemBuilder: (_, i) => _StayCard(destination: stays[i]),
+              ),
+            ),
+          ],
+
+          if (experiences.isNotEmpty) ...[
+            const SizedBox(height: 24),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 18),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    s.exploreExperiences,
+                    style: AppText.sans(17, weight: FontWeight.w700, color: AppColors.sand900),
+                  ),
+                  const SizedBox(height: 12),
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: [
+                      for (final label in experiences)
+                        InkWell(
+                          borderRadius: BorderRadius.circular(99),
+                          onTap: () => context.push(
+                            '${Routes.search}?q=${Uri.encodeQueryComponent(_experiences[label]!.first)}',
+                          ),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(99),
+                              border: Border.all(color: AppColors.sunset300),
+                            ),
+                            child: Text(
+                              label,
+                              style: AppText.sans(13, weight: FontWeight.w500, color: AppColors.sand800),
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+/// One stop in the route overview: its photo, its number, and the line on to
+/// the next one.
+class _StopStep extends StatelessWidget {
+  const _StopStep({required this.index, required this.stop, required this.face, required this.isLast});
+  final int index;
+  final CorridorStop stop;
+  final Destination? face;
+  final bool isLast;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 66,
+      child: Column(
+        children: [
+          SizedBox(
+            width: 66,
+            height: 66,
+            child: face == null
+                ? const SizedBox()
+                : AppImage(face!.image, radius: BorderRadius.circular(12)),
+          ),
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              Expanded(child: Container(height: 2, color: index == 1 ? Colors.transparent : AppColors.violet)),
+              Container(
+                width: 22,
+                height: 22,
+                alignment: Alignment.center,
+                decoration: const BoxDecoration(color: AppColors.violet, shape: BoxShape.circle),
+                child: Text('$index', style: AppText.sans(11, weight: FontWeight.w700, color: Colors.white)),
+              ),
+              Expanded(child: Container(height: 2, color: isLast ? Colors.transparent : AppColors.violet)),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// A place to sleep along the way.
+class _StayCard extends StatelessWidget {
+  const _StayCard({required this.destination});
+  final Destination destination;
+
+  @override
+  Widget build(BuildContext context) {
+    final d = destination;
+    final (title, _) = bilingual(context, d.name, d.nameKh);
+    return GestureDetector(
+      onTap: () => context.push(Routes.destination(d.region, d.slug)),
+      child: SizedBox(
+        width: 146,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 112,
+              width: double.infinity,
+              child: AppImage(d.image, radius: BorderRadius.circular(14)),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              title,
+              style: AppText.sans(13, weight: FontWeight.w700, color: AppColors.sand900),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+            const SizedBox(height: 4),
+            Row(
+              children: [
+                if (d.rating != null) ...[
+                  Text(
+                    d.rating!.toStringAsFixed(1),
+                    style: AppText.sans(12, weight: FontWeight.w700, color: AppColors.sand900),
+                  ),
+                  const SizedBox(width: 4),
+                  Stars(d.rating!.round(), size: 10),
+                  const SizedBox(width: 6),
+                ],
+                Flexible(
+                  child: Text(
+                    d.category,
+                    style: AppText.sans(11.5, color: AppColors.sand500),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
               ],
             ),
-          ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }
@@ -308,123 +744,6 @@ class _DayRow extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _StopRow extends StatelessWidget {
-  const _StopRow({
-    required this.index,
-    required this.stop,
-    required this.isLast,
-    required this.sequential,
-    required this.near,
-  });
-
-  final int index;
-  final CorridorStop stop;
-  final bool isLast;
-  final bool sequential;
-  final List<(Destination, double)> near;
-
-  @override
-  Widget build(BuildContext context) {
-    final s = S.of(context);
-    final (name, sub) = bilingual(context, stop.name, stop.nameKh);
-    return IntrinsicHeight(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          SizedBox(
-            width: 36,
-            child: Column(
-              children: [
-                Container(
-                  width: 34,
-                  height: 34,
-                  decoration: BoxDecoration(
-                    color: index == 1 ? AppColors.sunset500 : AppColors.brand600,
-                    shape: BoxShape.circle,
-                  ),
-                  alignment: Alignment.center,
-                  child: Text(
-                    '$index',
-                    style: AppText.sans(14, weight: FontWeight.w700, color: Colors.white),
-                  ),
-                ),
-                if (!isLast)
-                  Expanded(
-                    child: Container(
-                      width: 2,
-                      margin: const EdgeInsets.symmetric(vertical: 4),
-                      color: sequential ? AppColors.brand200 : AppColors.sand200,
-                    ),
-                  ),
-              ],
-            ),
-          ),
-          const SizedBox(width: 14),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 26),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 4),
-                  Text(name, style: AppText.display(20)),
-                  if (sub != null) KhmerText(sub, size: 13),
-                  if (near.isNotEmpty) ...[
-                    const SizedBox(height: 10),
-                    Text(s.nearThisStop.toUpperCase(), style: AppText.eyebrow(color: AppColors.sand500)),
-                    const SizedBox(height: 8),
-                    SizedBox(
-                      height: 132,
-                      child: ListView.separated(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: near.length,
-                        separatorBuilder: (_, _) => const SizedBox(width: 10),
-                        itemBuilder: (_, i) => _MiniPlace(destination: near[i].$1, km: near[i].$2),
-                      ),
-                    ),
-                  ],
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _MiniPlace extends StatelessWidget {
-  const _MiniPlace({required this.destination, required this.km});
-  final Destination destination;
-  final double km;
-
-  @override
-  Widget build(BuildContext context) {
-    final s = S.of(context);
-    final (name, _) = bilingual(context, destination.name, destination.nameKh);
-    return GestureDetector(
-      onTap: () => context.push(Routes.destination(destination.region, destination.slug)),
-      child: SizedBox(
-        width: 150,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AppImage(destination.image, width: 150, height: 86, radius: BorderRadius.circular(14)),
-            const SizedBox(height: 6),
-            Text(
-              name,
-              style: AppText.sans(13, weight: FontWeight.w600, color: AppColors.sand900),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-            Text('${formatKm(km)} $distanceUnit ${s.kmAway}', style: AppText.sans(11.5, color: AppColors.sand500)),
-          ],
-        ),
       ),
     );
   }
