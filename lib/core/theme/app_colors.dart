@@ -12,6 +12,9 @@ class AppColors {
   static const brand400 = Color(0xFF8F88C9);
   static const brand500 = Color(0xFF6F66AE);
   static const brand600 = Color(0xFF574D92);
+
+  /// The app's accent: quick actions, chips, section arrows.
+  static const violet = Color(0xFF5B2EE5);
   static const brand700 = Color(0xFF443C84);
   static const brand800 = Color(0xFF39326B);
   static const brand900 = Color(0xFF302B57);

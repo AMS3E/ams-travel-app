@@ -17,7 +17,6 @@ import '../../widgets/common.dart';
 import '../../widgets/destination_card.dart';
 import '../search/filter_sheet.dart';
 
-const _violet = Color(0xFF5B2EE5);
 
 class _HomeData {
   _HomeData({
@@ -89,7 +88,7 @@ class HomeScreen extends StatelessWidget {
             load: () => _load(repo),
             builder: (context, data, reload) => RefreshIndicator(
               onRefresh: reload,
-              color: _violet,
+              color: AppColors.violet,
               child: _HomeBody(data: data),
             ),
           ),
@@ -246,7 +245,7 @@ class _TopBar extends StatelessWidget {
           Container(
             width: 36,
             height: 36,
-            decoration: const BoxDecoration(color: _violet, shape: BoxShape.circle),
+            decoration: const BoxDecoration(color: AppColors.violet, shape: BoxShape.circle),
             child: const Icon(Icons.place_rounded, color: Colors.white, size: 20),
           ),
           const SizedBox(width: 10),
@@ -320,7 +319,7 @@ class _SearchBar extends StatelessWidget {
                   ),
                 ),
                 Material(
-                  color: _violet,
+                  color: AppColors.violet,
                   borderRadius: BorderRadius.circular(12),
                   child: InkWell(
                     borderRadius: BorderRadius.circular(12),
@@ -371,7 +370,7 @@ class _QuickActions extends StatelessWidget {
                       Container(
                         width: 52,
                         height: 52,
-                        decoration: const BoxDecoration(color: _violet, shape: BoxShape.circle),
+                        decoration: const BoxDecoration(color: AppColors.violet, shape: BoxShape.circle),
                         child: Icon(icon, color: Colors.white, size: 25),
                       ),
                       const SizedBox(height: 7),
@@ -412,7 +411,7 @@ class _SectionHeader extends StatelessWidget {
             ),
           ),
           Material(
-            color: _violet,
+            color: AppColors.violet,
             shape: const CircleBorder(),
             child: InkWell(
               customBorder: const CircleBorder(),

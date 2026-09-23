@@ -30,7 +30,6 @@ class WelcomeScreen extends StatefulWidget {
 // website's light one.
 const _ink = Color(0xFF0B1552);
 const _inkDeep = Color(0xFF080F3B);
-const _violet = Color(0xFF5B2EE5);
 const _gold = Color(0xFFF0A84E);
 const _lilac = Color(0xFFB9A7F7);
 const _peach = Color(0xFFF7C79C);
@@ -167,7 +166,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             height: i == _step ? 11 : 9,
                             decoration: BoxDecoration(
                               color: i == _step
-                                  ? _violet
+                                  ? AppColors.violet
                                   : (onInterests ? AppColors.sand300 : Colors.white.withValues(alpha: 0.3)),
                               borderRadius: BorderRadius.circular(99),
                             ),
@@ -193,7 +192,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           width: double.infinity,
                           child: FilledButton(
                             style: FilledButton.styleFrom(
-                              backgroundColor: _violet,
+                              backgroundColor: AppColors.violet,
                               minimumSize: const Size(0, 60),
                               shape: const StadiumBorder(),
                             ),

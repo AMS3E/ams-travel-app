@@ -12,7 +12,6 @@ import '../../widgets/app_image.dart';
 import '../../widgets/async_view.dart';
 import '../../widgets/destination_card.dart';
 
-const _violet = Color(0xFF5B2EE5);
 
 /// Type-ahead over every place: the closest matches first, then other words
 /// worth searching for.
@@ -182,7 +181,7 @@ class _SearchRow extends StatelessWidget {
                       textInputAction: TextInputAction.search,
                       onChanged: onChanged,
                       onSubmitted: (_) => onSubmit(),
-                      cursorColor: _violet,
+                      cursorColor: AppColors.violet,
                       style: AppText.sans(14.5, weight: FontWeight.w500, color: AppColors.sand900),
                       decoration: InputDecoration(
                         hintText: s.popularDestinations,
@@ -209,7 +208,7 @@ class _SearchRow extends StatelessWidget {
                   ),
                   const SizedBox(width: 6),
                   Material(
-                    color: _violet,
+                    color: AppColors.violet,
                     shape: const CircleBorder(),
                     child: InkWell(
                       customBorder: const CircleBorder(),
@@ -275,10 +274,10 @@ class _PlaceRow extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(5),
               decoration: BoxDecoration(
-                color: _violet.withValues(alpha: 0.10),
+                color: AppColors.violet.withValues(alpha: 0.10),
                 shape: BoxShape.circle,
               ),
-              child: const Icon(Icons.arrow_forward_rounded, size: 15, color: _violet),
+              child: const Icon(Icons.arrow_forward_rounded, size: 15, color: AppColors.violet),
             ),
           ],
         ),
@@ -301,7 +300,7 @@ class _SuggestionRow extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(18, 12, 16, 12),
         child: Row(
           children: [
-            const Icon(Icons.search_rounded, size: 19, color: _violet),
+            const Icon(Icons.search_rounded, size: 19, color: AppColors.violet),
             const SizedBox(width: 14),
             Expanded(
               child: Text(

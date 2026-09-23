@@ -9,7 +9,6 @@ import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_theme.dart';
 import '../../state/collections_provider.dart';
 
-const _violet = Color(0xFF5B2EE5);
 
 /// Bottom navigation: Home · Explore · Map · Saved · Profile, as a floating
 /// frosted-glass bar with the page scrolling underneath.
@@ -107,7 +106,7 @@ class _NavItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = selected ? _violet : AppColors.sand800;
+    final color = selected ? AppColors.violet : AppColors.sand800;
     return Semantics(
       button: true,
       selected: selected,

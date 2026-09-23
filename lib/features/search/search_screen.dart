@@ -17,7 +17,6 @@ import '../../widgets/common.dart';
 import '../../widgets/destination_card.dart';
 import 'filter_sheet.dart';
 
-const _violet = Color(0xFF5B2EE5);
 
 enum _Scope { all, interests, regions, provinces, corridors }
 
@@ -270,7 +269,7 @@ class _SearchBar extends StatelessWidget {
                       label: Text('$filterCount'),
                       child: Container(
                         padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(color: _violet, borderRadius: BorderRadius.circular(22)),
+                        decoration: BoxDecoration(color: AppColors.violet, borderRadius: BorderRadius.circular(22)),
                         child: const Icon(Icons.tune_rounded, color: Colors.white, size: 20),
                       ),
                     ),
@@ -314,13 +313,13 @@ class _ScopeChips extends StatelessWidget {
                 selected: scope == entry.key,
                 showCheckmark: false,
                 onSelected: (_) => onChanged(entry.key),
-                selectedColor: _violet,
+                selectedColor: AppColors.violet,
                 labelStyle: AppText.sans(
                   13,
                   weight: FontWeight.w600,
                   color: scope == entry.key ? Colors.white : AppColors.sand700,
                 ),
-                side: BorderSide(color: scope == entry.key ? _violet : AppColors.sand200),
+                side: BorderSide(color: scope == entry.key ? AppColors.violet : AppColors.sand200),
               ),
             ),
         ],
@@ -362,7 +361,7 @@ class _Suggestions extends StatelessWidget {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Icon(Icons.north_west_rounded, size: 15, color: _violet),
+                        const Icon(Icons.north_west_rounded, size: 15, color: AppColors.violet),
                         const SizedBox(width: 6),
                         Text(t, style: AppText.sans(13.5, color: AppColors.sand800)),
                       ],
@@ -412,7 +411,7 @@ class _Suggestions extends StatelessWidget {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Icon(Icons.place_outlined, size: 16, color: _violet),
+                            const Icon(Icons.place_outlined, size: 16, color: AppColors.violet),
                             const SizedBox(width: 6),
                             Text(t, style: AppText.sans(13.5, color: AppColors.sand800)),
                           ],
@@ -556,7 +555,7 @@ class _PlaceResults extends StatelessWidget {
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              const Icon(Icons.place_outlined, size: 15, color: _violet),
+                              const Icon(Icons.place_outlined, size: 15, color: AppColors.violet),
                               const SizedBox(width: 6),
                               Text(d.name, style: AppText.sans(13, color: AppColors.sand800)),
                             ],
@@ -606,10 +605,10 @@ class _NearbyRow extends StatelessWidget {
               height: 62,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(18),
-                border: Border.all(color: _violet.withValues(alpha: 0.4)),
-                color: _violet.withValues(alpha: 0.08),
+                border: Border.all(color: AppColors.violet.withValues(alpha: 0.4)),
+                color: AppColors.violet.withValues(alpha: 0.08),
               ),
-              child: const Icon(Icons.pin_drop_outlined, color: _violet, size: 28),
+              child: const Icon(Icons.pin_drop_outlined, color: AppColors.violet, size: 28),
             ),
             const SizedBox(width: 14),
             Expanded(
@@ -641,7 +640,7 @@ class _GoButton extends StatelessWidget {
     width: 36,
     height: 36,
     decoration: const BoxDecoration(color: AppColors.sand100, shape: BoxShape.circle),
-    child: const Icon(Icons.arrow_forward_rounded, size: 18, color: _violet),
+    child: const Icon(Icons.arrow_forward_rounded, size: 18, color: AppColors.violet),
   );
 }
 

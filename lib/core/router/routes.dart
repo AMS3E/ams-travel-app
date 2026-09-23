@@ -21,8 +21,6 @@ class Routes {
   static String folder(String name) => '/folders/${Uri.encodeComponent(name)}';
   static String achievement(String badge) => '/badges/$badge';
 
-  /// The six interest categories.
-  static const allInterests = '/interests';
   static const exploreInterests = '/interests/explore';
   static const exploreProvinces = '/provinces/explore';
   static const home = '/';
