@@ -91,28 +91,9 @@ class PopularScreen extends StatelessWidget {
   }
 }
 
-/// Back arrow and a search field that hands the words to the search page.
-class _SearchRow extends StatefulWidget {
+/// Back arrow and a search field; tapping it opens the suggestions page.
+class _SearchRow extends StatelessWidget {
   const _SearchRow();
-
-  @override
-  State<_SearchRow> createState() => _SearchRowState();
-}
-
-class _SearchRowState extends State<_SearchRow> {
-  final _controller = TextEditingController();
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  void _run() {
-    final q = _controller.text.trim();
-    if (q.isEmpty) return;
-    context.push('${Routes.search}?q=${Uri.encodeQueryComponent(q)}');
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -131,41 +112,34 @@ class _SearchRowState extends State<_SearchRow> {
               borderRadius: BorderRadius.circular(16),
               elevation: 1.5,
               shadowColor: const Color(0x221C1935),
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(14, 5, 5, 5),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: TextField(
-                        controller: _controller,
-                        textInputAction: TextInputAction.search,
-                        onSubmitted: (_) => _run(),
-                        style: AppText.sans(14.5, color: AppColors.sand900),
-                        decoration: InputDecoration(
-                          hintText: s.popularDestinations,
-                          hintStyle: AppText.sans(14.5, color: AppColors.sand400),
-                          filled: false,
-                          isDense: true,
-                          contentPadding: const EdgeInsets.symmetric(vertical: 10),
-                          border: InputBorder.none,
-                          enabledBorder: InputBorder.none,
-                          focusedBorder: InputBorder.none,
+              child: InkWell(
+                borderRadius: BorderRadius.circular(16),
+                onTap: () => context.push(Routes.popularSearch),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(14, 5, 5, 5),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          s.popularDestinations,
+                          style: AppText.sans(14.5, color: AppColors.sand400),
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                    ),
-                    Material(
-                      color: _violet,
-                      shape: const CircleBorder(),
-                      child: InkWell(
-                        customBorder: const CircleBorder(),
-                        onTap: _run,
-                        child: const Padding(
-                          padding: EdgeInsets.all(9),
-                          child: Icon(Icons.search_rounded, color: Colors.white, size: 20),
+                      Material(
+                        color: _violet,
+                        shape: const CircleBorder(),
+                        child: InkWell(
+                          customBorder: const CircleBorder(),
+                          onTap: () => context.push(Routes.popularSearch),
+                          child: const Padding(
+                            padding: EdgeInsets.all(9),
+                            child: Icon(Icons.search_rounded, color: Colors.white, size: 20),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
