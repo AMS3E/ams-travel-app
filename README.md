@@ -31,7 +31,11 @@ flutter test
 | Tab / page | Route |
 |---|---|
 | Welcome / onboarding | `/welcome` — slides, interests step, "journey is ready" |
-| Home | `/` — regions, interests, recommended, popular, corridors, provinces, reviews |
+| Home | `/` — regions, popular, corridors, interests, provinces, reviews |
+| Popular | `/popular` — the popular places province by province |
+| Type-ahead search | `/popular/search` — matches as you type, then suggestions |
+| Browse by interest | `/interests/explore` — one category at a time, plus what travellers recommend |
+| Browse by province | `/provinces/explore` — filtered by interest, with Show all 25 provinces |
 | Explore | `/explore?tab=regions\|interests\|provinces\|corridors` |
 | Map | `/map`, `/map?place=region/slug` — layers for provinces, interests and corridors |
 | Saved | `/saved`, folders at `/folders` and `/folders/:name` |
@@ -42,7 +46,7 @@ flutter test
 | Rooms (stays) | `/regions/:region/:slug/rooms`, `/regions/:region/:slug/rooms/:roomId` |
 | Story | `/regions/:region/stories/:slug` |
 | Province | `/provinces/:slug` |
-| Interests | `/interests` (all six), `/interests/:slug` |
+| Interest | `/interests/:slug` — one category across the regions |
 | Corridor | `/corridors/:slug` — stops, day-by-day plan |
 | Search | `/search?q=` |
 | Badges | `/badges`, `/badges/:badge` (achievement page) |

@@ -10,9 +10,9 @@ import '../../data/models/models.dart';
 import '../../data/repositories/travel_repository.dart';
 import '../../widgets/app_image.dart';
 import '../../widgets/async_view.dart';
+import '../../widgets/browse_bar.dart';
 import '../../widgets/destination_card.dart';
 
-const _violet = Color(0xFF5B2EE5);
 
 /// Browse by interest: pick a category, see its places, and what travellers
 /// recommend inside it.
@@ -112,7 +112,7 @@ class _BodyState extends State<_Body> {
 
     return Column(
       children: [
-        const _SearchRow(),
+        BrowseSearchBar(hint: s.exploreInterest),
         const SizedBox(height: 12),
         SizedBox(
           height: 36,
@@ -121,7 +121,7 @@ class _BodyState extends State<_Body> {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             itemCount: widget.interests.length,
             separatorBuilder: (_, _) => const SizedBox(width: 8),
-            itemBuilder: (_, i) => _CategoryChip(
+            itemBuilder: (_, i) => CategoryChip(
               interest: widget.interests[i],
               selected: i == _index,
               onTap: () => setState(() => _index = i),
@@ -171,96 +171,6 @@ class _BodyState extends State<_Body> {
           ),
         ),
       ],
-    );
-  }
-}
-
-/// Back arrow and a search field; tapping it opens the suggestions page.
-class _SearchRow extends StatelessWidget {
-  const _SearchRow();
-
-  @override
-  Widget build(BuildContext context) {
-    final s = S.of(context);
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(4, 6, 16, 0),
-      child: Row(
-        children: [
-          IconButton(
-            onPressed: () => context.pop(),
-            icon: const Icon(Icons.chevron_left_rounded, size: 30, color: AppColors.sand900),
-          ),
-          Expanded(
-            child: Material(
-              color: AppColors.sand100,
-              borderRadius: BorderRadius.circular(16),
-              child: InkWell(
-                borderRadius: BorderRadius.circular(16),
-                onTap: () => context.push(Routes.popularSearch),
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(14, 5, 5, 5),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          s.exploreInterest,
-                          style: AppText.sans(14.5, color: AppColors.sand400),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      Material(
-                        color: _violet,
-                        shape: const CircleBorder(),
-                        child: InkWell(
-                          customBorder: const CircleBorder(),
-                          onTap: () => context.push(Routes.popularSearch),
-                          child: const Padding(
-                            padding: EdgeInsets.all(9),
-                            child: Icon(Icons.search_rounded, color: Colors.white, size: 20),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-/// One interest category along the top.
-class _CategoryChip extends StatelessWidget {
-  const _CategoryChip({required this.interest, required this.selected, required this.onTap});
-  final Interest interest;
-  final bool selected;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      borderRadius: BorderRadius.circular(99),
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: selected ? _violet : Colors.white,
-          borderRadius: BorderRadius.circular(99),
-          border: Border.all(color: selected ? _violet : AppColors.sand200),
-        ),
-        child: Text(
-          bilingual(context, interest.name, interest.nameKh).$1,
-          style: AppText.sans(
-            13.5,
-            weight: FontWeight.w600,
-            color: selected ? Colors.white : AppColors.sand800,
-          ),
-        ),
-      ),
     );
   }
 }
@@ -410,8 +320,8 @@ class _RecommendRow extends StatelessWidget {
             const SizedBox(width: 10),
             Container(
               padding: const EdgeInsets.all(5),
-              decoration: BoxDecoration(color: _violet.withValues(alpha: 0.10), shape: BoxShape.circle),
-              child: const Icon(Icons.arrow_forward_rounded, size: 15, color: _violet),
+              decoration: BoxDecoration(color: AppColors.violet.withValues(alpha: 0.10), shape: BoxShape.circle),
+              child: const Icon(Icons.arrow_forward_rounded, size: 15, color: AppColors.violet),
             ),
           ],
         ),

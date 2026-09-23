@@ -21,10 +21,10 @@ import '../explore/explore_screen.dart';
 /// interests as tabs along the top. The `corridors` interest (Tourism
 /// Corridors) lists corridors instead of places.
 class InterestScreen extends StatelessWidget {
-  const InterestScreen({super.key, this.slug});
+  const InterestScreen({super.key, required this.slug});
 
-  /// Which category opens first; without one the page starts on the first tab.
-  final String? slug;
+  /// Which category the page opens on.
+  final String slug;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class InterestScreen extends StatelessWidget {
       load: () => (repo.getInterests(), repo.getRegions(), repo.getDestinations(), repo.getCorridors()).wait,
       loading: const Scaffold(body: LoadingView()),
       builder: (context, data, _) => _InterestView(
-        slug: slug ?? data.$1.first.slug,
+        slug: slug,
         interests: data.$1,
         regions: data.$2,
         destinations: data.$3,

@@ -2,14 +2,13 @@ import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/l10n/app_strings.dart';
+import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_theme.dart';
 import '../../data/models/models.dart';
 import '../../data/repositories/travel_repository.dart';
 import '../../state/travel_preferences.dart';
 import '../../widgets/app_image.dart';
 import '../../widgets/async_view.dart';
-
-const _violet = Color(0xFF5B2EE5);
 
 /// Shown in the footer; keep in step with `version:` in pubspec.yaml.
 const appVersionLabel = 'AMS TRAVEL Version 1.0.0(1)';
@@ -64,7 +63,7 @@ class ReadyStep extends StatelessWidget {
               width: double.infinity,
               child: FilledButton(
                 style: FilledButton.styleFrom(
-                  backgroundColor: _violet,
+                  backgroundColor: AppColors.violet,
                   minimumSize: const Size(0, 60),
                   shape: const StadiumBorder(),
                 ),

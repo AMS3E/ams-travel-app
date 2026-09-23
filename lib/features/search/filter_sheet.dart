@@ -11,7 +11,6 @@ import '../../widgets/app_image.dart';
 import '../../widgets/async_view.dart';
 import '../../widgets/destination_card.dart';
 
-const _violet = Color(0xFF5B2EE5);
 const _tagRed = Color(0xFFE23E57);
 
 /// Which list the thumbnails at the top of the sheet come from.
@@ -208,7 +207,7 @@ class _FilterSheetState extends State<_FilterSheet> {
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(14),
                                           border: Border.all(
-                                            color: selected ? _violet : Colors.transparent,
+                                            color: selected ? AppColors.violet : Colors.transparent,
                                             width: 2.4,
                                           ),
                                         ),
@@ -225,7 +224,7 @@ class _FilterSheetState extends State<_FilterSheet> {
                                           top: 2,
                                           child: CircleAvatar(
                                             radius: 9,
-                                            backgroundColor: _violet,
+                                            backgroundColor: AppColors.violet,
                                             child: Icon(Icons.check_rounded, size: 12, color: Colors.white),
                                           ),
                                         ),
@@ -331,7 +330,7 @@ class _FilterSheetState extends State<_FilterSheet> {
                             flex: 2,
                             child: FilledButton(
                               style: FilledButton.styleFrom(
-                                backgroundColor: _violet,
+                                backgroundColor: AppColors.violet,
                                 minimumSize: const Size(0, 54),
                                 shape: const StadiumBorder(),
                               ),
@@ -387,7 +386,7 @@ class _SectionBar extends StatelessWidget {
 }
 
 class _Chip extends StatelessWidget {
-  const _Chip({required this.label, required this.selected, required this.onTap, this.color = _violet});
+  const _Chip({required this.label, required this.selected, required this.onTap, this.color = AppColors.violet});
   final String label;
   final bool selected;
   final VoidCallback onTap;
@@ -414,7 +413,7 @@ class _Chip extends StatelessWidget {
 }
 
 class _ViewAllChip extends StatelessWidget {
-  const _ViewAllChip({required this.label, required this.expanded, required this.onTap, this.color = _violet});
+  const _ViewAllChip({required this.label, required this.expanded, required this.onTap, this.color = AppColors.violet});
   final String label;
   final bool expanded;
   final VoidCallback onTap;

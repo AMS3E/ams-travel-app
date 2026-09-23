@@ -11,7 +11,6 @@ import 'app_image.dart';
 import 'common.dart';
 import 'destination_card.dart';
 
-const _violet = Color(0xFF5B2EE5);
 
 /// One province: its name, a way into the province page, and its places.
 class ProvinceGroup extends StatelessWidget {
@@ -45,7 +44,7 @@ class ProvinceGroup extends StatelessWidget {
                   ),
                 ),
                 Material(
-                  color: _violet,
+                  color: AppColors.violet,
                   shape: const CircleBorder(),
                   child: InkWell(
                     customBorder: const CircleBorder(),

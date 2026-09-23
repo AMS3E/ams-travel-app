@@ -7,7 +7,6 @@ import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_theme.dart';
 import '../../state/travel_preferences.dart';
 
-const _violet = Color(0xFF5B2EE5);
 
 /// Labels for the eight interests, in the current language.
 String interestLabel(S s, String key) => switch (key) {
@@ -92,7 +91,7 @@ class InterestsStep extends StatelessWidget {
                 width: double.infinity,
                 child: FilledButton(
                   style: FilledButton.styleFrom(
-                    backgroundColor: _violet,
+                    backgroundColor: AppColors.violet,
                     disabledBackgroundColor: AppColors.sand100,
                     disabledForegroundColor: AppColors.sand400,
                     minimumSize: const Size(0, 58),
@@ -150,7 +149,7 @@ class _InterestTile extends StatelessWidget {
           color: Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(22),
-            side: BorderSide(color: selected ? _violet : AppColors.sand200, width: selected ? 1.8 : 1),
+            side: BorderSide(color: selected ? AppColors.violet : AppColors.sand200, width: selected ? 1.8 : 1),
           ),
           clipBehavior: Clip.antiAlias,
           child: InkWell(
@@ -181,7 +180,7 @@ class _InterestTile extends StatelessWidget {
               width: 30,
               height: 30,
               decoration: const BoxDecoration(
-                color: _violet,
+                color: AppColors.violet,
                 borderRadius: BorderRadius.only(topRight: Radius.circular(21), bottomLeft: Radius.circular(16)),
               ),
               child: const Icon(Icons.check_rounded, size: 16, color: Colors.white),

@@ -9,9 +9,9 @@ import '../../core/theme/app_theme.dart';
 import '../../data/models/models.dart';
 import '../../data/repositories/travel_repository.dart';
 import '../../widgets/async_view.dart';
+import '../../widgets/browse_bar.dart';
 import '../../widgets/province_group.dart';
 
-const _violet = Color(0xFF5B2EE5);
 
 /// Everything under "Explore by Popular", province by province.
 class PopularScreen extends StatelessWidget {
@@ -86,7 +86,7 @@ class _BodyState extends State<_Body> {
 
     return Column(
       children: [
-        const _SearchRow(),
+        BrowseSearchBar(hint: s.popularDestinations, onWhite: true),
         const SizedBox(height: 12),
         SizedBox(
           height: 34,
@@ -113,65 +113,6 @@ class _BodyState extends State<_Body> {
                 ),
         ),
       ],
-    );
-  }
-}
-
-/// Back arrow and a search field; tapping it opens the suggestions page.
-class _SearchRow extends StatelessWidget {
-  const _SearchRow();
-
-  @override
-  Widget build(BuildContext context) {
-    final s = S.of(context);
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(4, 6, 16, 0),
-      child: Row(
-        children: [
-          IconButton(
-            onPressed: () => context.pop(),
-            icon: const Icon(Icons.chevron_left_rounded, size: 30, color: AppColors.sand900),
-          ),
-          Expanded(
-            child: Material(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(16),
-              elevation: 1.5,
-              shadowColor: const Color(0x221C1935),
-              child: InkWell(
-                borderRadius: BorderRadius.circular(16),
-                onTap: () => context.push(Routes.popularSearch),
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(14, 5, 5, 5),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          s.popularDestinations,
-                          style: AppText.sans(14.5, color: AppColors.sand400),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      Material(
-                        color: _violet,
-                        shape: const CircleBorder(),
-                        child: InkWell(
-                          customBorder: const CircleBorder(),
-                          onTap: () => context.push(Routes.popularSearch),
-                          child: const Padding(
-                            padding: EdgeInsets.all(9),
-                            child: Icon(Icons.search_rounded, color: Colors.white, size: 20),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

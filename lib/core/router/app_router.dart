@@ -122,7 +122,6 @@ GoRouter createRouter({bool showWelcome = false}) {
       page('/provinces/:province', (s) => ProvinceScreen(slug: s.pathParameters['province']!)),
       page(Routes.exploreInterests, (_) => const InterestExploreScreen()),
       page('/interests/:interest', (s) => InterestScreen(slug: s.pathParameters['interest']!)),
-      page(Routes.allInterests, (_) => const InterestScreen()),
       page('/corridors/:corridor', (s) => CorridorScreen(slug: s.pathParameters['corridor']!)),
       page(
         Routes.search,
