@@ -23,6 +23,7 @@ class Routes {
 
   /// The six interest categories.
   static const allInterests = '/interests';
+  static const exploreInterests = '/interests/explore';
   static const home = '/';
   static const explore = '/explore';
   static const map = '/map';
