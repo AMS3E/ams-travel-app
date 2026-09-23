@@ -35,9 +35,8 @@ class _HomeData {
   final List<Interest> interests;
   final List<Destination> places;
 
-  /// What to show under "Explore by Popular", grouped by province: the
-  /// provinces with the most popular places, each with its own places.
-  final List<(Province, List<Destination>)> popular;
+  /// What to show under "Explore by Popular".
+  final List<Destination> popular;
 }
 
 class HomeScreen extends StatelessWidget {
@@ -56,23 +55,17 @@ class HomeScreen extends StatelessWidget {
       repo.getDestinations(),
     ).wait;
 
+    // Chosen interests first, then the best known places: the ones the
+    // website marks as featured, then by rating and how many have reviewed.
+    int rank(Destination d) =>
+        (pickedCategories.contains(d.category) ? 2 : 0) + (d.featured ? 1 : 0);
     final popular = places.where((d) => d.featured || (d.rating ?? 0) >= 4.6).toList()
       ..sort((a, b) {
-        final mine = pickedCategories.contains(a.category) ? 1 : 0;
-        final theirs = pickedCategories.contains(b.category) ? 1 : 0;
-        final byInterest = theirs.compareTo(mine);
-        return byInterest != 0 ? byInterest : (b.rating ?? 0).compareTo(a.rating ?? 0);
+        final byRank = rank(b).compareTo(rank(a));
+        if (byRank != 0) return byRank;
+        final byRating = (b.rating ?? 0).compareTo(a.rating ?? 0);
+        return byRating != 0 ? byRating : (b.reviewCount ?? 0).compareTo(a.reviewCount ?? 0);
       });
-
-    // One block per province, the provinces with the most to see first.
-    final byProvince = <String, List<Destination>>{};
-    for (final d in popular) {
-      (byProvince[d.province] ??= []).add(d);
-    }
-    final groups = <(Province, List<Destination>)>[
-      for (final p in provinces)
-        if ((byProvince[p.name] ?? const []).length >= 3) (p, byProvince[p.name]!),
-    ]..sort((a, b) => b.$2.length.compareTo(a.$2.length));
 
     return _HomeData(
       regions: regions,
@@ -80,7 +73,7 @@ class HomeScreen extends StatelessWidget {
       corridors: corridors,
       interests: interests,
       places: places,
-      popular: [for (final (p, list) in groups.take(4)) (p, list.take(8).toList())],
+      popular: popular.take(12).toList(),
     );
   }
 
@@ -158,10 +151,18 @@ class _HomeBody extends StatelessWidget {
         ),
         const SizedBox(height: 22),
 
-        // Popular places, a block per province
-        _SectionHeader(title: s.exploreByPopular, onMore: () => context.go(Routes.exploreTab('provinces'))),
-        for (final (province, places) in data.popular)
-          _ProvinceGroup(province: province, places: places),
+        // Popular places
+        _SectionHeader(title: s.exploreByPopular, onMore: () => context.go(Routes.exploreTab('interests'))),
+        SizedBox(
+          height: 166,
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            itemCount: data.popular.length,
+            separatorBuilder: (_, _) => const SizedBox(width: 12),
+            itemBuilder: (_, i) => _SmallCard(destination: data.popular[i]),
+          ),
+        ),
         const SizedBox(height: 22),
 
         // Corridors
@@ -553,7 +554,9 @@ class _RatingPill extends StatelessWidget {
           const Icon(Icons.star_rounded, size: 14, color: AppColors.star),
           const SizedBox(width: 3),
           Text(
-            count == null ? rating.toStringAsFixed(1) : '${rating.toStringAsFixed(1)} ($count)',
+            count == null
+                ? rating.toStringAsFixed(1)
+                : '${rating.toStringAsFixed(1)} (${thousands(count!)})',
             style: AppText.sans(12, weight: FontWeight.w700, color: Colors.white),
           ),
         ],
@@ -562,101 +565,41 @@ class _RatingPill extends StatelessWidget {
   }
 }
 
-/// One province under "Explore by Popular": the name, a way into the province
-/// page, and the places inside it.
-class _ProvinceGroup extends StatelessWidget {
-  const _ProvinceGroup({required this.province, required this.places});
-  final Province province;
-  final List<Destination> places;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.fromLTRB(16, 0, 16, 14),
-      padding: const EdgeInsets.fromLTRB(14, 14, 0, 14),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: AppColors.sand200),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(right: 14),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    bilingual(context, province.name, province.nameKh).$1,
-                    style: AppText.sans(16, weight: FontWeight.w700, color: AppColors.sand900),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                Material(
-                  color: _violet,
-                  shape: const CircleBorder(),
-                  child: InkWell(
-                    customBorder: const CircleBorder(),
-                    onTap: () => context.push(Routes.province(province.slug)),
-                    child: const Padding(
-                      padding: EdgeInsets.all(5),
-                      child: Icon(Icons.arrow_forward_rounded, color: Colors.white, size: 16),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 12),
-          SizedBox(
-            height: 176,
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.only(right: 14),
-              itemCount: places.length,
-              separatorBuilder: (_, _) => const SizedBox(width: 10),
-              itemBuilder: (_, i) => _SmallCard(destination: places[i]),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-/// Small photo card for the popular places: photo, name, stars and how many
-/// people have reviewed it.
+/// Popular place: photo with its score and a heart, name underneath.
 class _SmallCard extends StatelessWidget {
   const _SmallCard({required this.destination});
   final Destination destination;
 
   @override
   Widget build(BuildContext context) {
-    final s = S.of(context);
     final d = destination;
     final (title, _) = bilingual(context, d.name, d.nameKh);
     return GestureDetector(
       onTap: () => context.push(Routes.destination(d.region, d.slug)),
       child: SizedBox(
-        width: 146,
+        width: 152,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: 112,
+              height: 126,
               width: double.infinity,
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(14),
+                borderRadius: BorderRadius.circular(16),
                 child: Stack(
                   fit: StackFit.expand,
                   children: [
                     AppImage(d.image),
+                    if (d.rating != null)
+                      Positioned(
+                        left: 7,
+                        top: 7,
+                        child: _RatingPill(rating: d.rating!, count: d.reviewCount),
+                      ),
                     Positioned(
-                      right: 4,
-                      top: 4,
-                      child: SaveButton(kind: SavedKind.destination, itemKey: d.key, dark: true, size: 30),
+                      right: 2,
+                      top: 2,
+                      child: SaveButton(kind: SavedKind.destination, itemKey: d.key, plain: true),
                     ),
                   ],
                 ),
@@ -665,28 +608,10 @@ class _SmallCard extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               title,
-              style: AppText.sans(13, weight: FontWeight.w700, color: AppColors.sand900),
+              style: AppText.sans(13.5, weight: FontWeight.w700, color: AppColors.sand900),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
-            const SizedBox(height: 5),
-            if (d.rating != null)
-              Row(
-                children: [
-                  Stars(d.rating!.round(), size: 11),
-                  if (d.reviewCount != null) ...[
-                    const SizedBox(width: 5),
-                    Expanded(
-                      child: Text(
-                        '${thousands(d.reviewCount!)} ${s.reviewsWord.toLowerCase()}',
-                        style: AppText.sans(10.5, color: AppColors.sand500),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                  ],
-                ],
-              ),
           ],
         ),
       ),

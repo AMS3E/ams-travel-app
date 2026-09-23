@@ -36,6 +36,7 @@ class SaveButton extends StatelessWidget {
     required this.itemKey,
     this.onImage = true,
     this.dark = false,
+    this.plain = false,
     this.size = 37,
   });
 
@@ -45,6 +46,10 @@ class SaveButton extends StatelessWidget {
 
   /// Dark frosted circle with a white heart — used on place-card photos.
   final bool dark;
+
+  /// No circle behind it: a red heart straight on the photo. Saving puts a
+  /// white disc behind it so the state still shows.
+  final bool plain;
 
   /// Diameter of the round button when [onImage].
   final double size;
@@ -57,10 +62,13 @@ class SaveButton extends StatelessWidget {
       duration: const Duration(milliseconds: 200),
       transitionBuilder: (c, a) => ScaleTransition(scale: a, child: c),
       child: Icon(
-        saved ? Icons.favorite_rounded : Icons.favorite_border_rounded,
+        // A plain heart is always solid, so it reads on a photo without a
+        // circle behind it.
+        saved || plain ? Icons.favorite_rounded : Icons.favorite_border_rounded,
         key: ValueKey(saved),
         size: dark ? 23 : 21,
-        color: saved ? AppColors.sunset500 : idle,
+        color: plain || saved ? AppColors.sunset500 : idle,
+        shadows: plain ? const [Shadow(color: Color(0x55000000), blurRadius: 6)] : null,
       ),
     );
     void onTap() {
@@ -71,6 +79,21 @@ class SaveButton extends StatelessWidget {
 
     if (!onImage) {
       return IconButton(onPressed: onTap, icon: icon, tooltip: S.of(context).save);
+    }
+    if (plain) {
+      return IconButton(
+        onPressed: onTap,
+        icon: saved
+            ? DecoratedBox(
+                decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+                child: Padding(padding: const EdgeInsets.all(3), child: icon),
+              )
+            : icon,
+        tooltip: S.of(context).save,
+        padding: const EdgeInsets.all(6),
+        constraints: const BoxConstraints(),
+        style: IconButton.styleFrom(tapTargetSize: MaterialTapTargetSize.shrinkWrap),
+      );
     }
     final button = Material(
       color: dark ? Colors.black.withValues(alpha: 0.32) : Colors.white.withValues(alpha: 0.92),
