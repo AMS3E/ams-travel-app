@@ -1,0 +1,339 @@
+import 'package:go_router/go_router.dart';
+import 'package:material_ui/material_ui.dart';
+import 'package:provider/provider.dart';
+
+import '../../core/l10n/app_strings.dart';
+import '../../core/router/routes.dart';
+import '../../core/theme/app_colors.dart';
+import '../../core/theme/app_theme.dart';
+import '../../core/utils/geo.dart';
+import '../../data/models/models.dart';
+import '../../data/repositories/travel_repository.dart';
+import '../../state/collections_provider.dart';
+import '../../widgets/app_image.dart';
+import '../../widgets/async_view.dart';
+import '../../widgets/common.dart';
+import '../../widgets/destination_card.dart';
+
+const _violet = Color(0xFF5B2EE5);
+
+/// Everything under "Explore by Popular", province by province.
+class PopularScreen extends StatelessWidget {
+  const PopularScreen({super.key});
+
+  Future<List<(Province, List<Destination>)>> _load(TravelRepository repo) async {
+    final (provinces, places) = await (repo.getProvinces(), repo.getDestinations()).wait;
+
+    final popular = places.where((d) => d.featured || (d.rating ?? 0) >= 4.6).toList()
+      ..sort((a, b) {
+        final byFeatured = (b.featured ? 1 : 0).compareTo(a.featured ? 1 : 0);
+        if (byFeatured != 0) return byFeatured;
+        final byRating = (b.rating ?? 0).compareTo(a.rating ?? 0);
+        return byRating != 0 ? byRating : (b.reviewCount ?? 0).compareTo(a.reviewCount ?? 0);
+      });
+
+    final byProvince = <String, List<Destination>>{};
+    for (final d in popular) {
+      (byProvince[d.province] ??= []).add(d);
+    }
+    return <(Province, List<Destination>)>[
+      for (final p in provinces)
+        if ((byProvince[p.name] ?? const []).length >= 3) (p, byProvince[p.name]!),
+    ]..sort((a, b) => b.$2.length.compareTo(a.$2.length));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final repo = context.read<TravelRepository>();
+    return Scaffold(
+      body: SafeArea(
+        bottom: false,
+        child: AsyncView<List<(Province, List<Destination>)>>(
+          load: () => _load(repo),
+          builder: (context, groups, _) {
+            // The chips suggest what other people look for: the best known
+            // places, then the provinces they sit in.
+            final keywords = <String>{
+              for (final (_, places) in groups.take(2)) ...places.take(2).map((d) => d.name),
+              for (final (province, _) in groups.take(3)) province.name,
+            }.take(6).toList();
+
+            return Column(
+              children: [
+                const _SearchRow(),
+                const SizedBox(height: 12),
+                SizedBox(
+                  height: 34,
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    itemCount: keywords.length,
+                    separatorBuilder: (_, _) => const SizedBox(width: 8),
+                    itemBuilder: (_, i) => _Keyword(word: keywords[i]),
+                  ),
+                ),
+                const SizedBox(height: 14),
+                Expanded(
+                  child: ListView(
+                    padding: EdgeInsets.only(bottom: 20 + MediaQuery.paddingOf(context).bottom),
+                    children: [
+                      for (final (province, places) in groups)
+                        _ProvinceGroup(province: province, places: places),
+                    ],
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+/// Back arrow and a search field that hands the words to the search page.
+class _SearchRow extends StatefulWidget {
+  const _SearchRow();
+
+  @override
+  State<_SearchRow> createState() => _SearchRowState();
+}
+
+class _SearchRowState extends State<_SearchRow> {
+  final _controller = TextEditingController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _run() {
+    final q = _controller.text.trim();
+    if (q.isEmpty) return;
+    context.push('${Routes.search}?q=${Uri.encodeQueryComponent(q)}');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final s = S.of(context);
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(4, 6, 16, 0),
+      child: Row(
+        children: [
+          IconButton(
+            onPressed: () => context.pop(),
+            icon: const Icon(Icons.chevron_left_rounded, size: 30, color: AppColors.sand900),
+          ),
+          Expanded(
+            child: Material(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16),
+              elevation: 1.5,
+              shadowColor: const Color(0x221C1935),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(14, 5, 5, 5),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: _controller,
+                        textInputAction: TextInputAction.search,
+                        onSubmitted: (_) => _run(),
+                        style: AppText.sans(14.5, color: AppColors.sand900),
+                        decoration: InputDecoration(
+                          hintText: s.popularDestinations,
+                          hintStyle: AppText.sans(14.5, color: AppColors.sand400),
+                          filled: false,
+                          isDense: true,
+                          contentPadding: const EdgeInsets.symmetric(vertical: 10),
+                          border: InputBorder.none,
+                          enabledBorder: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                    Material(
+                      color: _violet,
+                      shape: const CircleBorder(),
+                      child: InkWell(
+                        customBorder: const CircleBorder(),
+                        onTap: _run,
+                        child: const Padding(
+                          padding: EdgeInsets.all(9),
+                          child: Icon(Icons.search_rounded, color: Colors.white, size: 20),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// One thing other people search for.
+class _Keyword extends StatelessWidget {
+  const _Keyword({required this.word});
+  final String word;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      borderRadius: BorderRadius.circular(99),
+      onTap: () => context.push('${Routes.search}?q=${Uri.encodeQueryComponent(word)}'),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(99),
+          border: Border.all(color: AppColors.sand200),
+        ),
+        child: Row(
+          children: [
+            const Icon(Icons.place_outlined, size: 15, color: AppColors.sand500),
+            const SizedBox(width: 5),
+            Text(
+              word.toLowerCase(),
+              style: AppText.sans(13, weight: FontWeight.w500, color: AppColors.sand800),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// One province: its name, a way into the province page, and its places.
+class _ProvinceGroup extends StatelessWidget {
+  const _ProvinceGroup({required this.province, required this.places});
+  final Province province;
+  final List<Destination> places;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.fromLTRB(16, 0, 16, 14),
+      padding: const EdgeInsets.fromLTRB(14, 14, 0, 14),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(color: AppColors.sand200),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(right: 14),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    bilingual(context, province.name, province.nameKh).$1,
+                    style: AppText.sans(16, weight: FontWeight.w700, color: AppColors.sand900),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                Material(
+                  color: _violet,
+                  shape: const CircleBorder(),
+                  child: InkWell(
+                    customBorder: const CircleBorder(),
+                    onTap: () => context.push(Routes.province(province.slug)),
+                    child: const Padding(
+                      padding: EdgeInsets.all(5),
+                      child: Icon(Icons.arrow_forward_rounded, color: Colors.white, size: 16),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 12),
+          SizedBox(
+            height: 176,
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.only(right: 14),
+              itemCount: places.length,
+              separatorBuilder: (_, _) => const SizedBox(width: 10),
+              itemBuilder: (_, i) => _PlaceCard(destination: places[i]),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Photo, name, stars and how many people have reviewed the place.
+class _PlaceCard extends StatelessWidget {
+  const _PlaceCard({required this.destination});
+  final Destination destination;
+
+  @override
+  Widget build(BuildContext context) {
+    final s = S.of(context);
+    final d = destination;
+    final (title, _) = bilingual(context, d.name, d.nameKh);
+    return GestureDetector(
+      onTap: () => context.push(Routes.destination(d.region, d.slug)),
+      child: SizedBox(
+        width: 146,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 112,
+              width: double.infinity,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(14),
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    AppImage(d.image),
+                    Positioned(
+                      right: 2,
+                      top: 2,
+                      child: SaveButton(kind: SavedKind.destination, itemKey: d.key, plain: true),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              title,
+              style: AppText.sans(13, weight: FontWeight.w700, color: AppColors.sand900),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+            const SizedBox(height: 5),
+            if (d.rating != null)
+              Row(
+                children: [
+                  Stars(d.rating!.round(), size: 11),
+                  if (d.reviewCount != null) ...[
+                    const SizedBox(width: 5),
+                    Expanded(
+                      child: Text(
+                        '${thousands(d.reviewCount!)} ${s.reviewsWord.toLowerCase()}',
+                        style: AppText.sans(10.5, color: AppColors.sand500),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+}
