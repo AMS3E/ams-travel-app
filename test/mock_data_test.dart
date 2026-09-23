@@ -19,7 +19,6 @@ void main() {
   final interests = _list('interests', Interest.fromJson);
   final corridors = _list('corridors', Corridor.fromJson);
   final stories = _list('stories', Story.fromJson);
-  final home = HomeContent.fromJson(Json.from(_read('home') as Map));
   final keys = destinations.map((d) => d.key).toSet();
 
   test('sizes match the website', () {
@@ -76,13 +75,7 @@ void main() {
     }
   });
 
-  test('home, story and highlight references resolve', () {
-    for (final f in home.featured) {
-      expect(keys, contains(f.ref.key));
-    }
-    for (final t in home.trending) {
-      expect(keys, contains(t.ref.key));
-    }
+  test('story and highlight references resolve', () {
     for (final s in stories) {
       for (final r in s.relatedDestinations) {
         expect(keys, contains(r.key), reason: s.slug);

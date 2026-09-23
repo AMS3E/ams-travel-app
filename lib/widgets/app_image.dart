@@ -61,38 +61,3 @@ class _Placeholder extends StatelessWidget {
   );
 }
 
-/// Image with a dark gradient so white text on top stays readable.
-class ShadedImage extends StatelessWidget {
-  const ShadedImage(this.url, {super.key, this.child, this.strength = 0.75, this.radius});
-
-  final String url;
-  final Widget? child;
-  final double strength;
-  final BorderRadius? radius;
-
-  @override
-  Widget build(BuildContext context) {
-    final content = Stack(
-      fit: StackFit.expand,
-      children: [
-        AppImage(url),
-        DecoratedBox(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              stops: const [0, 0.45, 1],
-              colors: [
-                AppColors.brand950.withValues(alpha: strength * 0.35),
-                AppColors.brand950.withValues(alpha: strength * 0.25),
-                AppColors.brand950.withValues(alpha: strength),
-              ],
-            ),
-          ),
-        ),
-        ?child,
-      ],
-    );
-    return radius == null ? content : ClipRRect(borderRadius: radius!, child: content);
-  }
-}

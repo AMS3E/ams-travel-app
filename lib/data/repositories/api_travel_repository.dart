@@ -19,8 +19,6 @@ class ApiTravelRepository implements TravelRepository {
 
   T _one<T>(dynamic body, T Function(Json) fromJson) => fromJson(Json.from(body as Map));
 
-  @override
-  Future<HomeContent> getHome() async => _one(await _api.get(ApiEndpoints.home), HomeContent.fromJson);
 
   @override
   Future<List<Region>> getRegions() async => _list(await _api.get(ApiEndpoints.regions), Region.fromJson);
@@ -77,9 +75,6 @@ class ApiTravelRepository implements TravelRepository {
   @override
   Future<List<Interest>> getInterests() async => _list(await _api.get(ApiEndpoints.interests), Interest.fromJson);
 
-  @override
-  Future<Interest> getInterest(String slug) async =>
-      _one(await _api.get(ApiEndpoints.interest(slug)), Interest.fromJson);
 
   @override
   Future<List<Corridor>> getCorridors() async => _list(await _api.get(ApiEndpoints.corridors), Corridor.fromJson);
@@ -92,9 +87,6 @@ class ApiTravelRepository implements TravelRepository {
   Future<List<Story>> getStories(String region) async =>
       _list(await _api.get(ApiEndpoints.regionStories(region)), Story.fromJson);
 
-  @override
-  Future<Story> getStory(String region, String slug) async =>
-      _one(await _api.get(ApiEndpoints.story(region, slug)), Story.fromJson);
 
   @override
   Future<List<Review>> getReviews(DestinationRef ref) async =>
@@ -135,10 +127,6 @@ class ApiTravelRepository implements TravelRepository {
     return _one(body, Review.fromJson);
   }
 
-  @override
-  Future<void> submitPlanRequest({required String email, required String destination}) async {
-    await _api.post(ApiEndpoints.planRequests, body: {'email': email, 'destination': destination});
-  }
 
   @override
   Future<SearchResults> search(String query) async =>

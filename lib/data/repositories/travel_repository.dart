@@ -6,8 +6,6 @@ import '../models/models.dart';
 /// [MockTravelRepository]; when the API is ready [ApiTravelRepository] takes
 /// over (see `ApiConfig.useMockData`) and no screen code changes.
 abstract class TravelRepository {
-  Future<HomeContent> getHome();
-
   Future<List<Region>> getRegions();
   Future<Region> getRegion(String slug);
 
@@ -27,13 +25,11 @@ abstract class TravelRepository {
   Future<Province> getProvince(String slug);
 
   Future<List<Interest>> getInterests();
-  Future<Interest> getInterest(String slug);
 
   Future<List<Corridor>> getCorridors();
   Future<Corridor> getCorridor(String slug);
 
   Future<List<Story>> getStories(String region);
-  Future<Story> getStory(String region, String slug);
 
   Future<List<Review>> getReviews(DestinationRef ref);
 
@@ -54,8 +50,6 @@ abstract class TravelRepository {
     DateTime? visitedOn,
     required String author,
   });
-
-  Future<void> submitPlanRequest({required String email, required String destination});
 
   Future<SearchResults> search(String query);
 }
