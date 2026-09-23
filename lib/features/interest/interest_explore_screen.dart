@@ -19,8 +19,12 @@ const _violet = Color(0xFF5B2EE5);
 class InterestExploreScreen extends StatelessWidget {
   const InterestExploreScreen({super.key});
 
-  Future<(List<Interest>, List<Destination>)> _load(TravelRepository repo) async {
-    final (interests, places) = await (repo.getInterests(), repo.getDestinations()).wait;
+  Future<(List<Interest>, List<Destination>, List<Corridor>)> _load(TravelRepository repo) async {
+    final (interests, places, corridors) = await (
+      repo.getInterests(),
+      repo.getDestinations(),
+      repo.getCorridors(),
+    ).wait;
 
     places.sort((a, b) {
       final byFeatured = (b.featured ? 1 : 0).compareTo(a.featured ? 1 : 0);
@@ -29,8 +33,7 @@ class InterestExploreScreen extends StatelessWidget {
       return byRating != 0 ? byRating : (b.reviewCount ?? 0).compareTo(a.reviewCount ?? 0);
     });
 
-    // Corridors are not places, so they have nothing to fill this page with.
-    return (interests.where((i) => i.categories.isNotEmpty).toList(), places);
+    return (interests, places, corridors);
   }
 
   @override
@@ -39,11 +42,11 @@ class InterestExploreScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         bottom: false,
-        child: AsyncView<(List<Interest>, List<Destination>)>(
+        child: AsyncView<(List<Interest>, List<Destination>, List<Corridor>)>(
           load: () => _load(repo),
           builder: (context, data, _) {
-            final (interests, places) = data;
-            return _Body(interests: interests, places: places);
+            final (interests, places, corridors) = data;
+            return _Body(interests: interests, places: places, corridors: corridors);
           },
         ),
       ),
@@ -52,11 +55,14 @@ class InterestExploreScreen extends StatelessWidget {
 }
 
 class _Body extends StatefulWidget {
-  const _Body({required this.interests, required this.places});
+  const _Body({required this.interests, required this.places, required this.corridors});
   final List<Interest> interests;
 
   /// Every place, the best known first.
   final List<Destination> places;
+
+  /// What the Tourism Corridors chip shows instead of places.
+  final List<Corridor> corridors;
 
   @override
   State<_Body> createState() => _BodyState();
@@ -65,17 +71,44 @@ class _Body extends StatefulWidget {
 class _BodyState extends State<_Body> {
   int _index = 0;
 
-  List<Destination> get _inInterest {
-    if (widget.interests.isEmpty) return const [];
-    final categories = widget.interests[_index].categories.toSet();
-    return widget.places.where((d) => categories.contains(d.category)).toList();
+  /// What the chosen chip holds: places, or the corridors themselves.
+  (List<_Item>, List<_Item>) get _items {
+    if (widget.interests.isEmpty) return (const [], const []);
+    final interest = widget.interests[_index];
+
+    if (interest.isCorridors) {
+      final items = [
+        for (final c in widget.corridors)
+          _Item(
+            image: c.image,
+            title: c.name,
+            subtitle: c.duration,
+            detail: '${c.duration}, ${c.stops.length} ${S.read(context).stops.toLowerCase()}',
+            route: Routes.corridor(c.slug),
+          ),
+      ];
+      return (items, items.take(5).toList());
+    }
+
+    final categories = interest.categories.toSet();
+    final places = widget.places.where((d) => categories.contains(d.category)).toList();
+    _Item of(Destination d) => _Item(
+      image: d.image,
+      title: bilingual(context, d.name, d.nameKh).$1,
+      subtitle: d.category,
+      detail: '${d.category}, ${d.province}',
+      route: Routes.destination(d.region, d.slug),
+    );
+    return (
+      [for (final d in places) of(d)],
+      [for (final d in places.where((d) => d.featured).take(5)) of(d)],
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     final s = S.of(context);
-    final places = _inInterest;
-    final recommended = places.where((d) => d.featured).take(5).toList();
+    final (places, recommended) = _items;
 
     return Column(
       children: [
@@ -109,12 +142,10 @@ class _BodyState extends State<_Body> {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Expanded(child: _PlaceTile(destination: places[i])),
+                            Expanded(child: _PlaceTile(item: places[i])),
                             const SizedBox(width: 12),
                             Expanded(
-                              child: i + 1 < places.length
-                                  ? _PlaceTile(destination: places[i + 1])
-                                  : const SizedBox(),
+                              child: i + 1 < places.length ? _PlaceTile(item: places[i + 1]) : const SizedBox(),
                             ),
                           ],
                         ),
@@ -132,7 +163,7 @@ class _BodyState extends State<_Body> {
                         style: AppText.sans(17, weight: FontWeight.w700, color: AppColors.sand900),
                       ),
                       const SizedBox(height: 6),
-                      for (final d in recommended) _RecommendRow(destination: d),
+                      for (final item in recommended) _RecommendRow(item: item),
                     ],
                   ),
                 ),
@@ -254,17 +285,37 @@ class _Card extends StatelessWidget {
   }
 }
 
+/// One thing this page can show: a place, or a corridor.
+class _Item {
+  const _Item({
+    required this.image,
+    required this.title,
+    required this.subtitle,
+    required this.detail,
+    required this.route,
+  });
+
+  final String image;
+  final String title;
+
+  /// The short line in the grid.
+  final String subtitle;
+
+  /// The longer line under a recommendation.
+  final String detail;
+  final String route;
+}
+
 /// Photo, name and what the place is — two to a row.
 class _PlaceTile extends StatelessWidget {
-  const _PlaceTile({required this.destination});
-  final Destination destination;
+  const _PlaceTile({required this.item});
+  final _Item item;
 
   @override
   Widget build(BuildContext context) {
-    final d = destination;
-    final (title, _) = bilingual(context, d.name, d.nameKh);
+    final d = item;
     return InkWell(
-      onTap: () => context.push(Routes.destination(d.region, d.slug)),
+      onTap: () => context.push(d.route),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -279,14 +330,14 @@ class _PlaceTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  title,
+                  d.title,
                   style: AppText.sans(13, weight: FontWeight.w700, color: AppColors.sand900),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  d.category,
+                  d.subtitle,
                   style: AppText.sans(11.5, color: AppColors.sand500),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -302,16 +353,15 @@ class _PlaceTile extends StatelessWidget {
 
 /// A place travellers recommend: photo, name, what it is, and a way in.
 class _RecommendRow extends StatelessWidget {
-  const _RecommendRow({required this.destination});
-  final Destination destination;
+  const _RecommendRow({required this.item});
+  final _Item item;
 
   @override
   Widget build(BuildContext context) {
     final s = S.of(context);
-    final d = destination;
-    final (title, _) = bilingual(context, d.name, d.nameKh);
+    final d = item;
     return InkWell(
-      onTap: () => context.push(Routes.destination(d.region, d.slug)),
+      onTap: () => context.push(d.route),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10),
         child: Row(
@@ -327,14 +377,14 @@ class _RecommendRow extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    title,
+                    d.title,
                     style: AppText.sans(14, weight: FontWeight.w700, color: AppColors.sand900),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 2),
                   Text(
-                    '${d.category}, ${d.province}',
+                    d.detail,
                     style: AppText.sans(12, color: AppColors.sand500),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
