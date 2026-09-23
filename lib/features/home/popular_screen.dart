@@ -63,23 +63,17 @@ class _Body extends StatefulWidget {
 }
 
 class _BodyState extends State<_Body> {
-  /// Every province, or only the ones with a few places worth seeing.
-  bool _allProvinces = false;
-
   /// Provinces and their places, the fullest first.
   List<(Province, List<Destination>)> get _groups {
     final byProvince = <String, List<Destination>>{};
     for (final d in widget.places) {
-      if (!_allProvinces && !d.featured && (d.rating ?? 0) < 4.6) continue;
+      if (!d.featured && (d.rating ?? 0) < 4.6) continue;
       (byProvince[d.province] ??= []).add(d);
     }
-    final groups = <(Province, List<Destination>)>[
+    return <(Province, List<Destination>)>[
       for (final p in widget.provinces)
-        if (_allProvinces || (byProvince[p.name] ?? const []).length >= 3)
-          (p, byProvince[p.name] ?? const []),
-    ];
-    if (_allProvinces) return groups;
-    return groups..sort((a, b) => b.$2.length.compareTo(a.$2.length));
+        if ((byProvince[p.name] ?? const []).length >= 3) (p, byProvince[p.name]!),
+    ]..sort((a, b) => b.$2.length.compareTo(a.$2.length));
   }
 
   @override
@@ -118,23 +112,6 @@ class _BodyState extends State<_Body> {
                   children: [
                     for (final (province, places) in groups)
                       _ProvinceGroup(province: province, places: places),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 4, 16, 8),
-                      child: OutlinedButton(
-                        onPressed: () => setState(() => _allProvinces = !_allProvinces),
-                        style: OutlinedButton.styleFrom(
-                          minimumSize: const Size.fromHeight(50),
-                          side: const BorderSide(color: _violet),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-                        ),
-                        child: Text(
-                          _allProvinces
-                              ? s.showLess
-                              : s.showAllProvinces.replaceFirst('{n}', '${widget.provinces.length}'),
-                          style: AppText.sans(14.5, weight: FontWeight.w700, color: _violet),
-                        ),
-                      ),
-                    ),
                   ],
                 ),
         ),
@@ -281,19 +258,16 @@ class _ProvinceGroup extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 12),
-          if (places.isEmpty)
-            Text(S.of(context).notListedYet, style: AppText.sans(13, color: AppColors.sand500))
-          else
-            SizedBox(
-              height: 176,
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.only(right: 14),
-                itemCount: places.length,
-                separatorBuilder: (_, _) => const SizedBox(width: 10),
-                itemBuilder: (_, i) => _PlaceCard(destination: places[i]),
-              ),
+          SizedBox(
+            height: 176,
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.only(right: 14),
+              itemCount: places.length,
+              separatorBuilder: (_, _) => const SizedBox(width: 10),
+              itemBuilder: (_, i) => _PlaceCard(destination: places[i]),
             ),
+          ),
         ],
       ),
     );
