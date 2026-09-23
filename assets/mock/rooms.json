@@ -1,0 +1,731 @@
+[
+  {
+    "destination": "eco-community/banteay-chhmar-homestay",
+    "rooms": [
+      {
+        "id": "banteay-chhmar-homestay-1",
+        "name": "Village room",
+        "image": "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=70",
+        "pricePerNight": 18.0,
+        "currency": "USD",
+        "guests": 2,
+        "beds": "1 double bed",
+        "sizeSqm": 18,
+        "amenities": [
+          "Home-cooked breakfast",
+          "Mosquito net",
+          "Fan"
+        ],
+        "available": true,
+        "images": [
+          "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=70",
+          "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=70"
+        ]
+      },
+      {
+        "id": "banteay-chhmar-homestay-2",
+        "name": "Family room",
+        "image": "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=70",
+        "pricePerNight": 28.8,
+        "currency": "USD",
+        "guests": 4,
+        "beds": "2 double beds",
+        "sizeSqm": 24,
+        "amenities": [
+          "Home-cooked breakfast",
+          "Mosquito net",
+          "Fan"
+        ],
+        "available": true,
+        "images": [
+          "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=70",
+          "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=70"
+        ]
+      }
+    ]
+  },
+  {
+    "destination": "eco-community/koh-trong-homestay",
+    "rooms": [
+      {
+        "id": "koh-trong-homestay-1",
+        "name": "Village room",
+        "image": "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=70",
+        "pricePerNight": 23.0,
+        "currency": "USD",
+        "guests": 2,
+        "beds": "1 double bed",
+        "sizeSqm": 18,
+        "amenities": [
+          "Home-cooked breakfast",
+          "Mosquito net",
+          "Fan"
+        ],
+        "available": true,
+        "images": [
+          "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=70",
+          "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=70"
+        ]
+      },
+      {
+        "id": "koh-trong-homestay-2",
+        "name": "Family room",
+        "image": "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=70",
+        "pricePerNight": 36.8,
+        "currency": "USD",
+        "guests": 4,
+        "beds": "2 double beds",
+        "sizeSqm": 24,
+        "amenities": [
+          "Home-cooked breakfast",
+          "Mosquito net",
+          "Fan"
+        ],
+        "available": true,
+        "images": [
+          "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=70",
+          "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=70"
+        ]
+      }
+    ]
+  },
+  {
+    "destination": "eco-community/chambok-cbet",
+    "rooms": [
+      {
+        "id": "chambok-cbet-1",
+        "name": "Village room",
+        "image": "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=70",
+        "pricePerNight": 28.0,
+        "currency": "USD",
+        "guests": 2,
+        "beds": "1 double bed",
+        "sizeSqm": 18,
+        "amenities": [
+          "Home-cooked breakfast",
+          "Mosquito net",
+          "Fan"
+        ],
+        "available": true,
+        "images": [
+          "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=70",
+          "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=70"
+        ]
+      },
+      {
+        "id": "chambok-cbet-2",
+        "name": "Family room",
+        "image": "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=70",
+        "pricePerNight": 44.8,
+        "currency": "USD",
+        "guests": 4,
+        "beds": "2 double beds",
+        "sizeSqm": 24,
+        "amenities": [
+          "Home-cooked breakfast",
+          "Mosquito net",
+          "Fan"
+        ],
+        "available": true,
+        "images": [
+          "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=70",
+          "https://images.unsplash.com/photo-1602002418082-a4443e081dd1?auto=format&fit=crop&w=800&q=70"
+        ]
+      }
+    ]
+  },
+  {
+    "destination": "eco-community/sambor-prei-kuk-homestay",
+    "rooms": [
+      {
+        "id": "sambor-prei-kuk-homestay-1",
+        "name": "Village room",
+        "image": "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=70",
+        "pricePerNight": 33.0,
+        "currency": "USD",
+        "guests": 2,
+        "beds": "1 double bed",
+        "sizeSqm": 18,
+        "amenities": [
+          "Home-cooked breakfast",
+          "Mosquito net",
+          "Fan"
+        ],
+        "available": true,
+        "images": [
+          "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=70",
+          "https://images.unsplash.com/photo-1602002418082-a4443e081dd1?auto=format&fit=crop&w=800&q=70"
+        ]
+      },
+      {
+        "id": "sambor-prei-kuk-homestay-2",
+        "name": "Family room",
+        "image": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=70",
+        "pricePerNight": 52.8,
+        "currency": "USD",
+        "guests": 4,
+        "beds": "2 double beds",
+        "sizeSqm": 24,
+        "amenities": [
+          "Home-cooked breakfast",
+          "Mosquito net",
+          "Fan"
+        ],
+        "available": true,
+        "images": [
+          "https://images.unsplash.com/photo-1602002418082-a4443e081dd1?auto=format&fit=crop&w=800&q=70",
+          "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=70"
+        ]
+      }
+    ]
+  },
+  {
+    "destination": "eco-community/evp",
+    "rooms": [
+      {
+        "id": "evp-1",
+        "name": "Garden bungalow",
+        "image": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=70",
+        "pricePerNight": 45.0,
+        "currency": "USD",
+        "guests": 2,
+        "beds": "1 queen bed",
+        "sizeSqm": 26,
+        "amenities": [
+          "Breakfast",
+          "Fan",
+          "Hot shower"
+        ],
+        "available": true,
+        "images": [
+          "https://images.unsplash.com/photo-1602002418082-a4443e081dd1?auto=format&fit=crop&w=800&q=70",
+          "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=70"
+        ]
+      },
+      {
+        "id": "evp-2",
+        "name": "Forest cabin",
+        "image": "https://images.unsplash.com/photo-1602002418082-a4443e081dd1?auto=format&fit=crop&w=800&q=70",
+        "pricePerNight": 63.0,
+        "currency": "USD",
+        "guests": 2,
+        "beds": "1 king bed",
+        "sizeSqm": 32,
+        "amenities": [
+          "Breakfast",
+          "Balcony",
+          "Hot shower"
+        ],
+        "available": true,
+        "images": [
+          "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=70",
+          "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=70"
+        ]
+      },
+      {
+        "id": "evp-3",
+        "name": "Family lodge",
+        "image": "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=70",
+        "pricePerNight": 85.5,
+        "currency": "USD",
+        "guests": 4,
+        "beds": "2 queen beds",
+        "sizeSqm": 38,
+        "amenities": [
+          "Breakfast",
+          "Terrace",
+          "Hot shower"
+        ],
+        "available": true,
+        "images": [
+          "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=70",
+          "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=70"
+        ]
+      }
+    ]
+  },
+  {
+    "destination": "eco-community/osoam",
+    "rooms": [
+      {
+        "id": "osoam-1",
+        "name": "Garden bungalow",
+        "image": "https://images.unsplash.com/photo-1602002418082-a4443e081dd1?auto=format&fit=crop&w=800&q=70",
+        "pricePerNight": 60.0,
+        "currency": "USD",
+        "guests": 2,
+        "beds": "1 queen bed",
+        "sizeSqm": 26,
+        "amenities": [
+          "Breakfast",
+          "Fan",
+          "Hot shower"
+        ],
+        "available": true,
+        "images": [
+          "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=70",
+          "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=70"
+        ]
+      },
+      {
+        "id": "osoam-2",
+        "name": "Forest cabin",
+        "image": "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=70",
+        "pricePerNight": 84.0,
+        "currency": "USD",
+        "guests": 2,
+        "beds": "1 king bed",
+        "sizeSqm": 32,
+        "amenities": [
+          "Breakfast",
+          "Balcony",
+          "Hot shower"
+        ],
+        "available": true,
+        "images": [
+          "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=70",
+          "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=70"
+        ]
+      },
+      {
+        "id": "osoam-3",
+        "name": "Family lodge",
+        "image": "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=70",
+        "pricePerNight": 114.0,
+        "currency": "USD",
+        "guests": 4,
+        "beds": "2 queen beds",
+        "sizeSqm": 38,
+        "amenities": [
+          "Breakfast",
+          "Terrace",
+          "Hot shower"
+        ],
+        "available": true,
+        "images": [
+          "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=70",
+          "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=70"
+        ]
+      }
+    ]
+  },
+  {
+    "destination": "eco-community/andoung-kraloeng",
+    "rooms": [
+      {
+        "id": "andoung-kraloeng-1",
+        "name": "Garden bungalow",
+        "image": "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=70",
+        "pricePerNight": 75.0,
+        "currency": "USD",
+        "guests": 2,
+        "beds": "1 queen bed",
+        "sizeSqm": 26,
+        "amenities": [
+          "Breakfast",
+          "Fan",
+          "Hot shower"
+        ],
+        "available": true,
+        "images": [
+          "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=70",
+          "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=70"
+        ]
+      },
+      {
+        "id": "andoung-kraloeng-2",
+        "name": "Forest cabin",
+        "image": "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=70",
+        "pricePerNight": 105.0,
+        "currency": "USD",
+        "guests": 2,
+        "beds": "1 king bed",
+        "sizeSqm": 32,
+        "amenities": [
+          "Breakfast",
+          "Balcony",
+          "Hot shower"
+        ],
+        "available": true,
+        "images": [
+          "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=70",
+          "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=70"
+        ]
+      },
+      {
+        "id": "andoung-kraloeng-3",
+        "name": "Family lodge",
+        "image": "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=70",
+        "pricePerNight": 142.5,
+        "currency": "USD",
+        "guests": 4,
+        "beds": "2 queen beds",
+        "sizeSqm": 38,
+        "amenities": [
+          "Breakfast",
+          "Terrace",
+          "Hot shower"
+        ],
+        "available": true,
+        "images": [
+          "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=70",
+          "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=70"
+        ]
+      }
+    ]
+  },
+  {
+    "destination": "luxury/siem-reap-boutique",
+    "rooms": [
+      {
+        "id": "siem-reap-boutique-1",
+        "name": "Deluxe double",
+        "image": "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=70",
+        "pricePerNight": 165.0,
+        "currency": "USD",
+        "guests": 2,
+        "beds": "1 king bed",
+        "sizeSqm": 34,
+        "amenities": [
+          "Breakfast",
+          "Air conditioning",
+          "Free Wi-Fi"
+        ],
+        "available": true,
+        "images": [
+          "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=70",
+          "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=70"
+        ]
+      },
+      {
+        "id": "siem-reap-boutique-2",
+        "name": "Pool suite",
+        "image": "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=70",
+        "pricePerNight": 280.5,
+        "currency": "USD",
+        "guests": 2,
+        "beds": "1 king bed",
+        "sizeSqm": 40,
+        "amenities": [
+          "Breakfast",
+          "Pool access",
+          "Air conditioning",
+          "Free Wi-Fi"
+        ],
+        "available": true,
+        "images": [
+          "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=70",
+          "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=70"
+        ]
+      },
+      {
+        "id": "siem-reap-boutique-3",
+        "name": "Family suite",
+        "image": "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=70",
+        "pricePerNight": 363.0,
+        "currency": "USD",
+        "guests": 4,
+        "beds": "2 queen beds",
+        "sizeSqm": 46,
+        "amenities": [
+          "Breakfast",
+          "Air conditioning",
+          "Free Wi-Fi"
+        ],
+        "available": true,
+        "images": [
+          "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=70",
+          "https://images.unsplash.com/photo-1602002418082-a4443e081dd1?auto=format&fit=crop&w=800&q=70"
+        ]
+      }
+    ]
+  },
+  {
+    "destination": "luxury/pp-riverside-hotels",
+    "rooms": [
+      {
+        "id": "pp-riverside-hotels-1",
+        "name": "Deluxe double",
+        "image": "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=70",
+        "pricePerNight": 120.0,
+        "currency": "USD",
+        "guests": 2,
+        "beds": "1 king bed",
+        "sizeSqm": 34,
+        "amenities": [
+          "Breakfast",
+          "Air conditioning",
+          "Free Wi-Fi"
+        ],
+        "available": true,
+        "images": [
+          "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=70",
+          "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=70"
+        ]
+      },
+      {
+        "id": "pp-riverside-hotels-2",
+        "name": "Pool suite",
+        "image": "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=70",
+        "pricePerNight": 204.0,
+        "currency": "USD",
+        "guests": 2,
+        "beds": "1 king bed",
+        "sizeSqm": 40,
+        "amenities": [
+          "Breakfast",
+          "Pool access",
+          "Air conditioning",
+          "Free Wi-Fi"
+        ],
+        "available": true,
+        "images": [
+          "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=70",
+          "https://images.unsplash.com/photo-1602002418082-a4443e081dd1?auto=format&fit=crop&w=800&q=70"
+        ]
+      },
+      {
+        "id": "pp-riverside-hotels-3",
+        "name": "Family suite",
+        "image": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=70",
+        "pricePerNight": 264.0,
+        "currency": "USD",
+        "guests": 4,
+        "beds": "2 queen beds",
+        "sizeSqm": 46,
+        "amenities": [
+          "Breakfast",
+          "Air conditioning",
+          "Free Wi-Fi"
+        ],
+        "available": true,
+        "images": [
+          "https://images.unsplash.com/photo-1602002418082-a4443e081dd1?auto=format&fit=crop&w=800&q=70",
+          "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=70"
+        ]
+      }
+    ]
+  },
+  {
+    "destination": "luxury/kep-villas",
+    "rooms": [
+      {
+        "id": "kep-villas-1",
+        "name": "Deluxe double",
+        "image": "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=70",
+        "pricePerNight": 135.0,
+        "currency": "USD",
+        "guests": 2,
+        "beds": "1 king bed",
+        "sizeSqm": 34,
+        "amenities": [
+          "Breakfast",
+          "Air conditioning",
+          "Free Wi-Fi"
+        ],
+        "available": true,
+        "images": [
+          "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=70",
+          "https://images.unsplash.com/photo-1602002418082-a4443e081dd1?auto=format&fit=crop&w=800&q=70"
+        ]
+      },
+      {
+        "id": "kep-villas-2",
+        "name": "Pool suite",
+        "image": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=70",
+        "pricePerNight": 229.5,
+        "currency": "USD",
+        "guests": 2,
+        "beds": "1 king bed",
+        "sizeSqm": 40,
+        "amenities": [
+          "Breakfast",
+          "Pool access",
+          "Air conditioning",
+          "Free Wi-Fi"
+        ],
+        "available": true,
+        "images": [
+          "https://images.unsplash.com/photo-1602002418082-a4443e081dd1?auto=format&fit=crop&w=800&q=70",
+          "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=70"
+        ]
+      },
+      {
+        "id": "kep-villas-3",
+        "name": "Family suite",
+        "image": "https://images.unsplash.com/photo-1602002418082-a4443e081dd1?auto=format&fit=crop&w=800&q=70",
+        "pricePerNight": 297.0,
+        "currency": "USD",
+        "guests": 4,
+        "beds": "2 queen beds",
+        "sizeSqm": 46,
+        "amenities": [
+          "Breakfast",
+          "Air conditioning",
+          "Free Wi-Fi"
+        ],
+        "available": true,
+        "images": [
+          "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=70",
+          "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=70"
+        ]
+      }
+    ]
+  },
+  {
+    "destination": "luxury/kampot-retreats",
+    "rooms": [
+      {
+        "id": "kampot-retreats-1",
+        "name": "Deluxe double",
+        "image": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=70",
+        "pricePerNight": 150.0,
+        "currency": "USD",
+        "guests": 2,
+        "beds": "1 king bed",
+        "sizeSqm": 34,
+        "amenities": [
+          "Breakfast",
+          "Air conditioning",
+          "Free Wi-Fi"
+        ],
+        "available": true,
+        "images": [
+          "https://images.unsplash.com/photo-1602002418082-a4443e081dd1?auto=format&fit=crop&w=800&q=70",
+          "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=70"
+        ]
+      },
+      {
+        "id": "kampot-retreats-2",
+        "name": "Pool suite",
+        "image": "https://images.unsplash.com/photo-1602002418082-a4443e081dd1?auto=format&fit=crop&w=800&q=70",
+        "pricePerNight": 255.0,
+        "currency": "USD",
+        "guests": 2,
+        "beds": "1 king bed",
+        "sizeSqm": 40,
+        "amenities": [
+          "Breakfast",
+          "Pool access",
+          "Air conditioning",
+          "Free Wi-Fi"
+        ],
+        "available": true,
+        "images": [
+          "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=70",
+          "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=70"
+        ]
+      },
+      {
+        "id": "kampot-retreats-3",
+        "name": "Family suite",
+        "image": "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=70",
+        "pricePerNight": 330.0,
+        "currency": "USD",
+        "guests": 4,
+        "beds": "2 queen beds",
+        "sizeSqm": 46,
+        "amenities": [
+          "Breakfast",
+          "Air conditioning",
+          "Free Wi-Fi"
+        ],
+        "available": true,
+        "images": [
+          "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=70",
+          "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=70"
+        ]
+      }
+    ]
+  },
+  {
+    "destination": "luxury/private-islands",
+    "rooms": [
+      {
+        "id": "private-islands-1",
+        "name": "Beach villa",
+        "image": "https://images.unsplash.com/photo-1602002418082-a4443e081dd1?auto=format&fit=crop&w=800&q=70",
+        "pricePerNight": 305.0,
+        "currency": "USD",
+        "guests": 2,
+        "beds": "1 king bed",
+        "sizeSqm": 60,
+        "amenities": [
+          "Breakfast",
+          "Private terrace",
+          "Boat transfer"
+        ],
+        "available": true,
+        "images": [
+          "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=70",
+          "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=70"
+        ]
+      },
+      {
+        "id": "private-islands-2",
+        "name": "Overwater villa",
+        "image": "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=70",
+        "pricePerNight": 549.0,
+        "currency": "USD",
+        "guests": 2,
+        "beds": "1 king bed",
+        "sizeSqm": 66,
+        "amenities": [
+          "Breakfast",
+          "Sea deck",
+          "Boat transfer"
+        ],
+        "available": true,
+        "images": [
+          "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=70",
+          "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=70"
+        ]
+      }
+    ]
+  },
+  {
+    "destination": "luxury/inner-island-villas",
+    "rooms": [
+      {
+        "id": "inner-island-villas-1",
+        "name": "Beach villa",
+        "image": "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=70",
+        "pricePerNight": 260.0,
+        "currency": "USD",
+        "guests": 2,
+        "beds": "1 king bed",
+        "sizeSqm": 60,
+        "amenities": [
+          "Breakfast",
+          "Private terrace",
+          "Boat transfer"
+        ],
+        "available": true,
+        "images": [
+          "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=70",
+          "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=70"
+        ]
+      },
+      {
+        "id": "inner-island-villas-2",
+        "name": "Overwater villa",
+        "image": "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=70",
+        "pricePerNight": 468.0,
+        "currency": "USD",
+        "guests": 2,
+        "beds": "1 king bed",
+        "sizeSqm": 66,
+        "amenities": [
+          "Breakfast",
+          "Sea deck",
+          "Boat transfer"
+        ],
+        "available": true,
+        "images": [
+          "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=70",
+          "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=70"
+        ]
+      }
+    ]
+  }
+]

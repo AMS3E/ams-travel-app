@@ -1,0 +1,227 @@
+[
+ {
+  "slug": "banteay-meanchey",
+  "name": "Banteay Meanchey",
+  "nameKh": "បន្ទាយមានជ័យ",
+  "tagline": "Banteay Chhmar temple and the Thai border crossing",
+  "image": "https://images.unsplash.com/photo-1540525080980-b97c4be3c779?auto=format&fit=crop&w=800&q=70",
+  "lat": 13.585,
+  "lng": 102.97
+ },
+ {
+  "slug": "battambang",
+  "name": "Battambang",
+  "nameKh": "បាត់ដំបង",
+  "tagline": "Bamboo train, bat caves and colonial shophouses",
+  "image": "https://images.unsplash.com/photo-1654524786721-9990d1d64cf1?auto=format&fit=crop&w=800&q=70",
+  "lat": 13.095,
+  "lng": 103.202
+ },
+ {
+  "slug": "kampong-cham",
+  "name": "Kampong Cham",
+  "nameKh": "កំពង់ចាម",
+  "tagline": "The bamboo bridge and Wat Nokor",
+  "image": "https://images.unsplash.com/photo-1700155024603-771638efc72f?auto=format&fit=crop&w=800&q=70",
+  "lat": 11.993,
+  "lng": 105.46
+ },
+ {
+  "slug": "kampong-chhnang",
+  "name": "Kampong Chhnang",
+  "nameKh": "កំពង់ឆ្នាំង",
+  "tagline": "Pottery villages and floating homes",
+  "image": "https://images.unsplash.com/photo-1632496515914-da284239a1fd?auto=format&fit=crop&w=800&q=70",
+  "lat": 12.25,
+  "lng": 104.667
+ },
+ {
+  "slug": "kampong-speu",
+  "name": "Kampong Speu",
+  "nameKh": "កំពង់ស្ពឺ",
+  "tagline": "Kirirom pine forest and palm sugar",
+  "image": "https://images.unsplash.com/photo-1653714802676-6a50c7ead70e?auto=format&fit=crop&w=800&q=70",
+  "lat": 11.453,
+  "lng": 104.52
+ },
+ {
+  "slug": "kampong-thom",
+  "name": "Kampong Thom",
+  "nameKh": "កំពង់ធំ",
+  "tagline": "Sambor Prei Kuk, older than Angkor",
+  "image": "https://images.unsplash.com/photo-1651650191726-d81c3a84bb25?auto=format&fit=crop&w=800&q=70",
+  "lat": 12.711,
+  "lng": 104.889
+ },
+ {
+  "slug": "kampot",
+  "name": "Kampot",
+  "nameKh": "កំពត",
+  "tagline": "Pepper farms, river sunsets and Bokor hill",
+  "image": "https://images.unsplash.com/photo-1661487906939-aea1f059b84f?auto=format&fit=crop&w=800&q=70",
+  "lat": 10.61,
+  "lng": 104.18
+ },
+ {
+  "slug": "kandal",
+  "name": "Kandal",
+  "nameKh": "កណ្ដាល",
+  "tagline": "Silk Island and the Mekong ferries",
+  "image": "https://images.unsplash.com/photo-1720720580439-88d83c710415?auto=format&fit=crop&w=800&q=70",
+  "lat": 11.48,
+  "lng": 104.95
+ },
+ {
+  "slug": "kep",
+  "name": "Kep",
+  "nameKh": "កែប",
+  "tagline": "The crab market and seaside villa ruins",
+  "image": "https://images.unsplash.com/photo-1595781723824-9213a40e3257?auto=format&fit=crop&w=800&q=70",
+  "lat": 10.483,
+  "lng": 104.317
+ },
+ {
+  "slug": "koh-kong",
+  "name": "Koh Kong",
+  "nameKh": "កោះកុង",
+  "tagline": "Cardamom rainforest and mangrove estuaries",
+  "image": "https://images.unsplash.com/photo-1740724873371-0c05a17fa819?auto=format&fit=crop&w=800&q=70",
+  "lat": 11.615,
+  "lng": 102.984
+ },
+ {
+  "slug": "kratie",
+  "name": "Kratié",
+  "nameKh": "ក្រចេះ",
+  "tagline": "Irrawaddy dolphins on the Mekong",
+  "image": "https://images.unsplash.com/photo-1715520019930-b677fdca474d?auto=format&fit=crop&w=800&q=70",
+  "lat": 12.488,
+  "lng": 106.019
+ },
+ {
+  "slug": "mondulkiri",
+  "name": "Mondulkiri",
+  "nameKh": "មណ្ឌលគិរី",
+  "tagline": "Bou Sra falls and elephant sanctuaries",
+  "image": "https://images.unsplash.com/photo-1667371026139-57d7d81918de?auto=format&fit=crop&w=800&q=70",
+  "lat": 12.455,
+  "lng": 107.188
+ },
+ {
+  "slug": "oddar-meanchey",
+  "name": "Oddar Meanchey",
+  "nameKh": "ឧត្ដរមានជ័យ",
+  "tagline": "Remote border temples and forest tracks",
+  "image": "https://images.unsplash.com/photo-1667118891614-b0820e960b7b?auto=format&fit=crop&w=800&q=70",
+  "lat": 14.18,
+  "lng": 103.52
+ },
+ {
+  "slug": "pailin",
+  "name": "Pailin",
+  "nameKh": "ប៉ៃលិន",
+  "tagline": "Gem-mining hills below Wat Phnom Yat",
+  "image": "https://images.unsplash.com/photo-1575735003097-b786f5b0463b?auto=format&fit=crop&w=800&q=70",
+  "lat": 12.849,
+  "lng": 102.609
+ },
+ {
+  "slug": "phnom-penh",
+  "name": "Phnom Penh",
+  "nameKh": "ភ្នំពេញ",
+  "tagline": "Royal Palace, museums and the riverside",
+  "image": "https://images.unsplash.com/photo-1652802725832-67d5be09e5e3?auto=format&fit=crop&w=800&q=70",
+  "lat": 11.5564,
+  "lng": 104.9282
+ },
+ {
+  "slug": "preah-sihanouk",
+  "name": "Preah Sihanouk",
+  "nameKh": "ព្រះសីហនុ",
+  "tagline": "Gateway to Koh Rong and the islands",
+  "image": "https://images.unsplash.com/photo-1657027538728-0d4db32d87da?auto=format&fit=crop&w=800&q=70",
+  "lat": 10.627,
+  "lng": 103.522
+ },
+ {
+  "slug": "preah-vihear",
+  "name": "Preah Vihear",
+  "nameKh": "ព្រះវិហារ",
+  "tagline": "The clifftop temple and Koh Ker",
+  "image": "https://images.unsplash.com/photo-1541429464955-87bd98d6d8f8?auto=format&fit=crop&w=800&q=70",
+  "lat": 13.807,
+  "lng": 104.98
+ },
+ {
+  "slug": "prey-veng",
+  "name": "Prey Veng",
+  "nameKh": "ព្រៃវែង",
+  "tagline": "Ba Phnom and wide rice plains",
+  "image": "https://images.unsplash.com/photo-1571579544731-ed0957f498da?auto=format&fit=crop&w=800&q=70",
+  "lat": 11.486,
+  "lng": 105.325
+ },
+ {
+  "slug": "pursat",
+  "name": "Pursat",
+  "nameKh": "ពោធិ៍សាត់",
+  "tagline": "Marble carving and the lake's western shore",
+  "image": "https://images.unsplash.com/photo-1623942201715-d89baec448cc?auto=format&fit=crop&w=800&q=70",
+  "lat": 12.538,
+  "lng": 103.919
+ },
+ {
+  "slug": "ratanakiri",
+  "name": "Ratanakiri",
+  "nameKh": "រតនគិរី",
+  "tagline": "Yeak Laom crater lake and waterfalls",
+  "image": "https://images.unsplash.com/photo-1787764082464-f5ee394cc907?auto=format&fit=crop&w=800&q=70",
+  "lat": 13.738,
+  "lng": 106.987
+ },
+ {
+  "slug": "siem-reap",
+  "name": "Siem Reap",
+  "nameKh": "សៀមរាប",
+  "tagline": "Angkor Archaeological Park and Tonle Sap",
+  "image": "https://images.unsplash.com/photo-1522582451902-3545817f6046?auto=format&fit=crop&w=800&q=70",
+  "lat": 13.3633,
+  "lng": 103.8564
+ },
+ {
+  "slug": "stung-treng",
+  "name": "Stung Treng",
+  "nameKh": "ស្ទឹងត្រែង",
+  "tagline": "Mekong rapids and northern waterfalls",
+  "image": "https://images.unsplash.com/photo-1621502134035-2316a3e14904?auto=format&fit=crop&w=800&q=70",
+  "lat": 13.525,
+  "lng": 105.968
+ },
+ {
+  "slug": "svay-rieng",
+  "name": "Svay Rieng",
+  "nameKh": "ស្វាយរៀង",
+  "tagline": "Rice country on the Vietnamese border",
+  "image": "https://images.unsplash.com/photo-1729963639012-5a6a48690ed4?auto=format&fit=crop&w=800&q=70",
+  "lat": 11.087,
+  "lng": 105.799
+ },
+ {
+  "slug": "takeo",
+  "name": "Takéo",
+  "nameKh": "តាកែវ",
+  "tagline": "Angkor Borei and the Phnom Da temples",
+  "image": "https://images.unsplash.com/photo-1608137567874-5fef0c5e6741?auto=format&fit=crop&w=800&q=70",
+  "lat": 10.99,
+  "lng": 104.785
+ },
+ {
+  "slug": "tbong-khmum",
+  "name": "Tbong Khmum",
+  "nameKh": "ត្បូងឃ្មុំ",
+  "tagline": "Rubber plantations along the Mekong",
+  "image": "https://images.unsplash.com/photo-1654607309308-6037eaac4c17?auto=format&fit=crop&w=800&q=70",
+  "lat": 11.94,
+  "lng": 105.65
+ }
+]

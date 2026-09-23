@@ -1,0 +1,673 @@
+[
+ {
+  "slug": "ancient-capitals",
+  "order": 1,
+  "name": "Ancient Capitals & Khmer Civilization",
+  "nameKh": "តំបន់អតីតរាជធានី និងអរិយធម៌ខ្មែរ",
+  "tagline": "The center of Khmer civilization — from Mahendraparvata to Chaktomuk.",
+  "summary": "Angkor, Sambor Prei Kuk and the royal capitals that came before them — temple complexes, inscriptions and the long arc of Khmer statecraft.",
+  "image": "https://images.unsplash.com/photo-1599283787923-51b965a58b05?auto=format&fit=crop&w=1200&q=70",
+  "aboutTitle": "Discover the Rise of Khmer Civilization",
+  "aboutTitleKh": "ស្វែងយល់ពីការរុងរឿងនៃអរិយធម៌ខ្មែរ",
+  "coreIdentity": "The historical heart of Khmer civilization — the line you can walk from one royal capital to the next, and with it the evolution of religion, architecture, public infrastructure, and cultural heritage from Chenla to the modern kingdom.",
+  "coreIdentityKh": "ជាបេះដូងប្រវត្តិសាស្ត្រនៃអរិយធម៌ខ្មែរ — ជាខ្សែដែលអ្នកអាចដើរតាមពីរាជធានីមួយទៅរាជធានីមួយទៀត និងតាមនោះឃើញការវិវឌ្ឍនៃសាសនា ស្ថាបត្យកម្ម ហេដ្ឋារចនាសម្ព័ន្ធសាធារណៈ និងបេតិកភណ្ឌវប្បធម៌ ចាប់ពីសម័យចេនឡារហូតដល់រាជាណាចក្របច្ចុប្បន្ន។",
+  "highlightTitle": "Historical Coverage",
+  "highlightIntro": "The succession of royal capitals this region is built around — read it top to bottom.",
+  "highlights": [
+   {
+    "index": 1,
+    "label": "c. 600 – 700 CE",
+    "meta": "Pre-Angkor Period",
+    "title": "Ishanapura",
+    "subtitle": "Sambor Prei Kuk",
+    "titleKh": "ឦសានបុរី",
+    "description": "Capital of Chenla under Isanavarman I, and the first place Khmer temple architecture settled into a form of its own.",
+    "storySlug": "ishanapura"
+   },
+   {
+    "index": 2,
+    "label": "802 – c. 835 CE",
+    "meta": "Angkor Period",
+    "title": "Mahendraparvata",
+    "subtitle": "Phnom Kulen",
+    "titleKh": "មហេន្ទ្របវ៌ត",
+    "description": "The mountain city where Jayavarman II declared himself universal monarch in 802, the act that begins the Angkorian era.",
+    "storySlug": "mahendraparvata"
+   },
+   {
+    "index": 3,
+    "label": "c. 835 – 889 CE",
+    "meta": "Angkor Period",
+    "title": "Hariharalaya",
+    "subtitle": "Roluos",
+    "titleKh": "ហរិហរាល័យ",
+    "description": "The plain below the mountain, where Indravarman I built the first state temple and the first great reservoir.",
+    "storySlug": "hariharalaya"
+   },
+   {
+    "index": 4,
+    "label": "889 – c. 1431 CE",
+    "meta": "Angkor Period",
+    "title": "Yasodharapura",
+    "subtitle": "Angkor",
+    "titleKh": "យសោធរបុរី",
+    "description": "Five centuries of capital on one site — Angkor Wat, Angkor Thom, and the largest pre-industrial city in the world.",
+    "storySlug": "yasodharapura"
+   },
+   {
+    "index": 5,
+    "label": "928 – 944 CE",
+    "meta": "Angkor Period",
+    "title": "Lingapura",
+    "subtitle": "Koh Ker",
+    "titleKh": "លិង្គបុរី",
+    "description": "Jayavarman IV moved the court a hundred kilometres north-east and raised a seven-tier pyramid. It lasted sixteen years.",
+    "storySlug": "lingapura"
+   },
+   {
+    "index": 6,
+    "label": "1528 – 1594 CE",
+    "meta": "Post-Angkor Period",
+    "title": "Longvek",
+    "titleKh": "លង្វែក",
+    "description": "The walled river capital of Ang Chan I, at the centre of Cambodia's maritime trade with China and the Malay world.",
+    "storySlug": "longvek"
+   },
+   {
+    "index": 7,
+    "label": "1618 – 1866 CE",
+    "meta": "Post-Angkor Period",
+    "title": "Oudong",
+    "titleKh": "ឧដុង្គ",
+    "description": "Two and a half centuries of capital on a low ridge, crowned by the stupas of the kings buried there.",
+    "storySlug": "oudong"
+   },
+   {
+    "index": 8,
+    "label": "1866 CE – present",
+    "meta": "Post-Angkor Period",
+    "title": "Chaktomuk",
+    "subtitle": "Phnom Penh",
+    "titleKh": "ចតុមុខ",
+    "description": "The capital returns to the four-rivers junction it first held in 1434. Norodom I builds the Royal Palace here in 1866.",
+    "storySlug": "chaktomuk"
+   }
+  ]
+ },
+ {
+  "slug": "northeastern-civilization",
+  "order": 2,
+  "name": "Northeastern Civilization",
+  "nameKh": "តំបន់អរិយធម៌ឦសាន",
+  "tagline": "Crater lakes, forest and indigenous country east of the Mekong.",
+  "summary": "Highland provinces where indigenous communities, crater lakes and forest trails sit well off the temple trail.",
+  "image": "https://images.unsplash.com/photo-1667371026114-f4ea09440d40?auto=format&fit=crop&w=1200&q=70",
+  "aboutTitle": "Meet the Highlands on Their Own Terms",
+  "aboutTitleKh": null,
+  "coreIdentity": "The upland provinces where Bunong, Tampuan, Jarai, Kreung and Brao communities keep their own languages, calendars and forests — the part of Cambodia the temple trail never reaches, reached instead by red roads, longtail boats and the two rivers that drain it.",
+  "coreIdentityKh": null,
+  "highlightTitle": "Peoples of the Northeast",
+  "highlightIntro": "The highlands are not one culture but several. These are the communities whose land, language and forest this region is built around.",
+  "highlights": [
+   {
+    "index": 1,
+    "label": "Mondulkiri",
+    "meta": "Bahnaric · Austroasiatic",
+    "title": "Bunong",
+    "titleKh": "ព្នង",
+    "description": "The largest highland community in the country, and the reason Mondulkiri's forest, elephants and rotational farmland are still held collectively."
+   },
+   {
+    "index": 2,
+    "label": "Ratanakiri",
+    "meta": "Bahnaric · Austroasiatic",
+    "title": "Tampuan",
+    "titleKh": "ទំពួន",
+    "description": "The villages around Banlung, and the community that owns and protects the Yeak Laom crater lake."
+   },
+   {
+    "index": 3,
+    "label": "Ratanakiri",
+    "meta": "Chamic · Austronesian",
+    "title": "Jarai",
+    "titleKh": "ចារាយ",
+    "description": "Austronesian speakers along the Sesan and the Vietnamese border, related in language to the Cham of the lowlands."
+   },
+   {
+    "index": 4,
+    "label": "Ratanakiri",
+    "meta": "Bahnaric · Austroasiatic",
+    "title": "Kreung",
+    "titleKh": "គ្រឹង",
+    "description": "Known for the layout of their villages around a communal house, and for burial grounds carved with figures of the dead."
+   },
+   {
+    "index": 5,
+    "label": "Ratanakiri",
+    "meta": "Bahnaric · Austroasiatic",
+    "title": "Brao",
+    "titleKh": "ព្រៅ",
+    "description": "River people of the upper Sesan around Ta Veng, whose territory runs across into southern Laos."
+   },
+   {
+    "index": 6,
+    "label": "Ratanakiri",
+    "meta": "Bahnaric · Austroasiatic",
+    "title": "Kavet",
+    "titleKh": "កាវែត",
+    "description": "The far north-east, in and around what is now Virachey National Park — among the most remote settlements in Cambodia."
+   },
+   {
+    "index": 7,
+    "label": "Ratanakiri",
+    "meta": "Bahnaric · Austroasiatic",
+    "title": "Kachok",
+    "titleKh": "កាចក់",
+    "description": "A small community east of Banlung, farming the basalt uplands between the Sesan and the Srepok."
+   },
+   {
+    "index": 8,
+    "label": "Mondulkiri · Kratié",
+    "meta": "Bahnaric · Austroasiatic",
+    "title": "Stieng",
+    "titleKh": "ស្ទៀង",
+    "description": "The south-western edge of the highlands, where the plateau drops towards the Mekong plain."
+   }
+  ]
+ },
+ {
+  "slug": "mekong-tonle-sap",
+  "order": 3,
+  "name": "Mekong & Tonle Sap Civilization",
+  "nameKh": "តំបន់អរិយធម៌មេគង្គ និងទន្លេសាប",
+  "tagline": "The lake that reverses, and the river that feeds it.",
+  "summary": "Life shaped by water — floating villages, flooded forest, river dolphins and the lake that reverses its flow each year.",
+  "image": "https://images.unsplash.com/photo-1704103259506-6c0ca4d6dca4?auto=format&fit=crop&w=1200&q=70",
+  "aboutTitle": "Life Written by the Water",
+  "aboutTitleKh": null,
+  "coreIdentity": "A whole culture built on a flood pulse. Once a year the Tonle Sap river turns and runs backwards, the lake swells to five times its size, and everything that lives on it — villages, forests, fishing grounds, the calendar itself — moves with the water and then moves back.",
+  "coreIdentityKh": null,
+  "highlightTitle": "The Water Year",
+  "highlightIntro": "This region is organised by a single annual cycle rather than by history. Read it top to bottom and you have the year.",
+  "highlights": [
+   {
+    "index": 1,
+    "label": "December – April",
+    "meta": "Low Water",
+    "title": "The lake at its smallest",
+    "titleKh": "រដូវប្រាំង",
+    "description": "Around 2,500 km² and barely a metre deep. Boats need channels dug for them, and the villages follow the shoreline out across the mud."
+   },
+   {
+    "index": 2,
+    "label": "May – June",
+    "meta": "First Rains",
+    "title": "The monsoon arrives",
+    "description": "The upstream Mekong begins to rise, fed by snowmelt off the Tibetan plateau and the first of the south-west monsoon."
+   },
+   {
+    "index": 3,
+    "label": "Late May – June",
+    "meta": "The Reversal",
+    "title": "The river turns back",
+    "titleKh": "ទន្លេសាបបញ្ច្រាស",
+    "description": "The Mekong pushes harder than the lake can drain, and the Tonle Sap river reverses to run north — one of the few rivers on earth that changes direction each year."
+   },
+   {
+    "index": 4,
+    "label": "July – September",
+    "meta": "Rising",
+    "title": "The flooded forest goes under",
+    "description": "Water spreads into the ring of freshwater swamp forest around the lake, which becomes the nursery for most of the fish in the system."
+   },
+   {
+    "index": 5,
+    "label": "September – October",
+    "meta": "Peak Flood",
+    "title": "The lake at its largest",
+    "description": "Up to five times its dry-season area and as much as nine metres deep, spilling across five provinces."
+   },
+   {
+    "index": 6,
+    "label": "October – November",
+    "meta": "The Return",
+    "title": "The river turns south again",
+    "titleKh": "បុណ្យអុំទូក",
+    "description": "The flow reverses back towards the Mekong, and the country marks it with Bon Om Touk — three days of longboat racing on the full moon."
+   },
+   {
+    "index": 7,
+    "label": "October – March",
+    "meta": "Fishing Season",
+    "title": "The fish come out with the water",
+    "description": "The dai fishery strings stationary nets across the Tonle Sap river to meet the migration draining out of the lake."
+   },
+   {
+    "index": 8,
+    "label": "Since 1997",
+    "meta": "Biosphere Reserve",
+    "title": "Protected, on paper",
+    "description": "UNESCO listed the lake as a Biosphere Reserve with three core areas — Prek Toal, Boeung Tonle Chhmar and Stung Sen."
+   }
+  ]
+ },
+ {
+  "slug": "mountain-waterfall",
+  "order": 4,
+  "name": "Mountain & Waterfall Region",
+  "nameKh": "តំបន់ភ្នំ និងទឹកធ្លាក់",
+  "tagline": "Cardamom ridgelines, plateau pine and the falls after the rains.",
+  "summary": "Cardamom ridgelines, cool plateau air and the cascades that run hardest at the tail end of the rains.",
+  "image": "https://images.unsplash.com/photo-1656554848715-dc195c7484bb?auto=format&fit=crop&w=1200&q=70",
+  "aboutTitle": "Cool Air and Falling Water",
+  "aboutTitleKh": null,
+  "coreIdentity": "The high ground of the south-west and the water that comes off it — rainforest massifs holding the largest intact forest in mainland South-East Asia, a French hill station in the cloud, limestone caves with shrines inside them, and cascades that only truly run for half the year.",
+  "coreIdentityKh": null,
+  "highlightTitle": "The Ranges",
+  "highlightIntro": "Cambodia is mostly floodplain. This region is the exception — the uplands that ring it, and the water that comes off them.",
+  "highlights": [
+   {
+    "index": 1,
+    "label": "Koh Kong · Pursat",
+    "meta": "1,717 m · Phnom Samkos",
+    "title": "Cardamom Mountains",
+    "titleKh": "ជួរភ្នំក្រវាញ",
+    "description": "The largest intact rainforest in mainland South-East Asia, still holding elephant, gaur and clouded leopard, and still being surveyed."
+   },
+   {
+    "index": 2,
+    "label": "Kampong Speu",
+    "meta": "1,813 m · Highest point",
+    "title": "Phnom Aural",
+    "titleKh": "ភ្នំឧរ៉ាល់",
+    "description": "The summit of the country, on the eastern edge of the Cardamom massif — a hard two-day climb through leech forest."
+   },
+   {
+    "index": 3,
+    "label": "Kampot · Koh Kong",
+    "meta": "1,080 m · Plateau",
+    "title": "Elephant Mountains",
+    "titleKh": "ជួរភ្នំដំរី",
+    "description": "The Damrei range running down to the Gulf, topped by the Bokor plateau and the hill station the French abandoned twice."
+   },
+   {
+    "index": 4,
+    "label": "Kampong Speu",
+    "meta": "~700 m · Pine plateau",
+    "title": "Kirirom",
+    "titleKh": "គិរីរម្យ",
+    "description": "A pine-covered shelf high enough to be cold at night, and the closest highland to Phnom Penh."
+   },
+   {
+    "index": 5,
+    "label": "Preah Vihear · Oddar Meanchey",
+    "meta": "Escarpment",
+    "title": "Dangrek Mountains",
+    "titleKh": "ជួរភ្នំដងរែក",
+    "description": "The cliff line marking the Thai border, with Preah Vihear temple laid along the top of it at 525 m."
+   },
+   {
+    "index": 6,
+    "label": "Siem Reap",
+    "meta": "487 m · Sandstone plateau",
+    "title": "Phnom Kulen",
+    "titleKh": "ភ្នំគូលែន",
+    "description": "The quarry that built Angkor and the mountain where the empire was declared, with the falls and riverbed carvings on top."
+   },
+   {
+    "index": 7,
+    "label": "Battambang · Kampot",
+    "meta": "Karst",
+    "title": "The Limestone Outcrops",
+    "description": "Isolated karst hills standing out of the paddy, hollow with caves that have held shrines for more than a thousand years."
+   }
+  ]
+ },
+ {
+  "slug": "coastal-island",
+  "order": 5,
+  "name": "Coastal & Island Region",
+  "nameKh": "តំបន់ឆ្នេរ និងកោះ",
+  "tagline": "Fishing ports, mangrove estuaries and a boat ride offshore.",
+  "summary": "The Gulf of Thailand coastline: fishing ports, mangrove estuaries and islands a short boat ride offshore.",
+  "image": "https://images.unsplash.com/photo-1616421310226-7453165b353e?auto=format&fit=crop&w=1200&q=70",
+  "aboutTitle": "The Gulf, Island by Island",
+  "aboutTitleKh": null,
+  "coreIdentity": "Around 443 km of Gulf coastline and some sixty islands off it — from resort bays with a ferry every hour to islands running on one generator, held together by the mangrove systems that feed the whole fishery.",
+  "coreIdentityKh": null,
+  "highlightTitle": "The Coast, West to East",
+  "highlightIntro": "Four provinces and four island groups, in the order you would travel them from the Thai border down to the Vietnamese one.",
+  "highlights": [
+   {
+    "index": 1,
+    "label": "Koh Kong",
+    "meta": "Mangrove coast",
+    "title": "The Border Corner",
+    "titleKh": "កោះកុង",
+    "description": "Estuaries and standing mangrove where the Cardamoms come down to the sea, plus the country's largest island offshore."
+   },
+   {
+    "index": 2,
+    "label": "Koh Kong",
+    "meta": "Fishing islands",
+    "title": "Koh Sdach Archipelago",
+    "titleKh": "កោះស្តេច",
+    "description": "A working cluster of small islands off Botum Sakor, still more fishing village than resort."
+   },
+   {
+    "index": 3,
+    "label": "Preah Sihanouk",
+    "meta": "Port & beaches",
+    "title": "Sihanoukville",
+    "description": "The deep-water port, the mainland beaches either side of it, and every ferry to the islands."
+   },
+   {
+    "index": 4,
+    "label": "Preah Sihanouk",
+    "meta": "Koh Rong · 78 km²",
+    "title": "Koh Rong Archipelago",
+    "titleKh": "កោះរុង",
+    "description": "The main island group — Koh Rong, Koh Rong Sanloem, Koh Ta Kiev and Koh Russei, half an hour to two hours out."
+   },
+   {
+    "index": 5,
+    "label": "Preah Sihanouk",
+    "meta": "Deep water",
+    "title": "The Outer Islands",
+    "description": "Koh Tang and Koh Prins, four hours offshore, with the clearest water and the only wreck diving in Cambodian waters."
+   },
+   {
+    "index": 6,
+    "label": "Kampot",
+    "meta": "Estuary & salt",
+    "title": "The Kampot Estuary",
+    "titleKh": "កំពត",
+    "description": "No real beach here — a river mouth, salt pans worked by hand, and the Bokor range standing behind it all."
+   },
+   {
+    "index": 7,
+    "label": "Kep",
+    "meta": "Smallest province",
+    "title": "Kep",
+    "titleKh": "កែប",
+    "description": "A single bay, a crab market on stilts, and the ruins of the villas the coast was built around in the 1960s."
+   },
+   {
+    "index": 8,
+    "label": "Kep",
+    "meta": "Seagrass & reef",
+    "title": "Kep Archipelago",
+    "titleKh": "កោះទន្សាយ",
+    "description": "Thirteen islands with the country's best surviving seagrass beds, and the marine reserve rebuilding them."
+   }
+  ]
+ },
+ {
+  "slug": "urban-nightlife",
+  "order": 6,
+  "name": "Urban Lifestyle & Nightlife",
+  "nameKh": "តំបន់រស់នៅទីក្រុង និងជីវិតរាត្រី",
+  "tagline": "Rooftops, night markets and kitchens that stay open late.",
+  "summary": "City rhythms after dark — rooftop bars, riverside markets, live music and kitchens that stay open late.",
+  "image": "https://images.unsplash.com/photo-1711271314001-9654dc5d5e0a?auto=format&fit=crop&w=1200&q=70",
+  "aboutTitle": "The Cities After Dark",
+  "aboutTitleKh": null,
+  "coreIdentity": "What the towns do once the heat drops — riverside promenades that fill at six, night markets, live music in converted shophouses, art schools founded by returning refugees, and a bar scene that runs from plastic stools on the pavement to the top of the newest tower.",
+  "coreIdentityKh": null,
+  "highlightTitle": "The Cities After Dark",
+  "highlightIntro": "Six towns, each with its own evening. What follows is what the night actually looks like in each of them.",
+  "highlights": [
+   {
+    "index": 1,
+    "label": "Phnom Penh",
+    "meta": "The capital",
+    "title": "Four rivers, all hours",
+    "titleKh": "ភ្នំពេញ",
+    "description": "The riverside fills an hour before dark, the rooftops open above it, and the food lanes off Street 308 keep going long after both."
+   },
+   {
+    "index": 2,
+    "label": "Siem Reap",
+    "meta": "Temple town",
+    "title": "Pub Street and everything behind it",
+    "titleKh": "សៀមរាប",
+    "description": "The loudest strip in the country, with the boutique lanes of Kandal Village and the circus tent a few blocks away."
+   },
+   {
+    "index": 3,
+    "label": "Battambang",
+    "meta": "Art town",
+    "title": "Circus and shophouses",
+    "titleKh": "បាត់ដំបង",
+    "description": "The best-preserved colonial streets in Cambodia, and the arts school that trained most of the country's performers."
+   },
+   {
+    "index": 4,
+    "label": "Kampot",
+    "meta": "River town",
+    "title": "Slow evenings on the water",
+    "titleKh": "កំពត",
+    "description": "Sunset boats, a music school reviving pre-war Khmer repertoire, and bars that close when the last person leaves."
+   },
+   {
+    "index": 5,
+    "label": "Preah Sihanouk",
+    "meta": "The port",
+    "title": "The coast after dark",
+    "titleKh": "ក្រុងព្រះសីហនុ",
+    "description": "A working deep-water port, a night market beside it, and the beach bars strung out along Otres."
+   },
+   {
+    "index": 6,
+    "label": "Kep",
+    "meta": "Bay town",
+    "title": "Dinner and nothing else",
+    "titleKh": "កែប",
+    "description": "The quietest of the six on purpose — the crab market at dusk is the whole evening, and that is the appeal."
+   }
+  ]
+ },
+ {
+  "slug": "khmer-culinary",
+  "order": 7,
+  "name": "Khmer Culinary Region",
+  "nameKh": "តំបន់មុខម្ហូបខ្មែរ",
+  "tagline": "Prahok and pepper, market breakfasts and producer visits.",
+  "summary": "Where the eating is the itinerary: prahok and Kampot pepper, market breakfasts, home kitchens and producer visits.",
+  "image": "https://images.unsplash.com/photo-1787736366638-82155215ab11?auto=format&fit=crop&w=1200&q=70",
+  "aboutTitle": "Eat Your Way Across the Country",
+  "aboutTitleKh": null,
+  "coreIdentity": "Cambodian food where it is actually made — the pepper terraces and palm-sugar kilns that hold the country's only protected-origin products, the fermenting jars of prahok that underpin nearly every savoury dish, and the provincial cooking that never travelled to the capital.",
+  "coreIdentityKh": null,
+  "highlightTitle": "The Khmer Table",
+  "highlightIntro": "Six ingredients and dishes explain most of what you will be served. Learn these and the rest of the menu makes sense.",
+  "highlights": [
+   {
+    "index": 1,
+    "label": "Nationwide",
+    "meta": "The base",
+    "title": "Rice",
+    "titleKh": "បាយ",
+    "description": "The word for rice and the word for a meal are the same. Deepwater varieties grow with the flood; rainfed paddy fills the rest of the country."
+   },
+   {
+    "index": 2,
+    "label": "Tonle Sap",
+    "meta": "The backbone",
+    "title": "Prahok",
+    "titleKh": "ប្រហុក",
+    "description": "Fermented fish paste, made in the open each December from the migration out of the lake. It is under almost every savoury dish here."
+   },
+   {
+    "index": 3,
+    "label": "Nationwide",
+    "meta": "Spice paste",
+    "title": "Kroeung",
+    "titleKh": "គ្រឿង",
+    "description": "Lemongrass, galangal, turmeric, kaffir lime and garlic pounded to a paste — the starting point for curries, soups and amok alike."
+   },
+   {
+    "index": 4,
+    "label": "Nationwide",
+    "meta": "The dish",
+    "title": "Fish Amok",
+    "titleKh": "អាម៉ុក",
+    "description": "Freshwater fish folded through kroeung and coconut, then steamed in banana leaf until it sets like a custard."
+   },
+   {
+    "index": 5,
+    "label": "Nationwide",
+    "meta": "Breakfast",
+    "title": "Num Banh Chok",
+    "titleKh": "នំបញ្ចុក",
+    "description": "Fermented rice noodles under a green fish gravy, sold from shoulder baskets and gone by eight in the morning."
+   },
+   {
+    "index": 6,
+    "label": "Nationwide",
+    "meta": "National dish",
+    "title": "Samlor Korko",
+    "titleKh": "សម្លរកកូរ",
+    "description": "A thick stew of whatever the garden has, bound with toasted ground rice — the dish most Cambodians name first."
+   },
+   {
+    "index": 7,
+    "label": "Kampot · Kep",
+    "meta": "Protected origin",
+    "title": "Kampot Pepper",
+    "titleKh": "ម្រេចកំពត",
+    "description": "One of the country's first two geographical indications, and the reason Kep crab tastes the way it does."
+   },
+   {
+    "index": 8,
+    "label": "Kampong Speu",
+    "meta": "Protected origin",
+    "title": "Palm Sugar",
+    "titleKh": "ស្ករត្នោត",
+    "description": "The other founding GI — sap tapped from sugar palms at dawn and boiled down by the roadside all morning."
+   }
+  ]
+ },
+ {
+  "slug": "eco-community",
+  "order": 8,
+  "name": "Eco-Community Tourism",
+  "nameKh": "ទេសចរណ៍ធម្មជាតិ និងសហគមន៍",
+  "tagline": "Homestays, community forests and locally run enterprises.",
+  "summary": "Homestays, community forests and locally run enterprises where the money from your trip stays in the village.",
+  "image": "https://images.unsplash.com/photo-1638402828376-5762cb098099?auto=format&fit=crop&w=1200&q=70",
+  "aboutTitle": "Travel That Stays in the Village",
+  "aboutTitleKh": null,
+  "coreIdentity": "Community-based ecotourism, where the enterprise is owned by the village rather than sold to it — homestays taken in rotation, guiding and ranger work replacing logging income, and a share of every booking going into a fund the community spends itself.",
+  "coreIdentityKh": null,
+  "highlightTitle": "How Community Tourism Works",
+  "highlightIntro": "Nearly every site in this region runs on the same six-part model. It is worth understanding before you book, because it is what your money is actually buying.",
+  "highlights": [
+   {
+    "index": 1,
+    "label": "Ownership",
+    "meta": "Village committee",
+    "title": "The community runs it",
+    "description": "An elected committee sets prices, handles bookings and decides how income is divided — not an operator in Phnom Penh."
+   },
+   {
+    "index": 2,
+    "label": "Rotation",
+    "meta": "Member households",
+    "title": "Guests take turns",
+    "description": "Homestays receive visitors on a roster, so the income spreads across the village instead of concentrating in three houses."
+   },
+   {
+    "index": 3,
+    "label": "Employment",
+    "meta": "Guides & rangers",
+    "title": "The people who knew the forest",
+    "description": "Guiding, boat handling and patrol work goes to the households who previously logged, snared or fished it — the ones who know it best."
+   },
+   {
+    "index": 4,
+    "label": "Revenue",
+    "meta": "Community fund",
+    "title": "A share of every booking",
+    "description": "A fixed cut of each stay goes to a village fund, typically spent on the school, the water supply or the road."
+   },
+   {
+    "index": 5,
+    "label": "Protection",
+    "meta": "CPA · Community forestry",
+    "title": "The land agreement",
+    "description": "Most sites sit on a Community Protected Area or community forest, held under agreement with the Ministry of Environment."
+   },
+   {
+    "index": 6,
+    "label": "The trade-off",
+    "meta": "What it replaces",
+    "title": "Logging, snaring, clearing",
+    "description": "The model only holds while tourism pays better than the alternatives. Visiting in the low season is worth more than visiting in the high one."
+   }
+  ]
+ },
+ {
+  "slug": "luxury",
+  "order": 9,
+  "name": "Luxury Tourism",
+  "nameKh": "ទេសចរណ៍ប្រណីត",
+  "tagline": "Boutique retreats, private guides and time to do less.",
+  "summary": "Boutique retreats, private guides and the slower, quieter version of every route above.",
+  "image": "https://images.unsplash.com/photo-1534009502677-4e5080efa8c6?auto=format&fit=crop&w=1200&q=70",
+  "aboutTitle": "The Slower, Quieter Version",
+  "aboutTitleKh": null,
+  "coreIdentity": "The same country at a different pace. What the premium actually buys here is rarely marble — it is access before the coaches arrive, a guide who reads the inscriptions rather than reciting them, and the distance between an island jetty and anyone else.",
+  "coreIdentityKh": null,
+  "highlightTitle": "The Luxury Map",
+  "highlightIntro": "High-end infrastructure is concentrated in six places. This is what the top end looks like in each of them.",
+  "highlights": [
+   {
+    "index": 1,
+    "label": "Siem Reap",
+    "meta": "Temples & boutique",
+    "title": "The temple town",
+    "titleKh": "សៀមរាប",
+    "description": "The deepest concentration of boutique and five-star properties in the country, plus the guides, courses and helicopters that come with them."
+   },
+   {
+    "index": 2,
+    "label": "Preah Sihanouk",
+    "meta": "Private islands",
+    "title": "The Koh Rong archipelago",
+    "titleKh": "កោះរុង",
+    "description": "Whole-island properties reached by private launch, where the nearest other guests are a headland away."
+   },
+   {
+    "index": 3,
+    "label": "Phnom Penh",
+    "meta": "City & river",
+    "title": "The capital",
+    "titleKh": "ភ្នំពេញ",
+    "description": "Riverside hotels, the country's most ambitious kitchens, and the departure point for every Mekong cabin cruise."
+   },
+   {
+    "index": 4,
+    "label": "Kampot · Kep",
+    "meta": "Riverside & bay",
+    "title": "The southern retreats",
+    "titleKh": "កំពត",
+    "description": "Small properties with the Bokor range behind them and the crab market down the road — quiet rather than grand."
+   },
+   {
+    "index": 5,
+    "label": "Koh Kong",
+    "meta": "Tented camps",
+    "title": "The Cardamoms",
+    "description": "Tented camps on the Tatai river whose rates fund the ranger patrols working the forest around them."
+   },
+   {
+    "index": 6,
+    "label": "Kandal · Kratié",
+    "meta": "River cruising",
+    "title": "The Mekong",
+    "description": "Cabin cruises running between the capital, the Tonle Sap and the delta below the Vietnamese border."
+   }
+  ]
+ }
+]

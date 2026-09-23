@@ -1,0 +1,38 @@
+[
+  {
+    "destination": "ancient-capitals/angkor-wat",
+    "rating": 5,
+    "title": "Sunrise worth the early start",
+    "text": "We arrived before six and had the reflecting pool almost to ourselves. Bring a torch for the walk in, and stay for the light on the towers afterwards.",
+    "tripType": "Couples",
+    "visitedOn": "2026-08-12",
+    "createdAt": "2026-08-14T09:12:00Z"
+  },
+  {
+    "destination": "coastal-island/koh-rong",
+    "rating": 5,
+    "title": "Clear water, quiet end of the beach",
+    "text": "Walked twenty minutes past the pier and found an empty stretch of sand. The boat back fills up fast, so get there early.",
+    "tripType": "Friends",
+    "visitedOn": "2026-08-03",
+    "createdAt": "2026-08-05T15:40:00Z"
+  },
+  {
+    "destination": "ancient-capitals/royal-palace",
+    "rating": 4,
+    "title": "Go early, dress covered",
+    "text": "The Silver Pagoda is the highlight. Shoulders and knees must be covered, and the middle of the day gets very hot in the courtyards.",
+    "tripType": "Family",
+    "visitedOn": "2026-07-21",
+    "createdAt": "2026-07-22T11:05:00Z"
+  },
+  {
+    "destination": "khmer-culinary/kampot-pepper",
+    "rating": 5,
+    "title": "Tasting straight off the vine",
+    "text": "The farm walk explains the difference between green, black and red pepper, and you taste each one. We came away with a bag of every kind.",
+    "tripType": "Couples",
+    "visitedOn": "2026-07-09",
+    "createdAt": "2026-07-10T08:30:00Z"
+  }
+]

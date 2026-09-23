@@ -1,0 +1,5829 @@
+[
+  {
+    "slug": "angkor-wat",
+    "region": "ancient-capitals",
+    "name": "Angkor Wat",
+    "nameKh": "អង្គរវត្ត",
+    "province": "Siem Reap",
+    "category": "Temples",
+    "blurb": "The world's largest religious monument and Cambodia's national symbol.",
+    "rating": 4.9,
+    "featured": true,
+    "verified": true,
+    "unesco": true,
+    "lat": 13.4125,
+    "lng": 103.867,
+    "image": "https://images.unsplash.com/photo-1566706546199-a93ba33ce9f7?auto=format&fit=crop&w=800&q=70",
+    "facets": {
+      "Century": "12th Century",
+      "King": "Suryavarman II",
+      "Architecture Style": "Angkor Wat",
+      "UNESCO": "World Heritage",
+      "Religion": "Hindu",
+      "Historical Period": "Angkor Period"
+    },
+    "openTime": "07:30",
+    "closeTime": "17:30",
+    "entryFee": "$5 – $10",
+    "visitDuration": "1 – 2 hours",
+    "bestTime": "Early morning",
+    "highlights": [
+      "Main sanctuary",
+      "Carved galleries",
+      "Sunrise view"
+    ],
+    "tips": [
+      "Cover shoulders and knees",
+      "Bring water"
+    ]
+  },
+  {
+    "slug": "bayon-temple",
+    "region": "ancient-capitals",
+    "name": "Bayon Temple",
+    "nameKh": "ប្រាសាទបាយ័ន",
+    "province": "Siem Reap",
+    "category": "Temples",
+    "blurb": "Two hundred serene stone faces at the exact center of Angkor Thom.",
+    "rating": 4.8,
+    "featured": true,
+    "verified": true,
+    "unesco": true,
+    "lat": 13.4413,
+    "lng": 103.859,
+    "image": "https://images.unsplash.com/photo-1541429464955-87bd98d6d8f8?auto=format&fit=crop&w=800&q=70",
+    "facets": {
+      "Century": "13th Century",
+      "King": "Jayavarman VII",
+      "Architecture Style": "Bayon",
+      "UNESCO": "World Heritage",
+      "Religion": "Buddhist",
+      "Historical Period": "Angkor Period"
+    },
+    "openTime": "07:30",
+    "closeTime": "17:30",
+    "entryFee": "$5 – $10",
+    "visitDuration": "1 – 2 hours",
+    "bestTime": "Early morning",
+    "highlights": [
+      "Main sanctuary",
+      "Carved galleries",
+      "Sunrise view"
+    ],
+    "tips": [
+      "Cover shoulders and knees",
+      "Bring water"
+    ]
+  },
+  {
+    "slug": "ta-prohm",
+    "region": "ancient-capitals",
+    "name": "Ta Prohm",
+    "nameKh": "ប្រាសាទតាព្រហ្ម",
+    "province": "Siem Reap",
+    "category": "Archaeological Sites",
+    "blurb": "A monastery left in the grip of silk-cotton roots, deliberately unrestored.",
+    "rating": 4.8,
+    "featured": true,
+    "verified": true,
+    "unesco": true,
+    "lat": 13.4348,
+    "lng": 103.889,
+    "image": "https://images.unsplash.com/photo-1526324585411-e24d5ba61edd?auto=format&fit=crop&w=800&q=70",
+    "facets": {
+      "Century": "12th Century",
+      "King": "Jayavarman VII",
+      "Architecture Style": "Bayon",
+      "UNESCO": "World Heritage",
+      "Religion": "Buddhist",
+      "Historical Period": "Angkor Period"
+    },
+    "openTime": "07:30",
+    "closeTime": "17:30",
+    "entryFee": "$3 – $8",
+    "visitDuration": "1 – 2 hours",
+    "bestTime": "Morning",
+    "highlights": [
+      "Excavated foundations",
+      "Site museum"
+    ],
+    "tips": [
+      "Wear closed shoes"
+    ]
+  },
+  {
+    "slug": "banteay-srei",
+    "region": "ancient-capitals",
+    "name": "Banteay Srei",
+    "nameKh": "ប្រាសាទបន្ទាយស្រី",
+    "province": "Siem Reap",
+    "category": "Temples",
+    "blurb": "Pink sandstone cut so finely the carvings still read a thousand years on.",
+    "rating": 4.7,
+    "verified": true,
+    "unesco": true,
+    "lat": 13.5989,
+    "lng": 103.9633,
+    "image": "https://images.unsplash.com/photo-1540525080980-b97c4be3c779?auto=format&fit=crop&w=800&q=70",
+    "facets": {
+      "Century": "10th Century",
+      "King": "Rajendravarman II",
+      "Architecture Style": "Banteay Srei",
+      "UNESCO": "World Heritage",
+      "Religion": "Hindu",
+      "Historical Period": "Angkor Period"
+    },
+    "openTime": "07:30",
+    "closeTime": "17:30",
+    "entryFee": "$5 – $10",
+    "visitDuration": "1 – 2 hours",
+    "bestTime": "Early morning",
+    "highlights": [
+      "Main sanctuary",
+      "Carved galleries",
+      "Sunrise view"
+    ],
+    "tips": [
+      "Cover shoulders and knees",
+      "Bring water"
+    ]
+  },
+  {
+    "slug": "koh-ker",
+    "region": "ancient-capitals",
+    "name": "Koh Ker",
+    "nameKh": "កោះកេរ្តិ៍",
+    "province": "Preah Vihear",
+    "category": "Archaeological Sites",
+    "blurb": "A capital for only twenty years, and a seven-tier pyramid to prove it.",
+    "detail": "Built for Suryavarman II in the first half of the twelfth century as a state temple and, unusually, dedicated to Vishnu rather than Shiva. It is oriented west, which is why sunrise is watched from in front of it rather than behind. The outer gallery carries around 600 metres of continuous bas-relief — the Churning of the Sea of Milk on the east wing is the one most people come back for. The temple was never fully abandoned after Angkor's fall, which is why it survived in better condition than most of the city around it.",
+    "rating": 4.6,
+    "verified": true,
+    "unesco": true,
+    "lat": 13.7833,
+    "lng": 104.5333,
+    "image": "https://images.unsplash.com/photo-1599283787923-51b965a58b05?auto=format&fit=crop&w=800&q=70",
+    "facets": {
+      "Century": "10th Century",
+      "King": "Jayavarman IV",
+      "Architecture Style": "Koh Ker",
+      "UNESCO": "World Heritage",
+      "Religion": "Hindu",
+      "Historical Period": "Angkor Period"
+    },
+    "openTime": "07:30",
+    "closeTime": "17:30",
+    "entryFee": "$3 – $8",
+    "visitDuration": "1 – 2 hours",
+    "bestTime": "Morning",
+    "highlights": [
+      "Excavated foundations",
+      "Site museum"
+    ],
+    "tips": [
+      "Wear closed shoes"
+    ]
+  },
+  {
+    "slug": "sambor-prei-kuk",
+    "region": "ancient-capitals",
+    "name": "Sambor Prei Kuk",
+    "nameKh": "សំបូរព្រៃគុក",
+    "province": "Kampong Thom",
+    "category": "Archaeological Sites",
+    "blurb": "Pre-Angkorian brick towers of Ishanapura, older than Angkor by three centuries.",
+    "rating": 4.6,
+    "verified": true,
+    "unesco": true,
+    "lat": 12.8722,
+    "lng": 105.04,
+    "image": "https://images.unsplash.com/photo-1651650191726-d81c3a84bb25?auto=format&fit=crop&w=800&q=70",
+    "facets": {
+      "Century": "7th Century",
+      "King": "Isanavarman I",
+      "Architecture Style": "Pre-Angkorian",
+      "UNESCO": "World Heritage",
+      "Religion": "Hindu",
+      "Historical Period": "Pre-Angkor Period"
+    },
+    "openTime": "07:30",
+    "closeTime": "17:30",
+    "entryFee": "$3 – $8",
+    "visitDuration": "1 – 2 hours",
+    "bestTime": "Morning",
+    "highlights": [
+      "Excavated foundations",
+      "Site museum"
+    ],
+    "tips": [
+      "Wear closed shoes"
+    ]
+  },
+  {
+    "slug": "royal-palace",
+    "region": "ancient-capitals",
+    "name": "Royal Palace",
+    "nameKh": "ព្រះបរមរាជវាំង",
+    "province": "Phnom Penh",
+    "category": "Ancient Cities",
+    "blurb": "The working residence of the monarchy, and the Silver Pagoda beside it.",
+    "rating": 4.7,
+    "verified": true,
+    "lat": 11.564,
+    "lng": 104.931,
+    "image": "https://images.unsplash.com/photo-1635167463041-00f6d9344cda?auto=format&fit=crop&w=800&q=70",
+    "facets": {
+      "Century": "19th Century",
+      "King": "Norodom I",
+      "Architecture Style": "Khmer Revival",
+      "Religion": "Buddhist",
+      "Historical Period": "Post-Angkor Period"
+    },
+    "openTime": "07:30",
+    "closeTime": "17:30",
+    "entryFee": "$5 – $10",
+    "visitDuration": "2 – 3 hours",
+    "bestTime": "Morning",
+    "highlights": [
+      "City walls",
+      "Royal terraces",
+      "Museum stop"
+    ],
+    "tips": [
+      "Hire a local guide",
+      "Start before the heat"
+    ]
+  },
+  {
+    "slug": "national-museum",
+    "region": "ancient-capitals",
+    "name": "National Museum",
+    "nameKh": "សារមន្ទីរជាតិ",
+    "province": "Phnom Penh",
+    "category": "Museums",
+    "blurb": "The largest collection of Khmer sculpture, held in a terracotta pavilion.",
+    "rating": 4.7,
+    "verified": true,
+    "lat": 11.5652,
+    "lng": 104.929,
+    "image": "https://images.unsplash.com/photo-1549463601-da058868e20d?auto=format&fit=crop&w=800&q=70",
+    "facets": {
+      "Century": "20th Century",
+      "King": "Sisowath",
+      "Architecture Style": "Khmer Revival",
+      "Historical Period": "Post-Angkor Period"
+    },
+    "openTime": "08:00",
+    "closeTime": "17:00",
+    "entryFee": "$5",
+    "visitDuration": "1 – 2 hours",
+    "bestTime": "Late morning",
+    "highlights": [
+      "Permanent collection",
+      "Khmer sculpture hall"
+    ],
+    "tips": [
+      "Photography rules vary by room"
+    ]
+  },
+  {
+    "slug": "preah-vihear-temple",
+    "region": "ancient-capitals",
+    "name": "Preah Vihear Temple",
+    "nameKh": "ប្រាសាទព្រះវិហារ",
+    "province": "Preah Vihear",
+    "category": "Temples",
+    "blurb": "A temple laid along an 800-metre axis on the cliff edge of the Dangrek range.",
+    "rating": 4.8,
+    "featured": true,
+    "verified": true,
+    "unesco": true,
+    "lat": 14.3931,
+    "lng": 104.68,
+    "image": "https://images.unsplash.com/photo-1609949165382-2e442783c8d5?auto=format&fit=crop&w=800&q=70",
+    "facets": {
+      "Century": "11th Century",
+      "King": "Suryavarman I",
+      "Architecture Style": "Khleang",
+      "UNESCO": "World Heritage",
+      "Religion": "Hindu",
+      "Historical Period": "Angkor Period"
+    },
+    "openTime": "07:30",
+    "closeTime": "17:30",
+    "entryFee": "$5 – $10",
+    "visitDuration": "1 – 2 hours",
+    "bestTime": "Early morning",
+    "highlights": [
+      "Main sanctuary",
+      "Carved galleries",
+      "Sunrise view"
+    ],
+    "tips": [
+      "Cover shoulders and knees",
+      "Bring water"
+    ]
+  },
+  {
+    "slug": "spean-praptos",
+    "region": "ancient-capitals",
+    "name": "Spean Praptos",
+    "nameKh": "ស្ពានព្រះប្ដោស",
+    "province": "Siem Reap",
+    "category": "Bridges",
+    "blurb": "The longest surviving Angkorian corbel-arch bridge, still carrying traffic after eight hundred years.",
+    "rating": 4.4,
+    "verified": true,
+    "lat": 13.2833,
+    "lng": 104.2333,
+    "image": "https://images.unsplash.com/photo-1623942201715-d89baec448cc?auto=format&fit=crop&w=800&q=70",
+    "facets": {
+      "Century": "12th Century",
+      "King": "Jayavarman VII",
+      "Architecture Style": "Bayon",
+      "Historical Period": "Angkor Period"
+    },
+    "openTime": "07:30",
+    "closeTime": "17:30",
+    "entryFee": "Free",
+    "visitDuration": "30 minutes",
+    "bestTime": "Late afternoon",
+    "highlights": [
+      "Original stonework"
+    ],
+    "tips": [
+      "Park off the road"
+    ]
+  },
+  {
+    "slug": "angkorian-royal-road",
+    "region": "ancient-capitals",
+    "name": "Angkorian Royal Road",
+    "nameKh": "ផ្លូវរាជបុរាណអង្គរ",
+    "province": "Preah Vihear",
+    "category": "Ancient Roads",
+    "blurb": "The 225 km highway east from Angkor to Bakan, with its bridges, fire houses, and hospital chapels.",
+    "rating": 4.3,
+    "verified": true,
+    "lat": 13.37,
+    "lng": 104.35,
+    "image": "https://images.unsplash.com/photo-1729963639012-5a6a48690ed4?auto=format&fit=crop&w=800&q=70",
+    "facets": {
+      "Century": "12th Century",
+      "King": "Jayavarman VII",
+      "Historical Period": "Angkor Period"
+    },
+    "openTime": "07:30",
+    "closeTime": "17:30",
+    "entryFee": "Free",
+    "visitDuration": "Half day",
+    "bestTime": "Morning",
+    "highlights": [
+      "Bridge crossings",
+      "Rest houses"
+    ],
+    "tips": [
+      "4WD in the wet season"
+    ]
+  },
+  {
+    "slug": "preah-khan-kompong-svay",
+    "region": "ancient-capitals",
+    "name": "Preah Khan of Kompong Svay",
+    "nameKh": "ប្រាសាទព្រះខ័នកំពង់ស្វាយ",
+    "province": "Preah Vihear",
+    "category": "Hospitals",
+    "blurb": "The largest temple enclosure the Khmer empire ever walled, with one of its best-preserved hospital chapels.",
+    "rating": 4.5,
+    "verified": true,
+    "lat": 13.4167,
+    "lng": 104.9167,
+    "image": "https://images.unsplash.com/photo-1608137567874-5fef0c5e6741?auto=format&fit=crop&w=800&q=70",
+    "facets": {
+      "Century": "12th Century",
+      "King": "Jayavarman VII",
+      "Architecture Style": "Bayon",
+      "Religion": "Buddhist",
+      "Historical Period": "Angkor Period"
+    },
+    "openTime": "07:30",
+    "closeTime": "17:30",
+    "entryFee": "Free",
+    "visitDuration": "30 minutes",
+    "bestTime": "Morning",
+    "highlights": [
+      "Chapel ruins"
+    ]
+  },
+  {
+    "slug": "phnom-kulen",
+    "region": "ancient-capitals",
+    "name": "Phnom Kulen",
+    "nameKh": "ភ្នំគូលែន",
+    "province": "Siem Reap",
+    "category": "Archaeological Sites",
+    "blurb": "The sacred mountain where the Khmer Empire was declared in 802 CE.",
+    "rating": 4.6,
+    "verified": true,
+    "lat": 13.5833,
+    "lng": 104.05,
+    "image": "https://images.unsplash.com/photo-1656554848715-dc195c7484bb?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Waterfalls",
+      "Hiking",
+      "Trail",
+      "Landscape"
+    ],
+    "facets": {
+      "Century": "9th Century",
+      "King": "Jayavarman II",
+      "Architecture Style": "Kulen",
+      "Religion": "Hindu",
+      "Historical Period": "Angkor Period"
+    },
+    "openTime": "07:30",
+    "closeTime": "17:30",
+    "entryFee": "$3 – $8",
+    "visitDuration": "1 – 2 hours",
+    "bestTime": "Morning",
+    "highlights": [
+      "Excavated foundations",
+      "Site museum"
+    ],
+    "tips": [
+      "Wear closed shoes"
+    ]
+  },
+  {
+    "slug": "banteay-chhmar",
+    "region": "ancient-capitals",
+    "name": "Banteay Chhmar",
+    "nameKh": "បន្ទាយឆ្មារ",
+    "province": "Banteay Meanchey",
+    "category": "Archaeological Sites",
+    "blurb": "A vast Jayavarman VII temple city in the north-west, with a community homestay inside the village beside it.",
+    "verified": true,
+    "lat": 14.0333,
+    "lng": 103.0833,
+    "image": "https://images.unsplash.com/photo-1522582451902-3545817f6046?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Homestay",
+      "Community",
+      "Local Food"
+    ],
+    "facets": {
+      "Century": "12th Century",
+      "King": "Jayavarman VII",
+      "Architecture Style": "Bayon",
+      "UNESCO": "Tentative List",
+      "Religion": "Buddhist",
+      "Historical Period": "Angkor Period"
+    },
+    "openTime": "07:30",
+    "closeTime": "17:30",
+    "entryFee": "$3 – $8",
+    "visitDuration": "1 – 2 hours",
+    "bestTime": "Morning",
+    "highlights": [
+      "Excavated foundations",
+      "Site museum"
+    ],
+    "tips": [
+      "Wear closed shoes"
+    ]
+  },
+  {
+    "slug": "yeak-laom",
+    "region": "northeastern-civilization",
+    "name": "Yeak Laom Crater Lake",
+    "nameKh": "យក្សឡោម",
+    "province": "Ratanakiri",
+    "category": "Volcano Lake",
+    "blurb": "A near-perfect volcanic crater held by the Tampuan community, clear enough to swim all year.",
+    "featured": true,
+    "verified": true,
+    "lat": 13.7333,
+    "lng": 107.0167,
+    "image": "https://images.unsplash.com/photo-1787764082464-f5ee394cc907?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Tribe",
+      "Forest"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "entryFee": "$1 – $3",
+    "visitDuration": "2 hours",
+    "bestSeason": "November – April",
+    "highlights": [
+      "Swimming",
+      "Lakeside decks"
+    ]
+  },
+  {
+    "slug": "bou-sra",
+    "region": "northeastern-civilization",
+    "name": "Bou Sra Waterfall",
+    "nameKh": "ប៊ូស្រា",
+    "province": "Mondulkiri",
+    "category": "Waterfall",
+    "blurb": "Two tiers dropping into Bunong forest, loudest at the end of the rains.",
+    "detail": "Two tiers, roughly ten and twenty-five metres, dropping through Bunong forest near the Vietnamese border. A path and a small suspension bridge reach the lower fall, and the volume changes completely with the season — thunderous from September into November, and a fraction of that by March. The land around it is Bunong, and the entry fee goes to the community that holds it.",
+    "featured": true,
+    "verified": true,
+    "lat": 12.5333,
+    "lng": 107.3667,
+    "image": "https://images.unsplash.com/photo-1621063225827-1e6cb6c75b62?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Forest"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "entryFee": "$1 – $3",
+    "visitDuration": "2 – 3 hours",
+    "bestSeason": "June – November",
+    "bestTime": "Midday",
+    "highlights": [
+      "Swimming pools",
+      "Picnic shelters"
+    ],
+    "tips": [
+      "Rocks are slippery",
+      "Strongest flow in the wet season"
+    ]
+  },
+  {
+    "slug": "sen-monorom",
+    "region": "northeastern-civilization",
+    "name": "Sen Monorom & Bunong Villages",
+    "nameKh": "សែនមនោរម្យ",
+    "province": "Mondulkiri",
+    "category": "Indigenous Culture",
+    "blurb": "The highland town and the villages around it, where Bunong is still the first language.",
+    "verified": true,
+    "lat": 12.45,
+    "lng": 107.1833,
+    "image": "https://images.unsplash.com/photo-1667371026114-f4ea09440d40?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Tribe",
+      "Camping"
+    ],
+    "openTime": "08:00",
+    "closeTime": "17:00",
+    "entryFee": "By donation",
+    "visitDuration": "2 – 3 hours",
+    "bestTime": "Morning",
+    "highlights": [
+      "Village welcome",
+      "Craft demonstration"
+    ],
+    "tips": [
+      "Ask before photographing people"
+    ]
+  },
+  {
+    "slug": "virachey",
+    "region": "northeastern-civilization",
+    "name": "Virachey National Park",
+    "nameKh": "វីរជ័យ",
+    "province": "Ratanakiri",
+    "category": "Forest",
+    "blurb": "Multi-day ranger-led treks into one of the least-visited protected areas in the country.",
+    "featured": true,
+    "verified": true,
+    "lat": 14.05,
+    "lng": 107.05,
+    "image": "https://images.unsplash.com/photo-1667371026189-dfd5544cfdf9?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Camping",
+      "Birding",
+      "Sesan"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "entryFee": "$3 – $8",
+    "visitDuration": "Half day",
+    "difficulty": "Easy",
+    "highlights": [
+      "Marked trails",
+      "Ranger station"
+    ],
+    "tips": [
+      "Insect repellent"
+    ]
+  },
+  {
+    "slug": "katieng-waterfalls",
+    "region": "northeastern-civilization",
+    "name": "Katieng & Kachanh Waterfalls",
+    "province": "Ratanakiri",
+    "category": "Waterfall",
+    "blurb": "Two short rides out of Banlung, both with a path behind the curtain of water.",
+    "verified": true,
+    "lat": 13.7167,
+    "lng": 106.95,
+    "image": "https://images.unsplash.com/photo-1621063223871-72880cf5eb51?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Forest"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "entryFee": "$1 – $3",
+    "visitDuration": "2 – 3 hours",
+    "bestSeason": "June – November",
+    "bestTime": "Midday",
+    "highlights": [
+      "Swimming pools",
+      "Picnic shelters"
+    ],
+    "tips": [
+      "Rocks are slippery",
+      "Strongest flow in the wet season"
+    ]
+  },
+  {
+    "slug": "ou-sean-lair",
+    "region": "northeastern-civilization",
+    "name": "Ou Sean Lair Waterfall",
+    "province": "Ratanakiri",
+    "category": "Waterfall",
+    "blurb": "A seven-tier fall on a rubber-estate road east of Banlung, quiet on a weekday.",
+    "verified": true,
+    "lat": 13.7833,
+    "lng": 107.0667,
+    "image": "https://images.unsplash.com/photo-1621502134035-2316a3e14904?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Forest",
+      "Camping"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "entryFee": "$1 – $3",
+    "visitDuration": "2 – 3 hours",
+    "bestSeason": "June – November",
+    "bestTime": "Midday",
+    "highlights": [
+      "Swimming pools",
+      "Picnic shelters"
+    ],
+    "tips": [
+      "Rocks are slippery",
+      "Strongest flow in the wet season"
+    ]
+  },
+  {
+    "slug": "dak-dam",
+    "region": "northeastern-civilization",
+    "name": "Dak Dam Waterfall",
+    "province": "Mondulkiri",
+    "category": "Waterfall",
+    "blurb": "A short walk through Bunong farmland to a fall most visitors never reach.",
+    "verified": true,
+    "lat": 12.4167,
+    "lng": 107.25,
+    "image": "https://images.unsplash.com/photo-1621063223871-72880cf5eb51?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Forest",
+      "Tribe"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "entryFee": "$1 – $3",
+    "visitDuration": "2 – 3 hours",
+    "bestSeason": "June – November",
+    "bestTime": "Midday",
+    "highlights": [
+      "Swimming pools",
+      "Picnic shelters"
+    ],
+    "tips": [
+      "Rocks are slippery",
+      "Strongest flow in the wet season"
+    ]
+  },
+  {
+    "slug": "banlung-market",
+    "region": "northeastern-civilization",
+    "name": "Banlung Market",
+    "nameKh": "បានលុង",
+    "province": "Ratanakiri",
+    "category": "Indigenous Culture",
+    "blurb": "Highland produce, backstrap weaving and the red dust the province is known for.",
+    "verified": true,
+    "lat": 13.7394,
+    "lng": 106.9873,
+    "image": "https://images.unsplash.com/photo-1787736366516-20788522776a?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Tribe"
+    ],
+    "openTime": "08:00",
+    "closeTime": "17:00",
+    "entryFee": "By donation",
+    "visitDuration": "2 – 3 hours",
+    "bestTime": "Morning",
+    "highlights": [
+      "Village welcome",
+      "Craft demonstration"
+    ],
+    "tips": [
+      "Ask before photographing people"
+    ]
+  },
+  {
+    "slug": "kachon-village",
+    "region": "northeastern-civilization",
+    "name": "Kachon Kreung Village",
+    "province": "Ratanakiri",
+    "category": "Indigenous Culture",
+    "blurb": "A Kreung village on the Sesan, with carved cemetery figures in the forest behind it.",
+    "verified": true,
+    "lat": 13.8167,
+    "lng": 107.05,
+    "image": "https://images.unsplash.com/photo-1653714802676-6a50c7ead70e?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Tribe",
+      "Sesan"
+    ],
+    "openTime": "08:00",
+    "closeTime": "17:00",
+    "entryFee": "By donation",
+    "visitDuration": "2 – 3 hours",
+    "bestTime": "Morning",
+    "highlights": [
+      "Village welcome",
+      "Craft demonstration"
+    ],
+    "tips": [
+      "Ask before photographing people"
+    ]
+  },
+  {
+    "slug": "andoung-meas",
+    "region": "northeastern-civilization",
+    "name": "Andoung Meas Jarai Villages",
+    "nameKh": "អណ្ដូងមាស",
+    "province": "Ratanakiri",
+    "category": "Indigenous Culture",
+    "blurb": "Jarai settlements upriver towards the border, reached by boat from Voen Sai.",
+    "verified": true,
+    "lat": 13.9333,
+    "lng": 107.2333,
+    "image": "https://images.unsplash.com/photo-1667118891614-b0820e960b7b?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Tribe",
+      "Sesan"
+    ],
+    "openTime": "08:00",
+    "closeTime": "17:00",
+    "entryFee": "By donation",
+    "visitDuration": "2 – 3 hours",
+    "bestTime": "Morning",
+    "highlights": [
+      "Village welcome",
+      "Craft demonstration"
+    ],
+    "tips": [
+      "Ask before photographing people"
+    ]
+  },
+  {
+    "slug": "ratanakiri-coffee",
+    "region": "northeastern-civilization",
+    "name": "Ratanakiri Coffee Farms",
+    "province": "Ratanakiri",
+    "category": "Coffee",
+    "blurb": "Robusta and arabica grown on basalt soil, roasted and poured in Banlung.",
+    "verified": true,
+    "lat": 13.7,
+    "lng": 107,
+    "image": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Forest",
+      "Tribe"
+    ],
+    "openTime": "07:00",
+    "closeTime": "19:00",
+    "priceRange": "$1.50 – $4 a cup",
+    "visitDuration": "45 minutes",
+    "bestTime": "Morning",
+    "highlights": [
+      "Iced Khmer coffee",
+      "Local roasts"
+    ]
+  },
+  {
+    "slug": "mondulkiri-coffee",
+    "region": "northeastern-civilization",
+    "name": "Mondulkiri Coffee Plantations",
+    "province": "Mondulkiri",
+    "category": "Coffee",
+    "blurb": "Smallholder plots around Sen Monorom and Bou Sra, many of them Bunong-run.",
+    "verified": true,
+    "lat": 12.4833,
+    "lng": 107.2,
+    "image": "https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Forest",
+      "Tribe"
+    ],
+    "openTime": "07:00",
+    "closeTime": "19:00",
+    "priceRange": "$1.50 – $4 a cup",
+    "visitDuration": "45 minutes",
+    "bestTime": "Morning",
+    "highlights": [
+      "Iced Khmer coffee",
+      "Local roasts"
+    ]
+  },
+  {
+    "slug": "elephant-valley",
+    "region": "northeastern-civilization",
+    "name": "Elephant Valley Project",
+    "province": "Mondulkiri",
+    "category": "Wildlife",
+    "blurb": "Retired working elephants observed in forest rather than ridden, run with Bunong mahouts.",
+    "featured": true,
+    "verified": true,
+    "lat": 12.4,
+    "lng": 107.15,
+    "image": "https://images.unsplash.com/photo-1667371026139-57d7d81918de?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Elephant",
+      "Forest"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "priceRange": "$25 – $70 a person",
+    "visitDuration": "Half day",
+    "difficulty": "Easy",
+    "groupSize": "2 – 8 people",
+    "bestTime": "Dawn",
+    "highlights": [
+      "Ranger guide",
+      "Binoculars"
+    ],
+    "tips": [
+      "Quiet groups see more"
+    ]
+  },
+  {
+    "slug": "phnom-prich",
+    "region": "northeastern-civilization",
+    "name": "Phnom Prich Wildlife Sanctuary",
+    "province": "Mondulkiri",
+    "category": "Wildlife",
+    "blurb": "Dry forest and grassland holding gaur, banteng and some of the last wild cattle herds.",
+    "verified": true,
+    "lat": 12.6,
+    "lng": 106.8,
+    "image": "https://images.unsplash.com/photo-1781797538552-c8a1957a3272?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Birding",
+      "Forest",
+      "Srepok"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "priceRange": "$25 – $70 a person",
+    "visitDuration": "Half day",
+    "difficulty": "Easy",
+    "groupSize": "2 – 8 people",
+    "bestTime": "Dawn",
+    "highlights": [
+      "Ranger guide",
+      "Binoculars"
+    ],
+    "tips": [
+      "Quiet groups see more"
+    ]
+  },
+  {
+    "slug": "seima",
+    "region": "northeastern-civilization",
+    "name": "Keo Seima Wildlife Sanctuary",
+    "province": "Mondulkiri",
+    "category": "Wildlife",
+    "blurb": "Evergreen forest holding black-shanked douc and yellow-cheeked gibbon, with dawn gibbon treks from Andoung Kraloeng.",
+    "verified": true,
+    "lat": 12.2,
+    "lng": 106.9,
+    "image": "https://images.unsplash.com/photo-1667371026189-dfd5544cfdf9?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Birding",
+      "Forest"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "priceRange": "$25 – $70 a person",
+    "visitDuration": "Half day",
+    "difficulty": "Easy",
+    "groupSize": "2 – 8 people",
+    "bestTime": "Dawn",
+    "highlights": [
+      "Ranger guide",
+      "Binoculars"
+    ],
+    "tips": [
+      "Quiet groups see more"
+    ]
+  },
+  {
+    "slug": "lumphat",
+    "region": "northeastern-civilization",
+    "name": "Lumphat Wildlife Sanctuary",
+    "nameKh": "លំផាត់",
+    "province": "Ratanakiri",
+    "category": "Forest",
+    "blurb": "Dry dipterocarp forest along the Srepok, and some of the best vulture watching left in the country.",
+    "verified": true,
+    "lat": 13.5,
+    "lng": 106.9833,
+    "image": "https://images.unsplash.com/photo-1667118891614-b0820e960b7b?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Birding",
+      "Srepok",
+      "Camping"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "entryFee": "$3 – $8",
+    "visitDuration": "Half day",
+    "difficulty": "Easy",
+    "highlights": [
+      "Marked trails",
+      "Ranger station"
+    ],
+    "tips": [
+      "Insect repellent"
+    ]
+  },
+  {
+    "slug": "sesan-srepok",
+    "region": "northeastern-civilization",
+    "name": "Sesan & Srepok Rivers",
+    "nameKh": "សេសាន និង ស្រែពក",
+    "province": "Stung Treng",
+    "category": "Adventure",
+    "blurb": "The two highland rivers that carry the northeast down to the Mekong, run by longtail and kayak.",
+    "verified": true,
+    "lat": 13.5259,
+    "lng": 105.9683,
+    "image": "https://images.unsplash.com/photo-1715520019930-b677fdca474d?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Sesan",
+      "Srepok",
+      "Camping"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "priceRange": "$20 – $70 a person",
+    "visitDuration": "Half day",
+    "difficulty": "Moderate",
+    "groupSize": "2 – 12 people",
+    "highlights": [
+      "Equipment",
+      "Guide",
+      "Safety briefing"
+    ]
+  },
+  {
+    "slug": "ta-veng",
+    "region": "northeastern-civilization",
+    "name": "Ta Veng & the Upper Sesan",
+    "nameKh": "តាវែង",
+    "province": "Ratanakiri",
+    "category": "Adventure",
+    "blurb": "The put-in for Brao river villages and the northern gate into Virachey.",
+    "verified": true,
+    "lat": 14.0333,
+    "lng": 107.05,
+    "image": "https://images.unsplash.com/photo-1715520019930-b677fdca474d?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Sesan",
+      "Tribe",
+      "Camping"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "priceRange": "$20 – $70 a person",
+    "visitDuration": "Half day",
+    "difficulty": "Moderate",
+    "groupSize": "2 – 12 people",
+    "highlights": [
+      "Equipment",
+      "Guide",
+      "Safety briefing"
+    ]
+  },
+  {
+    "slug": "phnom-doh-kromom",
+    "region": "northeastern-civilization",
+    "name": "Phnom Doh Kromom",
+    "province": "Ratanakiri",
+    "category": "Sacred Mountain",
+    "blurb": "A hilltop pagoda above Banlung, and the province's standing sunset spot.",
+    "verified": true,
+    "lat": 13.75,
+    "lng": 106.9667,
+    "image": "https://images.unsplash.com/photo-1575735003097-b786f5b0463b?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Forest"
+    ],
+    "openTime": "07:30",
+    "closeTime": "17:30",
+    "entryFee": "$3 – $5",
+    "visitDuration": "Half day",
+    "bestTime": "Sunrise",
+    "highlights": [
+      "Summit shrine",
+      "Forest path"
+    ],
+    "tips": [
+      "Steep steps — take your time"
+    ]
+  },
+  {
+    "slug": "phnom-nam-lyr",
+    "region": "northeastern-civilization",
+    "name": "Phnom Nam Lyr",
+    "province": "Mondulkiri",
+    "category": "Sacred Mountain",
+    "blurb": "A forested massif on the Vietnamese border, held sacred locally and rarely climbed.",
+    "verified": true,
+    "lat": 12.3333,
+    "lng": 107.3667,
+    "image": "https://images.unsplash.com/photo-1575735003097-b786f5b0463b?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Forest",
+      "Camping"
+    ],
+    "openTime": "07:30",
+    "closeTime": "17:30",
+    "entryFee": "$3 – $5",
+    "visitDuration": "Half day",
+    "bestTime": "Sunrise",
+    "highlights": [
+      "Summit shrine",
+      "Forest path"
+    ],
+    "tips": [
+      "Steep steps — take your time"
+    ]
+  },
+  {
+    "slug": "kampong-phluk",
+    "region": "mekong-tonle-sap",
+    "name": "Kampong Phluk",
+    "nameKh": "កំពង់ភ្លុក",
+    "province": "Siem Reap",
+    "category": "Floating Village",
+    "blurb": "Houses on ten-metre stilts, reached by boat through flooded mangrove.",
+    "detail": "Three villages of stilt houses standing six to ten metres above the dry-season ground, which puts the floors just above the water at peak flood. In the wet months you arrive by motorboat and transfer to a rowing boat to go through the flooded forest; in the dry months the same route is a road, and the stilts are the whole point of the visit. Going with the village boat cooperative rather than a tour launch keeps the fare in Kampong Phluk.",
+    "featured": true,
+    "verified": true,
+    "lat": 13.1833,
+    "lng": 103.9833,
+    "image": "https://images.unsplash.com/photo-1704103259506-6c0ca4d6dca4?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Boat",
+      "Wetland"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "entryFee": "$5 – $20 boat",
+    "visitDuration": "2 – 3 hours",
+    "bestSeason": "August – December",
+    "highlights": [
+      "Boat tour",
+      "Stilt houses",
+      "Sunset on the lake"
+    ],
+    "tips": [
+      "Book through the community office"
+    ]
+  },
+  {
+    "slug": "kampong-khleang",
+    "region": "mekong-tonle-sap",
+    "name": "Kampong Khleang",
+    "nameKh": "កំពង់ឃ្លាំង",
+    "province": "Siem Reap",
+    "category": "Floating Village",
+    "blurb": "The largest lakeside settlement, and far quieter than the villages nearer town.",
+    "featured": true,
+    "verified": true,
+    "lat": 13.1167,
+    "lng": 104.1167,
+    "image": "https://images.unsplash.com/photo-1704103258899-78a73254775a?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Boat",
+      "Fishing"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "entryFee": "$5 – $20 boat",
+    "visitDuration": "2 – 3 hours",
+    "bestSeason": "August – December",
+    "highlights": [
+      "Boat tour",
+      "Stilt houses",
+      "Sunset on the lake"
+    ],
+    "tips": [
+      "Book through the community office"
+    ]
+  },
+  {
+    "slug": "chnok-tru",
+    "region": "mekong-tonle-sap",
+    "name": "Chnok Tru",
+    "nameKh": "ឆ្នុកទ្រូ",
+    "province": "Kampong Chhnang",
+    "category": "Floating Village",
+    "blurb": "A whole town afloat at the southern end of the lake — shops, school and petrol station all on pontoons.",
+    "verified": true,
+    "lat": 12.4167,
+    "lng": 104.4667,
+    "image": "https://images.unsplash.com/photo-1632496515914-da284239a1fd?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Boat",
+      "Fishing"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "entryFee": "$5 – $20 boat",
+    "visitDuration": "2 – 3 hours",
+    "bestSeason": "August – December",
+    "highlights": [
+      "Boat tour",
+      "Stilt houses",
+      "Sunset on the lake"
+    ],
+    "tips": [
+      "Book through the community office"
+    ]
+  },
+  {
+    "slug": "me-chrey",
+    "region": "mekong-tonle-sap",
+    "name": "Me Chrey",
+    "province": "Siem Reap",
+    "category": "Floating Village",
+    "blurb": "The smallest of the Siem Reap villages, ringed by lotus in the months after the flood.",
+    "verified": true,
+    "lat": 13.1667,
+    "lng": 103.7333,
+    "image": "https://images.unsplash.com/photo-1623942201715-d89baec448cc?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Boat",
+      "Lotus"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "entryFee": "$5 – $20 boat",
+    "visitDuration": "2 – 3 hours",
+    "bestSeason": "August – December",
+    "highlights": [
+      "Boat tour",
+      "Stilt houses",
+      "Sunset on the lake"
+    ],
+    "tips": [
+      "Book through the community office"
+    ]
+  },
+  {
+    "slug": "chong-kneas",
+    "region": "mekong-tonle-sap",
+    "name": "Chong Kneas",
+    "nameKh": "ជុងឃ្នៀស",
+    "province": "Siem Reap",
+    "category": "Boat Trip",
+    "blurb": "The closest landing to Siem Reap and the start of the boat crossing to Battambang.",
+    "verified": true,
+    "lat": 13.2333,
+    "lng": 103.8333,
+    "image": "https://images.unsplash.com/photo-1674017062593-8d4e8e5f5be7?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Boat",
+      "Fishing"
+    ],
+    "openTime": "07:00",
+    "closeTime": "17:00",
+    "entryFee": "$10 – $25 a person",
+    "visitDuration": "2 – 3 hours",
+    "bestSeason": "November – April",
+    "highlights": [
+      "River cruise",
+      "Sunset drinks"
+    ]
+  },
+  {
+    "slug": "battambang-boat",
+    "region": "mekong-tonle-sap",
+    "name": "Battambang – Siem Reap Boat",
+    "province": "Battambang",
+    "category": "Boat Trip",
+    "blurb": "Eight hours down the Sangker and across the lake, the best way to read the whole system in a day.",
+    "verified": true,
+    "lat": 13.1,
+    "lng": 103.4,
+    "image": "https://images.unsplash.com/photo-1715520019930-b677fdca474d?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Boat",
+      "Wetland",
+      "Fishing"
+    ],
+    "openTime": "07:00",
+    "closeTime": "17:00",
+    "entryFee": "$10 – $25 a person",
+    "visitDuration": "2 – 3 hours",
+    "bestSeason": "November – April",
+    "highlights": [
+      "River cruise",
+      "Sunset drinks"
+    ]
+  },
+  {
+    "slug": "kampi-dolphins",
+    "region": "mekong-tonle-sap",
+    "name": "Kampi Dolphin Pool",
+    "nameKh": "កំពី",
+    "province": "Kratié",
+    "category": "Boat Trip",
+    "blurb": "One of the last deep pools holding Irrawaddy dolphins on the Mekong.",
+    "featured": true,
+    "verified": true,
+    "lat": 12.5667,
+    "lng": 106.0333,
+    "image": "https://images.unsplash.com/photo-1715520019930-b677fdca474d?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Boat"
+    ],
+    "openTime": "07:00",
+    "closeTime": "17:00",
+    "entryFee": "$10 – $25 a person",
+    "visitDuration": "2 – 3 hours",
+    "bestSeason": "November – April",
+    "highlights": [
+      "River cruise",
+      "Sunset drinks"
+    ]
+  },
+  {
+    "slug": "prek-toal",
+    "region": "mekong-tonle-sap",
+    "name": "Prek Toal Bird Sanctuary",
+    "nameKh": "ព្រែកទាល់",
+    "province": "Battambang",
+    "category": "Bird Sanctuary",
+    "blurb": "The most important waterbird colony in South-East Asia, best at first light.",
+    "featured": true,
+    "verified": true,
+    "lat": 13.15,
+    "lng": 103.6333,
+    "image": "https://images.unsplash.com/photo-1602604193553-28c132dac0a7?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Bird",
+      "Wetland",
+      "Boat"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "entryFee": "$5 – $15",
+    "visitDuration": "Half day",
+    "bestSeason": "December – March",
+    "bestTime": "Dawn",
+    "highlights": [
+      "Hides",
+      "Ranger guide"
+    ]
+  },
+  {
+    "slug": "ang-trapeang-thmor",
+    "region": "mekong-tonle-sap",
+    "name": "Ang Trapeang Thmor",
+    "nameKh": "អាងត្រពាំងថ្ម",
+    "province": "Banteay Meanchey",
+    "category": "Bird Sanctuary",
+    "blurb": "A Khmer Rouge-era reservoir turned reserve, and the country's most reliable sarus crane site.",
+    "verified": true,
+    "lat": 13.8,
+    "lng": 103.3,
+    "image": "https://images.unsplash.com/photo-1571579544731-ed0957f498da?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Bird",
+      "Wetland"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "entryFee": "$5 – $15",
+    "visitDuration": "Half day",
+    "bestSeason": "December – March",
+    "bestTime": "Dawn",
+    "highlights": [
+      "Hides",
+      "Ranger guide"
+    ]
+  },
+  {
+    "slug": "boeung-tonle-chhmar",
+    "region": "mekong-tonle-sap",
+    "name": "Boeung Tonle Chhmar",
+    "nameKh": "បឹងទន្លេឆ្មារ",
+    "province": "Kampong Thom",
+    "category": "Bird Sanctuary",
+    "blurb": "A Ramsar site and biosphere core area on the north shore, with flooded forest still intact.",
+    "verified": true,
+    "lat": 12.8167,
+    "lng": 104.1667,
+    "image": "https://images.unsplash.com/photo-1740724873371-0c05a17fa819?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Bird",
+      "Wetland",
+      "Boat"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "entryFee": "$5 – $15",
+    "visitDuration": "Half day",
+    "bestSeason": "December – March",
+    "bestTime": "Dawn",
+    "highlights": [
+      "Hides",
+      "Ranger guide"
+    ]
+  },
+  {
+    "slug": "koh-trong",
+    "region": "mekong-tonle-sap",
+    "name": "Koh Trong",
+    "nameKh": "កោះទ្រង់",
+    "province": "Kratié",
+    "category": "River Island",
+    "blurb": "A sandbank island opposite Kratié, circled in an hour by bicycle.",
+    "verified": true,
+    "lat": 12.4667,
+    "lng": 106.0167,
+    "image": "https://images.unsplash.com/photo-1623942201715-d89baec448cc?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Island",
+      "Rice"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "entryFee": "Ferry $1 – $2",
+    "visitDuration": "Half day",
+    "bestSeason": "November – February",
+    "highlights": [
+      "Bicycle loop",
+      "River sunset"
+    ],
+    "tips": [
+      "Rent a bicycle at the pier"
+    ]
+  },
+  {
+    "slug": "koh-dach",
+    "region": "mekong-tonle-sap",
+    "name": "Koh Dach (Silk Island)",
+    "nameKh": "កោះដាច់",
+    "province": "Kandal",
+    "category": "River Island",
+    "blurb": "Silk looms under stilt houses, a short ferry from the edge of Phnom Penh.",
+    "verified": true,
+    "lat": 11.6333,
+    "lng": 104.95,
+    "image": "https://images.unsplash.com/photo-1638402828376-5762cb098099?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Island",
+      "Boat"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "entryFee": "Ferry $1 – $2",
+    "visitDuration": "Half day",
+    "bestSeason": "November – February",
+    "highlights": [
+      "Bicycle loop",
+      "River sunset"
+    ],
+    "tips": [
+      "Rent a bicycle at the pier"
+    ]
+  },
+  {
+    "slug": "koh-paen",
+    "region": "mekong-tonle-sap",
+    "name": "Koh Paen & the Bamboo Bridge",
+    "nameKh": "កោះប៉ែន",
+    "province": "Kampong Cham",
+    "category": "River Island",
+    "blurb": "A bamboo bridge rebuilt by hand every dry season, and washed away by every flood.",
+    "verified": true,
+    "lat": 11.9667,
+    "lng": 105.4667,
+    "image": "https://images.unsplash.com/photo-1623942201715-d89baec448cc?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Island",
+      "Rice"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "entryFee": "Ferry $1 – $2",
+    "visitDuration": "Half day",
+    "bestSeason": "November – February",
+    "highlights": [
+      "Bicycle loop",
+      "River sunset"
+    ],
+    "tips": [
+      "Rent a bicycle at the pier"
+    ]
+  },
+  {
+    "slug": "koh-sotin",
+    "region": "mekong-tonle-sap",
+    "name": "Koh Sotin",
+    "nameKh": "កោះសូទិន",
+    "province": "Kampong Cham",
+    "category": "River Island",
+    "blurb": "Sandbars, tobacco fields and a ferry crossing that has not changed much in decades.",
+    "verified": true,
+    "lat": 11.8667,
+    "lng": 105.5,
+    "image": "https://images.unsplash.com/photo-1571579544731-ed0957f498da?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Island",
+      "Rice",
+      "Boat"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "entryFee": "Ferry $1 – $2",
+    "visitDuration": "Half day",
+    "bestSeason": "November – February",
+    "highlights": [
+      "Bicycle loop",
+      "River sunset"
+    ],
+    "tips": [
+      "Rent a bicycle at the pier"
+    ]
+  },
+  {
+    "slug": "kandal-rice-plains",
+    "region": "mekong-tonle-sap",
+    "name": "Kandal Rice Plains",
+    "province": "Kandal",
+    "category": "Rice",
+    "blurb": "Paddy and lotus ponds on the floodplain either side of the capital.",
+    "verified": true,
+    "lat": 11.4833,
+    "lng": 104.9333,
+    "image": "https://images.unsplash.com/photo-1536304993881-ff6e9eefa2a6?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Rice",
+      "Lotus"
+    ],
+    "openTime": "08:00",
+    "closeTime": "17:00",
+    "priceRange": "$5 – $12 a person",
+    "visitDuration": "2 hours",
+    "bestTime": "Morning",
+    "bestSeason": "August – November",
+    "highlights": [
+      "Paddy walk",
+      "Rice tasting"
+    ]
+  },
+  {
+    "slug": "stung-sen-floodplain",
+    "region": "mekong-tonle-sap",
+    "name": "Stung Sen Floodplain",
+    "province": "Kampong Thom",
+    "category": "Rice",
+    "blurb": "Deepwater rice that grows with the flood, on the river feeding the lake's northern core area.",
+    "verified": true,
+    "lat": 12.6833,
+    "lng": 104.9,
+    "image": "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Rice",
+      "Wetland"
+    ],
+    "openTime": "08:00",
+    "closeTime": "17:00",
+    "priceRange": "$5 – $12 a person",
+    "visitDuration": "2 hours",
+    "bestTime": "Morning",
+    "bestSeason": "August – November",
+    "highlights": [
+      "Paddy walk",
+      "Rice tasting"
+    ]
+  },
+  {
+    "slug": "kampong-chhnang-pottery",
+    "region": "mekong-tonle-sap",
+    "name": "Kampong Chhnang Pottery Villages",
+    "nameKh": "កំពង់ឆ្នាំង",
+    "province": "Kampong Chhnang",
+    "category": "Community",
+    "blurb": "The province is named for its cooking pots, still coil-built by hand and fired in the open.",
+    "verified": true,
+    "lat": 12.25,
+    "lng": 104.6667,
+    "image": "https://images.unsplash.com/photo-1787736366516-20788522776a?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Fishing",
+      "Boat"
+    ],
+    "openTime": "08:00",
+    "closeTime": "17:00",
+    "priceRange": "$10 – $30 a person",
+    "visitDuration": "Half day",
+    "groupSize": "2 – 15 people",
+    "highlights": [
+      "Village host",
+      "Lunch",
+      "Activity with the family"
+    ],
+    "tips": [
+      "Book a day ahead"
+    ]
+  },
+  {
+    "slug": "water-festival",
+    "region": "mekong-tonle-sap",
+    "name": "Bon Om Touk (Water Festival)",
+    "nameKh": "បុណ្យអុំទូក",
+    "province": "Phnom Penh",
+    "category": "Community",
+    "blurb": "Longboat racing on the river each November, when the Tonle Sap turns back around.",
+    "featured": true,
+    "verified": true,
+    "lat": 11.57,
+    "lng": 104.93,
+    "image": "https://images.unsplash.com/photo-1652802725832-67d5be09e5e3?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Festival",
+      "Boat"
+    ],
+    "openTime": "08:00",
+    "closeTime": "17:00",
+    "priceRange": "$10 – $30 a person",
+    "visitDuration": "Half day",
+    "groupSize": "2 – 15 people",
+    "highlights": [
+      "Village host",
+      "Lunch",
+      "Activity with the family"
+    ],
+    "tips": [
+      "Book a day ahead"
+    ]
+  },
+  {
+    "slug": "dai-fishery",
+    "region": "mekong-tonle-sap",
+    "name": "The Dai Fishery",
+    "province": "Kandal",
+    "category": "Fishing",
+    "blurb": "Rows of stationary bag nets strung across the Tonle Sap river to meet the migration out of the lake.",
+    "verified": true,
+    "lat": 11.6667,
+    "lng": 104.9167,
+    "image": "https://images.unsplash.com/photo-1632496515914-da284239a1fd?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Fishing",
+      "Boat",
+      "Wetland"
+    ],
+    "openTime": "07:00",
+    "closeTime": "17:00",
+    "entryFee": "$15 – $40 a person",
+    "visitDuration": "Half day",
+    "bestSeason": "November – April",
+    "highlights": [
+      "Squid fishing",
+      "Night trips"
+    ]
+  },
+  {
+    "slug": "stung-treng-ramsar",
+    "region": "mekong-tonle-sap",
+    "name": "Stung Treng Ramsar Site",
+    "province": "Stung Treng",
+    "category": "Fishing",
+    "blurb": "Braided channels and seasonally flooded forest running north to the Lao border.",
+    "verified": true,
+    "lat": 13.7,
+    "lng": 105.95,
+    "image": "https://images.unsplash.com/photo-1740724873371-0c05a17fa819?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Wetland",
+      "Fishing",
+      "Boat"
+    ],
+    "openTime": "07:00",
+    "closeTime": "17:00",
+    "entryFee": "$15 – $40 a person",
+    "visitDuration": "Half day",
+    "bestSeason": "November – April",
+    "highlights": [
+      "Squid fishing",
+      "Night trips"
+    ]
+  },
+  {
+    "slug": "tonle-sap-sunset",
+    "region": "mekong-tonle-sap",
+    "name": "Tonle Sap Sunset Boats",
+    "nameKh": "ទន្លេសាប",
+    "province": "Siem Reap",
+    "category": "Sunset",
+    "blurb": "The lake edge at the end of the day, when the fishing fleet goes out.",
+    "verified": true,
+    "lat": 13.2,
+    "lng": 103.85,
+    "image": "https://images.unsplash.com/photo-1674017062593-8d4e8e5f5be7?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Boat",
+      "Lotus"
+    ],
+    "openTime": "16:30",
+    "closeTime": "19:00",
+    "entryFee": "Free",
+    "visitDuration": "1 hour",
+    "bestTime": "5:30 – 6:30PM",
+    "highlights": [
+      "Sunset viewpoint"
+    ],
+    "tips": [
+      "Arrive early for a good spot"
+    ]
+  },
+  {
+    "slug": "wat-hanchey",
+    "region": "mekong-tonle-sap",
+    "name": "Wat Hanchey",
+    "nameKh": "វត្តហាន់ជ័យ",
+    "province": "Kampong Cham",
+    "category": "Sunset",
+    "blurb": "A pre-Angkorian brick sanctuary on a bluff, with the Mekong laid out below it at dusk.",
+    "verified": true,
+    "lat": 12.1167,
+    "lng": 105.4667,
+    "image": "https://images.unsplash.com/photo-1651650191726-d81c3a84bb25?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Boat"
+    ],
+    "openTime": "16:30",
+    "closeTime": "19:00",
+    "entryFee": "Free",
+    "visitDuration": "1 hour",
+    "bestTime": "5:30 – 6:30PM",
+    "highlights": [
+      "Sunset viewpoint"
+    ],
+    "tips": [
+      "Arrive early for a good spot"
+    ]
+  },
+  {
+    "slug": "phnom-sambok",
+    "region": "mekong-tonle-sap",
+    "name": "Phnom Sambok",
+    "nameKh": "ភ្នំសំបុក",
+    "province": "Kratié",
+    "category": "Sunset",
+    "blurb": "A two-tier hilltop pagoda north of Kratié, reached by a staircase through the trees.",
+    "verified": true,
+    "lat": 12.5333,
+    "lng": 106.0167,
+    "image": "https://images.unsplash.com/photo-1522582451902-3545817f6046?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Boat"
+    ],
+    "openTime": "16:30",
+    "closeTime": "19:00",
+    "entryFee": "Free",
+    "visitDuration": "1 hour",
+    "bestTime": "5:30 – 6:30PM",
+    "highlights": [
+      "Sunset viewpoint"
+    ],
+    "tips": [
+      "Arrive early for a good spot"
+    ]
+  },
+  {
+    "slug": "cardamoms",
+    "region": "mountain-waterfall",
+    "name": "Central Cardamom Mountains",
+    "nameKh": "ជួរភ្នំក្រវាញ",
+    "province": "Koh Kong",
+    "category": "Mountain",
+    "blurb": "The largest rainforest left in mainland South-East Asia, and still being surveyed.",
+    "featured": true,
+    "verified": true,
+    "lat": 11.9,
+    "lng": 103.3,
+    "image": "https://images.unsplash.com/photo-1740724873371-0c05a17fa819?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Trail",
+      "Landscape"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "entryFee": "$2 – $5",
+    "visitDuration": "Half day",
+    "bestTime": "Morning",
+    "highlights": [
+      "Ridge trail",
+      "Viewpoints"
+    ],
+    "tips": [
+      "Take a hat and water"
+    ]
+  },
+  {
+    "slug": "phnom-samkos",
+    "region": "mountain-waterfall",
+    "name": "Phnom Samkos",
+    "nameKh": "ភ្នំសំកុស",
+    "province": "Pursat",
+    "category": "Mountain",
+    "blurb": "The second summit of the country at 1,717 m, inside a wildlife sanctuary of the same name.",
+    "verified": true,
+    "lat": 12.2833,
+    "lng": 103.0333,
+    "image": "https://images.unsplash.com/photo-1575735003097-b786f5b0463b?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Peak",
+      "Hiking",
+      "Landscape"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "entryFee": "$2 – $5",
+    "visitDuration": "Half day",
+    "bestTime": "Morning",
+    "highlights": [
+      "Ridge trail",
+      "Viewpoints"
+    ],
+    "tips": [
+      "Take a hat and water"
+    ]
+  },
+  {
+    "slug": "phnom-kulen-mountain",
+    "region": "mountain-waterfall",
+    "name": "Phnom Kulen",
+    "nameKh": "ភ្នំគូលែន",
+    "province": "Siem Reap",
+    "category": "Mountain",
+    "blurb": "The sandstone plateau Angkor was quarried from, with a riverbed of carved lingas near the top.",
+    "verified": true,
+    "lat": 13.5833,
+    "lng": 104.05,
+    "image": "https://images.unsplash.com/photo-1656554848715-dc195c7484bb?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Trail",
+      "Landscape"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "entryFee": "$2 – $5",
+    "visitDuration": "Half day",
+    "bestTime": "Morning",
+    "highlights": [
+      "Ridge trail",
+      "Viewpoints"
+    ],
+    "tips": [
+      "Take a hat and water"
+    ]
+  },
+  {
+    "slug": "bokor",
+    "region": "mountain-waterfall",
+    "name": "Bokor National Park",
+    "nameKh": "បូកគោ",
+    "province": "Kampot",
+    "category": "National Park",
+    "blurb": "An abandoned hill station on a plateau that makes its own weather.",
+    "featured": true,
+    "verified": true,
+    "lat": 10.6333,
+    "lng": 104.0167,
+    "image": "https://images.unsplash.com/photo-1677209806836-54e9879c0c25?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Landscape",
+      "Sunset"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "entryFee": "$5",
+    "visitDuration": "Half day",
+    "bestTime": "Morning",
+    "bestSeason": "November – March",
+    "highlights": [
+      "Ranger trails",
+      "Wildlife hides"
+    ],
+    "tips": [
+      "Stay on marked paths"
+    ]
+  },
+  {
+    "slug": "botum-sakor",
+    "region": "mountain-waterfall",
+    "name": "Botum Sakor National Park",
+    "nameKh": "បុទុមសាគរ",
+    "province": "Koh Kong",
+    "category": "National Park",
+    "blurb": "A peninsula of mangrove, melaleuca and lowland forest between the Cardamoms and the sea.",
+    "verified": true,
+    "lat": 11.05,
+    "lng": 103.4,
+    "image": "https://images.unsplash.com/photo-1740724873371-0c05a17fa819?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Trail",
+      "Landscape"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "entryFee": "$5",
+    "visitDuration": "Half day",
+    "bestTime": "Morning",
+    "bestSeason": "November – March",
+    "highlights": [
+      "Ranger trails",
+      "Wildlife hides"
+    ],
+    "tips": [
+      "Stay on marked paths"
+    ]
+  },
+  {
+    "slug": "tatai",
+    "region": "mountain-waterfall",
+    "name": "Tatai Waterfall",
+    "nameKh": "តាតៃ",
+    "province": "Koh Kong",
+    "category": "Waterfall",
+    "blurb": "A wide, low fall reached by boat up the Tatai river, swimmable outside the wet season.",
+    "verified": true,
+    "lat": 11.5333,
+    "lng": 103.1,
+    "image": "https://images.unsplash.com/photo-1621502134035-2316a3e14904?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Trail"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "entryFee": "$1 – $3",
+    "visitDuration": "2 – 3 hours",
+    "bestSeason": "June – November",
+    "bestTime": "Midday",
+    "highlights": [
+      "Swimming pools",
+      "Picnic shelters"
+    ],
+    "tips": [
+      "Rocks are slippery",
+      "Strongest flow in the wet season"
+    ]
+  },
+  {
+    "slug": "popokvil",
+    "region": "mountain-waterfall",
+    "name": "Popokvil Falls",
+    "nameKh": "ពពកវិល",
+    "province": "Kampot",
+    "category": "Waterfall",
+    "blurb": "Two drops on the Bokor plateau, thunderous in September and dry by March.",
+    "verified": true,
+    "lat": 10.65,
+    "lng": 104.0333,
+    "image": "https://images.unsplash.com/photo-1621063223871-72880cf5eb51?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Hiking"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "entryFee": "$1 – $3",
+    "visitDuration": "2 – 3 hours",
+    "bestSeason": "June – November",
+    "bestTime": "Midday",
+    "highlights": [
+      "Swimming pools",
+      "Picnic shelters"
+    ],
+    "tips": [
+      "Rocks are slippery",
+      "Strongest flow in the wet season"
+    ]
+  },
+  {
+    "slug": "kulen-falls",
+    "region": "mountain-waterfall",
+    "name": "Phnom Kulen Waterfalls",
+    "province": "Siem Reap",
+    "category": "Waterfall",
+    "blurb": "The falls on the sacred mountain, busy at weekends and empty on a weekday morning.",
+    "verified": true,
+    "lat": 13.5833,
+    "lng": 104.05,
+    "image": "https://images.unsplash.com/photo-1656554848715-dc195c7484bb?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Hiking",
+      "Trail"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "entryFee": "$1 – $3",
+    "visitDuration": "2 – 3 hours",
+    "bestSeason": "June – November",
+    "bestTime": "Midday",
+    "highlights": [
+      "Swimming pools",
+      "Picnic shelters"
+    ],
+    "tips": [
+      "Rocks are slippery",
+      "Strongest flow in the wet season"
+    ]
+  },
+  {
+    "slug": "kbal-chhay",
+    "region": "mountain-waterfall",
+    "name": "Kbal Chhay Waterfall",
+    "nameKh": "ក្បាលឆាយ",
+    "province": "Preah Sihanouk",
+    "category": "Waterfall",
+    "blurb": "Three streams over sandstone shelves, half an hour inland from the coast.",
+    "verified": true,
+    "lat": 10.7333,
+    "lng": 103.5667,
+    "image": "https://images.unsplash.com/photo-1621063223871-72880cf5eb51?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Hiking"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "entryFee": "$1 – $3",
+    "visitDuration": "2 – 3 hours",
+    "bestSeason": "June – November",
+    "bestTime": "Midday",
+    "highlights": [
+      "Swimming pools",
+      "Picnic shelters"
+    ],
+    "tips": [
+      "Rocks are slippery",
+      "Strongest flow in the wet season"
+    ]
+  },
+  {
+    "slug": "chambok",
+    "region": "mountain-waterfall",
+    "name": "Chambok Waterfall",
+    "nameKh": "ចំបក់",
+    "province": "Kampong Speu",
+    "category": "Waterfall",
+    "blurb": "A forty-metre fall at the end of a community-run trail on the edge of Kirirom.",
+    "verified": true,
+    "lat": 11.35,
+    "lng": 104.1167,
+    "image": "https://images.unsplash.com/photo-1621502134035-2316a3e14904?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Hiking",
+      "Trail"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "entryFee": "$1 – $3",
+    "visitDuration": "2 – 3 hours",
+    "bestSeason": "June – November",
+    "bestTime": "Midday",
+    "highlights": [
+      "Swimming pools",
+      "Picnic shelters"
+    ],
+    "tips": [
+      "Rocks are slippery",
+      "Strongest flow in the wet season"
+    ]
+  },
+  {
+    "slug": "phnom-chhngok",
+    "region": "mountain-waterfall",
+    "name": "Phnom Chhngok Cave Temple",
+    "nameKh": "ភ្នំឆ្ងោក",
+    "province": "Kampot",
+    "category": "Cave",
+    "blurb": "A seventh-century brick shrine standing inside a limestone cave, reached by ladder.",
+    "verified": true,
+    "lat": 10.7,
+    "lng": 104.25,
+    "image": "https://images.unsplash.com/photo-1651650191726-d81c3a84bb25?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Hiking"
+    ],
+    "openTime": "07:30",
+    "closeTime": "17:30",
+    "entryFee": "$1 – $3",
+    "visitDuration": "1 hour",
+    "bestTime": "Daylight hours",
+    "highlights": [
+      "Shrine chamber",
+      "Bat flight at dusk"
+    ],
+    "tips": [
+      "Bring a torch",
+      "Floors are slippery"
+    ]
+  },
+  {
+    "slug": "kampong-trach",
+    "region": "mountain-waterfall",
+    "name": "Kampong Trach Caves",
+    "nameKh": "កំពង់ត្រាច",
+    "province": "Kampot",
+    "category": "Cave",
+    "blurb": "A collapsed karst hill you walk into, opening onto a sinkhole garden in the middle.",
+    "verified": true,
+    "lat": 10.5333,
+    "lng": 104.4667,
+    "image": "https://images.unsplash.com/photo-1575735003097-b786f5b0463b?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Hiking",
+      "Landscape"
+    ],
+    "openTime": "07:30",
+    "closeTime": "17:30",
+    "entryFee": "$1 – $3",
+    "visitDuration": "1 hour",
+    "bestTime": "Daylight hours",
+    "highlights": [
+      "Shrine chamber",
+      "Bat flight at dusk"
+    ],
+    "tips": [
+      "Bring a torch",
+      "Floors are slippery"
+    ]
+  },
+  {
+    "slug": "phnom-sorsia",
+    "region": "mountain-waterfall",
+    "name": "Phnom Sorsia",
+    "province": "Kampot",
+    "category": "Cave",
+    "blurb": "Two caves in one outcrop — one full of bats, one lit through a hole in the roof.",
+    "verified": true,
+    "lat": 10.5833,
+    "lng": 104.3667,
+    "image": "https://images.unsplash.com/photo-1667118891614-b0820e960b7b?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Hiking"
+    ],
+    "openTime": "07:30",
+    "closeTime": "17:30",
+    "entryFee": "$1 – $3",
+    "visitDuration": "1 hour",
+    "bestTime": "Daylight hours",
+    "highlights": [
+      "Shrine chamber",
+      "Bat flight at dusk"
+    ],
+    "tips": [
+      "Bring a torch",
+      "Floors are slippery"
+    ]
+  },
+  {
+    "slug": "phnom-aural",
+    "region": "mountain-waterfall",
+    "name": "Phnom Aural",
+    "nameKh": "ភ្នំឧរ៉ាល់",
+    "province": "Kampong Speu",
+    "category": "Trekking",
+    "blurb": "The highest peak in Cambodia at 1,813 m, a hard two-day climb with a guide.",
+    "featured": true,
+    "verified": true,
+    "lat": 12.0333,
+    "lng": 104.1667,
+    "image": "https://images.unsplash.com/photo-1575735003097-b786f5b0463b?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Peak",
+      "Hiking",
+      "Camping"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "priceRange": "$25 – $60 a person",
+    "visitDuration": "Full day",
+    "difficulty": "Moderate",
+    "groupSize": "2 – 10 people",
+    "bestSeason": "November – March",
+    "highlights": [
+      "Guide",
+      "Lunch",
+      "Park fees"
+    ],
+    "tips": [
+      "Broken-in shoes",
+      "Long sleeves for the forest"
+    ]
+  },
+  {
+    "slug": "kbal-spean",
+    "region": "mountain-waterfall",
+    "name": "Kbal Spean",
+    "nameKh": "ក្បាលស្ពាន",
+    "province": "Siem Reap",
+    "category": "Trekking",
+    "blurb": "A forty-minute climb through forest to a riverbed carved with a thousand lingas.",
+    "verified": true,
+    "lat": 13.6667,
+    "lng": 103.95,
+    "image": "https://images.unsplash.com/photo-1667371026189-dfd5544cfdf9?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Hiking",
+      "Trail"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "priceRange": "$25 – $60 a person",
+    "visitDuration": "Full day",
+    "difficulty": "Moderate",
+    "groupSize": "2 – 10 people",
+    "bestSeason": "November – March",
+    "highlights": [
+      "Guide",
+      "Lunch",
+      "Park fees"
+    ],
+    "tips": [
+      "Broken-in shoes",
+      "Long sleeves for the forest"
+    ]
+  },
+  {
+    "slug": "areng-valley",
+    "region": "mountain-waterfall",
+    "name": "Areng Valley",
+    "nameKh": "អារ៉ែង",
+    "province": "Koh Kong",
+    "category": "Trekking",
+    "blurb": "A valley the community kept from being dammed, now walked rather than flooded.",
+    "verified": true,
+    "lat": 11.5,
+    "lng": 103.3,
+    "image": "https://images.unsplash.com/photo-1667371026139-57d7d81918de?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Trail",
+      "Camping",
+      "Landscape"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "priceRange": "$25 – $60 a person",
+    "visitDuration": "Full day",
+    "difficulty": "Moderate",
+    "groupSize": "2 – 10 people",
+    "bestSeason": "November – March",
+    "highlights": [
+      "Guide",
+      "Lunch",
+      "Park fees"
+    ],
+    "tips": [
+      "Broken-in shoes",
+      "Long sleeves for the forest"
+    ]
+  },
+  {
+    "slug": "kirirom",
+    "region": "mountain-waterfall",
+    "name": "Kirirom National Park",
+    "nameKh": "គិរីរម្យ",
+    "province": "Kampong Speu",
+    "category": "Camping",
+    "blurb": "Pine forest cool enough to need a jacket, two hours from Phnom Penh.",
+    "featured": true,
+    "verified": true,
+    "lat": 11.3167,
+    "lng": 104.05,
+    "image": "https://images.unsplash.com/photo-1599283415392-c1ad8110a147?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Camping",
+      "Trail",
+      "Landscape"
+    ],
+    "facilities": [
+      "Camping ground",
+      "Walking trails",
+      "Restaurant",
+      "Parking"
+    ],
+    "open24h": true,
+    "priceRange": "$20 – $45 a person",
+    "visitDuration": "Overnight",
+    "difficulty": "Easy",
+    "groupSize": "2 – 8 people",
+    "bestSeason": "November – March",
+    "highlights": [
+      "Tent",
+      "Dinner and breakfast",
+      "Guide"
+    ],
+    "tips": [
+      "Nights can be cool in the highlands"
+    ]
+  },
+  {
+    "slug": "osoam",
+    "region": "mountain-waterfall",
+    "name": "Osoam Cardamom Community",
+    "province": "Pursat",
+    "category": "Camping",
+    "blurb": "A village centre deep in the range, and the usual base for multi-day walks into it.",
+    "verified": true,
+    "lat": 12.05,
+    "lng": 103.2,
+    "image": "https://images.unsplash.com/photo-1653714802676-6a50c7ead70e?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Camping",
+      "Trail"
+    ],
+    "facilities": [
+      "Tents provided",
+      "Guided treks",
+      "Home-cooked meals",
+      "Local guide"
+    ],
+    "open24h": true,
+    "priceRange": "$20 – $45 a person",
+    "visitDuration": "Overnight",
+    "difficulty": "Easy",
+    "groupSize": "2 – 8 people",
+    "bestSeason": "November – March",
+    "highlights": [
+      "Tent",
+      "Dinner and breakfast",
+      "Guide"
+    ],
+    "tips": [
+      "Nights can be cool in the highlands"
+    ]
+  },
+  {
+    "slug": "chi-phat",
+    "region": "mountain-waterfall",
+    "name": "Chi Phat",
+    "province": "Koh Kong",
+    "category": "Cycling",
+    "blurb": "A former logging village turned trekking base, with mountain-bike routes cut by the community.",
+    "verified": true,
+    "lat": 11.3167,
+    "lng": 103.4667,
+    "image": "https://images.unsplash.com/photo-1653714802676-6a50c7ead70e?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Trail",
+      "Camping"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "priceRange": "$15 – $40 a person",
+    "visitDuration": "Half day",
+    "difficulty": "Easy",
+    "groupSize": "2 – 12 people",
+    "bestTime": "Early morning",
+    "highlights": [
+      "Bicycle",
+      "Guide",
+      "Water"
+    ],
+    "tips": [
+      "Start early to beat the heat"
+    ]
+  },
+  {
+    "slug": "kampot-kep-loop",
+    "region": "mountain-waterfall",
+    "name": "Kampot – Kep Countryside Loop",
+    "province": "Kampot",
+    "category": "Cycling",
+    "blurb": "Forty flat kilometres between pepper farms, salt pans and the karst outcrops.",
+    "verified": true,
+    "lat": 10.55,
+    "lng": 104.28,
+    "image": "https://images.unsplash.com/photo-1729963639012-5a6a48690ed4?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Trail",
+      "Landscape"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "priceRange": "$15 – $40 a person",
+    "visitDuration": "Half day",
+    "difficulty": "Easy",
+    "groupSize": "2 – 12 people",
+    "bestTime": "Early morning",
+    "highlights": [
+      "Bicycle",
+      "Guide",
+      "Water"
+    ],
+    "tips": [
+      "Start early to beat the heat"
+    ]
+  },
+  {
+    "slug": "phnom-sampeau",
+    "region": "mountain-waterfall",
+    "name": "Phnom Sampeau",
+    "nameKh": "ភ្នំសំពៅ",
+    "province": "Battambang",
+    "category": "Viewpoint",
+    "blurb": "The bat cave empties in a ribbon at dusk, watched from the road below.",
+    "featured": true,
+    "verified": true,
+    "lat": 13.0333,
+    "lng": 103.1333,
+    "image": "https://images.unsplash.com/photo-1700155024603-771638efc72f?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Sunset",
+      "Landscape"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "entryFee": "Free",
+    "visitDuration": "45 minutes",
+    "bestTime": "Sunset",
+    "highlights": [
+      "Panorama over the plain"
+    ],
+    "tips": [
+      "Arrive 30 minutes early"
+    ]
+  },
+  {
+    "slug": "phnom-banan",
+    "region": "mountain-waterfall",
+    "name": "Phnom Banan",
+    "nameKh": "ភ្នំបាណន់",
+    "province": "Battambang",
+    "category": "Viewpoint",
+    "blurb": "358 steps to a five-towered hilltop temple, with the Sangker plain behind it.",
+    "verified": true,
+    "lat": 12.9833,
+    "lng": 103.2333,
+    "image": "https://images.unsplash.com/photo-1609949165382-2e442783c8d5?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Sunset",
+      "Hiking",
+      "Landscape"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "entryFee": "Free",
+    "visitDuration": "45 minutes",
+    "bestTime": "Sunset",
+    "highlights": [
+      "Panorama over the plain"
+    ],
+    "tips": [
+      "Arrive 30 minutes early"
+    ]
+  },
+  {
+    "slug": "dangrek-escarpment",
+    "region": "mountain-waterfall",
+    "name": "Dangrek Escarpment",
+    "nameKh": "ជួរភ្នំដងរែក",
+    "province": "Preah Vihear",
+    "category": "Viewpoint",
+    "blurb": "The cliff edge below Preah Vihear temple, with the plain running out 500 m underneath.",
+    "verified": true,
+    "lat": 14.3931,
+    "lng": 104.68,
+    "image": "https://images.unsplash.com/photo-1609949165382-2e442783c8d5?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Landscape",
+      "Peak"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "entryFee": "Free",
+    "visitDuration": "45 minutes",
+    "bestTime": "Sunset",
+    "highlights": [
+      "Panorama over the plain"
+    ],
+    "tips": [
+      "Arrive 30 minutes early"
+    ]
+  },
+  {
+    "slug": "phnom-bok",
+    "region": "mountain-waterfall",
+    "name": "Phnom Bok",
+    "nameKh": "ភ្នំបូក",
+    "province": "Siem Reap",
+    "category": "Photography",
+    "blurb": "Six hundred steps to a ninth-century hilltop temple, and the plain at first light.",
+    "verified": true,
+    "lat": 13.4667,
+    "lng": 104.05,
+    "image": "https://images.unsplash.com/photo-1599283787923-51b965a58b05?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Sunrise",
+      "Peak",
+      "Landscape"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "priceRange": "$40 – $90 a session",
+    "visitDuration": "2 – 3 hours",
+    "bestTime": "Sunrise",
+    "groupSize": "1 – 4 people",
+    "highlights": [
+      "Photographer",
+      "Edited photos"
+    ]
+  },
+  {
+    "slug": "bokor-cloud-line",
+    "region": "mountain-waterfall",
+    "name": "The Bokor Cloud Line",
+    "province": "Kampot",
+    "category": "Photography",
+    "blurb": "The altitude where the plateau's own weather forms, and the reason the hill station was built.",
+    "verified": true,
+    "lat": 10.6167,
+    "lng": 104.05,
+    "image": "https://images.unsplash.com/photo-1722054078069-095e86f88829?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Landscape",
+      "Sunset"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "priceRange": "$40 – $90 a session",
+    "visitDuration": "2 – 3 hours",
+    "bestTime": "Sunrise",
+    "groupSize": "1 – 4 people",
+    "highlights": [
+      "Photographer",
+      "Edited photos"
+    ]
+  },
+  {
+    "slug": "koh-rong-sanloem",
+    "region": "coastal-island",
+    "name": "Koh Rong Sanloem",
+    "nameKh": "កោះរុងសន្លឹម",
+    "province": "Preah Sihanouk",
+    "category": "Island",
+    "blurb": "Saracen Bay for the sand, Lazy Beach for the sunset, plankton after dark.",
+    "detail": "The quieter of the two big islands, and effectively three separate places: Saracen Bay on the east with most of the accommodation, Lazy Beach over the ridge facing the sunset, and M'Pai Bay in the north with the island's small village. Walking between them takes twenty to forty minutes on forest paths. The bioluminescent plankton is real and best on a dark, moonless night away from the bay lights.",
+    "featured": true,
+    "verified": true,
+    "lat": 10.6058,
+    "lng": 103.3167,
+    "image": "https://images.unsplash.com/photo-1639192745319-e37cd8cd8374?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Beach",
+      "Island"
+    ],
+    "open24h": true,
+    "entryFee": "Boat $10 – $25 return",
+    "visitDuration": "Full day",
+    "bestSeason": "November – April",
+    "highlights": [
+      "Snorkelling",
+      "Beach time",
+      "Boat transfer"
+    ],
+    "tips": [
+      "Bring cash — few card machines"
+    ]
+  },
+  {
+    "slug": "koh-rong",
+    "region": "coastal-island",
+    "name": "Koh Rong",
+    "nameKh": "កោះរុង",
+    "province": "Preah Sihanouk",
+    "category": "Island",
+    "blurb": "The bigger, louder sister island, with jungle trails to empty beaches on the far side.",
+    "featured": true,
+    "verified": true,
+    "lat": 10.7167,
+    "lng": 103.25,
+    "image": "https://images.unsplash.com/photo-1616421310226-7453165b353e?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Beach",
+      "Island"
+    ],
+    "open24h": true,
+    "entryFee": "Boat $10 – $25 return",
+    "visitDuration": "Full day",
+    "bestSeason": "November – April",
+    "highlights": [
+      "Snorkelling",
+      "Beach time",
+      "Boat transfer"
+    ],
+    "tips": [
+      "Bring cash — few card machines"
+    ]
+  },
+  {
+    "slug": "koh-ta-kiev",
+    "region": "coastal-island",
+    "name": "Koh Ta Kiev",
+    "nameKh": "កោះតាកៀវ",
+    "province": "Preah Sihanouk",
+    "category": "Island",
+    "blurb": "Near-shore and barely developed — hammocks, generators and no road.",
+    "verified": true,
+    "lat": 10.5333,
+    "lng": 103.6,
+    "image": "https://images.unsplash.com/photo-1657027538728-0d4db32d87da?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Island",
+      "Kayak"
+    ],
+    "open24h": true,
+    "entryFee": "Boat $10 – $25 return",
+    "visitDuration": "Full day",
+    "bestSeason": "November – April",
+    "highlights": [
+      "Snorkelling",
+      "Beach time",
+      "Boat transfer"
+    ],
+    "tips": [
+      "Bring cash — few card machines"
+    ]
+  },
+  {
+    "slug": "koh-thmei",
+    "region": "coastal-island",
+    "name": "Koh Thmei",
+    "nameKh": "កោះថ្មី",
+    "province": "Preah Sihanouk",
+    "category": "Island",
+    "blurb": "Inside Ream National Park, with mangrove channels instead of nightlife and birds instead of bars.",
+    "verified": true,
+    "lat": 10.5167,
+    "lng": 103.7833,
+    "image": "https://images.unsplash.com/photo-1740724873371-0c05a17fa819?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Island",
+      "Kayak"
+    ],
+    "open24h": true,
+    "entryFee": "Boat $10 – $25 return",
+    "visitDuration": "Full day",
+    "bestSeason": "November – April",
+    "highlights": [
+      "Snorkelling",
+      "Beach time",
+      "Boat transfer"
+    ],
+    "tips": [
+      "Bring cash — few card machines"
+    ]
+  },
+  {
+    "slug": "koh-tonsay",
+    "region": "coastal-island",
+    "name": "Koh Tonsay (Rabbit Island)",
+    "nameKh": "កោះទន្សាយ",
+    "province": "Kep",
+    "category": "Island",
+    "blurb": "Twenty minutes off Kep, with a single beach and a row of wooden bungalows.",
+    "verified": true,
+    "lat": 10.4333,
+    "lng": 104.3833,
+    "image": "https://images.unsplash.com/photo-1674017062593-8d4e8e5f5be7?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Island",
+      "Beach"
+    ],
+    "open24h": true,
+    "entryFee": "Boat $10 – $25 return",
+    "visitDuration": "Full day",
+    "bestSeason": "November – April",
+    "highlights": [
+      "Snorkelling",
+      "Beach time",
+      "Boat transfer"
+    ],
+    "tips": [
+      "Bring cash — few card machines"
+    ]
+  },
+  {
+    "slug": "koh-sdach",
+    "region": "coastal-island",
+    "name": "Koh Sdach Archipelago",
+    "nameKh": "កោះស្តេច",
+    "province": "Koh Kong",
+    "category": "Island",
+    "blurb": "A working fishing cluster off Botum Sakor, with reef between the islands and few visitors.",
+    "verified": true,
+    "lat": 11.2333,
+    "lng": 102.9667,
+    "image": "https://images.unsplash.com/photo-1595781723824-9213a40e3257?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Island",
+      "Diving"
+    ],
+    "open24h": true,
+    "entryFee": "Boat $10 – $25 return",
+    "visitDuration": "Full day",
+    "bestSeason": "November – April",
+    "highlights": [
+      "Snorkelling",
+      "Beach time",
+      "Boat transfer"
+    ],
+    "tips": [
+      "Bring cash — few card machines"
+    ]
+  },
+  {
+    "slug": "koh-kong-island",
+    "region": "coastal-island",
+    "name": "Koh Kong Island",
+    "nameKh": "កោះកុង",
+    "province": "Koh Kong",
+    "category": "Beach",
+    "blurb": "Seven beaches on the country's largest island, an hour by boat and rarely busy.",
+    "verified": true,
+    "lat": 11.3333,
+    "lng": 102.9333,
+    "image": "https://images.unsplash.com/photo-1595781723824-9213a40e3257?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Island",
+      "Beach"
+    ],
+    "open24h": true,
+    "entryFee": "Free",
+    "visitDuration": "Half day",
+    "bestSeason": "November – April",
+    "bestTime": "Late afternoon",
+    "highlights": [
+      "Swimming",
+      "Beach dining",
+      "Sunset"
+    ],
+    "tips": [
+      "Watch for currents after rain"
+    ]
+  },
+  {
+    "slug": "otres",
+    "region": "coastal-island",
+    "name": "Otres Beach",
+    "nameKh": "អូត្រេស",
+    "province": "Preah Sihanouk",
+    "category": "Beach",
+    "blurb": "The long quiet strip south of Sihanoukville, best in the late afternoon.",
+    "verified": true,
+    "lat": 10.5833,
+    "lng": 103.5167,
+    "image": "https://images.unsplash.com/photo-1509781847595-a430dc27c7af?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Beach"
+    ],
+    "open24h": true,
+    "entryFee": "Free",
+    "visitDuration": "Half day",
+    "bestSeason": "November – April",
+    "bestTime": "Late afternoon",
+    "highlights": [
+      "Swimming",
+      "Beach dining",
+      "Sunset"
+    ],
+    "tips": [
+      "Watch for currents after rain"
+    ]
+  },
+  {
+    "slug": "long-set",
+    "region": "coastal-island",
+    "name": "Long Set (4K) Beach",
+    "province": "Preah Sihanouk",
+    "category": "Beach",
+    "blurb": "Four kilometres of sand on Koh Rong's east coast, walkable from the pier in an hour.",
+    "verified": true,
+    "lat": 10.7,
+    "lng": 103.2833,
+    "image": "https://images.unsplash.com/photo-1616421310226-7453165b353e?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Beach",
+      "Island"
+    ],
+    "open24h": true,
+    "entryFee": "Free",
+    "visitDuration": "Half day",
+    "bestSeason": "November – April",
+    "bestTime": "Late afternoon",
+    "highlights": [
+      "Swimming",
+      "Beach dining",
+      "Sunset"
+    ],
+    "tips": [
+      "Watch for currents after rain"
+    ]
+  },
+  {
+    "slug": "lazy-beach",
+    "region": "coastal-island",
+    "name": "Lazy Beach",
+    "province": "Preah Sihanouk",
+    "category": "Beach",
+    "blurb": "The west-facing bay on Sanloem, reached over the ridge and pointed at the sunset.",
+    "verified": true,
+    "lat": 10.6,
+    "lng": 103.3,
+    "image": "https://images.unsplash.com/photo-1509781847595-a430dc27c7af?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Beach",
+      "Island",
+      "Luxury Resort"
+    ],
+    "open24h": true,
+    "entryFee": "Free",
+    "visitDuration": "Half day",
+    "bestSeason": "November – April",
+    "bestTime": "Late afternoon",
+    "highlights": [
+      "Swimming",
+      "Beach dining",
+      "Sunset"
+    ],
+    "tips": [
+      "Watch for currents after rain"
+    ]
+  },
+  {
+    "slug": "koh-seh",
+    "region": "coastal-island",
+    "name": "Koh Seh Marine Reserve",
+    "nameKh": "កោះសេះ",
+    "province": "Kep",
+    "category": "Coral",
+    "blurb": "A conservation base rebuilding seagrass and reef in the Kep archipelago.",
+    "verified": true,
+    "lat": 10.35,
+    "lng": 104.35,
+    "image": "https://images.unsplash.com/photo-1674017062593-8d4e8e5f5be7?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Diving",
+      "Island"
+    ],
+    "openTime": "07:00",
+    "closeTime": "17:00",
+    "entryFee": "$15 – $30",
+    "visitDuration": "Half day",
+    "bestSeason": "November – April",
+    "highlights": [
+      "Shallow reef",
+      "Marine life"
+    ],
+    "tips": [
+      "Do not stand on coral"
+    ]
+  },
+  {
+    "slug": "kep-seagrass",
+    "region": "coastal-island",
+    "name": "Kep Seagrass Beds",
+    "province": "Kep",
+    "category": "Coral",
+    "blurb": "The largest seagrass meadows left on the coast, and the nursery behind the crab you eat ashore.",
+    "verified": true,
+    "lat": 10.4,
+    "lng": 104.35,
+    "image": "https://images.unsplash.com/photo-1674017062593-8d4e8e5f5be7?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Diving",
+      "Kayak"
+    ],
+    "openTime": "07:00",
+    "closeTime": "17:00",
+    "entryFee": "$15 – $30",
+    "visitDuration": "Half day",
+    "bestSeason": "November – April",
+    "highlights": [
+      "Shallow reef",
+      "Marine life"
+    ],
+    "tips": [
+      "Do not stand on coral"
+    ]
+  },
+  {
+    "slug": "koh-tang",
+    "region": "coastal-island",
+    "name": "Koh Tang Dive Sites",
+    "nameKh": "កោះតាង",
+    "province": "Preah Sihanouk",
+    "category": "Diving",
+    "blurb": "The clearest water in Cambodian waters, four hours offshore on a liveaboard.",
+    "featured": true,
+    "verified": true,
+    "lat": 10.2833,
+    "lng": 103.1,
+    "image": "https://images.unsplash.com/photo-1639192745319-e37cd8cd8374?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Diving",
+      "Island"
+    ],
+    "openTime": "07:00",
+    "closeTime": "17:00",
+    "entryFee": "$60 – $110 for two dives",
+    "visitDuration": "Full day",
+    "bestSeason": "November – April",
+    "highlights": [
+      "Two-tank dive",
+      "Gear rental"
+    ],
+    "tips": [
+      "Bring your certification card"
+    ]
+  },
+  {
+    "slug": "koh-prins",
+    "region": "coastal-island",
+    "name": "Koh Prins Wrecks",
+    "province": "Preah Sihanouk",
+    "category": "Diving",
+    "blurb": "Two wrecks in open water off the outer islands, the only wreck diving on this coast.",
+    "verified": true,
+    "lat": 10.35,
+    "lng": 103,
+    "image": "https://images.unsplash.com/photo-1722054078069-095e86f88829?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Diving",
+      "Island"
+    ],
+    "openTime": "07:00",
+    "closeTime": "17:00",
+    "entryFee": "$60 – $110 for two dives",
+    "visitDuration": "Full day",
+    "bestSeason": "November – April",
+    "highlights": [
+      "Two-tank dive",
+      "Gear rental"
+    ],
+    "tips": [
+      "Bring your certification card"
+    ]
+  },
+  {
+    "slug": "sanloem-reefs",
+    "region": "coastal-island",
+    "name": "Sanloem Reef Snorkeling",
+    "province": "Preah Sihanouk",
+    "category": "Snorkeling",
+    "blurb": "Shallow coral off the north of the island, swimmable straight from the sand.",
+    "verified": true,
+    "lat": 10.62,
+    "lng": 103.31,
+    "image": "https://images.unsplash.com/photo-1674017062593-8d4e8e5f5be7?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Diving",
+      "Beach",
+      "Island"
+    ],
+    "openTime": "07:00",
+    "closeTime": "17:00",
+    "entryFee": "$15 – $30 with gear",
+    "visitDuration": "Half day",
+    "bestSeason": "November – April",
+    "highlights": [
+      "Reef stops",
+      "Gear included"
+    ],
+    "tips": [
+      "Reef-safe sunscreen only"
+    ]
+  },
+  {
+    "slug": "koh-russei",
+    "region": "coastal-island",
+    "name": "Koh Russei (Bamboo Island)",
+    "nameKh": "កោះឬស្សី",
+    "province": "Preah Sihanouk",
+    "category": "Snorkeling",
+    "blurb": "A small island close in, with reef at both ends and a shallow crossing between them.",
+    "verified": true,
+    "lat": 10.5667,
+    "lng": 103.3833,
+    "image": "https://images.unsplash.com/photo-1657027538728-0d4db32d87da?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Island",
+      "Beach",
+      "Kayak"
+    ],
+    "openTime": "07:00",
+    "closeTime": "17:00",
+    "entryFee": "$15 – $30 with gear",
+    "visitDuration": "Half day",
+    "bestSeason": "November – April",
+    "highlights": [
+      "Reef stops",
+      "Gear included"
+    ],
+    "tips": [
+      "Reef-safe sunscreen only"
+    ]
+  },
+  {
+    "slug": "kep-beach",
+    "region": "coastal-island",
+    "name": "Kep & the Crab Market",
+    "nameKh": "កែប",
+    "province": "Kep",
+    "category": "Seafood",
+    "blurb": "Crab straight off the boats, cooked with green Kampot pepper.",
+    "featured": true,
+    "verified": true,
+    "lat": 10.4833,
+    "lng": 104.3167,
+    "image": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Beach"
+    ],
+    "openTime": "10:00",
+    "closeTime": "21:00",
+    "priceRange": "$6 – $18 a dish",
+    "visitDuration": "1 – 2 hours",
+    "bestTime": "Dinner",
+    "highlights": [
+      "Kampot pepper crab",
+      "Grilled squid"
+    ],
+    "tips": [
+      "Prices are often by weight"
+    ]
+  },
+  {
+    "slug": "psar-leu-seafood",
+    "region": "coastal-island",
+    "name": "Psar Leu Seafood Market",
+    "nameKh": "ផ្សារលើ",
+    "province": "Preah Sihanouk",
+    "category": "Seafood",
+    "blurb": "The port's own market, where the day's catch lands before it reaches any restaurant.",
+    "verified": true,
+    "lat": 10.6333,
+    "lng": 103.5167,
+    "image": "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Beach"
+    ],
+    "openTime": "10:00",
+    "closeTime": "21:00",
+    "priceRange": "$6 – $18 a dish",
+    "visitDuration": "1 – 2 hours",
+    "bestTime": "Dinner",
+    "highlights": [
+      "Kampot pepper crab",
+      "Grilled squid"
+    ],
+    "tips": [
+      "Prices are often by weight"
+    ]
+  },
+  {
+    "slug": "kampot-fish-market",
+    "region": "coastal-island",
+    "name": "Kampot Fish Market",
+    "province": "Kampot",
+    "category": "Seafood",
+    "blurb": "A restored deco market hall on the quay, busiest when the estuary boats come in.",
+    "verified": true,
+    "lat": 10.6,
+    "lng": 104.1833,
+    "image": "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Kayak"
+    ],
+    "openTime": "10:00",
+    "closeTime": "21:00",
+    "priceRange": "$6 – $18 a dish",
+    "visitDuration": "1 – 2 hours",
+    "bestTime": "Dinner",
+    "highlights": [
+      "Kampot pepper crab",
+      "Grilled squid"
+    ],
+    "tips": [
+      "Prices are often by weight"
+    ]
+  },
+  {
+    "slug": "peam-krasop",
+    "region": "coastal-island",
+    "name": "Peam Krasop Mangroves",
+    "nameKh": "ពាមក្រសោប",
+    "province": "Koh Kong",
+    "category": "Mangrove",
+    "blurb": "A kilometre of boardwalk through standing mangrove, with a tower at the end.",
+    "featured": true,
+    "verified": true,
+    "lat": 11.5833,
+    "lng": 102.9333,
+    "image": "https://images.unsplash.com/photo-1740724873371-0c05a17fa819?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Kayak"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "entryFee": "$3 – $8",
+    "visitDuration": "2 hours",
+    "bestSeason": "November – April",
+    "highlights": [
+      "Boardwalk",
+      "Kayak channels"
+    ],
+    "tips": [
+      "Insect repellent helps"
+    ]
+  },
+  {
+    "slug": "ream",
+    "region": "coastal-island",
+    "name": "Ream National Park",
+    "nameKh": "រាម",
+    "province": "Preah Sihanouk",
+    "category": "Mangrove",
+    "blurb": "Mangrove channels, dry forest and two beaches, half an hour from the airport.",
+    "verified": true,
+    "lat": 10.5333,
+    "lng": 103.75,
+    "image": "https://images.unsplash.com/photo-1740724873371-0c05a17fa819?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Kayak",
+      "Beach"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "entryFee": "$3 – $8",
+    "visitDuration": "2 hours",
+    "bestSeason": "November – April",
+    "highlights": [
+      "Boardwalk",
+      "Kayak channels"
+    ],
+    "tips": [
+      "Insect repellent helps"
+    ]
+  },
+  {
+    "slug": "kampot-estuary",
+    "region": "coastal-island",
+    "name": "Kampot Estuary & Salt Fields",
+    "province": "Kampot",
+    "category": "Mangrove",
+    "blurb": "Salt pans worked by hand between the river mouth and the sea, flooded and dried by season.",
+    "verified": true,
+    "lat": 10.5833,
+    "lng": 104.2167,
+    "image": "https://images.unsplash.com/photo-1661487906939-aea1f059b84f?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Kayak"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "entryFee": "$3 – $8",
+    "visitDuration": "2 hours",
+    "bestSeason": "November – April",
+    "highlights": [
+      "Boardwalk",
+      "Kayak channels"
+    ],
+    "tips": [
+      "Insect repellent helps"
+    ]
+  },
+  {
+    "slug": "gulf-cruises",
+    "region": "coastal-island",
+    "name": "Gulf Sunset Cruises",
+    "province": "Preah Sihanouk",
+    "category": "Cruise",
+    "blurb": "Evening sailings out through the archipelago, most leaving from Otres.",
+    "verified": true,
+    "lat": 10.59,
+    "lng": 103.5,
+    "image": "https://images.unsplash.com/photo-1509781847595-a430dc27c7af?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Island",
+      "Luxury Resort"
+    ],
+    "openTime": "07:00",
+    "closeTime": "17:00",
+    "entryFee": "$20 – $60 a person",
+    "visitDuration": "Half day",
+    "bestSeason": "November – April",
+    "highlights": [
+      "Deck dining",
+      "Shore stops"
+    ]
+  },
+  {
+    "slug": "kampot-river-cruise",
+    "region": "coastal-island",
+    "name": "Kampot River Cruises",
+    "province": "Kampot",
+    "category": "Cruise",
+    "blurb": "Slow boats up the Praek Tuek Chhu at dusk, with fireflies in the mangrove after dark.",
+    "verified": true,
+    "lat": 10.61,
+    "lng": 104.181,
+    "image": "https://images.unsplash.com/photo-1786954431605-f97ecd5ae5ae?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Kayak"
+    ],
+    "openTime": "07:00",
+    "closeTime": "17:00",
+    "entryFee": "$20 – $60 a person",
+    "visitDuration": "Half day",
+    "bestSeason": "November – April",
+    "highlights": [
+      "Deck dining",
+      "Shore stops"
+    ]
+  },
+  {
+    "slug": "sisowath-quay",
+    "region": "urban-nightlife",
+    "name": "Sisowath Quay",
+    "nameKh": "មហាវិថីស៊ីសុវត្ថិ",
+    "province": "Phnom Penh",
+    "category": "City Walk",
+    "blurb": "The two-kilometre promenade along the Tonle Sap, at its best an hour before dark.",
+    "featured": true,
+    "verified": true,
+    "lat": 11.57,
+    "lng": 104.93,
+    "image": "https://images.unsplash.com/photo-1652802725832-67d5be09e5e3?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Architecture",
+      "Food"
+    ],
+    "open24h": true,
+    "entryFee": "Free",
+    "visitDuration": "2 hours",
+    "bestTime": "Late afternoon",
+    "highlights": [
+      "Colonial shophouses",
+      "Riverside promenade"
+    ],
+    "tips": [
+      "Cross with the traffic flow"
+    ]
+  },
+  {
+    "slug": "wat-phnom-walk",
+    "region": "urban-nightlife",
+    "name": "Wat Phnom & the Colonial Quarter",
+    "nameKh": "វត្តភ្នំ",
+    "province": "Phnom Penh",
+    "category": "City Walk",
+    "blurb": "The hill the capital is named after, and the post office square and villas around it.",
+    "verified": true,
+    "lat": 11.5764,
+    "lng": 104.9214,
+    "image": "https://images.unsplash.com/photo-1549463601-da058868e20d?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Architecture"
+    ],
+    "open24h": true,
+    "entryFee": "Free",
+    "visitDuration": "2 hours",
+    "bestTime": "Late afternoon",
+    "highlights": [
+      "Colonial shophouses",
+      "Riverside promenade"
+    ],
+    "tips": [
+      "Cross with the traffic flow"
+    ]
+  },
+  {
+    "slug": "siem-reap-riverside",
+    "region": "urban-nightlife",
+    "name": "Siem Reap Riverside",
+    "province": "Siem Reap",
+    "category": "City Walk",
+    "blurb": "The lit riverbank between the old market and Wat Bo, quiet two streets from Pub Street.",
+    "verified": true,
+    "lat": 13.3567,
+    "lng": 103.8583,
+    "image": "https://images.unsplash.com/photo-1700155024603-771638efc72f?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Architecture",
+      "Cafe"
+    ],
+    "open24h": true,
+    "entryFee": "Free",
+    "visitDuration": "2 hours",
+    "bestTime": "Late afternoon",
+    "highlights": [
+      "Colonial shophouses",
+      "Riverside promenade"
+    ],
+    "tips": [
+      "Cross with the traffic flow"
+    ]
+  },
+  {
+    "slug": "battambang-heritage-walk",
+    "region": "urban-nightlife",
+    "name": "Battambang Heritage Walk",
+    "province": "Battambang",
+    "category": "City Walk",
+    "blurb": "Shophouse rows, a governor's residence and the best-kept French streets in the country.",
+    "verified": true,
+    "lat": 13.0957,
+    "lng": 103.2022,
+    "image": "https://images.unsplash.com/photo-1654524786721-9990d1d64cf1?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Architecture"
+    ],
+    "open24h": true,
+    "entryFee": "Free",
+    "visitDuration": "2 hours",
+    "bestTime": "Late afternoon",
+    "highlights": [
+      "Colonial shophouses",
+      "Riverside promenade"
+    ],
+    "tips": [
+      "Cross with the traffic flow"
+    ]
+  },
+  {
+    "slug": "kampot-riverside",
+    "region": "urban-nightlife",
+    "name": "Kampot Riverside",
+    "province": "Kampot",
+    "category": "City Walk",
+    "blurb": "Sunset boats and a strip of low-key bars along the Praek Tuek Chhu.",
+    "featured": true,
+    "verified": true,
+    "lat": 10.61,
+    "lng": 104.181,
+    "image": "https://images.unsplash.com/photo-1786954431605-f97ecd5ae5ae?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Night Life",
+      "Cafe"
+    ],
+    "open24h": true,
+    "entryFee": "Free",
+    "visitDuration": "2 hours",
+    "bestTime": "Late afternoon",
+    "highlights": [
+      "Colonial shophouses",
+      "Riverside promenade"
+    ],
+    "tips": [
+      "Cross with the traffic flow"
+    ]
+  },
+  {
+    "slug": "pp-night-market",
+    "region": "urban-nightlife",
+    "name": "Phnom Penh Night Market",
+    "province": "Phnom Penh",
+    "category": "Night Market",
+    "blurb": "Weekend stalls by the river where everyone eats sitting on mats.",
+    "verified": true,
+    "lat": 11.575,
+    "lng": 104.925,
+    "image": "https://images.unsplash.com/photo-1600335895229-6e75511892c8?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Food",
+      "Shopping"
+    ],
+    "openTime": "17:00",
+    "closeTime": "23:30",
+    "priceRange": "$2 – $8 a dish",
+    "visitDuration": "1 – 2 hours",
+    "bestTime": "After 6PM",
+    "highlights": [
+      "Food court stalls",
+      "Live music",
+      "Craft stalls"
+    ],
+    "tips": [
+      "Carry small notes"
+    ]
+  },
+  {
+    "slug": "angkor-night-market",
+    "region": "urban-nightlife",
+    "name": "Angkor Night Market",
+    "province": "Siem Reap",
+    "category": "Night Market",
+    "blurb": "The original of the town's night markets, still the best for silk and silver.",
+    "verified": true,
+    "lat": 13.35,
+    "lng": 103.85,
+    "image": "https://images.unsplash.com/photo-1590846406792-0adc7f938f1d?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Shopping"
+    ],
+    "openTime": "17:00",
+    "closeTime": "23:30",
+    "priceRange": "$2 – $8 a dish",
+    "visitDuration": "1 – 2 hours",
+    "bestTime": "After 6PM",
+    "highlights": [
+      "Food court stalls",
+      "Live music",
+      "Craft stalls"
+    ],
+    "tips": [
+      "Carry small notes"
+    ]
+  },
+  {
+    "slug": "sihanoukville-night-market",
+    "region": "urban-nightlife",
+    "name": "Sihanoukville Night Market",
+    "province": "Preah Sihanouk",
+    "category": "Night Market",
+    "blurb": "Grilled seafood and skewers a block back from the port, busiest around nine.",
+    "verified": true,
+    "lat": 10.6333,
+    "lng": 103.5167,
+    "image": "https://images.unsplash.com/photo-1600335895229-6e75511892c8?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Food",
+      "Shopping"
+    ],
+    "openTime": "17:00",
+    "closeTime": "23:30",
+    "priceRange": "$2 – $8 a dish",
+    "visitDuration": "1 – 2 hours",
+    "bestTime": "After 6PM",
+    "highlights": [
+      "Food court stalls",
+      "Live music",
+      "Craft stalls"
+    ],
+    "tips": [
+      "Carry small notes"
+    ]
+  },
+  {
+    "slug": "street-240",
+    "region": "urban-nightlife",
+    "name": "Street 240",
+    "province": "Phnom Penh",
+    "category": "Coffee",
+    "blurb": "Cafés and small boutiques along the shophouse row behind the Royal Palace.",
+    "featured": true,
+    "verified": true,
+    "lat": 11.5605,
+    "lng": 104.9245,
+    "image": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Cafe",
+      "Shopping",
+      "Architecture"
+    ],
+    "openTime": "07:00",
+    "closeTime": "19:00",
+    "priceRange": "$1.50 – $4 a cup",
+    "visitDuration": "45 minutes",
+    "bestTime": "Morning",
+    "highlights": [
+      "Iced Khmer coffee",
+      "Local roasts"
+    ]
+  },
+  {
+    "slug": "battambang-cafes",
+    "region": "urban-nightlife",
+    "name": "Battambang Café Row",
+    "province": "Battambang",
+    "category": "Coffee",
+    "blurb": "Third-wave roasters in shophouses, several of them training baristas as social enterprises.",
+    "verified": true,
+    "lat": 13.0972,
+    "lng": 103.2,
+    "image": "https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Cafe",
+      "Architecture"
+    ],
+    "openTime": "07:00",
+    "closeTime": "19:00",
+    "priceRange": "$1.50 – $4 a cup",
+    "visitDuration": "45 minutes",
+    "bestTime": "Morning",
+    "highlights": [
+      "Iced Khmer coffee",
+      "Local roasts"
+    ]
+  },
+  {
+    "slug": "kampot-cafes",
+    "region": "urban-nightlife",
+    "name": "Kampot Café Scene",
+    "province": "Kampot",
+    "category": "Coffee",
+    "blurb": "Riverside and old-town cafés, including a deaf-run arts café that has been here for years.",
+    "verified": true,
+    "lat": 10.6053,
+    "lng": 104.1811,
+    "image": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Cafe",
+      "Music"
+    ],
+    "openTime": "07:00",
+    "closeTime": "19:00",
+    "priceRange": "$1.50 – $4 a cup",
+    "visitDuration": "45 minutes",
+    "bestTime": "Morning",
+    "highlights": [
+      "Iced Khmer coffee",
+      "Local roasts"
+    ]
+  },
+  {
+    "slug": "pp-rooftops",
+    "region": "urban-nightlife",
+    "name": "Phnom Penh Rooftop Bars",
+    "province": "Phnom Penh",
+    "category": "Sky Bar",
+    "blurb": "The view over the four rivers from the top of the city's newer towers.",
+    "featured": true,
+    "verified": true,
+    "lat": 11.5564,
+    "lng": 104.9282,
+    "image": "https://images.unsplash.com/photo-1711271314001-9654dc5d5e0a?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Night Life",
+      "Music"
+    ],
+    "openTime": "17:00",
+    "closeTime": "01:00",
+    "priceRange": "$6 – $15 a drink",
+    "visitDuration": "1 – 2 hours",
+    "bestTime": "Sunset",
+    "highlights": [
+      "City view",
+      "Cocktails"
+    ],
+    "tips": [
+      "Smart casual dress"
+    ]
+  },
+  {
+    "slug": "siem-reap-rooftops",
+    "region": "urban-nightlife",
+    "name": "Siem Reap Rooftops",
+    "province": "Siem Reap",
+    "category": "Sky Bar",
+    "blurb": "Pool decks and terraces above the hotel strip, with the temples dark on the horizon.",
+    "verified": true,
+    "lat": 13.3611,
+    "lng": 103.8597,
+    "image": "https://images.unsplash.com/photo-1711271314001-9654dc5d5e0a?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Night Life"
+    ],
+    "openTime": "17:00",
+    "closeTime": "01:00",
+    "priceRange": "$6 – $15 a drink",
+    "visitDuration": "1 – 2 hours",
+    "bestTime": "Sunset",
+    "highlights": [
+      "City view",
+      "Cocktails"
+    ],
+    "tips": [
+      "Smart casual dress"
+    ]
+  },
+  {
+    "slug": "russian-market",
+    "region": "urban-nightlife",
+    "name": "Russian & Central Markets",
+    "nameKh": "ផ្សារទួលទំពូង",
+    "province": "Phnom Penh",
+    "category": "Shopping",
+    "blurb": "The 1937 art-deco dome, and the tighter, hotter aisles of Toul Tom Poung.",
+    "verified": true,
+    "lat": 11.5533,
+    "lng": 104.9203,
+    "image": "https://images.unsplash.com/photo-1787736366516-20788522776a?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Shopping",
+      "Architecture"
+    ],
+    "openTime": "09:00",
+    "closeTime": "21:00",
+    "priceRange": "$5 and up",
+    "visitDuration": "1 – 2 hours",
+    "bestTime": "Afternoon",
+    "highlights": [
+      "Local crafts",
+      "Textiles"
+    ],
+    "tips": [
+      "Bargaining is normal in markets"
+    ]
+  },
+  {
+    "slug": "psar-chas",
+    "region": "urban-nightlife",
+    "name": "Psar Chas (Old Market)",
+    "nameKh": "ផ្សារចាស់",
+    "province": "Siem Reap",
+    "category": "Shopping",
+    "blurb": "The market the tourist quarter grew around, still selling to locals in the mornings.",
+    "verified": true,
+    "lat": 13.3536,
+    "lng": 103.8564,
+    "image": "https://images.unsplash.com/photo-1787736366516-20788522776a?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Shopping",
+      "Food"
+    ],
+    "openTime": "09:00",
+    "closeTime": "21:00",
+    "priceRange": "$5 and up",
+    "visitDuration": "1 – 2 hours",
+    "bestTime": "Afternoon",
+    "highlights": [
+      "Local crafts",
+      "Textiles"
+    ],
+    "tips": [
+      "Bargaining is normal in markets"
+    ]
+  },
+  {
+    "slug": "kandal-village",
+    "region": "urban-nightlife",
+    "name": "Kandal Village",
+    "province": "Siem Reap",
+    "category": "Shopping",
+    "blurb": "Two streets of designer studios, concept stores and coffee, west of the old market.",
+    "verified": true,
+    "lat": 13.3583,
+    "lng": 103.8528,
+    "image": "https://images.unsplash.com/photo-1654524786721-9990d1d64cf1?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Shopping",
+      "Cafe"
+    ],
+    "openTime": "09:00",
+    "closeTime": "21:00",
+    "priceRange": "$5 and up",
+    "visitDuration": "1 – 2 hours",
+    "bestTime": "Afternoon",
+    "highlights": [
+      "Local crafts",
+      "Textiles"
+    ],
+    "tips": [
+      "Bargaining is normal in markets"
+    ]
+  },
+  {
+    "slug": "psar-nath",
+    "region": "urban-nightlife",
+    "name": "Psar Nath",
+    "nameKh": "ផ្សារណាត់",
+    "province": "Battambang",
+    "category": "Shopping",
+    "blurb": "The yellow deco market hall on the riverfront, and the town's actual centre.",
+    "verified": true,
+    "lat": 13.0947,
+    "lng": 103.2033,
+    "image": "https://images.unsplash.com/photo-1787736366516-20788522776a?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Shopping",
+      "Architecture"
+    ],
+    "openTime": "09:00",
+    "closeTime": "21:00",
+    "priceRange": "$5 and up",
+    "visitDuration": "1 – 2 hours",
+    "bestTime": "Afternoon",
+    "highlights": [
+      "Local crafts",
+      "Textiles"
+    ],
+    "tips": [
+      "Bargaining is normal in markets"
+    ]
+  },
+  {
+    "slug": "battambang-arts",
+    "region": "urban-nightlife",
+    "name": "Battambang Art Scene",
+    "province": "Battambang",
+    "category": "Art Gallery",
+    "blurb": "Independent gallery spaces in colonial shophouses, showing work from the arts school up the road.",
+    "featured": true,
+    "verified": true,
+    "lat": 13.0957,
+    "lng": 103.2022,
+    "image": "https://images.unsplash.com/photo-1654524786721-9990d1d64cf1?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Architecture",
+      "Music"
+    ],
+    "openTime": "08:00",
+    "closeTime": "17:00",
+    "entryFee": "Free",
+    "visitDuration": "45 minutes",
+    "bestTime": "Afternoon",
+    "highlights": [
+      "Rotating exhibitions",
+      "Artist studios"
+    ]
+  },
+  {
+    "slug": "phare-ponleu-selpak",
+    "region": "urban-nightlife",
+    "name": "Phare Ponleu Selpak",
+    "province": "Battambang",
+    "category": "Art Gallery",
+    "blurb": "The arts school founded by returning refugees in 1994, and the circus that came out of it.",
+    "verified": true,
+    "lat": 13.1167,
+    "lng": 103.1833,
+    "image": "https://images.unsplash.com/photo-1700155024603-771638efc72f?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Music",
+      "Architecture"
+    ],
+    "openTime": "08:00",
+    "closeTime": "17:00",
+    "entryFee": "Free",
+    "visitDuration": "45 minutes",
+    "bestTime": "Afternoon",
+    "highlights": [
+      "Rotating exhibitions",
+      "Artist studios"
+    ]
+  },
+  {
+    "slug": "phare-circus",
+    "region": "urban-nightlife",
+    "name": "Phare, The Cambodian Circus",
+    "province": "Siem Reap",
+    "category": "Art Gallery",
+    "blurb": "Nightly performances under a big top, staged by graduates of the Battambang school.",
+    "verified": true,
+    "lat": 13.3486,
+    "lng": 103.8464,
+    "image": "https://images.unsplash.com/photo-1787736366516-20788522776a?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Music"
+    ],
+    "openTime": "08:00",
+    "closeTime": "17:00",
+    "entryFee": "Free",
+    "visitDuration": "45 minutes",
+    "bestTime": "Afternoon",
+    "highlights": [
+      "Rotating exhibitions",
+      "Artist studios"
+    ]
+  },
+  {
+    "slug": "java-creative",
+    "region": "urban-nightlife",
+    "name": "Java Creative Café",
+    "province": "Phnom Penh",
+    "category": "Art Gallery",
+    "blurb": "One of the capital's longest-running independent gallery and café spaces.",
+    "verified": true,
+    "lat": 11.5561,
+    "lng": 104.9281,
+    "image": "https://images.unsplash.com/photo-1588566565463-180a5b2090d2?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Cafe",
+      "Architecture"
+    ],
+    "openTime": "08:00",
+    "closeTime": "17:00",
+    "entryFee": "Free",
+    "visitDuration": "45 minutes",
+    "bestTime": "Afternoon",
+    "highlights": [
+      "Rotating exhibitions",
+      "Artist studios"
+    ]
+  },
+  {
+    "slug": "bassac-lane",
+    "region": "urban-nightlife",
+    "name": "Bassac Lane",
+    "province": "Phnom Penh",
+    "category": "Street Food",
+    "blurb": "A run of tiny owner-run bars and kitchens off Street 308.",
+    "featured": true,
+    "verified": true,
+    "lat": 11.55,
+    "lng": 104.925,
+    "image": "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Night Life",
+      "Food",
+      "Music"
+    ],
+    "openTime": "16:00",
+    "closeTime": "23:00",
+    "priceRange": "$2 – $6 a dish",
+    "visitDuration": "1 hour",
+    "bestTime": "Evening",
+    "highlights": [
+      "Grilled skewers",
+      "Noodle stalls",
+      "Fresh sugarcane juice"
+    ],
+    "tips": [
+      "Busy stalls turn food over fastest"
+    ]
+  },
+  {
+    "slug": "pp-street-food",
+    "region": "urban-nightlife",
+    "name": "Phnom Penh Food Lanes",
+    "province": "Phnom Penh",
+    "category": "Street Food",
+    "blurb": "Grilled skewers, num pang and iced coffee from carts that appear at dusk.",
+    "verified": true,
+    "lat": 11.5605,
+    "lng": 104.9245,
+    "image": "https://images.unsplash.com/photo-1600335895229-6e75511892c8?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Food",
+      "Night Life"
+    ],
+    "openTime": "16:00",
+    "closeTime": "23:00",
+    "priceRange": "$2 – $6 a dish",
+    "visitDuration": "1 hour",
+    "bestTime": "Evening",
+    "highlights": [
+      "Grilled skewers",
+      "Noodle stalls",
+      "Fresh sugarcane juice"
+    ],
+    "tips": [
+      "Busy stalls turn food over fastest"
+    ]
+  },
+  {
+    "slug": "pub-street",
+    "region": "urban-nightlife",
+    "name": "Pub Street",
+    "province": "Siem Reap",
+    "category": "Street Food",
+    "blurb": "Loud, cheap and unavoidable — with quieter lanes one block either side.",
+    "verified": true,
+    "lat": 13.355,
+    "lng": 103.855,
+    "image": "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Night Life",
+      "Music",
+      "Food"
+    ],
+    "openTime": "16:00",
+    "closeTime": "23:00",
+    "priceRange": "$2 – $6 a dish",
+    "visitDuration": "1 hour",
+    "bestTime": "Evening",
+    "highlights": [
+      "Grilled skewers",
+      "Noodle stalls",
+      "Fresh sugarcane juice"
+    ],
+    "tips": [
+      "Busy stalls turn food over fastest"
+    ]
+  },
+  {
+    "slug": "kep-evening",
+    "region": "urban-nightlife",
+    "name": "Kep Crab Market at Dusk",
+    "province": "Kep",
+    "category": "Street Food",
+    "blurb": "The whole evening in one place: crab, pepper, and the boats coming in behind you.",
+    "verified": true,
+    "lat": 10.4833,
+    "lng": 104.3167,
+    "image": "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Food"
+    ],
+    "openTime": "16:00",
+    "closeTime": "23:00",
+    "priceRange": "$2 – $6 a dish",
+    "visitDuration": "1 hour",
+    "bestTime": "Evening",
+    "highlights": [
+      "Grilled skewers",
+      "Noodle stalls",
+      "Fresh sugarcane juice"
+    ],
+    "tips": [
+      "Busy stalls turn food over fastest"
+    ]
+  },
+  {
+    "slug": "kep-crab",
+    "region": "khmer-culinary",
+    "name": "Kep Crab Market",
+    "nameKh": "កែប",
+    "province": "Kep",
+    "category": "Traditional Food",
+    "blurb": "Blue swimmer crab, green pepper, and a queue that moves fast.",
+    "featured": true,
+    "verified": true,
+    "lat": 10.4833,
+    "lng": 104.3167,
+    "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Khmer Curry"
+    ],
+    "openTime": "09:00",
+    "closeTime": "21:00",
+    "priceRange": "$4 – $10 a dish",
+    "visitDuration": "1 – 2 hours",
+    "bestTime": "Lunch or dinner",
+    "highlights": [
+      "Fish amok",
+      "Khmer curry",
+      "Prahok ktiss"
+    ],
+    "tips": [
+      "Ask for mild if you prefer less chilli"
+    ]
+  },
+  {
+    "slug": "prahok-kampong-thom",
+    "region": "khmer-culinary",
+    "name": "Prahok Season, Kampong Thom",
+    "nameKh": "ប្រហុក",
+    "province": "Kampong Thom",
+    "category": "Traditional Food",
+    "blurb": "Fish paste made in the open each December, and the smell that comes with it.",
+    "verified": true,
+    "lat": 12.7111,
+    "lng": 104.8889,
+    "image": "https://images.unsplash.com/photo-1536304993881-ff6e9eefa2a6?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Khmer Curry"
+    ],
+    "openTime": "09:00",
+    "closeTime": "21:00",
+    "priceRange": "$4 – $10 a dish",
+    "visitDuration": "1 – 2 hours",
+    "bestTime": "Lunch or dinner",
+    "highlights": [
+      "Fish amok",
+      "Khmer curry",
+      "Prahok ktiss"
+    ],
+    "tips": [
+      "Ask for mild if you prefer less chilli"
+    ]
+  },
+  {
+    "slug": "num-banh-chok",
+    "region": "khmer-culinary",
+    "name": "Num Banh Chok Mornings",
+    "nameKh": "នំបញ្ចុក",
+    "province": "Siem Reap",
+    "category": "Traditional Food",
+    "blurb": "Rice noodles under green fish gravy, sold from baskets before eight in the morning.",
+    "featured": true,
+    "verified": true,
+    "lat": 13.3622,
+    "lng": 103.86,
+    "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Num Banh Chok"
+    ],
+    "openTime": "09:00",
+    "closeTime": "21:00",
+    "priceRange": "$4 – $10 a dish",
+    "visitDuration": "1 – 2 hours",
+    "bestTime": "Lunch or dinner",
+    "highlights": [
+      "Fish amok",
+      "Khmer curry",
+      "Prahok ktiss"
+    ],
+    "tips": [
+      "Ask for mild if you prefer less chilli"
+    ]
+  },
+  {
+    "slug": "kien-svay",
+    "region": "khmer-culinary",
+    "name": "Kien Svay Riverside Picnics",
+    "nameKh": "កៀនស្វាយ",
+    "province": "Kandal",
+    "category": "Traditional Food",
+    "blurb": "Stilted platforms over the Mekong where families eat grilled fish and sticky rice all afternoon.",
+    "verified": true,
+    "lat": 11.5333,
+    "lng": 105.0333,
+    "image": "https://images.unsplash.com/photo-1536304993881-ff6e9eefa2a6?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Khmer Curry",
+      "Palm Sugar"
+    ],
+    "openTime": "09:00",
+    "closeTime": "21:00",
+    "priceRange": "$4 – $10 a dish",
+    "visitDuration": "1 – 2 hours",
+    "bestTime": "Lunch or dinner",
+    "highlights": [
+      "Fish amok",
+      "Khmer curry",
+      "Prahok ktiss"
+    ],
+    "tips": [
+      "Ask for mild if you prefer less chilli"
+    ]
+  },
+  {
+    "slug": "kralan",
+    "region": "khmer-culinary",
+    "name": "Kralan Roadside Stalls",
+    "nameKh": "ក្រឡាន",
+    "province": "Kampong Cham",
+    "category": "Traditional Food",
+    "blurb": "Sticky rice, coconut and beans grilled inside a bamboo tube and split open at the roadside.",
+    "verified": true,
+    "lat": 11.9833,
+    "lng": 105.4667,
+    "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Palm Sugar"
+    ],
+    "openTime": "09:00",
+    "closeTime": "21:00",
+    "priceRange": "$4 – $10 a dish",
+    "visitDuration": "1 – 2 hours",
+    "bestTime": "Lunch or dinner",
+    "highlights": [
+      "Fish amok",
+      "Khmer curry",
+      "Prahok ktiss"
+    ],
+    "tips": [
+      "Ask for mild if you prefer less chilli"
+    ]
+  },
+  {
+    "slug": "central-market",
+    "region": "khmer-culinary",
+    "name": "Psar Thmei Food Stalls",
+    "nameKh": "ផ្សារធំថ្មី",
+    "province": "Phnom Penh",
+    "category": "Street Food",
+    "blurb": "The 1937 art-deco dome, and the best kuy teav counters are around its edges.",
+    "verified": true,
+    "lat": 11.5697,
+    "lng": 104.921,
+    "image": "https://images.unsplash.com/photo-1600335895229-6e75511892c8?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Num Banh Chok"
+    ],
+    "openTime": "16:00",
+    "closeTime": "23:00",
+    "priceRange": "$2 – $6 a dish",
+    "visitDuration": "1 hour",
+    "bestTime": "Evening",
+    "highlights": [
+      "Grilled skewers",
+      "Noodle stalls",
+      "Fresh sugarcane juice"
+    ],
+    "tips": [
+      "Busy stalls turn food over fastest"
+    ]
+  },
+  {
+    "slug": "bai-sach-chrouk",
+    "region": "khmer-culinary",
+    "name": "Bai Sach Chrouk Mornings",
+    "nameKh": "បាយសាច់ជ្រូក",
+    "province": "Phnom Penh",
+    "category": "Street Food",
+    "blurb": "Grilled pork over broken rice with pickles and a bowl of broth — the standing national breakfast.",
+    "verified": true,
+    "lat": 11.5564,
+    "lng": 104.9282,
+    "image": "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Khmer Curry"
+    ],
+    "openTime": "16:00",
+    "closeTime": "23:00",
+    "priceRange": "$2 – $6 a dish",
+    "visitDuration": "1 hour",
+    "bestTime": "Evening",
+    "highlights": [
+      "Grilled skewers",
+      "Noodle stalls",
+      "Fresh sugarcane juice"
+    ],
+    "tips": [
+      "Busy stalls turn food over fastest"
+    ]
+  },
+  {
+    "slug": "road-60",
+    "region": "khmer-culinary",
+    "name": "Road 60 Night Market",
+    "province": "Siem Reap",
+    "category": "Street Food",
+    "blurb": "Where the town actually eats after dark — grills, fairground rides and not a tourist menu in sight.",
+    "verified": true,
+    "lat": 13.3833,
+    "lng": 103.8667,
+    "image": "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Khmer Curry"
+    ],
+    "openTime": "16:00",
+    "closeTime": "23:00",
+    "priceRange": "$2 – $6 a dish",
+    "visitDuration": "1 hour",
+    "bestTime": "Evening",
+    "highlights": [
+      "Grilled skewers",
+      "Noodle stalls",
+      "Fresh sugarcane juice"
+    ],
+    "tips": [
+      "Busy stalls turn food over fastest"
+    ]
+  },
+  {
+    "slug": "skun",
+    "region": "khmer-culinary",
+    "name": "Skun Market",
+    "nameKh": "ស្គន់",
+    "province": "Kampong Cham",
+    "category": "Street Food",
+    "blurb": "The famous fried tarantula stop on the road east — and much better sticky rice.",
+    "verified": true,
+    "lat": 11.8167,
+    "lng": 105.0333,
+    "image": "https://images.unsplash.com/photo-1600335895229-6e75511892c8?auto=format&fit=crop&w=800&q=70",
+    "tags": [],
+    "openTime": "16:00",
+    "closeTime": "23:00",
+    "priceRange": "$2 – $6 a dish",
+    "visitDuration": "1 hour",
+    "bestTime": "Evening",
+    "highlights": [
+      "Grilled skewers",
+      "Noodle stalls",
+      "Fresh sugarcane juice"
+    ],
+    "tips": [
+      "Busy stalls turn food over fastest"
+    ]
+  },
+  {
+    "slug": "russian-market-food",
+    "region": "khmer-culinary",
+    "name": "Russian Market Food Hall",
+    "province": "Phnom Penh",
+    "category": "Street Food",
+    "blurb": "A dozen stalls wedged into the middle of the market, cooking from seven in the morning.",
+    "verified": true,
+    "lat": 11.5533,
+    "lng": 104.9203,
+    "image": "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Num Banh Chok",
+      "Khmer Curry"
+    ],
+    "openTime": "16:00",
+    "closeTime": "23:00",
+    "priceRange": "$2 – $6 a dish",
+    "visitDuration": "1 hour",
+    "bestTime": "Evening",
+    "highlights": [
+      "Grilled skewers",
+      "Noodle stalls",
+      "Fresh sugarcane juice"
+    ],
+    "tips": [
+      "Busy stalls turn food over fastest"
+    ]
+  },
+  {
+    "slug": "pp-fine-dining",
+    "region": "khmer-culinary",
+    "name": "Modern Khmer Fine Dining",
+    "province": "Phnom Penh",
+    "category": "Fine Dining",
+    "blurb": "Tasting menus rebuilding Khmer dishes from the provinces, several run as training restaurants.",
+    "featured": true,
+    "verified": true,
+    "lat": 11.5564,
+    "lng": 104.9282,
+    "image": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Fish Amok",
+      "Khmer Curry"
+    ],
+    "openTime": "11:30",
+    "closeTime": "22:00",
+    "priceRange": "$25 – $60 a head",
+    "visitDuration": "2 hours",
+    "bestTime": "Dinner",
+    "highlights": [
+      "Tasting menu",
+      "Wine pairing"
+    ],
+    "tips": [
+      "Book ahead at weekends"
+    ]
+  },
+  {
+    "slug": "siem-reap-fine-dining",
+    "region": "khmer-culinary",
+    "name": "Siem Reap Fine Dining",
+    "province": "Siem Reap",
+    "category": "Fine Dining",
+    "blurb": "Kitchens sourcing from the lake and the farms around town, a few streets off the strip.",
+    "verified": true,
+    "lat": 13.3583,
+    "lng": 103.8528,
+    "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Fish Amok"
+    ],
+    "openTime": "11:30",
+    "closeTime": "22:00",
+    "priceRange": "$25 – $60 a head",
+    "visitDuration": "2 hours",
+    "bestTime": "Dinner",
+    "highlights": [
+      "Tasting menu",
+      "Wine pairing"
+    ],
+    "tips": [
+      "Book ahead at weekends"
+    ]
+  },
+  {
+    "slug": "guide-listed-pp",
+    "region": "khmer-culinary",
+    "name": "Guide-listed Kitchens, Phnom Penh",
+    "province": "Phnom Penh",
+    "category": "Michelin",
+    "blurb": "The capital's rooms that appear in international restaurant guides.",
+    "verified": true,
+    "lat": 11.56,
+    "lng": 104.928,
+    "image": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Fish Amok"
+    ],
+    "openTime": "11:30",
+    "closeTime": "22:00",
+    "priceRange": "$30 – $80 a head",
+    "visitDuration": "2 hours",
+    "bestTime": "Dinner",
+    "highlights": [
+      "Chef’s menu"
+    ],
+    "tips": [
+      "Book well ahead"
+    ]
+  },
+  {
+    "slug": "guide-listed-sr",
+    "region": "khmer-culinary",
+    "name": "Guide-listed Kitchens, Siem Reap",
+    "province": "Siem Reap",
+    "category": "Michelin",
+    "blurb": "Temple-town kitchens carrying international guide listings, most of them small.",
+    "verified": true,
+    "lat": 13.3567,
+    "lng": 103.8583,
+    "image": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Khmer Curry"
+    ],
+    "openTime": "11:30",
+    "closeTime": "22:00",
+    "priceRange": "$30 – $80 a head",
+    "visitDuration": "2 hours",
+    "bestTime": "Dinner",
+    "highlights": [
+      "Chef’s menu"
+    ],
+    "tips": [
+      "Book well ahead"
+    ]
+  },
+  {
+    "slug": "siem-reap-cooking",
+    "region": "khmer-culinary",
+    "name": "Siem Reap Cooking Schools",
+    "province": "Siem Reap",
+    "category": "Cooking Class",
+    "blurb": "Market shop, then amok and prahok ktis in a half-day, in a dozen kitchens around town.",
+    "featured": true,
+    "verified": true,
+    "lat": 13.3622,
+    "lng": 103.86,
+    "image": "https://images.unsplash.com/photo-1466637574441-749b8f19452f?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Fish Amok",
+      "Khmer Curry"
+    ],
+    "openTime": "08:00",
+    "closeTime": "17:00",
+    "priceRange": "$20 – $35 a person",
+    "visitDuration": "3 – 4 hours",
+    "bestTime": "Morning",
+    "highlights": [
+      "Market tour",
+      "Cook three dishes",
+      "Eat what you make"
+    ],
+    "tips": [
+      "Tell them about allergies when booking"
+    ]
+  },
+  {
+    "slug": "pp-cooking",
+    "region": "khmer-culinary",
+    "name": "Phnom Penh Cooking Classes",
+    "province": "Phnom Penh",
+    "category": "Cooking Class",
+    "blurb": "Half-days that start in Psar Thmei and end with samlor korko on the table.",
+    "verified": true,
+    "lat": 11.5697,
+    "lng": 104.921,
+    "image": "https://images.unsplash.com/photo-1466637574441-749b8f19452f?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Khmer Curry",
+      "Num Banh Chok"
+    ],
+    "openTime": "08:00",
+    "closeTime": "17:00",
+    "priceRange": "$20 – $35 a person",
+    "visitDuration": "3 – 4 hours",
+    "bestTime": "Morning",
+    "highlights": [
+      "Market tour",
+      "Cook three dishes",
+      "Eat what you make"
+    ],
+    "tips": [
+      "Tell them about allergies when booking"
+    ]
+  },
+  {
+    "slug": "battambang-cooking",
+    "region": "khmer-culinary",
+    "name": "Battambang Farm Kitchens",
+    "province": "Battambang",
+    "category": "Cooking Class",
+    "blurb": "Cooking in the rice belt, with the vegetables picked in the garden you are standing in.",
+    "verified": true,
+    "lat": 13.05,
+    "lng": 103.25,
+    "image": "https://images.unsplash.com/photo-1466637574441-749b8f19452f?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Palm Sugar",
+      "Khmer Curry"
+    ],
+    "openTime": "08:00",
+    "closeTime": "17:00",
+    "priceRange": "$20 – $35 a person",
+    "visitDuration": "3 – 4 hours",
+    "bestTime": "Morning",
+    "highlights": [
+      "Market tour",
+      "Cook three dishes",
+      "Eat what you make"
+    ],
+    "tips": [
+      "Tell them about allergies when booking"
+    ]
+  },
+  {
+    "slug": "kampot-pepper",
+    "region": "khmer-culinary",
+    "name": "Kampot Pepper Farms",
+    "nameKh": "ម្រេចកំពត",
+    "province": "Kampot",
+    "category": "Farm",
+    "blurb": "Protected-origin pepper terraces you can walk, taste and buy at the source.",
+    "detail": "Pepper has been grown on these slopes since at least the thirteenth century, and the Kampot designation is one of Cambodia's first two protected geographical indications. Most farms are small, trellised plots you can walk through, and the tasting is worth doing properly — black, red and white are the same berry picked and processed differently, and the difference between them is obvious side by side.",
+    "featured": true,
+    "verified": true,
+    "lat": 10.65,
+    "lng": 104.25,
+    "image": "https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Pepper Rice Wine"
+    ],
+    "openTime": "08:00",
+    "closeTime": "17:00",
+    "priceRange": "$5 – $15 a person",
+    "visitDuration": "2 hours",
+    "bestTime": "Morning",
+    "bestSeason": "November – February",
+    "highlights": [
+      "Plantation walk",
+      "Tasting"
+    ],
+    "tips": [
+      "Wear shoes you can get muddy"
+    ]
+  },
+  {
+    "slug": "palm-sugar",
+    "region": "khmer-culinary",
+    "name": "Palm Sugar Kilns",
+    "nameKh": "ស្ករត្នោត",
+    "province": "Kampong Speu",
+    "category": "Farm",
+    "blurb": "Sugar palms tapped at dawn and boiled down by the roadside all morning.",
+    "verified": true,
+    "lat": 11.45,
+    "lng": 104.5167,
+    "image": "https://images.unsplash.com/photo-1466637574441-749b8f19452f?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Palm Sugar"
+    ],
+    "openTime": "08:00",
+    "closeTime": "17:00",
+    "priceRange": "$5 – $15 a person",
+    "visitDuration": "2 hours",
+    "bestTime": "Morning",
+    "bestSeason": "November – February",
+    "highlights": [
+      "Plantation walk",
+      "Tasting"
+    ],
+    "tips": [
+      "Wear shoes you can get muddy"
+    ]
+  },
+  {
+    "slug": "battambang-rice",
+    "region": "khmer-culinary",
+    "name": "Battambang Rice Country",
+    "province": "Battambang",
+    "category": "Farm",
+    "blurb": "The country's rice bowl, with bamboo sticky rice grilled along the roads out of town.",
+    "verified": true,
+    "lat": 13.0957,
+    "lng": 103.2022,
+    "image": "https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Palm Sugar"
+    ],
+    "openTime": "08:00",
+    "closeTime": "17:00",
+    "priceRange": "$5 – $15 a person",
+    "visitDuration": "2 hours",
+    "bestTime": "Morning",
+    "bestSeason": "November – February",
+    "highlights": [
+      "Plantation walk",
+      "Tasting"
+    ],
+    "tips": [
+      "Wear shoes you can get muddy"
+    ]
+  },
+  {
+    "slug": "rice-wine",
+    "region": "khmer-culinary",
+    "name": "Rice Wine & Craft Distilleries",
+    "province": "Siem Reap",
+    "category": "Farm",
+    "blurb": "Village sraa sor and the small distilleries infusing it with pepper, ginger and palm sugar.",
+    "verified": true,
+    "lat": 13.3567,
+    "lng": 103.8583,
+    "image": "https://images.unsplash.com/photo-1466637574441-749b8f19452f?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Pepper Rice Wine"
+    ],
+    "openTime": "08:00",
+    "closeTime": "17:00",
+    "priceRange": "$5 – $15 a person",
+    "visitDuration": "2 hours",
+    "bestTime": "Morning",
+    "bestSeason": "November – February",
+    "highlights": [
+      "Plantation walk",
+      "Tasting"
+    ],
+    "tips": [
+      "Wear shoes you can get muddy"
+    ]
+  },
+  {
+    "slug": "siem-reap-farms",
+    "region": "khmer-culinary",
+    "name": "Siem Reap Organic Farms",
+    "province": "Siem Reap",
+    "category": "Farm",
+    "blurb": "Market gardens outside town supplying the restaurants, most open for a morning visit.",
+    "verified": true,
+    "lat": 13.3167,
+    "lng": 103.9,
+    "image": "https://images.unsplash.com/photo-1447933601403-0c6688de566e?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Khmer Curry"
+    ],
+    "openTime": "08:00",
+    "closeTime": "17:00",
+    "priceRange": "$5 – $15 a person",
+    "visitDuration": "2 hours",
+    "bestTime": "Morning",
+    "bestSeason": "November – February",
+    "highlights": [
+      "Plantation walk",
+      "Tasting"
+    ],
+    "tips": [
+      "Wear shoes you can get muddy"
+    ]
+  },
+  {
+    "slug": "banteay-chhmar-homestay",
+    "region": "eco-community",
+    "name": "Banteay Chhmar Homestay",
+    "nameKh": "បន្ទាយឆ្មារ",
+    "province": "Banteay Meanchey",
+    "category": "Homestay",
+    "blurb": "Sleep in the village beside a Jayavarman VII temple city, with dinner cooked at the house.",
+    "featured": true,
+    "verified": true,
+    "lat": 14.0333,
+    "lng": 103.0833,
+    "image": "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Homestay",
+      "Community",
+      "Local Food"
+    ],
+    "facilities": [
+      "Home-cooked meals",
+      "Mosquito nets",
+      "Bicycles",
+      "Local guide"
+    ],
+    "open24h": true,
+    "images": [
+      "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=70"
+    ],
+    "priceFrom": 18.0,
+    "currency": "USD"
+  },
+  {
+    "slug": "koh-trong-homestay",
+    "region": "eco-community",
+    "name": "Koh Trong Homestays",
+    "nameKh": "កោះទ្រង់",
+    "province": "Kratié",
+    "category": "Homestay",
+    "blurb": "Family houses on a Mekong sandbank island, reached by the little ferry from Kratié.",
+    "verified": true,
+    "lat": 12.4667,
+    "lng": 106.0167,
+    "image": "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Homestay",
+      "Cycling",
+      "Farm"
+    ],
+    "facilities": [
+      "Home-cooked meals",
+      "Mosquito nets",
+      "Bicycles",
+      "Boat transfers"
+    ],
+    "open24h": true,
+    "images": [
+      "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1602002418082-a4443e081dd1?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=70"
+    ],
+    "priceFrom": 23.0,
+    "currency": "USD"
+  },
+  {
+    "slug": "chambok-cbet",
+    "region": "eco-community",
+    "name": "Chambok CBET",
+    "nameKh": "ចំបក់",
+    "province": "Kampong Speu",
+    "category": "Homestay",
+    "blurb": "One of the country's oldest community projects, with ox-cart rides, a waterfall trail and thirty host families.",
+    "featured": true,
+    "verified": true,
+    "lat": 11.35,
+    "lng": 104.1167,
+    "image": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Homestay",
+      "Community",
+      "Cycling"
+    ],
+    "facilities": [
+      "Home-cooked meals",
+      "Mosquito nets",
+      "Guided treks",
+      "Local guide"
+    ],
+    "open24h": true,
+    "images": [
+      "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1596436889106-be35e843f974?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1610641818989-c2051b5e2cfd?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&w=800&q=70"
+    ],
+    "priceFrom": 28.0,
+    "currency": "USD"
+  },
+  {
+    "slug": "sambor-prei-kuk-homestay",
+    "region": "eco-community",
+    "name": "Sambor Prei Kuk Homestays",
+    "nameKh": "សំបូរព្រៃគុក",
+    "province": "Kampong Thom",
+    "category": "Homestay",
+    "blurb": "Village stays beside the pre-Angkorian brick towers, with guiding by people who grew up among them.",
+    "verified": true,
+    "lat": 12.8722,
+    "lng": 105.04,
+    "image": "https://images.unsplash.com/photo-1531971589569-0d9370cbe1e5?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Homestay",
+      "Community",
+      "Local Food"
+    ],
+    "facilities": [
+      "Home-cooked meals",
+      "Mosquito nets",
+      "Bicycles",
+      "Local guide"
+    ],
+    "open24h": true,
+    "images": [
+      "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1596178065887-1198b6148b2b?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1549294413-26f195200c16?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=800&q=70"
+    ],
+    "priceFrom": 33.0,
+    "currency": "USD"
+  },
+  {
+    "slug": "areng-valley",
+    "region": "eco-community",
+    "name": "Areng Valley",
+    "nameKh": "អារ៉ែង",
+    "province": "Koh Kong",
+    "category": "Village",
+    "blurb": "A valley the community kept from being dammed, now open for stays and river trips.",
+    "verified": true,
+    "lat": 11.5,
+    "lng": 103.3,
+    "image": "https://images.unsplash.com/photo-1740724873371-0c05a17fa819?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Community",
+      "Homestay"
+    ],
+    "openTime": "08:00",
+    "closeTime": "17:00",
+    "entryFee": "By donation",
+    "visitDuration": "2 hours",
+    "bestTime": "Morning",
+    "highlights": [
+      "Working workshops",
+      "Home visits"
+    ],
+    "tips": [
+      "Small notes are easier for change"
+    ]
+  },
+  {
+    "slug": "kampong-phluk-cbet",
+    "region": "eco-community",
+    "name": "Kampong Phluk Boat Cooperative",
+    "nameKh": "កំពង់ភ្លុក",
+    "province": "Siem Reap",
+    "category": "Village",
+    "blurb": "Village-run rowing boats into the flooded forest, rather than the big tour launches.",
+    "verified": true,
+    "lat": 13.1833,
+    "lng": 103.9833,
+    "image": "https://images.unsplash.com/photo-1704103259506-6c0ca4d6dca4?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Fishing",
+      "Community",
+      "Local Food"
+    ],
+    "openTime": "08:00",
+    "closeTime": "17:00",
+    "entryFee": "By donation",
+    "visitDuration": "2 hours",
+    "bestTime": "Morning",
+    "highlights": [
+      "Working workshops",
+      "Home visits"
+    ],
+    "tips": [
+      "Small notes are easier for change"
+    ]
+  },
+  {
+    "slug": "trapeang-sangkae",
+    "region": "eco-community",
+    "name": "Trapeang Sangkae",
+    "nameKh": "ត្រពាំងសង្កែ",
+    "province": "Kampot",
+    "category": "Village",
+    "blurb": "A fishing community that replanted its own mangrove, and now guides boats through it.",
+    "verified": true,
+    "lat": 10.6,
+    "lng": 104.2333,
+    "image": "https://images.unsplash.com/photo-1740724873371-0c05a17fa819?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Fishing",
+      "Community"
+    ],
+    "openTime": "08:00",
+    "closeTime": "17:00",
+    "entryFee": "By donation",
+    "visitDuration": "2 hours",
+    "bestTime": "Morning",
+    "highlights": [
+      "Working workshops",
+      "Home visits"
+    ],
+    "tips": [
+      "Small notes are easier for change"
+    ]
+  },
+  {
+    "slug": "silk-cooperatives",
+    "region": "eco-community",
+    "name": "Silk Weaving Cooperatives",
+    "province": "Takéo",
+    "category": "Craft",
+    "blurb": "Golden-silk weaving villages where the whole chain, worm to cloth, is on one street.",
+    "verified": true,
+    "lat": 10.9833,
+    "lng": 104.7833,
+    "image": "https://images.unsplash.com/photo-1638402828376-5762cb098099?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Community",
+      "Farm"
+    ],
+    "openTime": "08:00",
+    "closeTime": "17:00",
+    "priceRange": "$5 – $25 a person",
+    "visitDuration": "1 – 2 hours",
+    "highlights": [
+      "Workshop tour",
+      "Try it yourself",
+      "Shop"
+    ]
+  },
+  {
+    "slug": "mekong-blue",
+    "region": "eco-community",
+    "name": "Mekong Blue Silk Centre",
+    "province": "Stung Treng",
+    "category": "Craft",
+    "blurb": "A women's development centre weaving raw silk on the far northern Mekong.",
+    "verified": true,
+    "lat": 13.5259,
+    "lng": 105.9683,
+    "image": "https://images.unsplash.com/photo-1787736366516-20788522776a?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Community"
+    ],
+    "openTime": "08:00",
+    "closeTime": "17:00",
+    "priceRange": "$5 – $25 a person",
+    "visitDuration": "1 – 2 hours",
+    "highlights": [
+      "Workshop tour",
+      "Try it yourself",
+      "Shop"
+    ]
+  },
+  {
+    "slug": "andong-russey",
+    "region": "eco-community",
+    "name": "Andong Russey Pottery Village",
+    "nameKh": "អណ្ដូងឫស្សី",
+    "province": "Kampong Chhnang",
+    "category": "Craft",
+    "blurb": "Coil-built cooking pots turned by hand and fired in the open, in the province named after them.",
+    "verified": true,
+    "lat": 12.2333,
+    "lng": 104.6167,
+    "image": "https://images.unsplash.com/photo-1787736366516-20788522776a?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Community",
+      "Local Food"
+    ],
+    "openTime": "08:00",
+    "closeTime": "17:00",
+    "priceRange": "$5 – $25 a person",
+    "visitDuration": "1 – 2 hours",
+    "highlights": [
+      "Workshop tour",
+      "Try it yourself",
+      "Shop"
+    ]
+  },
+  {
+    "slug": "artisans-angkor",
+    "region": "eco-community",
+    "name": "Angkor Craft Workshops",
+    "province": "Siem Reap",
+    "category": "Craft",
+    "blurb": "Silk, stone and lacquer workshops training apprentices from the villages around town.",
+    "verified": true,
+    "lat": 13.3536,
+    "lng": 103.8564,
+    "image": "https://images.unsplash.com/photo-1654524786721-9990d1d64cf1?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Community"
+    ],
+    "openTime": "08:00",
+    "closeTime": "17:00",
+    "priceRange": "$5 – $25 a person",
+    "visitDuration": "1 – 2 hours",
+    "highlights": [
+      "Workshop tour",
+      "Try it yourself",
+      "Shop"
+    ]
+  },
+  {
+    "slug": "community-farms",
+    "region": "eco-community",
+    "name": "Community Rice Farms",
+    "province": "Battambang",
+    "category": "Agriculture",
+    "blurb": "Farm stays in the rice belt, with the day's work starting well before the heat.",
+    "verified": true,
+    "lat": 13.05,
+    "lng": 103.25,
+    "image": "https://images.unsplash.com/photo-1571579544731-ed0957f498da?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Farm",
+      "Community",
+      "Cycling"
+    ],
+    "openTime": "08:00",
+    "closeTime": "17:00",
+    "priceRange": "$8 – $20 a person",
+    "visitDuration": "2 – 3 hours",
+    "bestSeason": "November – February",
+    "highlights": [
+      "Field walk",
+      "Tasting"
+    ]
+  },
+  {
+    "slug": "pepper-smallholders",
+    "region": "eco-community",
+    "name": "Pepper Smallholder Cooperatives",
+    "province": "Kampot",
+    "category": "Agriculture",
+    "blurb": "Family plots inside the protected-origin zone, selling under a shared cooperative label.",
+    "verified": true,
+    "lat": 10.65,
+    "lng": 104.25,
+    "image": "https://images.unsplash.com/photo-1661487906939-aea1f059b84f?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Farm",
+      "Community"
+    ],
+    "openTime": "08:00",
+    "closeTime": "17:00",
+    "priceRange": "$8 – $20 a person",
+    "visitDuration": "2 – 3 hours",
+    "bestSeason": "November – February",
+    "highlights": [
+      "Field walk",
+      "Tasting"
+    ]
+  },
+  {
+    "slug": "palm-sugar-coops",
+    "region": "eco-community",
+    "name": "Palm Sugar Cooperatives",
+    "province": "Kampong Speu",
+    "category": "Agriculture",
+    "blurb": "Tapping families organised under the geographical indication, boiling sap the same morning it is cut.",
+    "verified": true,
+    "lat": 11.45,
+    "lng": 104.5167,
+    "image": "https://images.unsplash.com/photo-1638402828376-5762cb098099?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Farm",
+      "Community",
+      "Local Food"
+    ],
+    "openTime": "08:00",
+    "closeTime": "17:00",
+    "priceRange": "$8 – $20 a person",
+    "visitDuration": "2 – 3 hours",
+    "bestSeason": "November – February",
+    "highlights": [
+      "Field walk",
+      "Tasting"
+    ]
+  },
+  {
+    "slug": "evp",
+    "region": "eco-community",
+    "name": "Elephant Valley Project",
+    "province": "Mondulkiri",
+    "category": "Eco Lodge",
+    "blurb": "Retired elephants in forest, with Bunong mahouts employed to walk with them.",
+    "featured": true,
+    "verified": true,
+    "lat": 12.4,
+    "lng": 107.15,
+    "image": "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Community"
+    ],
+    "facilities": [
+      "Meals included",
+      "Guided treks",
+      "Solar power",
+      "Local guide"
+    ],
+    "open24h": true,
+    "images": [
+      "https://images.unsplash.com/photo-1531971589569-0d9370cbe1e5?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1528913775512-624d24b27b96?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1505881502353-a1986add3762?auto=format&fit=crop&w=800&q=70"
+    ],
+    "priceFrom": 45.0,
+    "currency": "USD"
+  },
+  {
+    "slug": "osoam",
+    "region": "eco-community",
+    "name": "Osoam Cardamom Community Centre",
+    "province": "Pursat",
+    "category": "Eco Lodge",
+    "blurb": "A village centre deep in the Cardamoms, and the usual base for multi-day walks into the range.",
+    "verified": true,
+    "lat": 12.05,
+    "lng": 103.2,
+    "image": "https://images.unsplash.com/photo-1610641818989-c2051b5e2cfd?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Community",
+      "Homestay"
+    ],
+    "facilities": [
+      "Home-cooked meals",
+      "Guided treks",
+      "Mosquito nets",
+      "Local guide"
+    ],
+    "open24h": true,
+    "images": [
+      "https://images.unsplash.com/photo-1505881502353-a1986add3762?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=70"
+    ],
+    "priceFrom": 60.0,
+    "currency": "USD"
+  },
+  {
+    "slug": "andoung-kraloeng",
+    "region": "eco-community",
+    "name": "Andoung Kraloeng Gibbon Camp",
+    "province": "Mondulkiri",
+    "category": "Eco Lodge",
+    "blurb": "A Bunong-run forest camp in Keo Seima, and dawn treks to habituated yellow-cheeked gibbons.",
+    "verified": true,
+    "lat": 12.2,
+    "lng": 106.9,
+    "image": "https://images.unsplash.com/photo-1596436889106-be35e843f974?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Community",
+      "Homestay"
+    ],
+    "facilities": [
+      "Tents provided",
+      "Meals included",
+      "Guided treks",
+      "Local guide"
+    ],
+    "open24h": true,
+    "images": [
+      "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=70"
+    ],
+    "priceFrom": 75.0,
+    "currency": "USD"
+  },
+  {
+    "slug": "prek-toal-cbet",
+    "region": "eco-community",
+    "name": "Prek Toal Community",
+    "nameKh": "ព្រែកទាល់",
+    "province": "Battambang",
+    "category": "Bird Watching",
+    "blurb": "Former egg collectors now guard the colony and guide the boats into it.",
+    "featured": true,
+    "verified": true,
+    "lat": 13.15,
+    "lng": 103.6333,
+    "image": "https://images.unsplash.com/photo-1602604193553-28c132dac0a7?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Community",
+      "Fishing"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "priceRange": "$25 – $60 a person",
+    "visitDuration": "Half day",
+    "difficulty": "Easy",
+    "groupSize": "2 – 8 people",
+    "bestSeason": "December – March",
+    "bestTime": "Dawn",
+    "highlights": [
+      "Local guide",
+      "Spotting scope"
+    ],
+    "tips": [
+      "Neutral colours"
+    ]
+  },
+  {
+    "slug": "tmatboey",
+    "region": "eco-community",
+    "name": "Tmatboey Ibis Site",
+    "nameKh": "ត្មាតបើយ",
+    "province": "Preah Vihear",
+    "category": "Bird Watching",
+    "blurb": "A village in Kulen Promtep that protects nesting giant and white-shouldered ibis, and is paid per sighting.",
+    "detail": "A village of a few hundred families inside Kulen Promtep Wildlife Sanctuary, and the best place in the world to see giant ibis — a bird down to a few hundred pairs, almost all of them in northern Cambodia. The arrangement is direct: the community protects the nests, and visitors pay a conservation contribution on top of the stay, with a bonus paid to the village when a bird is seen. Best from December to May, when the water is down.",
+    "featured": true,
+    "verified": true,
+    "lat": 13.9333,
+    "lng": 104.9167,
+    "image": "https://images.unsplash.com/photo-1667118891614-b0820e960b7b?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Community",
+      "Homestay"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "priceRange": "$25 – $60 a person",
+    "visitDuration": "Half day",
+    "difficulty": "Easy",
+    "groupSize": "2 – 8 people",
+    "bestSeason": "December – March",
+    "bestTime": "Dawn",
+    "highlights": [
+      "Local guide",
+      "Spotting scope"
+    ],
+    "tips": [
+      "Neutral colours"
+    ]
+  },
+  {
+    "slug": "ang-trapeang-thmor-cbet",
+    "region": "eco-community",
+    "name": "Ang Trapeang Thmor",
+    "province": "Banteay Meanchey",
+    "category": "Bird Watching",
+    "blurb": "Sarus cranes on a Khmer Rouge-era reservoir, watched from the village that farms around it.",
+    "verified": true,
+    "lat": 13.8,
+    "lng": 103.3,
+    "image": "https://images.unsplash.com/photo-1571579544731-ed0957f498da?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Community",
+      "Farm"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "priceRange": "$25 – $60 a person",
+    "visitDuration": "Half day",
+    "difficulty": "Easy",
+    "groupSize": "2 – 8 people",
+    "bestSeason": "December – March",
+    "bestTime": "Dawn",
+    "highlights": [
+      "Local guide",
+      "Spotting scope"
+    ],
+    "tips": [
+      "Neutral colours"
+    ]
+  },
+  {
+    "slug": "boeung-prek-lapouv",
+    "region": "eco-community",
+    "name": "Boeung Prek Lapouv",
+    "province": "Takéo",
+    "category": "Bird Watching",
+    "blurb": "Grassland on the Vietnamese border holding the country's other sarus crane flock in the dry months.",
+    "verified": true,
+    "lat": 10.7333,
+    "lng": 104.9667,
+    "image": "https://images.unsplash.com/photo-1638402828376-5762cb098099?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Community",
+      "Farm"
+    ],
+    "openTime": "06:00",
+    "closeTime": "18:00",
+    "priceRange": "$25 – $60 a person",
+    "visitDuration": "Half day",
+    "difficulty": "Easy",
+    "groupSize": "2 – 8 people",
+    "bestSeason": "December – March",
+    "bestTime": "Dawn",
+    "highlights": [
+      "Local guide",
+      "Spotting scope"
+    ],
+    "tips": [
+      "Neutral colours"
+    ]
+  },
+  {
+    "slug": "chi-phat-cbet",
+    "region": "eco-community",
+    "name": "Chi Phat CBET",
+    "nameKh": "ជីផាត",
+    "province": "Koh Kong",
+    "category": "Local Guide",
+    "blurb": "The country's best-known community ecotourism project, run by former loggers and poachers.",
+    "featured": true,
+    "verified": true,
+    "lat": 11.3167,
+    "lng": 103.4667,
+    "image": "https://images.unsplash.com/photo-1653714802676-6a50c7ead70e?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Homestay",
+      "Community",
+      "Cycling"
+    ],
+    "openTime": "07:00",
+    "closeTime": "17:00",
+    "priceRange": "$20 – $40 a day",
+    "visitDuration": "Half or full day",
+    "groupSize": "1 – 6 people",
+    "highlights": [
+      "English-speaking guide"
+    ],
+    "tips": [
+      "Agree the route before you set off"
+    ]
+  },
+  {
+    "slug": "yeak-laom-cbet",
+    "region": "eco-community",
+    "name": "Yeak Laom Community",
+    "nameKh": "យក្សឡោម",
+    "province": "Ratanakiri",
+    "category": "Local Guide",
+    "blurb": "The Tampuan committee that owns and manages the crater lake, and guides around it.",
+    "verified": true,
+    "lat": 13.7333,
+    "lng": 107.0167,
+    "image": "https://images.unsplash.com/photo-1787764082464-f5ee394cc907?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Community",
+      "Local Food"
+    ],
+    "openTime": "07:00",
+    "closeTime": "17:00",
+    "priceRange": "$20 – $40 a day",
+    "visitDuration": "Half or full day",
+    "groupSize": "1 – 6 people",
+    "highlights": [
+      "English-speaking guide"
+    ],
+    "tips": [
+      "Agree the route before you set off"
+    ]
+  },
+  {
+    "slug": "ta-veng-cbet",
+    "region": "eco-community",
+    "name": "Ta Veng River Guides",
+    "province": "Ratanakiri",
+    "category": "Local Guide",
+    "blurb": "Brao boatmen running the upper Sesan and the northern approach into Virachey.",
+    "verified": true,
+    "lat": 14.0333,
+    "lng": 107.05,
+    "image": "https://images.unsplash.com/photo-1715520019930-b677fdca474d?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Community",
+      "Fishing",
+      "Homestay"
+    ],
+    "openTime": "07:00",
+    "closeTime": "17:00",
+    "priceRange": "$20 – $40 a day",
+    "visitDuration": "Half or full day",
+    "groupSize": "1 – 6 people",
+    "highlights": [
+      "English-speaking guide"
+    ],
+    "tips": [
+      "Agree the route before you set off"
+    ]
+  },
+  {
+    "slug": "siem-reap-boutique",
+    "region": "luxury",
+    "name": "Siem Reap Boutique Stays",
+    "province": "Siem Reap",
+    "category": "Luxury Hotel",
+    "blurb": "Small properties in the lanes off Wat Bo, most under thirty rooms and built around a courtyard.",
+    "featured": true,
+    "verified": true,
+    "lat": 13.3563,
+    "lng": 103.8622,
+    "image": "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Luxury",
+      "5 Stars"
+    ],
+    "facilities": [
+      "24-hour front desk",
+      "Free Wi-Fi",
+      "Swimming pool",
+      "Restaurant",
+      "Airport transfer",
+      "Spa"
+    ],
+    "open24h": true,
+    "images": [
+      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1602002418082-a4443e081dd1?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1596436889106-be35e843f974?auto=format&fit=crop&w=800&q=70"
+    ],
+    "priceFrom": 165.0,
+    "currency": "USD"
+  },
+  {
+    "slug": "pp-riverside-hotels",
+    "region": "luxury",
+    "name": "Phnom Penh Riverside Hotels",
+    "province": "Phnom Penh",
+    "category": "Luxury Hotel",
+    "blurb": "Colonial-era and contemporary rooms looking over the four-rivers junction.",
+    "verified": true,
+    "lat": 11.5683,
+    "lng": 104.9308,
+    "image": "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Luxury",
+      "5 Stars"
+    ],
+    "facilities": [
+      "24-hour front desk",
+      "Free Wi-Fi",
+      "Restaurant",
+      "Swimming pool",
+      "Bar",
+      "Air-conditioning"
+    ],
+    "open24h": true,
+    "images": [
+      "https://images.unsplash.com/photo-1596436889106-be35e843f974?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1610641818989-c2051b5e2cfd?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1596178065887-1198b6148b2b?auto=format&fit=crop&w=800&q=70"
+    ],
+    "priceFrom": 120.0,
+    "currency": "USD"
+  },
+  {
+    "slug": "kep-villas",
+    "region": "luxury",
+    "name": "Kep Hillside Villas",
+    "province": "Kep",
+    "category": "Luxury Hotel",
+    "blurb": "Villas on the slope above the bay, with the crab market ten minutes below.",
+    "verified": true,
+    "lat": 10.4833,
+    "lng": 104.3,
+    "image": "https://images.unsplash.com/photo-1596178065887-1198b6148b2b?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Private",
+      "Luxury"
+    ],
+    "facilities": [
+      "Swimming pool",
+      "Free Wi-Fi",
+      "Restaurant",
+      "Air-conditioning",
+      "Parking"
+    ],
+    "open24h": true,
+    "images": [
+      "https://images.unsplash.com/photo-1549294413-26f195200c16?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1531971589569-0d9370cbe1e5?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1528913775512-624d24b27b96?auto=format&fit=crop&w=800&q=70"
+    ],
+    "priceFrom": 135.0,
+    "currency": "USD"
+  },
+  {
+    "slug": "kampot-retreats",
+    "region": "luxury",
+    "name": "Kampot Riverside Retreats",
+    "province": "Kampot",
+    "category": "Luxury Hotel",
+    "blurb": "Low-key riverside properties with the Bokor range standing behind them.",
+    "verified": true,
+    "lat": 10.6,
+    "lng": 104.16,
+    "image": "https://images.unsplash.com/photo-1549294413-26f195200c16?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Luxury",
+      "Private"
+    ],
+    "facilities": [
+      "Free Wi-Fi",
+      "Restaurant",
+      "Swimming pool",
+      "Kayaks",
+      "Bicycles"
+    ],
+    "open24h": true,
+    "images": [
+      "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1528913775512-624d24b27b96?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1505881502353-a1986add3762?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=800&q=70"
+    ],
+    "priceFrom": 150.0,
+    "currency": "USD"
+  },
+  {
+    "slug": "private-islands",
+    "region": "luxury",
+    "name": "Private Island Retreats",
+    "province": "Preah Sihanouk",
+    "category": "Private Island",
+    "blurb": "Whole-island properties in the Koh Rong archipelago, reached by private launch.",
+    "featured": true,
+    "verified": true,
+    "lat": 10.6667,
+    "lng": 103.25,
+    "image": "https://images.unsplash.com/photo-1505881502353-a1986add3762?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Exclusive",
+      "Private",
+      "Luxury"
+    ],
+    "facilities": [
+      "Beachfront",
+      "Boat transfers",
+      "Restaurant",
+      "Spa",
+      "Snorkelling gear"
+    ],
+    "open24h": true,
+    "images": [
+      "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=70"
+    ],
+    "priceFrom": 305.0,
+    "currency": "USD"
+  },
+  {
+    "slug": "inner-island-villas",
+    "region": "luxury",
+    "name": "Inner Island Villas",
+    "province": "Preah Sihanouk",
+    "category": "Private Island",
+    "blurb": "Beachfront villas on the closer islands, thirty minutes out rather than two hours.",
+    "verified": true,
+    "lat": 10.5667,
+    "lng": 103.3833,
+    "image": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Private",
+      "Luxury",
+      "Exclusive"
+    ],
+    "facilities": [
+      "Beachfront",
+      "Boat transfers",
+      "Restaurant",
+      "Free Wi-Fi",
+      "Snorkelling gear"
+    ],
+    "open24h": true,
+    "images": [
+      "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=70",
+      "https://images.unsplash.com/photo-1602002418082-a4443e081dd1?auto=format&fit=crop&w=800&q=70"
+    ],
+    "priceFrom": 260.0,
+    "currency": "USD"
+  },
+  {
+    "slug": "angkor-golf",
+    "region": "luxury",
+    "name": "Siem Reap Golf Courses",
+    "province": "Siem Reap",
+    "category": "Golf",
+    "blurb": "Championship courses a few minutes from the temples, playable year round.",
+    "verified": true,
+    "lat": 13.3833,
+    "lng": 103.8167,
+    "image": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Golf Spa",
+      "Luxury"
+    ],
+    "openTime": "07:00",
+    "closeTime": "17:00",
+    "priceRange": "$60 – $140 a round",
+    "visitDuration": "Half day",
+    "highlights": [
+      "18 holes",
+      "Club rental"
+    ]
+  },
+  {
+    "slug": "pp-golf",
+    "region": "luxury",
+    "name": "Phnom Penh Golf Courses",
+    "province": "Phnom Penh",
+    "category": "Golf",
+    "blurb": "Full-length courses on the city's northern and western edges, an easy morning from town.",
+    "verified": true,
+    "lat": 11.6167,
+    "lng": 104.8667,
+    "image": "https://images.unsplash.com/photo-1638402828376-5762cb098099?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Golf Spa",
+      "Luxury"
+    ],
+    "openTime": "07:00",
+    "closeTime": "17:00",
+    "priceRange": "$60 – $140 a round",
+    "visitDuration": "Half day",
+    "highlights": [
+      "18 holes",
+      "Club rental"
+    ]
+  },
+  {
+    "slug": "angkor-helicopter",
+    "region": "luxury",
+    "name": "Helicopter Tours over Angkor",
+    "province": "Siem Reap",
+    "category": "Helicopter",
+    "blurb": "Angkor from the air, the only way to read the full plan of the city at once.",
+    "featured": true,
+    "verified": true,
+    "lat": 13.4125,
+    "lng": 103.867,
+    "image": "https://images.unsplash.com/photo-1566706546199-a93ba33ce9f7?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Helicopter",
+      "Private",
+      "Exclusive"
+    ],
+    "openTime": "07:00",
+    "closeTime": "17:00",
+    "priceRange": "From $120 a person",
+    "visitDuration": "15 – 30 minutes",
+    "groupSize": "1 – 6 people",
+    "highlights": [
+      "Scenic flight",
+      "Hotel pickup"
+    ],
+    "tips": [
+      "Flights depend on weather"
+    ]
+  },
+  {
+    "slug": "coastal-transfers",
+    "region": "luxury",
+    "name": "Island & Coastal Air Transfers",
+    "province": "Preah Sihanouk",
+    "category": "Helicopter",
+    "blurb": "Charter flights and helicopter hops that turn a six-hour road transfer into forty minutes.",
+    "verified": true,
+    "lat": 10.6167,
+    "lng": 103.5167,
+    "image": "https://images.unsplash.com/photo-1509781847595-a430dc27c7af?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Helicopter",
+      "Private"
+    ],
+    "openTime": "07:00",
+    "closeTime": "17:00",
+    "priceRange": "From $120 a person",
+    "visitDuration": "15 – 30 minutes",
+    "groupSize": "1 – 6 people",
+    "highlights": [
+      "Scenic flight",
+      "Hotel pickup"
+    ],
+    "tips": [
+      "Flights depend on weather"
+    ]
+  },
+  {
+    "slug": "gulf-charters",
+    "region": "luxury",
+    "name": "Gulf Yacht Charters",
+    "province": "Preah Sihanouk",
+    "category": "Yacht",
+    "blurb": "Crewed day and overnight charters out through the archipelago to the outer islands.",
+    "verified": true,
+    "lat": 10.59,
+    "lng": 103.5,
+    "image": "https://images.unsplash.com/photo-1722054078069-095e86f88829?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Private",
+      "Exclusive",
+      "Luxury"
+    ],
+    "openTime": "07:00",
+    "closeTime": "17:00",
+    "entryFee": "From $120 a charter",
+    "visitDuration": "Half day",
+    "bestSeason": "November – April",
+    "highlights": [
+      "Private charter",
+      "Swim stops"
+    ],
+    "tips": [
+      "Charter prices vary by group size"
+    ]
+  },
+  {
+    "slug": "mekong-cruises",
+    "region": "luxury",
+    "name": "Mekong River Cruises",
+    "province": "Kandal",
+    "category": "Yacht",
+    "blurb": "Cabin cruises between Phnom Penh, the Tonle Sap and the delta below the border.",
+    "verified": true,
+    "lat": 11.6,
+    "lng": 104.95,
+    "image": "https://images.unsplash.com/photo-1715520019930-b677fdca474d?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Luxury",
+      "Private"
+    ],
+    "openTime": "07:00",
+    "closeTime": "17:00",
+    "entryFee": "From $120 a charter",
+    "visitDuration": "Half day",
+    "bestSeason": "November – April",
+    "highlights": [
+      "Private charter",
+      "Swim stops"
+    ],
+    "tips": [
+      "Charter prices vary by group size"
+    ]
+  },
+  {
+    "slug": "angkor-private-guiding",
+    "region": "luxury",
+    "name": "Angkor Private Guiding",
+    "province": "Siem Reap",
+    "category": "Private Guide",
+    "blurb": "Licensed guides who work from the inscriptions, on your schedule rather than a coach's.",
+    "featured": true,
+    "verified": true,
+    "lat": 13.4125,
+    "lng": 103.867,
+    "image": "https://images.unsplash.com/photo-1599283787923-51b965a58b05?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Private",
+      "Exclusive"
+    ],
+    "openTime": "07:00",
+    "closeTime": "17:00",
+    "priceRange": "$40 – $90 a day",
+    "visitDuration": "Full day",
+    "groupSize": "1 – 6 people",
+    "highlights": [
+      "Private guide",
+      "Air-conditioned car"
+    ]
+  },
+  {
+    "slug": "cardamom-naturalists",
+    "region": "luxury",
+    "name": "Cardamom Naturalist Guiding",
+    "province": "Koh Kong",
+    "category": "Private Guide",
+    "blurb": "Private guiding with the biologists and rangers who survey the range.",
+    "verified": true,
+    "lat": 11.5333,
+    "lng": 103.1,
+    "image": "https://images.unsplash.com/photo-1667371026189-dfd5544cfdf9?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Private",
+      "Exclusive"
+    ],
+    "openTime": "07:00",
+    "closeTime": "17:00",
+    "priceRange": "$40 – $90 a day",
+    "visitDuration": "Full day",
+    "groupSize": "1 – 6 people",
+    "highlights": [
+      "Private guide",
+      "Air-conditioned car"
+    ]
+  },
+  {
+    "slug": "pp-museum-guiding",
+    "region": "luxury",
+    "name": "Phnom Penh Museum Guiding",
+    "province": "Phnom Penh",
+    "category": "Private Guide",
+    "blurb": "Curator-led mornings in the National Museum, before the tour groups reach it.",
+    "verified": true,
+    "lat": 11.5652,
+    "lng": 104.929,
+    "image": "https://images.unsplash.com/photo-1541429464955-87bd98d6d8f8?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Private"
+    ],
+    "openTime": "07:00",
+    "closeTime": "17:00",
+    "priceRange": "$40 – $90 a day",
+    "visitDuration": "Full day",
+    "groupSize": "1 – 6 people",
+    "highlights": [
+      "Private guide",
+      "Air-conditioned car"
+    ]
+  },
+  {
+    "slug": "pp-fine-dining",
+    "region": "luxury",
+    "name": "Phnom Penh Fine Dining",
+    "province": "Phnom Penh",
+    "category": "Fine Dining",
+    "blurb": "Modern Khmer tasting menus, several of them run as training restaurants.",
+    "verified": true,
+    "lat": 11.5564,
+    "lng": 104.9282,
+    "image": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Luxury",
+      "Exclusive"
+    ],
+    "openTime": "11:30",
+    "closeTime": "22:00",
+    "priceRange": "$25 – $60 a head",
+    "visitDuration": "2 hours",
+    "bestTime": "Dinner",
+    "highlights": [
+      "Tasting menu",
+      "Wine pairing"
+    ],
+    "tips": [
+      "Book ahead at weekends"
+    ]
+  },
+  {
+    "slug": "siem-reap-fine-dining",
+    "region": "luxury",
+    "name": "Siem Reap Fine Dining",
+    "province": "Siem Reap",
+    "category": "Fine Dining",
+    "blurb": "Kitchens sourcing from the lake and the farms around town, a few streets off the strip.",
+    "verified": true,
+    "lat": 13.3583,
+    "lng": 103.8528,
+    "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Luxury",
+      "5 Stars"
+    ],
+    "openTime": "11:30",
+    "closeTime": "22:00",
+    "priceRange": "$25 – $60 a head",
+    "visitDuration": "2 hours",
+    "bestTime": "Dinner",
+    "highlights": [
+      "Tasting menu",
+      "Wine pairing"
+    ],
+    "tips": [
+      "Book ahead at weekends"
+    ]
+  },
+  {
+    "slug": "siem-reap-spas",
+    "region": "luxury",
+    "name": "Siem Reap Spa Retreats",
+    "province": "Siem Reap",
+    "category": "Spa",
+    "blurb": "Hotel spas built around Khmer massage and herbal compress, most open to non-residents.",
+    "verified": true,
+    "lat": 13.3563,
+    "lng": 103.8622,
+    "image": "https://images.unsplash.com/photo-1534009502677-4e5080efa8c6?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Golf Spa",
+      "Luxury",
+      "5 Stars"
+    ],
+    "openTime": "09:00",
+    "closeTime": "22:00",
+    "priceRange": "$15 – $60 a treatment",
+    "visitDuration": "1 – 2 hours",
+    "highlights": [
+      "Khmer massage",
+      "Herbal compress"
+    ],
+    "tips": [
+      "Book ahead in high season"
+    ]
+  },
+  {
+    "slug": "cardamom-lodges",
+    "region": "luxury",
+    "name": "Cardamom Rainforest Lodges",
+    "province": "Koh Kong",
+    "category": "Spa",
+    "blurb": "Tented camps on the Tatai river that fund the ranger patrols around them.",
+    "featured": true,
+    "verified": true,
+    "lat": 11.5333,
+    "lng": 103.1,
+    "image": "https://images.unsplash.com/photo-1740724873371-0c05a17fa819?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Exclusive",
+      "Luxury"
+    ],
+    "openTime": "09:00",
+    "closeTime": "22:00",
+    "priceRange": "$15 – $60 a treatment",
+    "visitDuration": "1 – 2 hours",
+    "highlights": [
+      "Khmer massage",
+      "Herbal compress"
+    ],
+    "tips": [
+      "Book ahead in high season"
+    ]
+  },
+  {
+    "slug": "kampot-wellness",
+    "region": "luxury",
+    "name": "Kampot Wellness Retreats",
+    "province": "Kampot",
+    "category": "Spa",
+    "blurb": "Yoga and treatment weeks on the river, usually booked by the week rather than the night.",
+    "verified": true,
+    "lat": 10.6,
+    "lng": 104.16,
+    "image": "https://images.unsplash.com/photo-1661487906939-aea1f059b84f?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Luxury",
+      "Private"
+    ],
+    "openTime": "09:00",
+    "closeTime": "22:00",
+    "priceRange": "$15 – $60 a treatment",
+    "visitDuration": "1 – 2 hours",
+    "highlights": [
+      "Khmer massage",
+      "Herbal compress"
+    ],
+    "tips": [
+      "Book ahead in high season"
+    ]
+  },
+  {
+    "slug": "vip-angkor",
+    "region": "luxury",
+    "name": "VIP Angkor Access",
+    "province": "Siem Reap",
+    "category": "VIP Tour",
+    "blurb": "Early-access arrangements, private transport and a guide who plans around the light.",
+    "featured": true,
+    "verified": true,
+    "lat": 13.4413,
+    "lng": 103.859,
+    "image": "https://images.unsplash.com/photo-1541429464955-87bd98d6d8f8?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Exclusive",
+      "Private",
+      "5 Stars"
+    ],
+    "openTime": "07:00",
+    "closeTime": "17:00",
+    "priceRange": "From $150 a person",
+    "visitDuration": "Full day",
+    "groupSize": "1 – 4 people",
+    "highlights": [
+      "Private guide",
+      "Car and driver",
+      "Skip-the-queue entries"
+    ]
+  },
+  {
+    "slug": "northern-temples-expedition",
+    "region": "luxury",
+    "name": "Northern Temples Expedition",
+    "province": "Preah Vihear",
+    "category": "VIP Tour",
+    "blurb": "Preah Vihear, Koh Ker and Preah Khan of Kompong Svay in one private run, with the transport it takes.",
+    "verified": true,
+    "lat": 14.3931,
+    "lng": 104.68,
+    "image": "https://images.unsplash.com/photo-1609949165382-2e442783c8d5?auto=format&fit=crop&w=800&q=70",
+    "tags": [
+      "Exclusive",
+      "Private"
+    ],
+    "openTime": "07:00",
+    "closeTime": "17:00",
+    "priceRange": "From $150 a person",
+    "visitDuration": "Full day",
+    "groupSize": "1 – 4 people",
+    "highlights": [
+      "Private guide",
+      "Car and driver",
+      "Skip-the-queue entries"
+    ]
+  }
+]

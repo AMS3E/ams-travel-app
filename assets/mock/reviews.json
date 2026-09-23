@@ -1,0 +1,29 @@
+[
+ {
+  "id": "r-sophea-chan",
+  "region": "ancient-capitals",
+  "author": "Sophea Chan",
+  "rating": 5,
+  "trip": "Preah Vihear & Koh Ker",
+  "text": "The listing warned that the Preah Vihear access road turns to mud after heavy rain and gave a number for a driver who does it anyway. Both turned out to be exactly right.",
+  "createdAt": "2026-08-12T00:00:00Z"
+ },
+ {
+  "id": "r-marta-nowak",
+  "region": "coastal-island",
+  "author": "Marta Nowak",
+  "rating": 5,
+  "trip": "Kampot to the islands",
+  "text": "We planned four provinces in ten days off this site alone. Ferry times to Koh Rong Sanloem were correct to the minute, which is not something I expected.",
+  "createdAt": "2026-02-20T00:00:00Z"
+ },
+ {
+  "id": "r-daniel-okoye",
+  "region": "northeastern-civilization",
+  "author": "Daniel Okoye",
+  "rating": 5,
+  "trip": "Mondulkiri highlands",
+  "text": "Saved a dozen places before we flew, then had the whole Mondulkiri list offline when the signal went. The Bunong homestay was the best night of the trip.",
+  "createdAt": "2026-07-08T00:00:00Z"
+ }
+]
