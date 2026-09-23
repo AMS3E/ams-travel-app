@@ -9,16 +9,21 @@ import '../../core/theme/app_theme.dart';
 import '../../data/models/models.dart';
 import '../../data/repositories/travel_repository.dart';
 import '../../widgets/async_view.dart';
+import '../../widgets/destination_card.dart';
 import '../../widgets/province_group.dart';
 
 const _violet = Color(0xFF5B2EE5);
 
-/// Everything under "Explore by Popular", province by province.
-class PopularScreen extends StatelessWidget {
-  const PopularScreen({super.key});
+/// Provinces and what to see in them, one interest at a time.
+class ProvincesExploreScreen extends StatelessWidget {
+  const ProvincesExploreScreen({super.key});
 
-  Future<(List<Province>, List<Destination>)> _load(TravelRepository repo) async {
-    final (provinces, places) = await (repo.getProvinces(), repo.getDestinations()).wait;
+  Future<(List<Province>, List<Destination>, List<Interest>)> _load(TravelRepository repo) async {
+    final (provinces, places, interests) = await (
+      repo.getProvinces(),
+      repo.getDestinations(),
+      repo.getInterests(),
+    ).wait;
 
     places.sort((a, b) {
       final byFeatured = (b.featured ? 1 : 0).compareTo(a.featured ? 1 : 0);
@@ -27,7 +32,8 @@ class PopularScreen extends StatelessWidget {
       return byRating != 0 ? byRating : (b.reviewCount ?? 0).compareTo(a.reviewCount ?? 0);
     });
 
-    return (provinces, places);
+    // Corridors run across provinces, so they are not one of the chips here.
+    return (provinces, places, interests.where((i) => i.categories.isNotEmpty).toList());
   }
 
   @override
@@ -36,11 +42,11 @@ class PopularScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         bottom: false,
-        child: AsyncView<(List<Province>, List<Destination>)>(
+        child: AsyncView<(List<Province>, List<Destination>, List<Interest>)>(
           load: () => _load(repo),
           builder: (context, data, _) {
-            final (provinces, places) = data;
-            return _Body(provinces: provinces, places: places);
+            final (provinces, places, interests) = data;
+            return _Body(provinces: provinces, places: places, interests: interests);
           },
         ),
       ),
@@ -49,68 +55,91 @@ class PopularScreen extends StatelessWidget {
 }
 
 class _Body extends StatefulWidget {
-  const _Body({required this.provinces, required this.places});
+  const _Body({required this.provinces, required this.places, required this.interests});
   final List<Province> provinces;
 
   /// Every place, the best known first.
   final List<Destination> places;
+  final List<Interest> interests;
 
   @override
   State<_Body> createState() => _BodyState();
 }
 
 class _BodyState extends State<_Body> {
-  /// Provinces and their places, the fullest first.
+  int _index = 0;
+
+  /// Every province, or only the ones with a few places worth seeing.
+  bool _all = false;
+
   List<(Province, List<Destination>)> get _groups {
+    final categories = widget.interests.isEmpty
+        ? null
+        : widget.interests[_index].categories.toSet();
+
     final byProvince = <String, List<Destination>>{};
     for (final d in widget.places) {
-      if (!d.featured && (d.rating ?? 0) < 4.6) continue;
+      if (categories != null && !categories.contains(d.category)) continue;
       (byProvince[d.province] ??= []).add(d);
     }
-    return <(Province, List<Destination>)>[
+    final groups = <(Province, List<Destination>)>[
       for (final p in widget.provinces)
-        if ((byProvince[p.name] ?? const []).length >= 3) (p, byProvince[p.name]!),
-    ]..sort((a, b) => b.$2.length.compareTo(a.$2.length));
+        if (_all || (byProvince[p.name] ?? const []).isNotEmpty) (p, byProvince[p.name] ?? const []),
+    ];
+    // All 25 stay in their own order; otherwise the fullest come first.
+    if (_all) return groups;
+    return groups..sort((a, b) => b.$2.length.compareTo(a.$2.length));
   }
 
   @override
   Widget build(BuildContext context) {
     final s = S.of(context);
     final groups = _groups;
-    // The chips suggest what other people look for: the best known places,
-    // then the provinces they sit in.
-    final keywords = <String>{
-      for (final (_, places) in groups.take(2)) ...places.take(2).map((d) => d.name),
-      for (final (province, _) in groups.take(3)) province.name,
-    }.take(6).toList();
 
     return Column(
       children: [
         const _SearchRow(),
         const SizedBox(height: 12),
         SizedBox(
-          height: 34,
+          height: 36,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            itemCount: keywords.length,
+            itemCount: widget.interests.length,
             separatorBuilder: (_, _) => const SizedBox(width: 8),
-            itemBuilder: (_, i) => _Keyword(word: keywords[i]),
+            itemBuilder: (_, i) => _CategoryChip(
+              interest: widget.interests[i],
+              selected: i == _index,
+              onTap: () => setState(() => _index = i),
+            ),
           ),
         ),
         const SizedBox(height: 14),
         Expanded(
-          child: groups.isEmpty
-              ? Center(
-                  child: Text(s.noResults, style: AppText.sans(14.5, color: AppColors.sand500)),
-                )
-              : ListView(
-                  padding: EdgeInsets.only(bottom: 20 + MediaQuery.paddingOf(context).bottom),
-                  children: [
-                    for (final (province, places) in groups)
-                      ProvinceGroup(province: province, places: places),
-                  ],
+          child: ListView(
+            padding: EdgeInsets.only(bottom: 20 + MediaQuery.paddingOf(context).bottom),
+            children: [
+              for (final (province, places) in groups)
+                ProvinceGroup(province: province, places: places),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 4, 16, 8),
+                child: OutlinedButton(
+                  onPressed: () => setState(() => _all = !_all),
+                  style: OutlinedButton.styleFrom(
+                    minimumSize: const Size.fromHeight(50),
+                    side: const BorderSide(color: _violet),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                  ),
+                  child: Text(
+                    _all
+                        ? s.showLess
+                        : s.showAllProvinces.replaceFirst('{n}', '${widget.provinces.length}'),
+                    style: AppText.sans(14.5, weight: FontWeight.w700, color: _violet),
+                  ),
                 ),
+              ),
+            ],
+          ),
         ),
       ],
     );
@@ -134,10 +163,8 @@ class _SearchRow extends StatelessWidget {
           ),
           Expanded(
             child: Material(
-              color: Colors.white,
+              color: AppColors.sand100,
               borderRadius: BorderRadius.circular(16),
-              elevation: 1.5,
-              shadowColor: const Color(0x221C1935),
               child: InkWell(
                 borderRadius: BorderRadius.circular(16),
                 onTap: () => context.push(Routes.popularSearch),
@@ -147,7 +174,7 @@ class _SearchRow extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Text(
-                          s.popularDestinations,
+                          s.popularProvinces,
                           style: AppText.sans(14.5, color: AppColors.sand400),
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -176,32 +203,33 @@ class _SearchRow extends StatelessWidget {
   }
 }
 
-/// One thing other people search for.
-class _Keyword extends StatelessWidget {
-  const _Keyword({required this.word});
-  final String word;
+/// One interest category along the top.
+class _CategoryChip extends StatelessWidget {
+  const _CategoryChip({required this.interest, required this.selected, required this.onTap});
+  final Interest interest;
+  final bool selected;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       borderRadius: BorderRadius.circular(99),
-      onTap: () => context.push('${Routes.search}?q=${Uri.encodeQueryComponent(word)}'),
+      onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: selected ? _violet : Colors.white,
           borderRadius: BorderRadius.circular(99),
-          border: Border.all(color: AppColors.sand200),
+          border: Border.all(color: selected ? _violet : AppColors.sand200),
         ),
-        child: Row(
-          children: [
-            const Icon(Icons.place_outlined, size: 15, color: AppColors.sand500),
-            const SizedBox(width: 5),
-            Text(
-              word.toLowerCase(),
-              style: AppText.sans(13, weight: FontWeight.w500, color: AppColors.sand800),
-            ),
-          ],
+        child: Text(
+          bilingual(context, interest.name, interest.nameKh).$1,
+          style: AppText.sans(
+            13.5,
+            weight: FontWeight.w600,
+            color: selected ? Colors.white : AppColors.sand800,
+          ),
         ),
       ),
     );
