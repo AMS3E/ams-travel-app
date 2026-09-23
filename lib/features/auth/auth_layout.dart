@@ -57,55 +57,6 @@ class FieldLabel extends StatelessWidget {
   );
 }
 
-class PasswordField extends StatefulWidget {
-  const PasswordField({
-    super.key,
-    required this.controller,
-    required this.hint,
-    this.validator,
-    this.helper,
-    this.textInputAction = TextInputAction.next,
-    this.onSubmitted,
-  });
-
-  final TextEditingController controller;
-  final String hint;
-  final String? helper;
-  final FormFieldValidator<String>? validator;
-  final TextInputAction textInputAction;
-  final VoidCallback? onSubmitted;
-
-  @override
-  State<PasswordField> createState() => _PasswordFieldState();
-}
-
-class _PasswordFieldState extends State<PasswordField> {
-  bool _obscure = true;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      controller: widget.controller,
-      obscureText: _obscure,
-      autocorrect: false,
-      enableSuggestions: false,
-      textInputAction: widget.textInputAction,
-      onFieldSubmitted: (_) => widget.onSubmitted?.call(),
-      validator: widget.validator,
-      decoration: InputDecoration(
-        hintText: widget.hint,
-        helperText: widget.helper,
-        helperMaxLines: 2,
-        prefixIcon: const Icon(Icons.lock_outline_rounded),
-        suffixIcon: IconButton(
-          onPressed: () => setState(() => _obscure = !_obscure),
-          icon: Icon(_obscure ? Icons.visibility_outlined : Icons.visibility_off_outlined),
-        ),
-      ),
-    );
-  }
-}
-
 class FormErrorBanner extends StatelessWidget {
   const FormErrorBanner(this.message, {super.key});
   final String? message;

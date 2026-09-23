@@ -30,11 +30,9 @@ class ApiEndpoints {
   const ApiEndpoints._();
 
   // Content
-  static const home = '/home';
   static const regions = '/regions';
   static String region(String slug) => '/regions/$slug';
   static String regionStories(String region) => '/regions/$region/stories';
-  static String story(String region, String slug) => '/regions/$region/stories/$slug';
   static String regionReviews(String region) => '/regions/$region/reviews';
   static const destinations = '/destinations';
   static String destination(String region, String slug) => '/regions/$region/destinations/$slug';
@@ -46,11 +44,9 @@ class ApiEndpoints {
   static const provinces = '/provinces';
   static String province(String slug) => '/provinces/$slug';
   static const interests = '/interests';
-  static String interest(String slug) => '/interests/$slug';
   static const corridors = '/corridors';
   static String corridor(String slug) => '/corridors/$slug';
   static const search = '/search';
-  static const planRequests = '/plan-requests';
 
   // Auth
   static const login = '/auth/login';

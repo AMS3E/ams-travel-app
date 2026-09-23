@@ -23,8 +23,6 @@ class MockTravelRepository implements TravelRepository {
   Future<List<Destination>> _allDestinations() async =>
       (await _load('destinations') as List).map((e) => Destination.fromJson(Json.from(e))).toList();
 
-  @override
-  Future<HomeContent> getHome() async => _delay(HomeContent.fromJson(Json.from(await _load('home'))));
 
   @override
   Future<List<Region>> getRegions() async =>
@@ -84,11 +82,6 @@ class MockTravelRepository implements TravelRepository {
   Future<List<Interest>> getInterests() async =>
       _delay((await _load('interests') as List).map((e) => Interest.fromJson(Json.from(e))).toList());
 
-  @override
-  Future<Interest> getInterest(String slug) async {
-    final all = await getInterests();
-    return all.firstWhere((i) => i.slug == slug, orElse: () => throw NotFoundException('Interest'));
-  }
 
   @override
   Future<List<Corridor>> getCorridors() async =>
@@ -106,11 +99,6 @@ class MockTravelRepository implements TravelRepository {
       ..sort((a, b) => a.step.compareTo(b.step)),
   );
 
-  @override
-  Future<Story> getStory(String region, String slug) async {
-    final all = await getStories(region);
-    return all.firstWhere((s) => s.slug == slug, orElse: () => throw NotFoundException('Story'));
-  }
 
   @override
   Future<List<Review>> getReviews(DestinationRef ref) async =>
@@ -190,8 +178,6 @@ class MockTravelRepository implements TravelRepository {
     return _delay(review);
   }
 
-  @override
-  Future<void> submitPlanRequest({required String email, required String destination}) => _delay(null);
 
   @override
   Future<SearchResults> search(String query) async {

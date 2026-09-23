@@ -112,34 +112,6 @@ class Pill extends StatelessWidget {
   }
 }
 
-class RatingPill extends StatelessWidget {
-  const RatingPill(this.rating, {super.key, this.onImage = false});
-  final double rating;
-  final bool onImage;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      decoration: BoxDecoration(
-        color: onImage ? const Color(0xF2FFFFFF) : AppColors.sand100,
-        borderRadius: BorderRadius.circular(99),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Icon(Icons.star_rounded, size: 15, color: AppColors.star),
-          const SizedBox(width: 3),
-          Text(
-            rating.toStringAsFixed(1),
-            style: AppText.sans(12, weight: FontWeight.w700, color: AppColors.sand900),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
 class Stars extends StatelessWidget {
   const Stars(this.value, {super.key, this.size = 16, this.onChanged});
   final int value;
@@ -299,69 +271,6 @@ class GlassIconButton extends StatelessWidget {
             icon: Icon(icon, size: 21, color: color ?? AppColors.sand900),
           ),
         ),
-      ),
-    );
-  }
-}
-
-/// Label/value rows for "At a glance".
-class InfoTable extends StatelessWidget {
-  const InfoTable({super.key, required this.rows});
-  final List<(String, Widget)> rows;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(AppTheme.radius),
-        border: Border.all(color: AppColors.sand200),
-      ),
-      child: Column(
-        children: [
-          for (var i = 0; i < rows.length; i++) ...[
-            if (i > 0) const Divider(indent: 16, endIndent: 16),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: 120,
-                    child: Text(rows[i].$1, style: AppText.sans(13.5, color: AppColors.sand500)),
-                  ),
-                  Expanded(child: rows[i].$2),
-                ],
-              ),
-            ),
-          ],
-        ],
-      ),
-    );
-  }
-}
-
-class InfoValue extends StatelessWidget {
-  const InfoValue(this.text, {super.key, this.onTap});
-  final String text;
-  final VoidCallback? onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final style = AppText.sans(
-      14,
-      weight: FontWeight.w600,
-      color: onTap == null ? AppColors.sand900 : AppColors.brand600,
-    );
-    if (onTap == null) return Text(text, style: style);
-    return GestureDetector(
-      onTap: onTap,
-      child: Row(
-        children: [
-          Flexible(child: Text(text, style: style)),
-          const SizedBox(width: 2),
-          const Icon(Icons.chevron_right_rounded, size: 18, color: AppColors.brand600),
-        ],
       ),
     );
   }
