@@ -1,0 +1,133 @@
+[
+ {
+  "slug": "attraction-sites",
+  "name": "Attraction Sites",
+  "nameKh": "តំបន់ទេសចរណ៍",
+  "icon": "temple",
+  "description": "Temples, ancient cities, museums, caves and viewpoints — the places you come to see.",
+  "image": "https://images.unsplash.com/photo-1599283787923-51b965a58b05?auto=format&fit=crop&w=800&q=70",
+  "categories": [
+   "Temples",
+   "Ancient Cities",
+   "Ancient Roads",
+   "Archaeological Sites",
+   "Art Gallery",
+   "Bridges",
+   "Cave",
+   "City Walk",
+   "Hospitals",
+   "Indigenous Culture",
+   "Mountain",
+   "Museums",
+   "National Park",
+   "Sacred Mountain",
+   "Viewpoint",
+   "Village"
+  ],
+  "count": 43
+ },
+ {
+  "slug": "stays",
+  "name": "Stays",
+  "nameKh": "កន្លែងស្នាក់នៅ",
+  "icon": "stay",
+  "description": "Community homestays, eco lodges, boutique hotels and private islands.",
+  "image": "https://images.unsplash.com/photo-1534009502677-4e5080efa8c6?auto=format&fit=crop&w=800&q=70",
+  "categories": [
+   "Homestay",
+   "Eco Lodge",
+   "Luxury Hotel",
+   "Private Island"
+  ],
+  "count": 13
+ },
+ {
+  "slug": "food",
+  "name": "Food",
+  "nameKh": "ម្ហូបអាហារ",
+  "icon": "food",
+  "description": "Street food, night markets, pepper farms, cooking classes and fine dining.",
+  "image": "https://images.unsplash.com/photo-1588566565463-180a5b2090d2?auto=format&fit=crop&w=800&q=70",
+  "categories": [
+   "Street Food",
+   "Traditional Food",
+   "Night Market",
+   "Seafood",
+   "Coffee",
+   "Farm",
+   "Rice",
+   "Cooking Class",
+   "Fine Dining",
+   "Michelin"
+  ],
+  "count": 41
+ },
+ {
+  "slug": "water",
+  "name": "Water",
+  "nameKh": "ទឹក",
+  "icon": "water",
+  "description": "Waterfalls, beaches, islands, river trips and the floating villages of the Tonle Sap.",
+  "image": "https://images.unsplash.com/photo-1621063223871-72880cf5eb51?auto=format&fit=crop&w=800&q=70",
+  "categories": [
+   "Waterfall",
+   "Beach",
+   "Island",
+   "Boat Trip",
+   "River Island",
+   "Cruise",
+   "Coral",
+   "Diving",
+   "Snorkeling",
+   "Fishing",
+   "Mangrove",
+   "Sunset",
+   "Yacht",
+   "Floating Village",
+   "Volcano Lake"
+  ],
+  "count": 49
+ },
+ {
+  "slug": "activities-experiences",
+  "name": "Activities & Experiences",
+  "nameKh": "សកម្មភាព និងបទពិសោធន៍",
+  "icon": "activity",
+  "description": "Treks, cycling, wildlife, crafts, spas and guided experiences.",
+  "image": "https://images.unsplash.com/photo-1667371026139-57d7d81918de?auto=format&fit=crop&w=800&q=70",
+  "categories": [
+   "Adventure",
+   "Trekking",
+   "Camping",
+   "Cycling",
+   "Forest",
+   "Wildlife",
+   "Bird Watching",
+   "Bird Sanctuary",
+   "Community",
+   "Agriculture",
+   "Craft",
+   "Local Guide",
+   "Private Guide",
+   "VIP Tour",
+   "Photography",
+   "Shopping",
+   "Sky Bar",
+   "Spa",
+   "Golf",
+   "Helicopter"
+  ],
+  "count": 53
+ },
+ {
+  "slug": "tourism-corridors",
+  "name": "Tourism Corridors",
+  "nameKh": "ផ្លូវទេសចរណ៍",
+  "icon": "route",
+  "type": "corridors",
+  "description": "Multi-province routes in an order that works on the road.",
+  "image": "https://images.unsplash.com/photo-1729963639012-5a6a48690ed4?auto=format&fit=crop&w=800&q=70",
+  "categories": [],
+  "count": 5
+ }
+]

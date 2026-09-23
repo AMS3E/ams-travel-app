@@ -1,0 +1,155 @@
+{
+ "heroImage": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=70",
+ "heroTitle": "Discover Cambodia's Hidden Gems",
+ "heroSubtitle": "Nine tourism regions, twenty-five provinces, and curated corridors — with verified place details, maps, and trusted local contacts.",
+ "stats": [
+  {
+   "value": "92",
+   "suffix": "+",
+   "label": "Countries covered"
+  },
+  {
+   "value": "48",
+   "suffix": "K",
+   "label": "Travellers hosted"
+  },
+  {
+   "value": "4.9",
+   "suffix": "/5",
+   "label": "Average review score"
+  },
+  {
+   "value": "17",
+   "suffix": "yrs",
+   "label": "Planning trips"
+  }
+ ],
+ "featured": [
+  {
+   "region": "ancient-capitals",
+   "slug": "angkor-wat",
+   "badge": "Most visited",
+   "rating": 4.9,
+   "bestTime": "Nov – Feb"
+  },
+  {
+   "region": "mekong-tonle-sap",
+   "slug": "kampong-phluk",
+   "badge": "Featured",
+   "rating": 4.6,
+   "bestTime": "Aug – Dec"
+  },
+  {
+   "region": "coastal-island",
+   "slug": "koh-rong-sanloem",
+   "badge": "Traveller favourite",
+   "rating": 4.8,
+   "bestTime": "Nov – Apr"
+  },
+  {
+   "region": "khmer-culinary",
+   "slug": "kampot-pepper",
+   "badge": "Featured",
+   "rating": 4.7,
+   "bestTime": "Dec – Mar"
+  },
+  {
+   "region": "urban-nightlife",
+   "slug": "sisowath-quay",
+   "badge": "Featured",
+   "rating": 4.5,
+   "bestTime": "Nov – Feb"
+  },
+  {
+   "region": "northeastern-civilization",
+   "slug": "bou-sra",
+   "badge": "Off the trail",
+   "rating": 4.7,
+   "bestTime": "Jul – Nov"
+  }
+ ],
+ "trending": [
+  {
+   "region": "ancient-capitals",
+   "slug": "ta-prohm",
+   "saves": "3.1k",
+   "growth": "+42%"
+  },
+  {
+   "region": "ancient-capitals",
+   "slug": "preah-vihear-temple",
+   "saves": "2.4k",
+   "growth": "+31%"
+  },
+  {
+   "region": "khmer-culinary",
+   "slug": "kep-crab",
+   "saves": "1.9k",
+   "growth": "+27%"
+  },
+  {
+   "region": "mekong-tonle-sap",
+   "slug": "kampi-dolphins",
+   "saves": "1.6k",
+   "growth": "+22%"
+  },
+  {
+   "region": "urban-nightlife",
+   "slug": "battambang-heritage-walk",
+   "saves": "1.2k",
+   "growth": "+18%"
+  },
+  {
+   "region": "mountain-waterfall",
+   "slug": "kirirom",
+   "saves": "940",
+   "growth": "+15%"
+  }
+ ],
+ "whyTitle": "Cambodia, verified province by province",
+ "whyIntro": "We are not reselling somebody else's database. Every region, province and place on this site was visited, written up and photographed by people who live and travel here.",
+ "why": [
+  {
+   "icon": "verified",
+   "title": "Checked on the ground",
+   "body": "Every site, stay and kitchen is visited before it goes on the map, then looked at again each season. If a place closes, it comes off."
+  },
+  {
+   "icon": "ticket",
+   "title": "Details that hold up at the gate",
+   "body": "Entry fees, opening hours, ticket rules and road conditions written as you will actually find them — not copied from a brochure."
+  },
+  {
+   "icon": "offline",
+   "title": "Maps that work offline",
+   "body": "Every province, corridor and site is mapped, so the route still opens when the signal drops somewhere past Sen Monorom."
+  },
+  {
+   "icon": "contacts",
+   "title": "Trusted local contacts",
+   "body": "Guides, boat owners and homestay families we have met in person, with numbers that get answered in Khmer or English."
+  }
+ ],
+ "testimonials": [
+  {
+   "name": "Sophea Chan",
+   "trip": "Preah Vihear & Koh Ker, August 2026",
+   "rating": 5,
+   "text": "The listing warned that the Preah Vihear access road turns to mud after heavy rain and gave a number for a driver who does it anyway. Both turned out to be exactly right."
+  },
+  {
+   "name": "Marta Nowak",
+   "trip": "Kampot to the islands, February 2026",
+   "rating": 5,
+   "text": "We planned four provinces in ten days off this site alone. Ferry times to Koh Rong Sanloem were correct to the minute, which is not something I expected."
+  },
+  {
+   "name": "Daniel Okoye",
+   "trip": "Mondulkiri highlands, July 2026",
+   "rating": 5,
+   "text": "Saved a dozen places before we flew, then had the whole Mondulkiri list offline when the signal went. The Bunong homestay was the best night of the trip."
+  }
+ ],
+ "planImage": "https://images.unsplash.com/photo-1504639650150-bf773680d8c3?auto=format&fit=crop&w=1200&q=70",
+ "contactPhone": "+1 (415) 555-0142"
+}

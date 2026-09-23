@@ -1,0 +1,27 @@
+{
+  "Kep/Kampot": [
+    "mountain-waterfall/bokor",
+    "mountain-waterfall/popokvil",
+    "mountain-waterfall/phnom-chhngok",
+    "mountain-waterfall/kampong-trach",
+    "mountain-waterfall/phnom-sorsia",
+    "mountain-waterfall/kampot-kep-loop"
+  ],
+  "Places": [
+    "ancient-capitals/angkor-wat",
+    "ancient-capitals/bayon-temple",
+    "ancient-capitals/banteay-srei",
+    "ancient-capitals/royal-palace",
+    "ancient-capitals/national-museum",
+    "ancient-capitals/preah-vihear-temple"
+  ],
+  "Cuisines": [
+    "northeastern-civilization/ratanakiri-coffee",
+    "northeastern-civilization/mondulkiri-coffee",
+    "coastal-island/kep-beach",
+    "coastal-island/psar-leu-seafood",
+    "coastal-island/kampot-fish-market",
+    "urban-nightlife/street-240",
+    "urban-nightlife/battambang-cafes"
+  ]
+}

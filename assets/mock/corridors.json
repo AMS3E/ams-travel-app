@@ -1,0 +1,517 @@
+[
+  {
+    "slug": "khmer-civilization",
+    "name": "Khmer Civilization",
+    "duration": "7 – 10 days",
+    "description": "The capitals in the order they were built — Angkor first, then back through Roluos and Kulen to the older cities north and east of it.",
+    "image": "https://images.unsplash.com/photo-1566706546199-a93ba33ce9f7?auto=format&fit=crop&w=1000&q=70",
+    "sequential": true,
+    "stops": [
+      {
+        "name": "Angkor",
+        "nameKh": "អង្គរ",
+        "lat": 13.4125,
+        "lng": 103.867
+      },
+      {
+        "name": "Roluos",
+        "nameKh": "រលួស",
+        "lat": 13.3383,
+        "lng": 103.9736
+      },
+      {
+        "name": "Phnom Kulen",
+        "nameKh": "គូលែន",
+        "lat": 13.5833,
+        "lng": 104.05
+      },
+      {
+        "name": "Koh Ker",
+        "nameKh": "កោះកេរ្តិ៍",
+        "lat": 13.7833,
+        "lng": 104.5333
+      },
+      {
+        "name": "Ishanapura",
+        "nameKh": "ឦសានបុរី",
+        "lat": 12.8722,
+        "lng": 105.04
+      }
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "from": "Siem Reap",
+        "to": "Angkor",
+        "summary": "Arrive, settle in, and take the afternoon for Angkor Wat and sunset from the moat.",
+        "places": [
+          "ancient-capitals/angkor-wat",
+          "luxury/angkor-helicopter",
+          "luxury/angkor-private-guiding"
+        ]
+      },
+      {
+        "day": 2,
+        "from": "Angkor",
+        "to": "Angkor",
+        "summary": "A full day inside the walled city — Bayon, Ta Prohm and the terraces.",
+        "places": [
+          "ancient-capitals/angkor-wat",
+          "luxury/angkor-helicopter",
+          "luxury/angkor-private-guiding"
+        ]
+      },
+      {
+        "day": 3,
+        "from": "Angkor",
+        "to": "Roluos",
+        "summary": "Drive out to the Roluos group, the oldest brick temples of the era.",
+        "places": [
+          "khmer-culinary/siem-reap-farms",
+          "luxury/siem-reap-boutique",
+          "luxury/siem-reap-spas"
+        ]
+      },
+      {
+        "day": 4,
+        "from": "Roluos",
+        "to": "Phnom Kulen",
+        "summary": "Up the sacred mountain for the riverbed carvings and the waterfall.",
+        "places": [
+          "ancient-capitals/phnom-kulen",
+          "mountain-waterfall/phnom-kulen-mountain",
+          "mountain-waterfall/kulen-falls"
+        ]
+      },
+      {
+        "day": 5,
+        "from": "Phnom Kulen",
+        "to": "Koh Ker",
+        "summary": "Long drive north-east to the pyramid temple and the forest ruins around it.",
+        "places": [
+          "ancient-capitals/koh-ker"
+        ]
+      },
+      {
+        "day": 6,
+        "from": "Koh Ker",
+        "to": "Ishanapura",
+        "summary": "South to the pre-Angkorian brick towers of Sambor Prei Kuk.",
+        "places": [
+          "ancient-capitals/sambor-prei-kuk",
+          "eco-community/sambor-prei-kuk-homestay",
+          "khmer-culinary/prahok-kampong-thom"
+        ]
+      },
+      {
+        "day": 7,
+        "from": "Ishanapura",
+        "to": "Siem Reap",
+        "summary": "Back through Kampong Thom, with a stop for lunch on the road.",
+        "places": [
+          "ancient-capitals/sambor-prei-kuk",
+          "eco-community/sambor-prei-kuk-homestay",
+          "khmer-culinary/prahok-kampong-thom"
+        ]
+      }
+    ],
+    "days": 7
+  },
+  {
+    "slug": "mekong-civilization",
+    "name": "Mekong Civilization",
+    "duration": "6 – 9 days",
+    "description": "Up the Mekong to the Lao border and back down the river system to the lake it feeds.",
+    "image": "https://images.unsplash.com/photo-1715520019930-b677fdca474d?auto=format&fit=crop&w=1000&q=70",
+    "sequential": true,
+    "stops": [
+      {
+        "name": "Kratié",
+        "nameKh": "ក្រចេះ",
+        "lat": 12.488,
+        "lng": 106.019
+      },
+      {
+        "name": "Stung Treng",
+        "nameKh": "ស្ទឹងត្រែង",
+        "lat": 13.525,
+        "lng": 105.968
+      },
+      {
+        "name": "Mekong River",
+        "nameKh": "ទន្លេមេគង្គ",
+        "lat": 11.993,
+        "lng": 105.46
+      },
+      {
+        "name": "Tonle Sap",
+        "nameKh": "ទន្លេសាប",
+        "lat": 12.85,
+        "lng": 104.1
+      }
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "from": "Phnom Penh",
+        "to": "Kratié",
+        "summary": "Head up the river and settle in for sunset over the sandbanks.",
+        "places": [
+          "mekong-tonle-sap/koh-trong",
+          "eco-community/koh-trong-homestay",
+          "mekong-tonle-sap/phnom-sambok"
+        ]
+      },
+      {
+        "day": 2,
+        "from": "Kratié",
+        "to": "Kratié",
+        "summary": "Boat out for the Irrawaddy dolphins, then cycle Koh Trong island.",
+        "places": [
+          "mekong-tonle-sap/koh-trong",
+          "eco-community/koh-trong-homestay",
+          "mekong-tonle-sap/phnom-sambok"
+        ]
+      },
+      {
+        "day": 3,
+        "from": "Kratié",
+        "to": "Stung Treng",
+        "summary": "Further upstream, with the flooded forest in the afternoon.",
+        "places": [
+          "northeastern-civilization/sesan-srepok",
+          "eco-community/mekong-blue",
+          "mekong-tonle-sap/stung-treng-ramsar"
+        ]
+      },
+      {
+        "day": 4,
+        "from": "Stung Treng",
+        "to": "Mekong River",
+        "summary": "A slow day on the water between the channels and islands.",
+        "places": [
+          "khmer-culinary/kralan",
+          "mekong-tonle-sap/koh-paen",
+          "mekong-tonle-sap/wat-hanchey"
+        ]
+      },
+      {
+        "day": 5,
+        "from": "Mekong River",
+        "to": "Tonle Sap",
+        "summary": "South to the great lake and the floating villages.",
+        "places": [
+          "mekong-tonle-sap/boeung-tonle-chhmar",
+          "mekong-tonle-sap/kampong-khleang",
+          "mekong-tonle-sap/kampong-phluk"
+        ]
+      },
+      {
+        "day": 6,
+        "from": "Tonle Sap",
+        "to": "Phnom Penh",
+        "summary": "Return along the river road.",
+        "places": [
+          "mekong-tonle-sap/boeung-tonle-chhmar",
+          "mekong-tonle-sap/kampong-khleang",
+          "mekong-tonle-sap/kampong-phluk"
+        ]
+      }
+    ],
+    "days": 6
+  },
+  {
+    "slug": "coastal-discovery",
+    "name": "Coastal Discovery",
+    "duration": "6 – 9 days",
+    "description": "East to west along the Gulf, ending on the two big islands offshore.",
+    "image": "https://images.unsplash.com/photo-1616421310226-7453165b353e?auto=format&fit=crop&w=1000&q=70",
+    "sequential": true,
+    "stops": [
+      {
+        "name": "Kampot",
+        "nameKh": "កំពត",
+        "lat": 10.61,
+        "lng": 104.18
+      },
+      {
+        "name": "Kep",
+        "nameKh": "កែប",
+        "lat": 10.483,
+        "lng": 104.317
+      },
+      {
+        "name": "Preah Sihanouk",
+        "nameKh": "ព្រះសីហនុ",
+        "lat": 10.627,
+        "lng": 103.522
+      },
+      {
+        "name": "Koh Rong",
+        "nameKh": "កោះរុង",
+        "lat": 10.72,
+        "lng": 103.24
+      },
+      {
+        "name": "Koh Rong Sanloem",
+        "nameKh": "កោះរុងសន្លឹម",
+        "lat": 10.59,
+        "lng": 103.3
+      }
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "from": "Phnom Penh",
+        "to": "Kampot",
+        "summary": "Drive down and take the riverside for the evening.",
+        "places": [
+          "coastal-island/kampot-river-cruise",
+          "urban-nightlife/kampot-riverside",
+          "urban-nightlife/kampot-cafes"
+        ]
+      },
+      {
+        "day": 2,
+        "from": "Kampot",
+        "to": "Kampot",
+        "summary": "Pepper farms in the morning, Bokor in the afternoon.",
+        "places": [
+          "coastal-island/kampot-river-cruise",
+          "urban-nightlife/kampot-riverside",
+          "urban-nightlife/kampot-cafes"
+        ]
+      },
+      {
+        "day": 3,
+        "from": "Kampot",
+        "to": "Kep",
+        "summary": "Crab market, salt fields and a quiet night by the sea.",
+        "places": [
+          "coastal-island/kep-beach",
+          "urban-nightlife/kep-evening",
+          "khmer-culinary/kep-crab"
+        ]
+      },
+      {
+        "day": 4,
+        "from": "Kep",
+        "to": "Preah Sihanouk",
+        "summary": "Along the coast to the port town and its beaches.",
+        "places": [
+          "coastal-island/psar-leu-seafood",
+          "urban-nightlife/sihanoukville-night-market",
+          "luxury/coastal-transfers"
+        ]
+      },
+      {
+        "day": 5,
+        "from": "Preah Sihanouk",
+        "to": "Koh Rong",
+        "summary": "Ferry across for sand and snorkelling.",
+        "places": [
+          "coastal-island/koh-rong",
+          "coastal-island/long-set",
+          "luxury/private-islands"
+        ]
+      },
+      {
+        "day": 6,
+        "from": "Koh Rong",
+        "to": "Koh Rong Sanloem",
+        "summary": "A short hop to the quieter island.",
+        "places": [
+          "coastal-island/lazy-beach",
+          "coastal-island/koh-rong-sanloem",
+          "coastal-island/sanloem-reefs"
+        ]
+      }
+    ],
+    "days": 6
+  },
+  {
+    "slug": "mountain-adventure",
+    "name": "Mountain Adventure",
+    "duration": "5 – 8 days",
+    "description": "The summit of the country, the range behind it, the plateau above Kampot, and the falls that come off all three.",
+    "image": "https://images.unsplash.com/photo-1656554848715-dc195c7484bb?auto=format&fit=crop&w=1000&q=70",
+    "sequential": true,
+    "stops": [
+      {
+        "name": "Phnom Aural",
+        "nameKh": "ភ្នំឱរ៉ាល់",
+        "lat": 12.04,
+        "lng": 104.16
+      },
+      {
+        "name": "Cardamom Mountains",
+        "nameKh": "ជួរភ្នំក្រវាញ",
+        "lat": 11.85,
+        "lng": 103.45
+      },
+      {
+        "name": "Phnom Bokor",
+        "nameKh": "ភ្នំបូកគោ",
+        "lat": 10.62,
+        "lng": 104.03
+      },
+      {
+        "name": "Waterfall Country",
+        "nameKh": "តំបន់ទឹកជ្រោះ",
+        "lat": 11.39,
+        "lng": 104.13
+      }
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "from": "Phnom Penh",
+        "to": "Phnom Aural",
+        "summary": "Drive to the foot of the highest peak and meet the guides.",
+        "places": [
+          "mountain-waterfall/phnom-aural"
+        ]
+      },
+      {
+        "day": 2,
+        "from": "Phnom Aural",
+        "to": "Phnom Aural",
+        "summary": "Summit day — a long climb through forest.",
+        "places": [
+          "mountain-waterfall/phnom-aural"
+        ]
+      },
+      {
+        "day": 3,
+        "from": "Phnom Aural",
+        "to": "Cardamom Mountains",
+        "summary": "Into the Cardamoms, with a river camp for the night.",
+        "places": [
+          "mountain-waterfall/cardamoms",
+          "mountain-waterfall/osoam",
+          "eco-community/osoam"
+        ]
+      },
+      {
+        "day": 4,
+        "from": "Cardamom Mountains",
+        "to": "Phnom Bokor",
+        "summary": "Cross to the plateau, cool air and old ruins.",
+        "places": [
+          "mountain-waterfall/bokor",
+          "mountain-waterfall/bokor-cloud-line",
+          "mountain-waterfall/popokvil"
+        ]
+      },
+      {
+        "day": 5,
+        "from": "Phnom Bokor",
+        "to": "Waterfall Country",
+        "summary": "Finish among the waterfalls before heading back.",
+        "places": [
+          "mountain-waterfall/chambok",
+          "eco-community/chambok-cbet",
+          "mountain-waterfall/kirirom"
+        ]
+      }
+    ],
+    "days": 5
+  },
+  {
+    "slug": "khmer-culinary",
+    "name": "Khmer Culinary",
+    "duration": "Flexible",
+    "description": "Not a single road but a set of production areas — the pepper, palm sugar, prahok and rice that carry Khmer identity, region by region.",
+    "image": "https://images.unsplash.com/photo-1787736366638-82155215ab11?auto=format&fit=crop&w=1000&q=70",
+    "sequential": false,
+    "stops": [
+      {
+        "name": "Kampot Pepper",
+        "nameKh": "ម្រេចកំពត",
+        "lat": 10.56,
+        "lng": 104.29
+      },
+      {
+        "name": "Kampong Speu Palm Sugar",
+        "nameKh": "ស្ករត្នោត",
+        "lat": 11.453,
+        "lng": 104.52
+      },
+      {
+        "name": "Kampong Thom Prahok",
+        "nameKh": "ប្រហុក",
+        "lat": 12.711,
+        "lng": 104.889
+      },
+      {
+        "name": "Siem Reap Kitchens",
+        "nameKh": "សៀមរាប",
+        "lat": 13.3633,
+        "lng": 103.8564
+      },
+      {
+        "name": "Battambang Rice",
+        "nameKh": "បាត់ដំបង",
+        "lat": 13.095,
+        "lng": 103.202
+      }
+    ],
+    "itinerary": [
+      {
+        "day": 1,
+        "from": "Phnom Penh",
+        "to": "Kampot Pepper",
+        "summary": "South to the pepper farms, tasting green, black and red.",
+        "places": [
+          "mountain-waterfall/kampot-kep-loop",
+          "eco-community/trapeang-sangkae",
+          "coastal-island/kampot-estuary"
+        ]
+      },
+      {
+        "day": 2,
+        "from": "Kampot Pepper",
+        "to": "Kampong Speu Palm Sugar",
+        "summary": "Palm sugar country — climbing, boiling and tasting.",
+        "places": [
+          "khmer-culinary/palm-sugar",
+          "eco-community/palm-sugar-coops"
+        ]
+      },
+      {
+        "day": 3,
+        "from": "Kampong Speu Palm Sugar",
+        "to": "Kampong Thom Prahok",
+        "summary": "Learn how prahok is made, and cook with it.",
+        "places": [
+          "khmer-culinary/prahok-kampong-thom",
+          "mekong-tonle-sap/stung-sen-floodplain",
+          "ancient-capitals/sambor-prei-kuk"
+        ]
+      },
+      {
+        "day": 4,
+        "from": "Kampong Thom Prahok",
+        "to": "Siem Reap Kitchens",
+        "summary": "Market tour and a cooking class in town.",
+        "places": [
+          "khmer-culinary/num-banh-chok",
+          "khmer-culinary/siem-reap-cooking",
+          "urban-nightlife/siem-reap-rooftops"
+        ]
+      },
+      {
+        "day": 5,
+        "from": "Siem Reap Kitchens",
+        "to": "Battambang Rice",
+        "summary": "Rice fields, noodle workshops and the road home.",
+        "places": [
+          "urban-nightlife/battambang-heritage-walk",
+          "urban-nightlife/battambang-arts",
+          "khmer-culinary/battambang-rice"
+        ]
+      }
+    ],
+    "days": 5
+  }
+]
