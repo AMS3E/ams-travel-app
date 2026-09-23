@@ -13,15 +13,21 @@ import '../../widgets/app_image.dart';
 import '../../widgets/async_view.dart';
 import '../../widgets/common.dart';
 import '../../widgets/destination_card.dart';
+import '../../widgets/interest_card.dart';
 
 const _violet = Color(0xFF5B2EE5);
 
-/// Everything under "Explore by Popular", province by province.
+/// Everything under "Explore by Popular", province by province, with the
+/// interest categories along the top.
 class PopularScreen extends StatelessWidget {
   const PopularScreen({super.key});
 
-  Future<List<(Province, List<Destination>)>> _load(TravelRepository repo) async {
-    final (provinces, places) = await (repo.getProvinces(), repo.getDestinations()).wait;
+  Future<(List<Province>, List<Destination>, List<Interest>)> _load(TravelRepository repo) async {
+    final (provinces, places, interests) = await (
+      repo.getProvinces(),
+      repo.getDestinations(),
+      repo.getInterests(),
+    ).wait;
 
     final popular = places.where((d) => d.featured || (d.rating ?? 0) >= 4.6).toList()
       ..sort((a, b) {
@@ -31,14 +37,8 @@ class PopularScreen extends StatelessWidget {
         return byRating != 0 ? byRating : (b.reviewCount ?? 0).compareTo(a.reviewCount ?? 0);
       });
 
-    final byProvince = <String, List<Destination>>{};
-    for (final d in popular) {
-      (byProvince[d.province] ??= []).add(d);
-    }
-    return <(Province, List<Destination>)>[
-      for (final p in provinces)
-        if ((byProvince[p.name] ?? const []).length >= 3) (p, byProvince[p.name]!),
-    ]..sort((a, b) => b.$2.length.compareTo(a.$2.length));
+    // Corridors are not places, so they have no category to filter by.
+    return (provinces, popular, interests.where((i) => i.categories.isNotEmpty).toList());
   }
 
   @override
@@ -47,45 +47,89 @@ class PopularScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         bottom: false,
-        child: AsyncView<List<(Province, List<Destination>)>>(
+        child: AsyncView<(List<Province>, List<Destination>, List<Interest>)>(
           load: () => _load(repo),
-          builder: (context, groups, _) {
-            // The chips suggest what other people look for: the best known
-            // places, then the provinces they sit in.
-            final keywords = <String>{
-              for (final (_, places) in groups.take(2)) ...places.take(2).map((d) => d.name),
-              for (final (province, _) in groups.take(3)) province.name,
-            }.take(6).toList();
-
-            return Column(
-              children: [
-                const _SearchRow(),
-                const SizedBox(height: 12),
-                SizedBox(
-                  height: 34,
-                  child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    itemCount: keywords.length,
-                    separatorBuilder: (_, _) => const SizedBox(width: 8),
-                    itemBuilder: (_, i) => _Keyword(word: keywords[i]),
-                  ),
-                ),
-                const SizedBox(height: 14),
-                Expanded(
-                  child: ListView(
-                    padding: EdgeInsets.only(bottom: 20 + MediaQuery.paddingOf(context).bottom),
-                    children: [
-                      for (final (province, places) in groups)
-                        _ProvinceGroup(province: province, places: places),
-                    ],
-                  ),
-                ),
-              ],
-            );
+          builder: (context, data, _) {
+            final (provinces, popular, interests) = data;
+            return _Body(provinces: provinces, popular: popular, interests: interests);
           },
         ),
       ),
+    );
+  }
+}
+
+class _Body extends StatefulWidget {
+  const _Body({required this.provinces, required this.popular, required this.interests});
+  final List<Province> provinces;
+  final List<Destination> popular;
+  final List<Interest> interests;
+
+  @override
+  State<_Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<_Body> {
+  /// The interest being looked at, or null for everything.
+  Interest? _interest;
+
+  /// Provinces with enough to show, the fullest first.
+  List<(Province, List<Destination>)> get _groups {
+    final categories = _interest?.categories.toSet();
+    final byProvince = <String, List<Destination>>{};
+    for (final d in widget.popular) {
+      if (categories != null && !categories.contains(d.category)) continue;
+      (byProvince[d.province] ??= []).add(d);
+    }
+    // With a category chosen there is less to go round, so one place is enough.
+    final least = _interest == null ? 3 : 1;
+    return <(Province, List<Destination>)>[
+      for (final p in widget.provinces)
+        if ((byProvince[p.name] ?? const []).length >= least) (p, byProvince[p.name]!),
+    ]..sort((a, b) => b.$2.length.compareTo(a.$2.length));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final s = S.of(context);
+    final groups = _groups;
+
+    return Column(
+      children: [
+        const _SearchRow(),
+        const SizedBox(height: 12),
+        SizedBox(
+          height: 36,
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            itemCount: widget.interests.length,
+            separatorBuilder: (_, _) => const SizedBox(width: 8),
+            itemBuilder: (_, i) {
+              final interest = widget.interests[i];
+              return _CategoryChip(
+                interest: interest,
+                selected: interest.slug == _interest?.slug,
+                onTap: () => setState(
+                  () => _interest = interest.slug == _interest?.slug ? null : interest,
+                ),
+              );
+            },
+          ),
+        ),
+        const SizedBox(height: 14),
+        Expanded(
+          child: groups.isEmpty
+              ? Center(child: Text(s.noResults, style: AppText.sans(14.5, color: AppColors.sand500)))
+              : ListView(
+                  padding: EdgeInsets.only(bottom: 20 + MediaQuery.paddingOf(context).bottom),
+                  children: [
+                    for (final (province, places) in groups)
+                      _ProvinceGroup(province: province, places: places),
+                  ],
+                ),
+        ),
+      ],
     );
   }
 }
@@ -149,30 +193,37 @@ class _SearchRow extends StatelessWidget {
   }
 }
 
-/// One thing other people search for.
-class _Keyword extends StatelessWidget {
-  const _Keyword({required this.word});
-  final String word;
+/// One interest category, filtering the provinces below.
+class _CategoryChip extends StatelessWidget {
+  const _CategoryChip({required this.interest, required this.selected, required this.onTap});
+  final Interest interest;
+  final bool selected;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
+    final (icon, colour) = interestStyle(interest);
     return InkWell(
       borderRadius: BorderRadius.circular(99),
-      onTap: () => context.push('${Routes.search}?q=${Uri.encodeQueryComponent(word)}'),
+      onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 13),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: selected ? _violet : Colors.white,
           borderRadius: BorderRadius.circular(99),
-          border: Border.all(color: AppColors.sand200),
+          border: Border.all(color: selected ? _violet : AppColors.sand200),
         ),
         child: Row(
           children: [
-            const Icon(Icons.place_outlined, size: 15, color: AppColors.sand500),
-            const SizedBox(width: 5),
+            Icon(icon, size: 16, color: selected ? Colors.white : colour),
+            const SizedBox(width: 6),
             Text(
-              word.toLowerCase(),
-              style: AppText.sans(13, weight: FontWeight.w500, color: AppColors.sand800),
+              bilingual(context, interest.name, interest.nameKh).$1,
+              style: AppText.sans(
+                13,
+                weight: FontWeight.w600,
+                color: selected ? Colors.white : AppColors.sand800,
+              ),
             ),
           ],
         ),
