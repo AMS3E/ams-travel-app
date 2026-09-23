@@ -204,7 +204,7 @@ class _HomeBody extends StatelessWidget {
         const SizedBox(height: 22),
 
         // Provinces
-        _SectionHeader(title: s.exploreByProvinces, onMore: () => context.go(Routes.exploreTab('provinces'))),
+        _SectionHeader(title: s.exploreByProvinces, onMore: () => context.push(Routes.exploreProvinces)),
         SizedBox(
           height: 234,
           child: ListView.separated(
