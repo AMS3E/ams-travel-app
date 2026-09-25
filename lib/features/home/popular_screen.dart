@@ -9,8 +9,9 @@ import '../../core/theme/app_theme.dart';
 import '../../data/models/models.dart';
 import '../../data/repositories/travel_repository.dart';
 import '../../widgets/async_view.dart';
+import '../../widgets/destination_card.dart';
 import '../../widgets/browse_bar.dart';
-import '../../widgets/province_group.dart';
+import '../../widgets/place_group.dart';
 
 
 /// Everything under "Explore by Popular", province by province.
@@ -108,7 +109,11 @@ class _BodyState extends State<_Body> {
                   padding: EdgeInsets.only(bottom: 20 + MediaQuery.paddingOf(context).bottom),
                   children: [
                     for (final (province, places) in groups)
-                      ProvinceGroup(province: province, places: places),
+                      PlaceGroup(
+                  title: bilingual(context, province.name, province.nameKh).$1,
+                  route: Routes.province(province.slug),
+                  places: places,
+                ),
                   ],
                 ),
         ),

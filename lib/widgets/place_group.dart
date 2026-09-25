@@ -12,10 +12,15 @@ import 'common.dart';
 import 'destination_card.dart';
 
 
-/// One province: its name, a way into the province page, and its places.
-class ProvinceGroup extends StatelessWidget {
-  const ProvinceGroup({super.key, required this.province, required this.places});
-  final Province province;
+/// A named group of places — a province or a region — with a way into its own
+/// page and a row of what it holds.
+class PlaceGroup extends StatelessWidget {
+  const PlaceGroup({super.key, required this.title, required this.route, required this.places});
+
+  final String title;
+
+  /// Where the arrow leads: the province or region page.
+  final String route;
   final List<Destination> places;
 
   @override
@@ -37,7 +42,7 @@ class ProvinceGroup extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    bilingual(context, province.name, province.nameKh).$1,
+                    title,
                     style: AppText.sans(16, weight: FontWeight.w700, color: AppColors.sand900),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -48,7 +53,7 @@ class ProvinceGroup extends StatelessWidget {
                   shape: const CircleBorder(),
                   child: InkWell(
                     customBorder: const CircleBorder(),
-                    onTap: () => context.push(Routes.province(province.slug)),
+                    onTap: () => context.push(route),
                     child: const Padding(
                       padding: EdgeInsets.all(5),
                       child: Icon(Icons.arrow_forward_rounded, color: Colors.white, size: 16),
