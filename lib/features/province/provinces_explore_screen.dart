@@ -2,13 +2,15 @@ import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/l10n/app_strings.dart';
+import '../../core/router/routes.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_theme.dart';
 import '../../data/models/models.dart';
 import '../../data/repositories/travel_repository.dart';
 import '../../widgets/async_view.dart';
+import '../../widgets/destination_card.dart';
 import '../../widgets/browse_bar.dart';
-import '../../widgets/province_group.dart';
+import '../../widgets/place_group.dart';
 
 
 /// Provinces and what to see in them, one interest at a time.
@@ -117,7 +119,11 @@ class _BodyState extends State<_Body> {
             padding: EdgeInsets.only(bottom: 20 + MediaQuery.paddingOf(context).bottom),
             children: [
               for (final (province, places) in groups)
-                ProvinceGroup(province: province, places: places),
+                PlaceGroup(
+                  title: bilingual(context, province.name, province.nameKh).$1,
+                  route: Routes.province(province.slug),
+                  places: places,
+                ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 4, 16, 8),
                 child: OutlinedButton(

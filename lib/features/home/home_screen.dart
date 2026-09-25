@@ -125,7 +125,7 @@ class _HomeBody extends StatelessWidget {
         const SizedBox(height: 22),
 
         // Tourism regions
-        _SectionHeader(title: s.exploreByRegion, onMore: () => context.go(Routes.explore)),
+        _SectionHeader(title: s.exploreByRegion, onMore: () => context.push(Routes.exploreRegions)),
         SizedBox(
           height: 212,
           child: ListView.separated(
