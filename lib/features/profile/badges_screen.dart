@@ -88,42 +88,43 @@ class TravelBadge {
 }
 
 /// The three badges, with whatever the traveller has done so far.
+///
+/// The ladders are the ones AMS Travel set: browse 300 / 800 / 1000, reviews
+/// 50 / 400 / 1000, stamps 50 / 200 / 1000 for silver, gold and platinum.
 List<TravelBadge> buildBadges(S s, {required int browsed, required int reviews, required int stamps}) => [
-
-            TravelBadge(
-              key: 'browser',
-              icon: Icons.explore_outlined,
-              name: s.browserBadge,
-              blurb: s.browserBadgeBlurb,
-              note: s.browseNote,
-              count: browsed,
-              unit: s.browseUnit,
-              shortUnit: s.browseShort,
-              steps: const [0, 300, 800, 1000],
-            ),
-            TravelBadge(
-              key: 'reviewer',
-              icon: Icons.star_outline_rounded,
-              name: s.reviewerBadge,
-              blurb: s.reviewerBadgeBlurb,
-              note: s.reviewNote,
-              count: reviews,
-              unit: s.reviewsWord,
-              shortUnit: s.reviewsWord,
-              steps: const [0, 50, 400, 1000],
-            ),
-            TravelBadge(
-              key: 'adventure',
-              icon: Icons.landscape_outlined,
-              name: s.adventureBadge,
-              blurb: s.adventureBadgeBlurb,
-              note: s.stampNote,
-              count: stamps,
-              unit: s.digitalStamps,
-              shortUnit: s.digitalStamps,
-              steps: const [0, 50, 200, 1000],
-            ),
-          
+  TravelBadge(
+    key: 'browser',
+    icon: Icons.explore_outlined,
+    name: s.browserBadge,
+    blurb: s.browserBadgeBlurb,
+    note: s.browseNote,
+    count: browsed,
+    unit: s.browseUnit,
+    shortUnit: s.browseShort,
+    steps: const [0, 300, 800, 1000],
+  ),
+  TravelBadge(
+    key: 'reviewer',
+    icon: Icons.star_outline_rounded,
+    name: s.reviewerBadge,
+    blurb: s.reviewerBadgeBlurb,
+    note: s.reviewNote,
+    count: reviews,
+    unit: s.reviewsWord,
+    shortUnit: s.reviewsWord,
+    steps: const [0, 50, 400, 1000],
+  ),
+  TravelBadge(
+    key: 'adventure',
+    icon: Icons.landscape_outlined,
+    name: s.adventureBadge,
+    blurb: s.adventureBadgeBlurb,
+    note: s.stampNote,
+    count: stamps,
+    unit: s.digitalStamps,
+    shortUnit: s.digitalStamps,
+    steps: const [0, 50, 200, 1000],
+  ),
 ];
 
 /// Colour of each tier's medal.
