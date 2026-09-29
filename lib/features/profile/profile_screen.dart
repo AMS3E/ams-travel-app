@@ -57,7 +57,7 @@ class ProfileScreen extends StatelessWidget {
                 onPressed: () => _signOut(context),
                 child: Text(
                   s.logOut,
-                  style: AppText.sans(15, weight: FontWeight.w600, color: AppColors.sand600),
+                  style: AppText.sans(15, weight: FontWeight.w600, color: AppColors.sunset600),
                 ),
               ),
             ),
