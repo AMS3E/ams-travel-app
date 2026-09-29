@@ -58,7 +58,7 @@ class _FolderScreenState extends State<FolderScreen> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 8, 20, 6),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       ViewToggle(view: _view, onChanged: (v) => setState(() => _view = v)),
                     ],
