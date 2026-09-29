@@ -27,7 +27,6 @@ class SavedScreen extends StatefulWidget {
 class _SavedScreenState extends State<SavedScreen> with SingleTickerProviderStateMixin {
   late final _tabs = TabController(length: 2, vsync: this);
   SavedView _view = SavedView.list;
-  SavedView _collectionsView = SavedView.grid;
 
   @override
   void dispose() {
@@ -67,10 +66,7 @@ class _SavedScreenState extends State<SavedScreen> with SingleTickerProviderStat
             view: _view,
             onView: (v) => setState(() => _view = v),
           ),
-          _CollectionsTab(
-            view: _collectionsView,
-            onView: (v) => setState(() => _collectionsView = v),
-          ),
+          const _CollectionsTab(),
         ],
       ),
     );
@@ -152,11 +148,9 @@ class _SavesTab extends StatelessWidget {
   }
 }
 
-/// The collections: All, then each folder, as a grid or a list.
+/// The collections: All, then each folder.
 class _CollectionsTab extends StatelessWidget {
-  const _CollectionsTab({required this.view, required this.onView});
-  final SavedView view;
-  final ValueChanged<SavedView> onView;
+  const _CollectionsTab();
 
   @override
   Widget build(BuildContext context) {
@@ -169,85 +163,17 @@ class _CollectionsTab extends StatelessWidget {
     }.toList();
     final names = [FolderScreen.allFolder, ...folders.folders.keys];
     List<String> keysOf(int i) => i == 0 ? all : folders.items(names[i]);
-    final bottom = 24 + MediaQuery.paddingOf(context).bottom;
 
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(20, 12, 20, 6),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [ViewToggle(view: view, onChanged: onView)],
-          ),
-        ),
-        Expanded(
-          child: view == SavedView.list
-              ? ListView.builder(
-                  padding: EdgeInsets.only(top: 4, bottom: bottom),
-                  itemCount: names.length,
-                  itemBuilder: (_, i) => _CollectionRow(name: names[i], keys: keysOf(i)),
-                )
-              : GridView.builder(
-                  padding: EdgeInsets.fromLTRB(20, 8, 20, bottom),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 18,
-                    crossAxisSpacing: 14,
-                    mainAxisExtent: 168,
-                  ),
-                  itemCount: names.length,
-                  itemBuilder: (_, i) => _CollectionTile(name: names[i], keys: keysOf(i)),
-                ),
-        ),
-      ],
-    );
-  }
-}
-
-/// One collection in a row: its cover, its name and how much is inside.
-class _CollectionRow extends StatelessWidget {
-  const _CollectionRow({required this.name, required this.keys});
-  final String name;
-  final List<String> keys;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () => context.push(Routes.folder(name)),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-        child: Row(
-          children: [
-            SizedBox(
-              width: 52,
-              height: 52,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: _Cover(keys: keys),
-              ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    name,
-                    style: AppText.sans(14, weight: FontWeight.w700, color: AppColors.sand900),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  Text(
-                    '${keys.length} ${S.of(context).places.toLowerCase()}',
-                    style: AppText.sans(11.5, color: AppColors.sand500),
-                  ),
-                ],
-              ),
-            ),
-            const Icon(Icons.chevron_right_rounded, color: AppColors.sand400),
-          ],
-        ),
+    return GridView.builder(
+      padding: EdgeInsets.fromLTRB(20, 16, 20, 24 + MediaQuery.paddingOf(context).bottom),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        mainAxisSpacing: 18,
+        crossAxisSpacing: 14,
+        mainAxisExtent: 168,
       ),
+      itemCount: names.length,
+      itemBuilder: (_, i) => _CollectionTile(name: names[i], keys: keysOf(i)),
     );
   }
 }
