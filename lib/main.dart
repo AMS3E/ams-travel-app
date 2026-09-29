@@ -46,9 +46,11 @@ Future<void> main() async {
       : ApiAuthRepository(api);
   auth = AuthProvider(authRepo, prefs);
 
-  // Sample folders on first launch, so Saved has something in it.
+  // Sample saves and folders on first launch, so Saved has something in it.
   final folders = FoldersProvider(prefs);
   await folders.seedFromAssets();
+  final saved = SavedProvider(prefs);
+  await saved.seedFromAssets();
 
   runApp(
     MultiProvider(
@@ -58,7 +60,7 @@ Future<void> main() async {
         ChangeNotifierProvider.value(value: auth),
         ChangeNotifierProvider(create: (_) => LocaleProvider(prefs)),
         ChangeNotifierProvider(create: (_) => SettingsProvider(prefs)),
-        ChangeNotifierProvider(create: (_) => SavedProvider(prefs)),
+        ChangeNotifierProvider.value(value: saved),
         ChangeNotifierProvider(create: (_) => StampsProvider(prefs)),
         ChangeNotifierProvider(create: (_) => BrowseCounter(prefs)),
         ChangeNotifierProvider(create: (_) => BadgeLog(prefs)),

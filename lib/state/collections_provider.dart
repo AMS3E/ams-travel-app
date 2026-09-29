@@ -24,8 +24,24 @@ class SavedProvider extends ChangeNotifier {
   }
 
   static const _key = 'ams-travel:saved';
+  static const _seededKey = 'ams-travel:saved-seeded';
   final SharedPreferences _prefs;
   List<String> _items = [];
+
+  /// Fills the list the first time, from `assets/mock/saved.json`, so the
+  /// Saved tab has something in it.
+  /// TODO(api): replace with `GET /me/saved` once the backend keeps them.
+  Future<void> seedFromAssets() async {
+    if (_prefs.getBool(_seededKey) ?? false) return;
+    try {
+      final raw = jsonDecode(await rootBundle.loadString('assets/mock/saved.json')) as List;
+      _items = [
+        for (final e in raw) _id(SavedKind.destination, e.toString()),
+      ];
+    } catch (_) {}
+    await _prefs.setBool(_seededKey, true);
+    _persist();
+  }
 
   static String _id(SavedKind kind, String key) => '${kind.name}:$key';
 
