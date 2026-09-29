@@ -34,8 +34,8 @@ class ProfileScreen extends StatelessWidget {
         padding: EdgeInsets.fromLTRB(20, 8, 20, 32 + MediaQuery.paddingOf(context).bottom),
         children: [
           if (user != null) ...[
-            _Header(user: user, stamps: stamps.count),
-            const SizedBox(height: 22),
+            _Header(user: user),
+            const SizedBox(height: 14),
             _BadgeCard(stamps: stamps.count),
             const SizedBox(height: 14),
             _Counts(author: user.username, saves: saved.count + context.watch<FoldersProvider>().itemCount),
@@ -57,7 +57,7 @@ class ProfileScreen extends StatelessWidget {
                 onPressed: () => _signOut(context),
                 child: Text(
                   s.logOut,
-                  style: AppText.sans(15, weight: FontWeight.w600, color: AppColors.sunset600),
+                  style: AppText.sans(15, weight: FontWeight.w600, color: AppColors.sand600),
                 ),
               ),
             ),
@@ -128,66 +128,91 @@ class ProfileScreen extends StatelessWidget {
   }
 }
 
-/// Avatar, name, where they are and when they joined.
+/// The traveller's card: photo, name, where they are, when they joined and
+/// how much of the account is filled in, with a way to edit it.
 class _Header extends StatelessWidget {
-  const _Header({required this.user, required this.stamps});
+  const _Header({required this.user});
   final AppUser user;
-  final int stamps;
 
   // Placeholders until the API carries these. TODO(api): send `location` and
   // `joinedAt` with the account and these fall away.
   static const _fallbackLocation = 'Phnom Penh, Cambodia';
   static final _fallbackJoined = DateTime(2026, 1, 12);
 
+  /// How much of the account is filled in — what the API has, not a guess.
+  int get _completed {
+    final fields = [
+      user.username,
+      user.email,
+      user.firstName,
+      user.lastName,
+      user.phone,
+      user.location,
+      user.avatarUrl,
+    ];
+    final filled = fields.where((f) => f != null && f.isNotEmpty).length;
+    return (filled * 100 / fields.length).round();
+  }
+
   @override
   Widget build(BuildContext context) {
     final s = S.of(context);
     final joined = user.joinedAt ?? _fallbackJoined;
-    return Column(
-      children: [
-        Stack(
-          children: [
-            CircleAvatar(
-              radius: 46,
-              backgroundColor: AppColors.brand50,
-              child: Text(user.initials, style: AppText.display(34, color: AppColors.brand600)),
-            ),
-            if (stamps > 0)
-              Positioned(
-                right: -2,
-                bottom: 0,
-                child: Container(
-                  padding: const EdgeInsets.all(7),
-                  decoration: BoxDecoration(
-                    color: AppColors.brand600,
-                    shape: BoxShape.circle,
-                    border: Border.all(color: Colors.white, width: 2.5),
-                  ),
-                  child: const Icon(Icons.approval_rounded, size: 16, color: Colors.white),
+
+    return Container(
+      padding: const EdgeInsets.fromLTRB(14, 14, 8, 14),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(color: AppColors.sand200),
+      ),
+      child: Row(
+        children: [
+          CircleAvatar(
+            radius: 30,
+            backgroundColor: AppColors.brand50,
+            backgroundImage: user.avatarUrl == null ? null : NetworkImage(user.avatarUrl!),
+            child: user.avatarUrl != null
+                ? null
+                : Text(user.initials, style: AppText.display(22, color: AppColors.brand600)),
+          ),
+          const SizedBox(width: 14),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  user.username,
+                  style: AppText.sans(17, weight: FontWeight.w700, color: AppColors.violet),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
-              ),
-          ],
-        ),
-        const SizedBox(height: 12),
-        Text(user.username, style: AppText.display(24)),
-        const SizedBox(height: 6),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(Icons.place_outlined, size: 16, color: AppColors.sand500),
-            const SizedBox(width: 4),
-            Text(
-              user.location ?? _fallbackLocation,
-              style: AppText.sans(13.5, weight: FontWeight.w600, color: AppColors.sand700),
+                const SizedBox(height: 3),
+                Text(
+                  user.location ?? _fallbackLocation,
+                  style: AppText.sans(12.5, color: AppColors.sand600),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                Text(
+                  '${s.joined}: ${ProfileScreen._date(joined)}',
+                  style: AppText.sans(11.5, color: AppColors.sand400),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  s.profileCompleted.replaceFirst('{n}', '$_completed'),
+                  style: AppText.sans(11.5, weight: FontWeight.w600, color: const Color(0xFF16A34A)),
+                ),
+              ],
             ),
-          ],
-        ),
-        const SizedBox(height: 4),
-        Text(
-          '${s.joined}: ${ProfileScreen._date(joined)}',
-          style: AppText.sans(12, color: AppColors.sand400),
-        ),
-      ],
+          ),
+          IconButton(
+            onPressed: () => context.push(Routes.editProfile),
+            tooltip: s.editProfile,
+            icon: const Icon(Icons.edit_outlined, size: 20, color: AppColors.sand600),
+          ),
+        ],
+      ),
     );
   }
 }

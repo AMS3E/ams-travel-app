@@ -9,6 +9,7 @@ class Routes {
   static const popularSearch = '/popular/search';
   static const badges = '/badges';
   static const account = '/account';
+  static const editProfile = '/profile/edit';
   static const help = '/help';
   static const terms = '/terms';
   static const preferences = '/preferences';
