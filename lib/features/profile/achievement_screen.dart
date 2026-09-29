@@ -46,7 +46,7 @@ class AchievementScreen extends StatelessWidget {
           return ListView(
             padding: EdgeInsets.fromLTRB(24, 24, 24, 28 + MediaQuery.paddingOf(context).bottom),
             children: [
-              Center(child: _Medal(badge: badge)),
+              Center(child: BadgeMedal(tier: badge.tier, size: 150)),
               const SizedBox(height: 22),
               Center(
                 child: Text(
@@ -74,7 +74,7 @@ class AchievementScreen extends StatelessWidget {
               const SizedBox(height: 22),
               FilledButton.icon(
                 style: FilledButton.styleFrom(
-                  backgroundColor: const Color(0xFF1877F2),
+                  backgroundColor: AppColors.violet,
                   minimumSize: const Size(0, 54),
                 ),
                 // Facebook's share dialog takes the link; no SDK needed.
@@ -183,39 +183,6 @@ class AchievementScreen extends StatelessWidget {
       'December',
     ];
     return '${months[d.month - 1]} ${d.day}, ${d.year}';
-  }
-}
-
-/// Ring with the badge icon, filled as far as the tier reached.
-class _Medal extends StatelessWidget {
-  const _Medal({required this.badge});
-  final TravelBadge badge;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 186,
-      height: 186,
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          SizedBox.expand(
-            child: CircularProgressIndicator(
-              value: badge.progress == 0 ? 0.02 : badge.progress,
-              strokeWidth: 10,
-              backgroundColor: AppColors.sand100,
-              valueColor: const AlwaysStoppedAnimation(AppColors.brand600),
-            ),
-          ),
-          Container(
-            width: 120,
-            height: 120,
-            decoration: const BoxDecoration(color: AppColors.brand50, shape: BoxShape.circle),
-            child: Icon(badge.icon, size: 46, color: AppColors.brand600),
-          ),
-        ],
-      ),
-    );
   }
 }
 

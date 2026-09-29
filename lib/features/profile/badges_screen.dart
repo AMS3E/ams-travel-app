@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:go_router/go_router.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
@@ -124,6 +126,67 @@ List<TravelBadge> buildBadges(S s, {required int browsed, required int reviews, 
           
 ];
 
+/// Colour of each tier's medal.
+const tierColors = <Tier, Color>{
+  Tier.bronze: Color(0xFFB45309),
+  Tier.silver: Color(0xFF94A3B8),
+  Tier.gold: Color(0xFFE0922F),
+  Tier.platinum: Color(0xFF6B7BA8),
+};
+
+/// The scalloped medal with a star in the middle.
+class BadgeMedal extends StatelessWidget {
+  const BadgeMedal({super.key, required this.tier, this.size = 56, this.muted = false});
+  final Tier tier;
+  final double size;
+
+  /// Grey, for a tier that is not reached yet.
+  final bool muted;
+
+  @override
+  Widget build(BuildContext context) {
+    final colour = muted ? AppColors.sand300 : (tierColors[tier] ?? AppColors.sand400);
+    return SizedBox(
+      width: size,
+      height: size,
+      child: CustomPaint(
+        painter: _RosettePainter(colour),
+        child: Center(
+          child: Icon(Icons.star_outline_rounded, size: size * 0.5, color: Colors.white),
+        ),
+      ),
+    );
+  }
+}
+
+/// The scalloped disc behind the star: a circle with a wavy edge.
+class _RosettePainter extends CustomPainter {
+  const _RosettePainter(this.colour);
+  final Color colour;
+
+  static const _points = 12;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final centre = Offset(size.width / 2, size.height / 2);
+    final radius = size.width / 2;
+    final path = Path();
+    const steps = 360;
+    for (var i = 0; i <= steps; i++) {
+      final angle = i * 2 * math.pi / steps;
+      final wave = 1 + 0.09 * math.cos(_points * angle);
+      final r = radius * wave / 1.09;
+      final point = centre + Offset(math.cos(angle) * r, math.sin(angle) * r);
+      i == 0 ? path.moveTo(point.dx, point.dy) : path.lineTo(point.dx, point.dy);
+    }
+    path.close();
+    canvas.drawPath(path, Paint()..color = colour);
+  }
+
+  @override
+  bool shouldRepaint(_RosettePainter old) => old.colour != colour;
+}
+
 /// The traveller's badges: the strongest one on top, then every category.
 class BadgesScreen extends StatelessWidget {
   const BadgesScreen({super.key});
@@ -176,211 +239,14 @@ class BadgesScreen extends StatelessWidget {
                   mainAxisExtent: 178,
                 ),
                 itemCount: badges.length,
-                itemBuilder: (_, i) => _BadgeCard(badge: badges[i], onTap: () => _showTiers(context, badges[i])),
+                itemBuilder: (_, i) => _BadgeCard(
+                  badge: badges[i],
+                  onTap: () => context.push(Routes.badgeTiers(badges[i].key)),
+                ),
               ),
             ],
           );
         },
-      ),
-    );
-  }
-}
-
-/// What each tier of this badge asks for, which are earned, and how the count
-/// is made.
-void _showTiers(BuildContext context, TravelBadge badge) {
-  showModalBottomSheet<void>(
-    context: context,
-    useSafeArea: true,
-    isScrollControlled: true,
-    backgroundColor: Colors.white,
-    builder: (_) => _BadgeSheet(badge: badge),
-  );
-}
-
-class _BadgeSheet extends StatelessWidget {
-  const _BadgeSheet({required this.badge});
-  final TravelBadge badge;
-
-  @override
-  Widget build(BuildContext context) {
-    final s = S.of(context);
-    final next = badge.next;
-    final status = badge.count == 0 ? s.notStarted : badge.tier.label(s);
-
-    return SafeArea(
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  width: 46,
-                  height: 46,
-                  decoration: BoxDecoration(
-                    color: AppColors.sand100,
-                    borderRadius: BorderRadius.circular(14),
-                  ),
-                  child: Icon(badge.icon, size: 22, color: AppColors.sand700),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(badge.name, style: AppText.display(19)),
-                      const SizedBox(height: 2),
-                      Text(badge.blurb, style: AppText.sans(13, color: AppColors.sand500)),
-                    ],
-                  ),
-                ),
-                IconButton(
-                  onPressed: () => Navigator.pop(context),
-                  icon: const Icon(Icons.close_rounded),
-                  color: AppColors.brand600,
-                ),
-              ],
-            ),
-            const SizedBox(height: 14),
-
-            // Where the traveller stands right now.
-            Container(
-              padding: const EdgeInsets.all(14),
-              decoration: BoxDecoration(color: AppColors.sand100, borderRadius: BorderRadius.circular(14)),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        status,
-                        style: AppText.sans(14.5, weight: FontWeight.w700, color: AppColors.sand900),
-                      ),
-                      const Spacer(),
-                      Text('${badge.count} ${badge.unit}', style: AppText.sans(13, color: AppColors.sand600)),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(99),
-                    child: LinearProgressIndicator(
-                      value: badge.progress,
-                      minHeight: 6,
-                      backgroundColor: Colors.white,
-                      valueColor: const AlwaysStoppedAnimation(AppColors.brand600),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    next == null ? s.topTierReached : '${badge.remaining} ${s.moreToReach} ${next.label(s)}.',
-                    style: AppText.sans(12.5, color: AppColors.sand500),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 18),
-
-            Text(s.tiers.toUpperCase(), style: AppText.eyebrow(color: AppColors.sand500)),
-            const SizedBox(height: 8),
-            for (final t in [Tier.silver, Tier.gold, Tier.platinum]) ...[
-              _TierRow(badge: badge, tier: t),
-              const SizedBox(height: 10),
-            ],
-
-            const SizedBox(height: 4),
-            Container(
-              padding: const EdgeInsets.all(14),
-              decoration: BoxDecoration(color: AppColors.sand100, borderRadius: BorderRadius.circular(14)),
-              child: Text(badge.note, style: AppText.sans(13, color: AppColors.sand600, height: 1.45)),
-            ),
-            const SizedBox(height: 16),
-            GestureDetector(
-              onTap: () => Navigator.pop(context),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    s.keepExploring,
-                    style: AppText.sans(14.5, weight: FontWeight.w700, color: AppColors.brand600),
-                  ),
-                  const SizedBox(width: 6),
-                  const Icon(Icons.arrow_forward_rounded, size: 18, color: AppColors.brand600),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-/// One tier: what it asks for, and how far off it is.
-class _TierRow extends StatelessWidget {
-  const _TierRow({required this.badge, required this.tier});
-  final TravelBadge badge;
-  final Tier tier;
-
-  @override
-  Widget build(BuildContext context) {
-    final s = S.of(context);
-    final need = badge.stepFor(tier);
-    final earned = badge.count >= need;
-    // Only the next tier tells you how far off it is; the rest read "locked".
-    final isNext = !earned && badge.next == tier;
-
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: AppColors.sand200),
-      ),
-      child: Row(
-        children: [
-          Container(
-            width: 38,
-            height: 38,
-            decoration: BoxDecoration(
-              color: earned ? AppColors.brand50 : AppColors.sand100,
-              shape: BoxShape.circle,
-            ),
-            child: Icon(
-              earned ? Icons.check_rounded : Icons.lock_outline_rounded,
-              size: 18,
-              color: earned ? AppColors.brand600 : AppColors.sand500,
-            ),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  '${tier.label(s)} ${s.badgeWord}',
-                  style: AppText.sans(14.5, weight: FontWeight.w700, color: AppColors.sand900),
-                ),
-                Text('$need+ ${badge.shortUnit}', style: AppText.sans(12.5, color: AppColors.sand500)),
-              ],
-            ),
-          ),
-          Text(
-            earned
-                ? s.earned
-                : isNext
-                ? '${need - badge.count} ${s.toGo}'
-                : s.locked,
-            style: AppText.sans(
-              13,
-              weight: isNext ? FontWeight.w700 : FontWeight.w400,
-              color: earned ? AppColors.success : AppColors.sand500,
-            ),
-          ),
-        ],
       ),
     );
   }
@@ -395,52 +261,48 @@ class _Status extends StatelessWidget {
     final s = S.of(context);
     final next = badge.next;
     return Container(
-      padding: const EdgeInsets.all(18),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppColors.sand100,
-        borderRadius: BorderRadius.circular(AppTheme.radius),
+        color: AppColors.violet.withValues(alpha: 0.05),
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(color: AppColors.violet.withValues(alpha: 0.35)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(s.currentStatus, style: AppText.sans(12.5, color: AppColors.sand500)),
-          const SizedBox(height: 4),
-          Text('${badge.tier.label(s)} ${badge.name}', style: AppText.display(24)),
-          const SizedBox(height: 14),
+          Text(s.currentStatus, style: AppText.sans(11.5, color: AppColors.sand500)),
+          const SizedBox(height: 2),
+          Text(
+            '${badge.tier.label(s)} ${badge.name}',
+            style: AppText.sans(19, weight: FontWeight.w700, color: AppColors.violet),
+          ),
+          const SizedBox(height: 12),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                width: 56,
-                height: 56,
-                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(16)),
-                child: Icon(badge.icon, color: AppColors.brand600, size: 26),
-              ),
+              BadgeMedal(tier: badge.tier, size: 62),
               const SizedBox(width: 14),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      next == null
-                          ? s.topTierReached
-                          : '${badge.remaining} ${s.moreToReach} ${next.label(s)}',
-                      style: AppText.sans(13.5, color: AppColors.sand600, height: 1.4),
-                    ),
+                    Text(badge.blurb, style: AppText.sans(12.5, color: AppColors.sand600, height: 1.4)),
                     const SizedBox(height: 10),
                     ClipRRect(
                       borderRadius: BorderRadius.circular(99),
                       child: LinearProgressIndicator(
                         value: badge.progress,
-                        minHeight: 8,
+                        minHeight: 7,
                         backgroundColor: Colors.white,
                         valueColor: const AlwaysStoppedAnimation(AppColors.sand900),
                       ),
                     ),
                     const SizedBox(height: 6),
                     Text(
-                      '${(badge.progress * 100).round()}% · ${badge.count}/${badge.target}',
-                      style: AppText.sans(12, color: AppColors.sand500),
+                      next == null
+                          ? s.topTierReached
+                          : '${(badge.progress * 100).round()}% ${s.ofTheWayTo} ${next.label(s)}',
+                      style: AppText.sans(11.5, color: AppColors.sand500),
                     ),
                   ],
                 ),
@@ -474,12 +336,7 @@ class _BadgeCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              width: 42,
-              height: 42,
-              decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12)),
-              child: Icon(badge.icon, size: 21, color: AppColors.sand900),
-            ),
+            BadgeMedal(tier: badge.tier, size: 40),
             const SizedBox(height: 12),
             Text(
               badge.name,
@@ -488,7 +345,12 @@ class _BadgeCard extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
             ),
             const SizedBox(height: 2),
-            Text('${badge.count}', style: AppText.sans(12, color: AppColors.sand500)),
+            Text(
+              '${badge.count} ${badge.shortUnit}',
+              style: AppText.sans(11.5, color: AppColors.sand500),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
             const Spacer(),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
