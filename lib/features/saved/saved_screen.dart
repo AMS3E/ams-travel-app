@@ -107,7 +107,7 @@ class _SavesTab extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.fromLTRB(20, 12, 20, 6),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [ViewToggle(view: view, onChanged: onView)],
           ),
         ),
