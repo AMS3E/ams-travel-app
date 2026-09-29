@@ -255,7 +255,7 @@ class _Counts extends StatelessWidget {
           child: _CountTile(
             value: saves,
             label: s.saves,
-            onTap: () => context.push(Routes.folders),
+            onTap: () => context.go(Routes.saved),
           ),
         ),
       ],

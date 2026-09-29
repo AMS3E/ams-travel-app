@@ -18,17 +18,14 @@ import 'saved_tiles.dart';
 /// Everything the traveller kept: the places themselves, and the collections
 /// they are filed under.
 class SavedScreen extends StatefulWidget {
-  const SavedScreen({super.key, this.initialTab = 0});
-
-  /// 0 = saves, 1 = collections. `/folders` opens straight on collections.
-  final int initialTab;
+  const SavedScreen({super.key});
 
   @override
   State<SavedScreen> createState() => _SavedScreenState();
 }
 
 class _SavedScreenState extends State<SavedScreen> with SingleTickerProviderStateMixin {
-  late final _tabs = TabController(length: 2, vsync: this, initialIndex: widget.initialTab);
+  late final _tabs = TabController(length: 2, vsync: this);
   SavedView _view = SavedView.list;
 
   @override
