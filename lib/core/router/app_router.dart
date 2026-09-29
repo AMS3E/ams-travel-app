@@ -16,6 +16,7 @@ import '../../features/interest/interest_screen.dart';
 import '../../features/map/map_screen.dart';
 import '../../features/profile/account_info_screen.dart';
 import '../../features/profile/achievement_screen.dart';
+import '../../features/profile/badge_tiers_screen.dart';
 import '../../features/profile/badges_screen.dart';
 import '../../features/profile/my_reviews_screen.dart';
 import '../../features/home/popular_screen.dart';
@@ -153,7 +154,8 @@ GoRouter createRouter({bool showWelcome = false}) {
       page(Routes.notifications, (_) => const NotificationsPage()),
       page(Routes.myReviews, (_) => const MyReviewsScreen()),
       page('/folders/:folder', (s) => FolderScreen(name: Uri.decodeComponent(s.pathParameters['folder']!))),
-      page('/badges/:badge', (s) => AchievementScreen(badgeKey: s.pathParameters['badge']!)),
+      page('/badges/:badge/achievement', (s) => AchievementScreen(badgeKey: s.pathParameters['badge']!)),
+      page('/badges/:badge', (s) => BadgeTiersScreen(badgeKey: s.pathParameters['badge']!)),
       page(Routes.login, (_) => const LoginScreen()),
       page(Routes.register, (_) => const RegisterScreen()),
       page(Routes.forgotPassword, (_) => const ForgotPasswordScreen()),
