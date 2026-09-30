@@ -213,22 +213,51 @@ class _HeroState extends State<_Hero> {
                 bottom: 16,
                 child: Pill.onImage(s.verified, icon: Icons.verified_rounded),
               ),
-            if (photos.length > 1)
+            if (photos.length > 1) ...[
+              // Where you are in the photos, and how many there are.
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: 18,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    for (var i = 0; i < photos.length; i++)
+                      Container(
+                        width: i == _page ? 18 : 6,
+                        height: 6,
+                        margin: const EdgeInsets.symmetric(horizontal: 3),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withValues(alpha: i == _page ? 1 : 0.5),
+                          borderRadius: BorderRadius.circular(99),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
               Positioned(
                 right: 16,
-                bottom: 16,
+                bottom: 14,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 6),
                   decoration: BoxDecoration(
-                    color: Colors.black.withValues(alpha: 0.55),
+                    color: Colors.black.withValues(alpha: 0.45),
                     borderRadius: BorderRadius.circular(999),
                   ),
-                  child: Text(
-                    '${_page + 1}/${photos.length}',
-                    style: AppText.sans(12.5, weight: FontWeight.w600, color: Colors.white),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(Icons.photo_library_outlined, size: 14, color: Colors.white),
+                      const SizedBox(width: 6),
+                      Text(
+                        '${s.gallery} ${photos.length}',
+                        style: AppText.sans(12, weight: FontWeight.w600, color: Colors.white),
+                      ),
+                    ],
                   ),
                 ),
               ),
+            ],
           ],
         ),
       ),
