@@ -165,6 +165,7 @@ class _FilterSheetState extends State<_FilterSheet> {
                           Padding(
                             padding: const EdgeInsets.only(right: 8),
                             child: _Chip(
+                              centred: true,
                               label: switch (scope) {
                                 FilterScope.all => s.all,
                                 FilterScope.regions => s.tourismRegions,
@@ -386,11 +387,22 @@ class _SectionBar extends StatelessWidget {
 }
 
 class _Chip extends StatelessWidget {
-  const _Chip({required this.label, required this.selected, required this.onTap, this.color = AppColors.violet});
+  const _Chip({
+    required this.label,
+    required this.selected,
+    required this.onTap,
+    this.color = AppColors.violet,
+    this.centred = false,
+  });
+
   final String label;
   final bool selected;
   final VoidCallback onTap;
   final Color color;
+
+  /// Only the scope row stretches its chips, so only it needs the label
+  /// pulled back into the middle.
+  final bool centred;
 
   @override
   Widget build(BuildContext context) {
@@ -398,9 +410,7 @@ class _Chip extends StatelessWidget {
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-        // The row stretches every chip to its height, so the label has to be
-        // centred rather than left where it lands.
-        alignment: Alignment.center,
+        alignment: centred ? Alignment.center : null,
         decoration: BoxDecoration(
           color: selected ? color : Colors.white,
           borderRadius: BorderRadius.circular(99),
