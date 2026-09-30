@@ -1,11 +1,10 @@
-import 'package:go_router/go_router.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/l10n/app_strings.dart';
-import '../../core/router/routes.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_theme.dart';
+import '../../core/utils/geo.dart';
 import '../../data/models/models.dart';
 import '../../data/repositories/travel_repository.dart';
 import '../../state/auth_provider.dart';
@@ -22,14 +21,27 @@ class ReviewsSection extends StatefulWidget {
 }
 
 class _ReviewsSectionState extends State<ReviewsSection> {
-  int _version = 0;
+  final int _version = 0;
 
-  /// Opens the review page. Signing in is only asked for on submit, so the
-  /// form can be filled in first.
-  Future<void> _write() async {
-    final d = widget.destination;
-    final saved = await context.push<bool>(Routes.review(d.region, d.slug));
-    if (saved == true && mounted) setState(() => _version++);
+  /// Every review on this place, in a sheet.
+  void _showAll(BuildContext context, List<Review> reviews, String? username) {
+    showModalBottomSheet<void>(
+      context: context,
+      useSafeArea: true,
+      isScrollControlled: true,
+      backgroundColor: Colors.white,
+      builder: (_) => DraggableScrollableSheet(
+        expand: false,
+        initialChildSize: 0.85,
+        builder: (context, controller) => ListView.separated(
+          controller: controller,
+          padding: const EdgeInsets.fromLTRB(20, 20, 20, 28),
+          itemCount: reviews.length,
+          separatorBuilder: (_, _) => const SizedBox(height: 12),
+          itemBuilder: (_, i) => _ReviewCard(review: reviews[i], own: reviews[i].author == username),
+        ),
+      ),
+    );
   }
 
   @override
@@ -43,9 +55,8 @@ class _ReviewsSectionState extends State<ReviewsSection> {
       builder: (context, reviews, _) {
         final avg = reviews.isEmpty ? null : reviews.map((r) => r.rating).reduce((a, b) => a + b) / reviews.length;
         final username = context.select<AuthProvider, String?>((a) => a.user?.username);
-        final hasMine = reviews.any((r) => r.author == username);
         return DetailSection(
-          title: s.reviews,
+          title: s.whatTravelersSay,
           trailing: avg == null
               ? null
               : Row(
@@ -74,17 +85,35 @@ class _ReviewsSectionState extends State<ReviewsSection> {
                     ],
                   ),
                 )
-              else
-                for (final r in reviews) ...[
-                  _ReviewCard(review: r, own: r.author == username),
-                  const SizedBox(height: 10),
-                ],
-              const SizedBox(height: 12),
-              FilledButton.icon(
-                onPressed: _write,
-                icon: const Icon(Icons.rate_review_outlined, size: 19),
-                label: Text(hasMine ? s.editReview : s.writeReview),
-              ),
+              else ...[
+                // Side by side, so the section stays short whatever is written.
+                SizedBox(
+                  height: 178,
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: reviews.length,
+                    separatorBuilder: (_, _) => const SizedBox(width: 12),
+                    itemBuilder: (_, i) => SizedBox(
+                      width: 268,
+                      child: _ReviewCard(review: reviews[i], own: reviews[i].author == username),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 14),
+                OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    minimumSize: const Size(0, 48),
+                    side: BorderSide(color: AppColors.violet.withValues(alpha: 0.5)),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                  ),
+                  onPressed: () => _showAll(context, reviews, username),
+                  child: Text(
+                    '${s.showAllReviews} ${thousands(widget.destination.reviewCount ?? reviews.length)} '
+                    '${s.reviewsWord.toLowerCase()}',
+                    style: AppText.sans(14, weight: FontWeight.w700, color: AppColors.violet),
+                  ),
+                ),
+              ],
             ],
           ),
         );

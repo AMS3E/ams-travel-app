@@ -1,0 +1,1202 @@
+[
+  {
+    "id": "r-angkor-wat-1",
+    "destination": "ancient-capitals/angkor-wat",
+    "region": "ancient-capitals",
+    "author": "Rithy Sam",
+    "rating": 4,
+    "trip": "Couple trip",
+    "text": "Easy to find and easy to spend a whole morning here. Bring water and a hat.",
+    "createdAt": "2026-08-17T00:00:00Z"
+  },
+  {
+    "id": "r-angkor-wat-2",
+    "destination": "ancient-capitals/angkor-wat",
+    "region": "ancient-capitals",
+    "author": "Malis Non",
+    "rating": 5,
+    "trip": "Solo trip",
+    "text": "Worth the early start — we had the place almost to ourselves for the first hour.",
+    "createdAt": "2026-07-16T00:00:00Z"
+  },
+  {
+    "id": "r-angkor-wat-3",
+    "destination": "ancient-capitals/angkor-wat",
+    "region": "ancient-capitals",
+    "author": "Dara Chhay",
+    "rating": 4,
+    "trip": "With friends",
+    "text": "Our guide knew the history well and the light late in the day was lovely.",
+    "createdAt": "2026-06-15T00:00:00Z"
+  },
+  {
+    "id": "r-bayon-temple-1",
+    "destination": "ancient-capitals/bayon-temple",
+    "region": "ancient-capitals",
+    "author": "Vannak Meas",
+    "rating": 5,
+    "trip": "Family trip",
+    "text": "Went on a weekday afternoon and it was quiet. The staff pointed us to the best spot.",
+    "createdAt": "2026-05-12T00:00:00Z"
+  },
+  {
+    "id": "r-bayon-temple-2",
+    "destination": "ancient-capitals/bayon-temple",
+    "region": "ancient-capitals",
+    "author": "Sreyneang Kim",
+    "rating": 4,
+    "trip": "Couple trip",
+    "text": "Easy to find and easy to spend a whole morning here. Bring water and a hat.",
+    "createdAt": "2026-04-11T00:00:00Z"
+  },
+  {
+    "id": "r-bayon-temple-3",
+    "destination": "ancient-capitals/bayon-temple",
+    "region": "ancient-capitals",
+    "author": "Chanthy Ly",
+    "rating": 5,
+    "trip": "Solo trip",
+    "text": "Worth the early start — we had the place almost to ourselves for the first hour.",
+    "createdAt": "2026-03-10T00:00:00Z"
+  },
+  {
+    "id": "r-ta-prohm-1",
+    "destination": "ancient-capitals/ta-prohm",
+    "region": "ancient-capitals",
+    "author": "Sreyneang Kim",
+    "rating": 4,
+    "trip": "Couple trip",
+    "text": "Easy to find and easy to spend a whole morning here. Bring water and a hat.",
+    "createdAt": "2026-04-17T00:00:00Z"
+  },
+  {
+    "id": "r-ta-prohm-2",
+    "destination": "ancient-capitals/ta-prohm",
+    "region": "ancient-capitals",
+    "author": "Chanthy Ly",
+    "rating": 5,
+    "trip": "Solo trip",
+    "text": "Worth the early start — we had the place almost to ourselves for the first hour.",
+    "createdAt": "2026-03-16T00:00:00Z"
+  },
+  {
+    "id": "r-ta-prohm-3",
+    "destination": "ancient-capitals/ta-prohm",
+    "region": "ancient-capitals",
+    "author": "Udom Sok",
+    "rating": 4,
+    "trip": "With friends",
+    "text": "Our guide knew the history well and the light late in the day was lovely.",
+    "createdAt": "2026-02-15T00:00:00Z"
+  },
+  {
+    "id": "r-preah-vihear-temple-1",
+    "destination": "ancient-capitals/preah-vihear-temple",
+    "region": "ancient-capitals",
+    "author": "Vannak Meas",
+    "rating": 5,
+    "trip": "Family trip",
+    "text": "Worth the early start — we had the place almost to ourselves for the first hour.",
+    "createdAt": "2026-05-16T00:00:00Z"
+  },
+  {
+    "id": "r-preah-vihear-temple-2",
+    "destination": "ancient-capitals/preah-vihear-temple",
+    "region": "ancient-capitals",
+    "author": "Sreyneang Kim",
+    "rating": 4,
+    "trip": "Couple trip",
+    "text": "Our guide knew the history well and the light late in the day was lovely.",
+    "createdAt": "2026-04-15T00:00:00Z"
+  },
+  {
+    "id": "r-preah-vihear-temple-3",
+    "destination": "ancient-capitals/preah-vihear-temple",
+    "region": "ancient-capitals",
+    "author": "Chanthy Ly",
+    "rating": 5,
+    "trip": "Solo trip",
+    "text": "Good stop on the way through. Clean, well kept and simple to get to by tuk-tuk.",
+    "createdAt": "2026-03-14T00:00:00Z"
+  },
+  {
+    "id": "r-yeak-laom-1",
+    "destination": "northeastern-civilization/yeak-laom",
+    "region": "northeastern-civilization",
+    "author": "Rithy Sam",
+    "rating": 4,
+    "trip": "Couple trip",
+    "text": "Better than the photos suggest. Give yourself more time than you think you need.",
+    "createdAt": "2026-08-25T00:00:00Z"
+  },
+  {
+    "id": "r-yeak-laom-2",
+    "destination": "northeastern-civilization/yeak-laom",
+    "region": "northeastern-civilization",
+    "author": "Malis Non",
+    "rating": 5,
+    "trip": "Solo trip",
+    "text": "Went on a weekday afternoon and it was quiet. The staff pointed us to the best spot.",
+    "createdAt": "2026-07-24T00:00:00Z"
+  },
+  {
+    "id": "r-yeak-laom-3",
+    "destination": "northeastern-civilization/yeak-laom",
+    "region": "northeastern-civilization",
+    "author": "Dara Chhay",
+    "rating": 4,
+    "trip": "With friends",
+    "text": "Easy to find and easy to spend a whole morning here. Bring water and a hat.",
+    "createdAt": "2026-06-23T00:00:00Z"
+  },
+  {
+    "id": "r-bou-sra-1",
+    "destination": "northeastern-civilization/bou-sra",
+    "region": "northeastern-civilization",
+    "author": "Sreyneang Kim",
+    "rating": 4,
+    "trip": "Couple trip",
+    "text": "Better than the photos suggest. Give yourself more time than you think you need.",
+    "createdAt": "2026-04-13T00:00:00Z"
+  },
+  {
+    "id": "r-bou-sra-2",
+    "destination": "northeastern-civilization/bou-sra",
+    "region": "northeastern-civilization",
+    "author": "Chanthy Ly",
+    "rating": 5,
+    "trip": "Solo trip",
+    "text": "Went on a weekday afternoon and it was quiet. The staff pointed us to the best spot.",
+    "createdAt": "2026-03-12T00:00:00Z"
+  },
+  {
+    "id": "r-bou-sra-3",
+    "destination": "northeastern-civilization/bou-sra",
+    "region": "northeastern-civilization",
+    "author": "Udom Sok",
+    "rating": 4,
+    "trip": "With friends",
+    "text": "Easy to find and easy to spend a whole morning here. Bring water and a hat.",
+    "createdAt": "2026-02-11T00:00:00Z"
+  },
+  {
+    "id": "r-virachey-1",
+    "destination": "northeastern-civilization/virachey",
+    "region": "northeastern-civilization",
+    "author": "Dara Chhay",
+    "rating": 4,
+    "trip": "With friends",
+    "text": "Easy to find and easy to spend a whole morning here. Bring water and a hat.",
+    "createdAt": "2026-06-17T00:00:00Z"
+  },
+  {
+    "id": "r-virachey-2",
+    "destination": "northeastern-civilization/virachey",
+    "region": "northeastern-civilization",
+    "author": "Vannak Meas",
+    "rating": 5,
+    "trip": "Family trip",
+    "text": "Worth the early start — we had the place almost to ourselves for the first hour.",
+    "createdAt": "2026-05-16T00:00:00Z"
+  },
+  {
+    "id": "r-virachey-3",
+    "destination": "northeastern-civilization/virachey",
+    "region": "northeastern-civilization",
+    "author": "Sreyneang Kim",
+    "rating": 4,
+    "trip": "Couple trip",
+    "text": "Our guide knew the history well and the light late in the day was lovely.",
+    "createdAt": "2026-04-15T00:00:00Z"
+  },
+  {
+    "id": "r-elephant-valley-1",
+    "destination": "northeastern-civilization/elephant-valley",
+    "region": "northeastern-civilization",
+    "author": "Malis Non",
+    "rating": 5,
+    "trip": "Solo trip",
+    "text": "Went on a weekday afternoon and it was quiet. The staff pointed us to the best spot.",
+    "createdAt": "2026-07-12T00:00:00Z"
+  },
+  {
+    "id": "r-elephant-valley-2",
+    "destination": "northeastern-civilization/elephant-valley",
+    "region": "northeastern-civilization",
+    "author": "Dara Chhay",
+    "rating": 4,
+    "trip": "With friends",
+    "text": "Easy to find and easy to spend a whole morning here. Bring water and a hat.",
+    "createdAt": "2026-06-11T00:00:00Z"
+  },
+  {
+    "id": "r-elephant-valley-3",
+    "destination": "northeastern-civilization/elephant-valley",
+    "region": "northeastern-civilization",
+    "author": "Vannak Meas",
+    "rating": 5,
+    "trip": "Family trip",
+    "text": "Worth the early start — we had the place almost to ourselves for the first hour.",
+    "createdAt": "2026-05-10T00:00:00Z"
+  },
+  {
+    "id": "r-kampong-phluk-1",
+    "destination": "mekong-tonle-sap/kampong-phluk",
+    "region": "mekong-tonle-sap",
+    "author": "Malis Non",
+    "rating": 5,
+    "trip": "Solo trip",
+    "text": "Worth the early start — we had the place almost to ourselves for the first hour.",
+    "createdAt": "2026-07-22T00:00:00Z"
+  },
+  {
+    "id": "r-kampong-phluk-2",
+    "destination": "mekong-tonle-sap/kampong-phluk",
+    "region": "mekong-tonle-sap",
+    "author": "Dara Chhay",
+    "rating": 4,
+    "trip": "With friends",
+    "text": "Our guide knew the history well and the light late in the day was lovely.",
+    "createdAt": "2026-06-21T00:00:00Z"
+  },
+  {
+    "id": "r-kampong-phluk-3",
+    "destination": "mekong-tonle-sap/kampong-phluk",
+    "region": "mekong-tonle-sap",
+    "author": "Vannak Meas",
+    "rating": 5,
+    "trip": "Family trip",
+    "text": "Good stop on the way through. Clean, well kept and simple to get to by tuk-tuk.",
+    "createdAt": "2026-05-20T00:00:00Z"
+  },
+  {
+    "id": "r-kampong-khleang-1",
+    "destination": "mekong-tonle-sap/kampong-khleang",
+    "region": "mekong-tonle-sap",
+    "author": "Chanthy Ly",
+    "rating": 5,
+    "trip": "Solo trip",
+    "text": "Went on a weekday afternoon and it was quiet. The staff pointed us to the best spot.",
+    "createdAt": "2026-03-18T00:00:00Z"
+  },
+  {
+    "id": "r-kampong-khleang-2",
+    "destination": "mekong-tonle-sap/kampong-khleang",
+    "region": "mekong-tonle-sap",
+    "author": "Udom Sok",
+    "rating": 4,
+    "trip": "With friends",
+    "text": "Easy to find and easy to spend a whole morning here. Bring water and a hat.",
+    "createdAt": "2026-02-17T00:00:00Z"
+  },
+  {
+    "id": "r-kampong-khleang-3",
+    "destination": "mekong-tonle-sap/kampong-khleang",
+    "region": "mekong-tonle-sap",
+    "author": "Oun Pisey",
+    "rating": 5,
+    "trip": "Family trip",
+    "text": "Worth the early start — we had the place almost to ourselves for the first hour.",
+    "createdAt": "2026-01-16T00:00:00Z"
+  },
+  {
+    "id": "r-kampi-dolphins-1",
+    "destination": "mekong-tonle-sap/kampi-dolphins",
+    "region": "mekong-tonle-sap",
+    "author": "Oun Pisey",
+    "rating": 5,
+    "trip": "Family trip",
+    "text": "Went on a weekday afternoon and it was quiet. The staff pointed us to the best spot.",
+    "createdAt": "2026-01-12T00:00:00Z"
+  },
+  {
+    "id": "r-kampi-dolphins-2",
+    "destination": "mekong-tonle-sap/kampi-dolphins",
+    "region": "mekong-tonle-sap",
+    "author": "Rithy Sam",
+    "rating": 4,
+    "trip": "Couple trip",
+    "text": "Easy to find and easy to spend a whole morning here. Bring water and a hat.",
+    "createdAt": "2026-08-11T00:00:00Z"
+  },
+  {
+    "id": "r-kampi-dolphins-3",
+    "destination": "mekong-tonle-sap/kampi-dolphins",
+    "region": "mekong-tonle-sap",
+    "author": "Malis Non",
+    "rating": 5,
+    "trip": "Solo trip",
+    "text": "Worth the early start — we had the place almost to ourselves for the first hour.",
+    "createdAt": "2026-07-10T00:00:00Z"
+  },
+  {
+    "id": "r-prek-toal-1",
+    "destination": "mekong-tonle-sap/prek-toal",
+    "region": "mekong-tonle-sap",
+    "author": "Udom Sok",
+    "rating": 4,
+    "trip": "With friends",
+    "text": "Easy to find and easy to spend a whole morning here. Bring water and a hat.",
+    "createdAt": "2026-02-23T00:00:00Z"
+  },
+  {
+    "id": "r-prek-toal-2",
+    "destination": "mekong-tonle-sap/prek-toal",
+    "region": "mekong-tonle-sap",
+    "author": "Oun Pisey",
+    "rating": 5,
+    "trip": "Family trip",
+    "text": "Worth the early start — we had the place almost to ourselves for the first hour.",
+    "createdAt": "2026-01-22T00:00:00Z"
+  },
+  {
+    "id": "r-prek-toal-3",
+    "destination": "mekong-tonle-sap/prek-toal",
+    "region": "mekong-tonle-sap",
+    "author": "Rithy Sam",
+    "rating": 4,
+    "trip": "Couple trip",
+    "text": "Our guide knew the history well and the light late in the day was lovely.",
+    "createdAt": "2026-08-21T00:00:00Z"
+  },
+  {
+    "id": "r-water-festival-1",
+    "destination": "mekong-tonle-sap/water-festival",
+    "region": "mekong-tonle-sap",
+    "author": "Dara Chhay",
+    "rating": 4,
+    "trip": "With friends",
+    "text": "Our guide knew the history well and the light late in the day was lovely.",
+    "createdAt": "2026-06-15T00:00:00Z"
+  },
+  {
+    "id": "r-water-festival-2",
+    "destination": "mekong-tonle-sap/water-festival",
+    "region": "mekong-tonle-sap",
+    "author": "Vannak Meas",
+    "rating": 5,
+    "trip": "Family trip",
+    "text": "Good stop on the way through. Clean, well kept and simple to get to by tuk-tuk.",
+    "createdAt": "2026-05-14T00:00:00Z"
+  },
+  {
+    "id": "r-water-festival-3",
+    "destination": "mekong-tonle-sap/water-festival",
+    "region": "mekong-tonle-sap",
+    "author": "Sreyneang Kim",
+    "rating": 4,
+    "trip": "Couple trip",
+    "text": "Better than the photos suggest. Give yourself more time than you think you need.",
+    "createdAt": "2026-04-13T00:00:00Z"
+  },
+  {
+    "id": "r-cardamoms-1",
+    "destination": "mountain-waterfall/cardamoms",
+    "region": "mountain-waterfall",
+    "author": "Dara Chhay",
+    "rating": 4,
+    "trip": "With friends",
+    "text": "Better than the photos suggest. Give yourself more time than you think you need.",
+    "createdAt": "2026-06-19T00:00:00Z"
+  },
+  {
+    "id": "r-cardamoms-2",
+    "destination": "mountain-waterfall/cardamoms",
+    "region": "mountain-waterfall",
+    "author": "Vannak Meas",
+    "rating": 5,
+    "trip": "Family trip",
+    "text": "Went on a weekday afternoon and it was quiet. The staff pointed us to the best spot.",
+    "createdAt": "2026-05-18T00:00:00Z"
+  },
+  {
+    "id": "r-cardamoms-3",
+    "destination": "mountain-waterfall/cardamoms",
+    "region": "mountain-waterfall",
+    "author": "Sreyneang Kim",
+    "rating": 4,
+    "trip": "Couple trip",
+    "text": "Easy to find and easy to spend a whole morning here. Bring water and a hat.",
+    "createdAt": "2026-04-17T00:00:00Z"
+  },
+  {
+    "id": "r-bokor-1",
+    "destination": "mountain-waterfall/bokor",
+    "region": "mountain-waterfall",
+    "author": "Rithy Sam",
+    "rating": 4,
+    "trip": "Couple trip",
+    "text": "Better than the photos suggest. Give yourself more time than you think you need.",
+    "createdAt": "2026-08-25T00:00:00Z"
+  },
+  {
+    "id": "r-bokor-2",
+    "destination": "mountain-waterfall/bokor",
+    "region": "mountain-waterfall",
+    "author": "Malis Non",
+    "rating": 5,
+    "trip": "Solo trip",
+    "text": "Went on a weekday afternoon and it was quiet. The staff pointed us to the best spot.",
+    "createdAt": "2026-07-24T00:00:00Z"
+  },
+  {
+    "id": "r-bokor-3",
+    "destination": "mountain-waterfall/bokor",
+    "region": "mountain-waterfall",
+    "author": "Dara Chhay",
+    "rating": 4,
+    "trip": "With friends",
+    "text": "Easy to find and easy to spend a whole morning here. Bring water and a hat.",
+    "createdAt": "2026-06-23T00:00:00Z"
+  },
+  {
+    "id": "r-phnom-aural-1",
+    "destination": "mountain-waterfall/phnom-aural",
+    "region": "mountain-waterfall",
+    "author": "Dara Chhay",
+    "rating": 4,
+    "trip": "With friends",
+    "text": "Better than the photos suggest. Give yourself more time than you think you need.",
+    "createdAt": "2026-06-13T00:00:00Z"
+  },
+  {
+    "id": "r-phnom-aural-2",
+    "destination": "mountain-waterfall/phnom-aural",
+    "region": "mountain-waterfall",
+    "author": "Vannak Meas",
+    "rating": 5,
+    "trip": "Family trip",
+    "text": "Went on a weekday afternoon and it was quiet. The staff pointed us to the best spot.",
+    "createdAt": "2026-05-12T00:00:00Z"
+  },
+  {
+    "id": "r-phnom-aural-3",
+    "destination": "mountain-waterfall/phnom-aural",
+    "region": "mountain-waterfall",
+    "author": "Sreyneang Kim",
+    "rating": 4,
+    "trip": "Couple trip",
+    "text": "Easy to find and easy to spend a whole morning here. Bring water and a hat.",
+    "createdAt": "2026-04-11T00:00:00Z"
+  },
+  {
+    "id": "r-kirirom-1",
+    "destination": "mountain-waterfall/kirirom",
+    "region": "mountain-waterfall",
+    "author": "Dara Chhay",
+    "rating": 4,
+    "trip": "With friends",
+    "text": "Easy to find and easy to spend a whole morning here. Bring water and a hat.",
+    "createdAt": "2026-06-17T00:00:00Z"
+  },
+  {
+    "id": "r-kirirom-2",
+    "destination": "mountain-waterfall/kirirom",
+    "region": "mountain-waterfall",
+    "author": "Vannak Meas",
+    "rating": 5,
+    "trip": "Family trip",
+    "text": "Worth the early start — we had the place almost to ourselves for the first hour.",
+    "createdAt": "2026-05-16T00:00:00Z"
+  },
+  {
+    "id": "r-kirirom-3",
+    "destination": "mountain-waterfall/kirirom",
+    "region": "mountain-waterfall",
+    "author": "Sreyneang Kim",
+    "rating": 4,
+    "trip": "Couple trip",
+    "text": "Our guide knew the history well and the light late in the day was lovely.",
+    "createdAt": "2026-04-15T00:00:00Z"
+  },
+  {
+    "id": "r-phnom-sampeau-1",
+    "destination": "mountain-waterfall/phnom-sampeau",
+    "region": "mountain-waterfall",
+    "author": "Udom Sok",
+    "rating": 4,
+    "trip": "With friends",
+    "text": "Better than the photos suggest. Give yourself more time than you think you need.",
+    "createdAt": "2026-02-19T00:00:00Z"
+  },
+  {
+    "id": "r-phnom-sampeau-2",
+    "destination": "mountain-waterfall/phnom-sampeau",
+    "region": "mountain-waterfall",
+    "author": "Oun Pisey",
+    "rating": 5,
+    "trip": "Family trip",
+    "text": "Went on a weekday afternoon and it was quiet. The staff pointed us to the best spot.",
+    "createdAt": "2026-01-18T00:00:00Z"
+  },
+  {
+    "id": "r-phnom-sampeau-3",
+    "destination": "mountain-waterfall/phnom-sampeau",
+    "region": "mountain-waterfall",
+    "author": "Rithy Sam",
+    "rating": 4,
+    "trip": "Couple trip",
+    "text": "Easy to find and easy to spend a whole morning here. Bring water and a hat.",
+    "createdAt": "2026-08-17T00:00:00Z"
+  },
+  {
+    "id": "r-koh-rong-sanloem-1",
+    "destination": "coastal-island/koh-rong-sanloem",
+    "region": "coastal-island",
+    "author": "Rithy Sam",
+    "rating": 4,
+    "trip": "Couple trip",
+    "text": "Our guide knew the history well and the light late in the day was lovely.",
+    "createdAt": "2026-08-27T00:00:00Z"
+  },
+  {
+    "id": "r-koh-rong-sanloem-2",
+    "destination": "coastal-island/koh-rong-sanloem",
+    "region": "coastal-island",
+    "author": "Malis Non",
+    "rating": 5,
+    "trip": "Solo trip",
+    "text": "Good stop on the way through. Clean, well kept and simple to get to by tuk-tuk.",
+    "createdAt": "2026-07-26T00:00:00Z"
+  },
+  {
+    "id": "r-koh-rong-sanloem-3",
+    "destination": "coastal-island/koh-rong-sanloem",
+    "region": "coastal-island",
+    "author": "Dara Chhay",
+    "rating": 4,
+    "trip": "With friends",
+    "text": "Better than the photos suggest. Give yourself more time than you think you need.",
+    "createdAt": "2026-06-25T00:00:00Z"
+  },
+  {
+    "id": "r-koh-rong-1",
+    "destination": "coastal-island/koh-rong",
+    "region": "coastal-island",
+    "author": "Sreyneang Kim",
+    "rating": 4,
+    "trip": "Couple trip",
+    "text": "Our guide knew the history well and the light late in the day was lovely.",
+    "createdAt": "2026-04-27T00:00:00Z"
+  },
+  {
+    "id": "r-koh-rong-2",
+    "destination": "coastal-island/koh-rong",
+    "region": "coastal-island",
+    "author": "Chanthy Ly",
+    "rating": 5,
+    "trip": "Solo trip",
+    "text": "Good stop on the way through. Clean, well kept and simple to get to by tuk-tuk.",
+    "createdAt": "2026-03-26T00:00:00Z"
+  },
+  {
+    "id": "r-koh-rong-3",
+    "destination": "coastal-island/koh-rong",
+    "region": "coastal-island",
+    "author": "Udom Sok",
+    "rating": 4,
+    "trip": "With friends",
+    "text": "Better than the photos suggest. Give yourself more time than you think you need.",
+    "createdAt": "2026-02-25T00:00:00Z"
+  },
+  {
+    "id": "r-koh-tang-1",
+    "destination": "coastal-island/koh-tang",
+    "region": "coastal-island",
+    "author": "Dara Chhay",
+    "rating": 4,
+    "trip": "With friends",
+    "text": "Our guide knew the history well and the light late in the day was lovely.",
+    "createdAt": "2026-06-15T00:00:00Z"
+  },
+  {
+    "id": "r-koh-tang-2",
+    "destination": "coastal-island/koh-tang",
+    "region": "coastal-island",
+    "author": "Vannak Meas",
+    "rating": 5,
+    "trip": "Family trip",
+    "text": "Good stop on the way through. Clean, well kept and simple to get to by tuk-tuk.",
+    "createdAt": "2026-05-14T00:00:00Z"
+  },
+  {
+    "id": "r-koh-tang-3",
+    "destination": "coastal-island/koh-tang",
+    "region": "coastal-island",
+    "author": "Sreyneang Kim",
+    "rating": 4,
+    "trip": "Couple trip",
+    "text": "Better than the photos suggest. Give yourself more time than you think you need.",
+    "createdAt": "2026-04-13T00:00:00Z"
+  },
+  {
+    "id": "r-kep-beach-1",
+    "destination": "coastal-island/kep-beach",
+    "region": "coastal-island",
+    "author": "Oun Pisey",
+    "rating": 5,
+    "trip": "Family trip",
+    "text": "Good stop on the way through. Clean, well kept and simple to get to by tuk-tuk.",
+    "createdAt": "2026-01-26T00:00:00Z"
+  },
+  {
+    "id": "r-kep-beach-2",
+    "destination": "coastal-island/kep-beach",
+    "region": "coastal-island",
+    "author": "Rithy Sam",
+    "rating": 4,
+    "trip": "Couple trip",
+    "text": "Better than the photos suggest. Give yourself more time than you think you need.",
+    "createdAt": "2026-08-25T00:00:00Z"
+  },
+  {
+    "id": "r-kep-beach-3",
+    "destination": "coastal-island/kep-beach",
+    "region": "coastal-island",
+    "author": "Malis Non",
+    "rating": 5,
+    "trip": "Solo trip",
+    "text": "Went on a weekday afternoon and it was quiet. The staff pointed us to the best spot.",
+    "createdAt": "2026-07-24T00:00:00Z"
+  },
+  {
+    "id": "r-peam-krasop-1",
+    "destination": "coastal-island/peam-krasop",
+    "region": "coastal-island",
+    "author": "Udom Sok",
+    "rating": 4,
+    "trip": "With friends",
+    "text": "Our guide knew the history well and the light late in the day was lovely.",
+    "createdAt": "2026-02-21T00:00:00Z"
+  },
+  {
+    "id": "r-peam-krasop-2",
+    "destination": "coastal-island/peam-krasop",
+    "region": "coastal-island",
+    "author": "Oun Pisey",
+    "rating": 5,
+    "trip": "Family trip",
+    "text": "Good stop on the way through. Clean, well kept and simple to get to by tuk-tuk.",
+    "createdAt": "2026-01-20T00:00:00Z"
+  },
+  {
+    "id": "r-peam-krasop-3",
+    "destination": "coastal-island/peam-krasop",
+    "region": "coastal-island",
+    "author": "Rithy Sam",
+    "rating": 4,
+    "trip": "Couple trip",
+    "text": "Better than the photos suggest. Give yourself more time than you think you need.",
+    "createdAt": "2026-08-19T00:00:00Z"
+  },
+  {
+    "id": "r-sisowath-quay-1",
+    "destination": "urban-nightlife/sisowath-quay",
+    "region": "urban-nightlife",
+    "author": "Dara Chhay",
+    "rating": 4,
+    "trip": "With friends",
+    "text": "Our guide knew the history well and the light late in the day was lovely.",
+    "createdAt": "2026-06-15T00:00:00Z"
+  },
+  {
+    "id": "r-sisowath-quay-2",
+    "destination": "urban-nightlife/sisowath-quay",
+    "region": "urban-nightlife",
+    "author": "Vannak Meas",
+    "rating": 5,
+    "trip": "Family trip",
+    "text": "Good stop on the way through. Clean, well kept and simple to get to by tuk-tuk.",
+    "createdAt": "2026-05-14T00:00:00Z"
+  },
+  {
+    "id": "r-sisowath-quay-3",
+    "destination": "urban-nightlife/sisowath-quay",
+    "region": "urban-nightlife",
+    "author": "Sreyneang Kim",
+    "rating": 4,
+    "trip": "Couple trip",
+    "text": "Better than the photos suggest. Give yourself more time than you think you need.",
+    "createdAt": "2026-04-13T00:00:00Z"
+  },
+  {
+    "id": "r-kampot-riverside-1",
+    "destination": "urban-nightlife/kampot-riverside",
+    "region": "urban-nightlife",
+    "author": "Vannak Meas",
+    "rating": 5,
+    "trip": "Family trip",
+    "text": "Good stop on the way through. Clean, well kept and simple to get to by tuk-tuk.",
+    "createdAt": "2026-05-26T00:00:00Z"
+  },
+  {
+    "id": "r-kampot-riverside-2",
+    "destination": "urban-nightlife/kampot-riverside",
+    "region": "urban-nightlife",
+    "author": "Sreyneang Kim",
+    "rating": 4,
+    "trip": "Couple trip",
+    "text": "Better than the photos suggest. Give yourself more time than you think you need.",
+    "createdAt": "2026-04-25T00:00:00Z"
+  },
+  {
+    "id": "r-kampot-riverside-3",
+    "destination": "urban-nightlife/kampot-riverside",
+    "region": "urban-nightlife",
+    "author": "Chanthy Ly",
+    "rating": 5,
+    "trip": "Solo trip",
+    "text": "Went on a weekday afternoon and it was quiet. The staff pointed us to the best spot.",
+    "createdAt": "2026-03-24T00:00:00Z"
+  },
+  {
+    "id": "r-street-240-1",
+    "destination": "urban-nightlife/street-240",
+    "region": "urban-nightlife",
+    "author": "Vannak Meas",
+    "rating": 5,
+    "trip": "Family trip",
+    "text": "Good stop on the way through. Clean, well kept and simple to get to by tuk-tuk.",
+    "createdAt": "2026-05-14T00:00:00Z"
+  },
+  {
+    "id": "r-street-240-2",
+    "destination": "urban-nightlife/street-240",
+    "region": "urban-nightlife",
+    "author": "Sreyneang Kim",
+    "rating": 4,
+    "trip": "Couple trip",
+    "text": "Better than the photos suggest. Give yourself more time than you think you need.",
+    "createdAt": "2026-04-13T00:00:00Z"
+  },
+  {
+    "id": "r-street-240-3",
+    "destination": "urban-nightlife/street-240",
+    "region": "urban-nightlife",
+    "author": "Chanthy Ly",
+    "rating": 5,
+    "trip": "Solo trip",
+    "text": "Went on a weekday afternoon and it was quiet. The staff pointed us to the best spot.",
+    "createdAt": "2026-03-12T00:00:00Z"
+  },
+  {
+    "id": "r-pp-rooftops-1",
+    "destination": "urban-nightlife/pp-rooftops",
+    "region": "urban-nightlife",
+    "author": "Chanthy Ly",
+    "rating": 5,
+    "trip": "Solo trip",
+    "text": "Worth the early start — we had the place almost to ourselves for the first hour.",
+    "createdAt": "2026-03-10T00:00:00Z"
+  },
+  {
+    "id": "r-pp-rooftops-2",
+    "destination": "urban-nightlife/pp-rooftops",
+    "region": "urban-nightlife",
+    "author": "Udom Sok",
+    "rating": 4,
+    "trip": "With friends",
+    "text": "Our guide knew the history well and the light late in the day was lovely.",
+    "createdAt": "2026-02-27T00:00:00Z"
+  },
+  {
+    "id": "r-pp-rooftops-3",
+    "destination": "urban-nightlife/pp-rooftops",
+    "region": "urban-nightlife",
+    "author": "Oun Pisey",
+    "rating": 5,
+    "trip": "Family trip",
+    "text": "Good stop on the way through. Clean, well kept and simple to get to by tuk-tuk.",
+    "createdAt": "2026-01-26T00:00:00Z"
+  },
+  {
+    "id": "r-battambang-arts-1",
+    "destination": "urban-nightlife/battambang-arts",
+    "region": "urban-nightlife",
+    "author": "Rithy Sam",
+    "rating": 4,
+    "trip": "Couple trip",
+    "text": "Easy to find and easy to spend a whole morning here. Bring water and a hat.",
+    "createdAt": "2026-08-23T00:00:00Z"
+  },
+  {
+    "id": "r-battambang-arts-2",
+    "destination": "urban-nightlife/battambang-arts",
+    "region": "urban-nightlife",
+    "author": "Malis Non",
+    "rating": 5,
+    "trip": "Solo trip",
+    "text": "Worth the early start — we had the place almost to ourselves for the first hour.",
+    "createdAt": "2026-07-22T00:00:00Z"
+  },
+  {
+    "id": "r-battambang-arts-3",
+    "destination": "urban-nightlife/battambang-arts",
+    "region": "urban-nightlife",
+    "author": "Dara Chhay",
+    "rating": 4,
+    "trip": "With friends",
+    "text": "Our guide knew the history well and the light late in the day was lovely.",
+    "createdAt": "2026-06-21T00:00:00Z"
+  },
+  {
+    "id": "r-bassac-lane-1",
+    "destination": "urban-nightlife/bassac-lane",
+    "region": "urban-nightlife",
+    "author": "Malis Non",
+    "rating": 5,
+    "trip": "Solo trip",
+    "text": "Went on a weekday afternoon and it was quiet. The staff pointed us to the best spot.",
+    "createdAt": "2026-07-18T00:00:00Z"
+  },
+  {
+    "id": "r-bassac-lane-2",
+    "destination": "urban-nightlife/bassac-lane",
+    "region": "urban-nightlife",
+    "author": "Dara Chhay",
+    "rating": 4,
+    "trip": "With friends",
+    "text": "Easy to find and easy to spend a whole morning here. Bring water and a hat.",
+    "createdAt": "2026-06-17T00:00:00Z"
+  },
+  {
+    "id": "r-bassac-lane-3",
+    "destination": "urban-nightlife/bassac-lane",
+    "region": "urban-nightlife",
+    "author": "Vannak Meas",
+    "rating": 5,
+    "trip": "Family trip",
+    "text": "Worth the early start — we had the place almost to ourselves for the first hour.",
+    "createdAt": "2026-05-16T00:00:00Z"
+  },
+  {
+    "id": "r-kep-crab-1",
+    "destination": "khmer-culinary/kep-crab",
+    "region": "khmer-culinary",
+    "author": "Dara Chhay",
+    "rating": 4,
+    "trip": "With friends",
+    "text": "Better than the photos suggest. Give yourself more time than you think you need.",
+    "createdAt": "2026-06-25T00:00:00Z"
+  },
+  {
+    "id": "r-kep-crab-2",
+    "destination": "khmer-culinary/kep-crab",
+    "region": "khmer-culinary",
+    "author": "Vannak Meas",
+    "rating": 5,
+    "trip": "Family trip",
+    "text": "Went on a weekday afternoon and it was quiet. The staff pointed us to the best spot.",
+    "createdAt": "2026-05-24T00:00:00Z"
+  },
+  {
+    "id": "r-kep-crab-3",
+    "destination": "khmer-culinary/kep-crab",
+    "region": "khmer-culinary",
+    "author": "Sreyneang Kim",
+    "rating": 4,
+    "trip": "Couple trip",
+    "text": "Easy to find and easy to spend a whole morning here. Bring water and a hat.",
+    "createdAt": "2026-04-23T00:00:00Z"
+  },
+  {
+    "id": "r-num-banh-chok-1",
+    "destination": "khmer-culinary/num-banh-chok",
+    "region": "khmer-culinary",
+    "author": "Dara Chhay",
+    "rating": 4,
+    "trip": "With friends",
+    "text": "Our guide knew the history well and the light late in the day was lovely.",
+    "createdAt": "2026-06-15T00:00:00Z"
+  },
+  {
+    "id": "r-num-banh-chok-2",
+    "destination": "khmer-culinary/num-banh-chok",
+    "region": "khmer-culinary",
+    "author": "Vannak Meas",
+    "rating": 5,
+    "trip": "Family trip",
+    "text": "Good stop on the way through. Clean, well kept and simple to get to by tuk-tuk.",
+    "createdAt": "2026-05-14T00:00:00Z"
+  },
+  {
+    "id": "r-num-banh-chok-3",
+    "destination": "khmer-culinary/num-banh-chok",
+    "region": "khmer-culinary",
+    "author": "Sreyneang Kim",
+    "rating": 4,
+    "trip": "Couple trip",
+    "text": "Better than the photos suggest. Give yourself more time than you think you need.",
+    "createdAt": "2026-04-13T00:00:00Z"
+  },
+  {
+    "id": "r-pp-fine-dining-1",
+    "destination": "khmer-culinary/pp-fine-dining",
+    "region": "khmer-culinary",
+    "author": "Vannak Meas",
+    "rating": 5,
+    "trip": "Family trip",
+    "text": "Good stop on the way through. Clean, well kept and simple to get to by tuk-tuk.",
+    "createdAt": "2026-05-26T00:00:00Z"
+  },
+  {
+    "id": "r-pp-fine-dining-2",
+    "destination": "khmer-culinary/pp-fine-dining",
+    "region": "khmer-culinary",
+    "author": "Sreyneang Kim",
+    "rating": 4,
+    "trip": "Couple trip",
+    "text": "Better than the photos suggest. Give yourself more time than you think you need.",
+    "createdAt": "2026-04-25T00:00:00Z"
+  },
+  {
+    "id": "r-pp-fine-dining-3",
+    "destination": "khmer-culinary/pp-fine-dining",
+    "region": "khmer-culinary",
+    "author": "Chanthy Ly",
+    "rating": 5,
+    "trip": "Solo trip",
+    "text": "Went on a weekday afternoon and it was quiet. The staff pointed us to the best spot.",
+    "createdAt": "2026-03-24T00:00:00Z"
+  },
+  {
+    "id": "r-siem-reap-cooking-1",
+    "destination": "khmer-culinary/siem-reap-cooking",
+    "region": "khmer-culinary",
+    "author": "Chanthy Ly",
+    "rating": 5,
+    "trip": "Solo trip",
+    "text": "Worth the early start — we had the place almost to ourselves for the first hour.",
+    "createdAt": "2026-03-10T00:00:00Z"
+  },
+  {
+    "id": "r-siem-reap-cooking-2",
+    "destination": "khmer-culinary/siem-reap-cooking",
+    "region": "khmer-culinary",
+    "author": "Udom Sok",
+    "rating": 4,
+    "trip": "With friends",
+    "text": "Our guide knew the history well and the light late in the day was lovely.",
+    "createdAt": "2026-02-27T00:00:00Z"
+  },
+  {
+    "id": "r-siem-reap-cooking-3",
+    "destination": "khmer-culinary/siem-reap-cooking",
+    "region": "khmer-culinary",
+    "author": "Oun Pisey",
+    "rating": 5,
+    "trip": "Family trip",
+    "text": "Good stop on the way through. Clean, well kept and simple to get to by tuk-tuk.",
+    "createdAt": "2026-01-26T00:00:00Z"
+  },
+  {
+    "id": "r-kampot-pepper-1",
+    "destination": "khmer-culinary/kampot-pepper",
+    "region": "khmer-culinary",
+    "author": "Vannak Meas",
+    "rating": 5,
+    "trip": "Family trip",
+    "text": "Went on a weekday afternoon and it was quiet. The staff pointed us to the best spot.",
+    "createdAt": "2026-05-12T00:00:00Z"
+  },
+  {
+    "id": "r-kampot-pepper-2",
+    "destination": "khmer-culinary/kampot-pepper",
+    "region": "khmer-culinary",
+    "author": "Sreyneang Kim",
+    "rating": 4,
+    "trip": "Couple trip",
+    "text": "Easy to find and easy to spend a whole morning here. Bring water and a hat.",
+    "createdAt": "2026-04-11T00:00:00Z"
+  },
+  {
+    "id": "r-kampot-pepper-3",
+    "destination": "khmer-culinary/kampot-pepper",
+    "region": "khmer-culinary",
+    "author": "Chanthy Ly",
+    "rating": 5,
+    "trip": "Solo trip",
+    "text": "Worth the early start — we had the place almost to ourselves for the first hour.",
+    "createdAt": "2026-03-10T00:00:00Z"
+  },
+  {
+    "id": "r-banteay-chhmar-homestay-1",
+    "destination": "eco-community/banteay-chhmar-homestay",
+    "region": "eco-community",
+    "author": "Vannak Meas",
+    "rating": 5,
+    "trip": "Family trip",
+    "text": "Worth the early start — we had the place almost to ourselves for the first hour.",
+    "createdAt": "2026-05-22T00:00:00Z"
+  },
+  {
+    "id": "r-banteay-chhmar-homestay-2",
+    "destination": "eco-community/banteay-chhmar-homestay",
+    "region": "eco-community",
+    "author": "Sreyneang Kim",
+    "rating": 4,
+    "trip": "Couple trip",
+    "text": "Our guide knew the history well and the light late in the day was lovely.",
+    "createdAt": "2026-04-21T00:00:00Z"
+  },
+  {
+    "id": "r-banteay-chhmar-homestay-3",
+    "destination": "eco-community/banteay-chhmar-homestay",
+    "region": "eco-community",
+    "author": "Chanthy Ly",
+    "rating": 5,
+    "trip": "Solo trip",
+    "text": "Good stop on the way through. Clean, well kept and simple to get to by tuk-tuk.",
+    "createdAt": "2026-03-20T00:00:00Z"
+  },
+  {
+    "id": "r-chambok-cbet-1",
+    "destination": "eco-community/chambok-cbet",
+    "region": "eco-community",
+    "author": "Malis Non",
+    "rating": 5,
+    "trip": "Solo trip",
+    "text": "Worth the early start — we had the place almost to ourselves for the first hour.",
+    "createdAt": "2026-07-10T00:00:00Z"
+  },
+  {
+    "id": "r-chambok-cbet-2",
+    "destination": "eco-community/chambok-cbet",
+    "region": "eco-community",
+    "author": "Dara Chhay",
+    "rating": 4,
+    "trip": "With friends",
+    "text": "Our guide knew the history well and the light late in the day was lovely.",
+    "createdAt": "2026-06-27T00:00:00Z"
+  },
+  {
+    "id": "r-chambok-cbet-3",
+    "destination": "eco-community/chambok-cbet",
+    "region": "eco-community",
+    "author": "Vannak Meas",
+    "rating": 5,
+    "trip": "Family trip",
+    "text": "Good stop on the way through. Clean, well kept and simple to get to by tuk-tuk.",
+    "createdAt": "2026-05-26T00:00:00Z"
+  },
+  {
+    "id": "r-evp-1",
+    "destination": "eco-community/evp",
+    "region": "eco-community",
+    "author": "Chanthy Ly",
+    "rating": 5,
+    "trip": "Solo trip",
+    "text": "Worth the early start — we had the place almost to ourselves for the first hour.",
+    "createdAt": "2026-03-22T00:00:00Z"
+  },
+  {
+    "id": "r-evp-2",
+    "destination": "eco-community/evp",
+    "region": "eco-community",
+    "author": "Udom Sok",
+    "rating": 4,
+    "trip": "With friends",
+    "text": "Our guide knew the history well and the light late in the day was lovely.",
+    "createdAt": "2026-02-21T00:00:00Z"
+  },
+  {
+    "id": "r-evp-3",
+    "destination": "eco-community/evp",
+    "region": "eco-community",
+    "author": "Oun Pisey",
+    "rating": 5,
+    "trip": "Family trip",
+    "text": "Good stop on the way through. Clean, well kept and simple to get to by tuk-tuk.",
+    "createdAt": "2026-01-20T00:00:00Z"
+  },
+  {
+    "id": "r-prek-toal-cbet-1",
+    "destination": "eco-community/prek-toal-cbet",
+    "region": "eco-community",
+    "author": "Chanthy Ly",
+    "rating": 5,
+    "trip": "Solo trip",
+    "text": "Good stop on the way through. Clean, well kept and simple to get to by tuk-tuk.",
+    "createdAt": "2026-03-26T00:00:00Z"
+  },
+  {
+    "id": "r-prek-toal-cbet-2",
+    "destination": "eco-community/prek-toal-cbet",
+    "region": "eco-community",
+    "author": "Udom Sok",
+    "rating": 4,
+    "trip": "With friends",
+    "text": "Better than the photos suggest. Give yourself more time than you think you need.",
+    "createdAt": "2026-02-25T00:00:00Z"
+  },
+  {
+    "id": "r-prek-toal-cbet-3",
+    "destination": "eco-community/prek-toal-cbet",
+    "region": "eco-community",
+    "author": "Oun Pisey",
+    "rating": 5,
+    "trip": "Family trip",
+    "text": "Went on a weekday afternoon and it was quiet. The staff pointed us to the best spot.",
+    "createdAt": "2026-01-24T00:00:00Z"
+  },
+  {
+    "id": "r-tmatboey-1",
+    "destination": "eco-community/tmatboey",
+    "region": "eco-community",
+    "author": "Rithy Sam",
+    "rating": 4,
+    "trip": "Couple trip",
+    "text": "Our guide knew the history well and the light late in the day was lovely.",
+    "createdAt": "2026-08-15T00:00:00Z"
+  },
+  {
+    "id": "r-tmatboey-2",
+    "destination": "eco-community/tmatboey",
+    "region": "eco-community",
+    "author": "Malis Non",
+    "rating": 5,
+    "trip": "Solo trip",
+    "text": "Good stop on the way through. Clean, well kept and simple to get to by tuk-tuk.",
+    "createdAt": "2026-07-14T00:00:00Z"
+  },
+  {
+    "id": "r-tmatboey-3",
+    "destination": "eco-community/tmatboey",
+    "region": "eco-community",
+    "author": "Dara Chhay",
+    "rating": 4,
+    "trip": "With friends",
+    "text": "Better than the photos suggest. Give yourself more time than you think you need.",
+    "createdAt": "2026-06-13T00:00:00Z"
+  },
+  {
+    "id": "r-chi-phat-cbet-1",
+    "destination": "eco-community/chi-phat-cbet",
+    "region": "eco-community",
+    "author": "Dara Chhay",
+    "rating": 4,
+    "trip": "With friends",
+    "text": "Our guide knew the history well and the light late in the day was lovely.",
+    "createdAt": "2026-06-15T00:00:00Z"
+  },
+  {
+    "id": "r-chi-phat-cbet-2",
+    "destination": "eco-community/chi-phat-cbet",
+    "region": "eco-community",
+    "author": "Vannak Meas",
+    "rating": 5,
+    "trip": "Family trip",
+    "text": "Good stop on the way through. Clean, well kept and simple to get to by tuk-tuk.",
+    "createdAt": "2026-05-14T00:00:00Z"
+  },
+  {
+    "id": "r-chi-phat-cbet-3",
+    "destination": "eco-community/chi-phat-cbet",
+    "region": "eco-community",
+    "author": "Sreyneang Kim",
+    "rating": 4,
+    "trip": "Couple trip",
+    "text": "Better than the photos suggest. Give yourself more time than you think you need.",
+    "createdAt": "2026-04-13T00:00:00Z"
+  }
+]

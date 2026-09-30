@@ -101,8 +101,16 @@ class MockTravelRepository implements TravelRepository {
 
 
   @override
-  Future<List<Review>> getReviews(DestinationRef ref) async =>
-      _delay(List.unmodifiable(_reviews[ref.key] ?? const <Review>[]));
+  Future<List<Review>> getReviews(DestinationRef ref) async {
+    // Sample reviews from `assets/mock/place_reviews.json`, then anything
+    // written on the page during the session.
+    // TODO(api): the seeded ones go when the backend serves real reviews.
+    final seeded = (await _load('place_reviews') as List)
+        .map((e) => Json.from(e))
+        .where((j) => j['destination'] == ref.key)
+        .map(Review.fromJson);
+    return _delay([...seeded, ...?_reviews[ref.key]]);
+  }
 
   @override
   Future<List<Review>> getRegionReviews(String region) async {

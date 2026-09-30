@@ -141,7 +141,7 @@ the code — `grep -rn "TODO(api)" lib` lists them all.
 | Stay policies | `features/destination/place_view.dart` | check-in/out, cancellation, children, pets |
 | Contact details | `assets/mock/destinations.json` | phone, email, website, Telegram per place |
 | Corridor plans | `assets/mock/corridors.json` | the day-by-day itineraries are invented |
-| Reviews | `/regions/:region/destinations/:slug/reviews`, `/me/reviews` | the seeded reviews in `assets/mock` are placeholders |
+| Reviews | `/regions/:region/destinations/:slug/reviews`, `/me/reviews` | the seeded reviews in `assets/mock` (including `place_reviews.json`) are placeholders |
 | Ratings and review counts | `assets/mock/destinations.json` | only 13 ratings came from the website; the rest, and every `reviewCount`, are generated placeholders |
 | Profile | `state/auth_provider.dart` | `location` and `joinedOn` on the user, plus `PATCH /me` and `PATCH /me/password` |
 | Saved, folders, stamps, badges | `state/collections_provider.dart` | `/me/saved`, `/me/folders`, `/me/stamps`, badge tiers and earned dates |
