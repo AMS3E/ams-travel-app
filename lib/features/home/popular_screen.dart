@@ -9,17 +9,16 @@ import '../../core/theme/app_theme.dart';
 import '../../data/models/models.dart';
 import '../../data/repositories/travel_repository.dart';
 import '../../widgets/async_view.dart';
-import '../../widgets/destination_card.dart';
 import '../../widgets/browse_bar.dart';
-import '../../widgets/place_group.dart';
+import '../../widgets/place_list_row.dart';
 
 
-/// Everything under "Explore by Popular", province by province.
+/// Everything under "Explore by Popular", in one list.
 class PopularScreen extends StatelessWidget {
   const PopularScreen({super.key});
 
-  Future<(List<Province>, List<Destination>)> _load(TravelRepository repo) async {
-    final (provinces, places) = await (repo.getProvinces(), repo.getDestinations()).wait;
+  Future<List<Destination>> _load(TravelRepository repo) async {
+    final places = await repo.getDestinations();
 
     places.sort((a, b) {
       final byFeatured = (b.featured ? 1 : 0).compareTo(a.featured ? 1 : 0);
@@ -28,7 +27,7 @@ class PopularScreen extends StatelessWidget {
       return byRating != 0 ? byRating : (b.reviewCount ?? 0).compareTo(a.reviewCount ?? 0);
     });
 
-    return (provinces, places);
+    return places;
   }
 
   @override
@@ -37,12 +36,9 @@ class PopularScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         bottom: false,
-        child: AsyncView<(List<Province>, List<Destination>)>(
+        child: AsyncView<List<Destination>>(
           load: () => _load(repo),
-          builder: (context, data, _) {
-            final (provinces, places) = data;
-            return _Body(provinces: provinces, places: places);
-          },
+          builder: (context, places, _) => _Body(places: places),
         ),
       ),
     );
@@ -50,8 +46,7 @@ class PopularScreen extends StatelessWidget {
 }
 
 class _Body extends StatefulWidget {
-  const _Body({required this.provinces, required this.places});
-  final List<Province> provinces;
+  const _Body({required this.places});
 
   /// Every place, the best known first.
   final List<Destination> places;
@@ -61,33 +56,23 @@ class _Body extends StatefulWidget {
 }
 
 class _BodyState extends State<_Body> {
-  /// Provinces and their places, the fullest first.
-  List<(Province, List<Destination>)> get _groups {
-    final byProvince = <String, List<Destination>>{};
-    for (final d in widget.places) {
-      if (!d.featured && (d.rating ?? 0) < 4.6) continue;
-      (byProvince[d.province] ??= []).add(d);
-    }
-    return <(Province, List<Destination>)>[
-      for (final p in widget.provinces)
-        if ((byProvince[p.name] ?? const []).length >= 3) (p, byProvince[p.name]!),
-    ]..sort((a, b) => b.$2.length.compareTo(a.$2.length));
-  }
+  /// The best known places, in one list.
+  List<Destination> get _popular =>
+      widget.places.where((d) => d.featured || (d.rating ?? 0) >= 4.6).toList();
 
   @override
   Widget build(BuildContext context) {
-    final s = S.of(context);
-    final groups = _groups;
+    final places = _popular;
     // The chips suggest what other people look for: the best known places,
     // then the provinces they sit in.
     final keywords = <String>{
-      for (final (_, places) in groups.take(2)) ...places.take(2).map((d) => d.name),
-      for (final (province, _) in groups.take(3)) province.name,
+      for (final d in places.take(2)) d.name,
+      for (final d in places.take(12)) d.province,
     }.take(6).toList();
 
     return Column(
       children: [
-        BrowseSearchBar(hint: s.popularDestinations, onWhite: true),
+        BrowseSearchBar(hint: S.of(context).popularDestinations, onWhite: true),
         const SizedBox(height: 12),
         SizedBox(
           height: 34,
@@ -101,21 +86,22 @@ class _BodyState extends State<_Body> {
         ),
         const SizedBox(height: 14),
         Expanded(
-          child: groups.isEmpty
-              ? Center(
-                  child: Text(s.noResults, style: AppText.sans(14.5, color: AppColors.sand500)),
-                )
-              : ListView(
-                  padding: EdgeInsets.only(bottom: 20 + MediaQuery.paddingOf(context).bottom),
-                  children: [
-                    for (final (province, places) in groups)
-                      PlaceGroup(
-                  title: bilingual(context, province.name, province.nameKh).$1,
-                  route: Routes.province(province.slug),
-                  places: places,
+          child: ListView(
+            padding: EdgeInsets.fromLTRB(16, 0, 16, 20 + MediaQuery.paddingOf(context).bottom),
+            children: [
+              Container(
+                padding: const EdgeInsets.fromLTRB(14, 8, 14, 8),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(18),
+                  border: Border.all(color: AppColors.sand200),
                 ),
-                  ],
+                child: Column(
+                  children: [for (final d in places) PlaceListRow(destination: d)],
                 ),
+              ),
+            ],
+          ),
         ),
       ],
     );
