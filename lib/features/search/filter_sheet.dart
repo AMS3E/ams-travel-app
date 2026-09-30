@@ -202,8 +202,30 @@ class _FilterSheetState extends State<_FilterSheet> {
                 FilterScope.corridors => [for (final c in corridors) (c.slug, c.name, c.image)],
               };
 
-              final categories = places.map((d) => d.category).toSet().toList()..sort();
-              final tags = <String>{for (final d in places) ...d.facets.keys}.toList()..sort();
+              // Categories follow the app's own order — the interests, in the
+              // order they are listed — so the heritage ones lead rather than
+              // whatever happens to come first alphabetically.
+              final order = [for (final i in interests) ...i.categories];
+              int rank(String c) {
+                final at = order.indexOf(c);
+                return at < 0 ? order.length : at;
+              }
+
+              final categories = places.map((d) => d.category).toSet().toList()
+                ..sort((a, b) => rank(a) != rank(b) ? rank(a).compareTo(rank(b)) : a.compareTo(b));
+
+              // Tags lead with the ones most places carry.
+              final tagCounts = <String, int>{};
+              for (final d in places) {
+                for (final t in d.facets.keys) {
+                  tagCounts[t] = (tagCounts[t] ?? 0) + 1;
+                }
+              }
+              final tags = tagCounts.keys.toList()
+                ..sort((a, b) {
+                  final byCount = tagCounts[b]!.compareTo(tagCounts[a]!);
+                  return byCount != 0 ? byCount : a.compareTo(b);
+                });
               final shownCategories = _allCategories ? categories : categories.take(7).toList();
               final shownTags = _allTags ? tags : tags.take(6).toList();
               final matches = _filters.apply(places, interests: interests, corridors: corridors);
