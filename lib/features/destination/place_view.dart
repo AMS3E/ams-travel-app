@@ -42,14 +42,6 @@ class PlaceView extends StatelessWidget {
   /// what counts as a similar place.
   Interest? get _interest => interests.where((i) => i.categories.contains(destination.category)).firstOrNull;
 
-  String _listTitle(S s) => switch (_interest?.slug) {
-    'stays' => s.popularFacilities,
-    'food' => s.dishesToTry,
-    'water' => s.thingsToDo,
-    'activities-experiences' => s.whatsIncluded,
-    _ => s.highlightsTitle,
-  };
-
   @override
   Widget build(BuildContext context) {
     final s = S.of(context);
@@ -61,7 +53,6 @@ class PlaceView extends StatelessWidget {
       ..sort((a, b) => distanceKm(d.lat, d.lng, a.lat, a.lng).compareTo(distanceKm(d.lat, d.lng, b.lat, b.lng)));
     // Nearby is what else is around; "you may like" stays in the same interest.
     final nearby = byDistance.where((o) => !categories.contains(o.category)).take(8).toList();
-    final similar = byDistance.where((o) => categories.contains(o.category)).take(6).toList();
     String away(Destination o) => '${formatKm(distanceKm(d.lat, d.lng, o.lat, o.lng))} $distanceUnit ${s.kmAway}';
     final keywords = d.tags.isNotEmpty ? d.tags : d.facets.keys.toList();
 
@@ -76,8 +67,9 @@ class PlaceView extends StatelessWidget {
             ),
           ),
           SliverToBoxAdapter(child: _Description(destination: d)),
-          if (keywords.isNotEmpty) SliverToBoxAdapter(child: _Keywords(words: keywords)),
-          if (d.facilities.isNotEmpty)
+          // Facilities, house rules and contact belong to a stay; an
+          // attraction or a place to eat shows the design's sections only.
+          if (d.isStay && d.facilities.isNotEmpty)
             SliverToBoxAdapter(
               child: _Card(
                 title: s.popularFacilities,
@@ -98,53 +90,8 @@ class PlaceView extends StatelessWidget {
                 ),
               ),
             ),
-          SliverToBoxAdapter(child: _GoodToKnow(destination: d)),
-          if (d.highlights.isNotEmpty)
-            SliverToBoxAdapter(
-              child: _Card(
-                title: _listTitle(s),
-                child: Column(
-                  children: [
-                    for (final h in d.highlights)
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 6),
-                        child: Row(
-                          children: [
-                            const Icon(Icons.check_circle_outline_rounded, size: 19, color: AppColors.success),
-                            const SizedBox(width: 12),
-                            Expanded(child: Text(h, style: AppText.sans(14.5, color: AppColors.sand800))),
-                          ],
-                        ),
-                      ),
-                  ],
-                ),
-              ),
-            ),
-          if (d.tips.isNotEmpty)
-            SliverToBoxAdapter(
-              child: _Card(
-                title: s.tipsTitle,
-                child: Column(
-                  children: [
-                    for (final t in d.tips)
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 6),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Icon(Icons.lightbulb_outline_rounded, size: 19, color: AppColors.star),
-                            const SizedBox(width: 12),
-                            Expanded(
-                              child: Text(t, style: AppText.sans(14.5, color: AppColors.sand800, height: 1.4)),
-                            ),
-                          ],
-                        ),
-                      ),
-                  ],
-                ),
-              ),
-            ),
-          SliverToBoxAdapter(child: ReviewsSection(destination: d)),
+          if (d.isStay) SliverToBoxAdapter(child: _Policies(destination: d)),
+          if (d.isStay) SliverToBoxAdapter(child: ContactCard(destination: d)),
           SliverToBoxAdapter(
             child: _Card(
               title: s.howToGetThere,
@@ -169,6 +116,8 @@ class PlaceView extends StatelessWidget {
               ),
             ),
           ),
+          if (keywords.isNotEmpty) SliverToBoxAdapter(child: _Keywords(words: keywords)),
+          SliverToBoxAdapter(child: ReviewsSection(destination: d)),
           if (nearby.isNotEmpty)
             SliverToBoxAdapter(
               child: _Card(
@@ -186,113 +135,10 @@ class PlaceView extends StatelessWidget {
                 ),
               ),
             ),
-          if (d.isStay) SliverToBoxAdapter(child: _Policies(destination: d)),
-          if (d.facets.isNotEmpty)
-            SliverToBoxAdapter(
-              child: _Card(
-                title: s.atAGlance,
-                child: Column(
-                  children: [
-                    for (final f in d.facets.entries)
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 7),
-                        child: Row(
-                          children: [
-                            Text(f.key, style: AppText.sans(14.5, color: AppColors.sand800)),
-                            const SizedBox(width: 12),
-                            Expanded(
-                              child: Text(
-                                f.value,
-                                textAlign: TextAlign.right,
-                                style: AppText.sans(13.5, weight: FontWeight.w600, color: AppColors.sand700),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                  ],
-                ),
-              ),
-            ),
-          if (similar.isNotEmpty)
-            SliverToBoxAdapter(
-              child: _Card(
-                title: s.youMayLike,
-                padded: false,
-                child: SizedBox(
-                  height: 196,
-                  child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    itemCount: similar.length,
-                    separatorBuilder: (_, _) => const SizedBox(width: 12),
-                    itemBuilder: (_, i) => _SimilarCard(destination: similar[i], caption: away(similar[i])),
-                  ),
-                ),
-              ),
-            ),
-          // Attraction sites are places you simply turn up at — there is no
-          // one to call, so they skip the contact card.
-          if (_interest?.slug != 'attraction-sites') SliverToBoxAdapter(child: ContactCard(destination: d)),
           SliverToBoxAdapter(child: SizedBox(height: 28 + MediaQuery.paddingOf(context).bottom)),
         ],
       ),
       bottomNavigationBar: d.isStay ? _RoomsBar(destination: d) : _ActionBar(destination: d),
-    );
-  }
-}
-
-/// Entry price, how long to allow, when to come — only the lines this
-/// category uses.
-class _GoodToKnow extends StatelessWidget {
-  const _GoodToKnow({required this.destination});
-  final Destination destination;
-
-  @override
-  Widget build(BuildContext context) {
-    final s = S.of(context);
-    final d = destination;
-    final hours = formatHours(d);
-    final rows = <(IconData, String, String)>[
-      if (d.entryFee != null) (Icons.confirmation_number_outlined, s.entryFee, d.entryFee!),
-      if (d.priceRange != null) (Icons.payments_outlined, s.priceRangeLabel, d.priceRange!),
-      if (d.visitDuration != null) (Icons.schedule_rounded, s.howLong, d.visitDuration!),
-      if (d.open24h)
-        (Icons.access_time_rounded, s.hoursLabel, s.open24h)
-      else if (hours != null)
-        (Icons.access_time_rounded, s.hoursLabel, hours),
-      if (d.bestTime != null) (Icons.wb_sunny_outlined, s.bestTime, d.bestTime!),
-      if (d.bestSeason != null) (Icons.calendar_month_rounded, s.bestSeason, d.bestSeason!),
-      if (d.difficulty != null) (Icons.trending_up_rounded, s.difficulty, d.difficulty!),
-      if (d.groupSize != null) (Icons.groups_outlined, s.groupSize, d.groupSize!),
-    ];
-    if (rows.isEmpty) return const SizedBox.shrink();
-
-    return _Card(
-      title: s.goodToKnow,
-      child: Column(
-        children: [
-          for (final (icon, label, value) in rows)
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 7),
-              child: Row(
-                children: [
-                  Icon(icon, size: 19, color: AppColors.sand500),
-                  const SizedBox(width: 12),
-                  Text(label, style: AppText.sans(14.5, color: AppColors.sand800)),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Text(
-                      value,
-                      textAlign: TextAlign.right,
-                      style: AppText.sans(13.5, weight: FontWeight.w600, color: AppColors.sand700),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-        ],
-      ),
     );
   }
 }
