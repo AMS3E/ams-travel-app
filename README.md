@@ -33,6 +33,7 @@ flutter test
 | Welcome / onboarding | `/welcome` — slides, interests step, "journey is ready" |
 | Home (the Explore tab) | `/` — regions, popular, corridors, interests, provinces, reviews |
 | Browse by region | `/regions/explore` — the nine regions and what they hold |
+| Region place list | `/regions/:region/places` — every place in one region |
 | Popular | `/popular` — the popular places province by province |
 | Type-ahead search | `/popular/search` — matches as you type, then suggestions |
 | Browse by interest | `/interests/explore` — one category at a time, plus what travellers recommend |
