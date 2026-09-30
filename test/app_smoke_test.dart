@@ -95,7 +95,7 @@ void main() {
       expect(top(order[i - 1]), lessThan(top(order[i])), reason: '${order[i - 1]} should be above ${order[i]}');
     }
     // The quick actions and the interest tiles are on the page.
-    for (final label in ['Hotel', 'Restaurant', 'Tour', 'Tour Guide', 'More']) {
+    for (final label in ['Attraction', 'Stays', 'Food', 'Nature', 'Experiences']) {
       expect(find.text(label), findsWidgets, reason: label);
     }
     expect(find.text('Attraction Sites'), findsWidgets);

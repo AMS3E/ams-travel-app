@@ -346,23 +346,24 @@ class _QuickActions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final s = S.of(context);
-    final actions = <(IconData, String, VoidCallback)>[
-      (Icons.hotel_rounded, s.quickHotel, () => context.push(Routes.interest('stays'))),
-      (Icons.restaurant_rounded, s.quickRestaurant, () => context.push(Routes.interest('food'))),
-      (Icons.tour_rounded, s.quickTour, () => context.go(Routes.exploreTab('corridors'))),
-      (Icons.support_agent_rounded, s.quickTourGuide, () => context.push('${Routes.search}?q=guide')),
-      (Icons.grid_view_rounded, s.quickMore, () => context.go(Routes.explore)),
+    // One per interest, straight into that category.
+    final actions = <(IconData, String, String)>[
+      (Icons.temple_buddhist_rounded, s.quickAttraction, 'attraction-sites'),
+      (Icons.hotel_rounded, s.quickStays, 'stays'),
+      (Icons.restaurant_rounded, s.quickFood, 'food'),
+      (Icons.eco_rounded, s.quickNature, 'water'),
+      (Icons.hiking_rounded, s.quickExperiences, 'activities-experiences'),
     ];
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Row(
         children: [
-          for (final (icon, label, onTap) in actions)
+          for (final (icon, label, slug) in actions)
             Expanded(
               child: InkWell(
                 borderRadius: BorderRadius.circular(16),
-                onTap: onTap,
+                onTap: () => context.push(Routes.interest(slug)),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 6),
                   child: Column(
