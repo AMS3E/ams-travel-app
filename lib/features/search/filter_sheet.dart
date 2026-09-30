@@ -398,6 +398,9 @@ class _Chip extends StatelessWidget {
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+        // The row stretches every chip to its height, so the label has to be
+        // centred rather than left where it lands.
+        alignment: Alignment.center,
         decoration: BoxDecoration(
           color: selected ? color : Colors.white,
           borderRadius: BorderRadius.circular(99),
