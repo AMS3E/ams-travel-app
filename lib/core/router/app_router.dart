@@ -58,7 +58,7 @@ GoRouter createRouter({bool showWelcome = false}) {
         ? const String.fromEnvironment('INITIAL_ROUTE')
         : (showWelcome ? Routes.welcome : Routes.home),
     routes: [
-      // Five bottom-nav tabs, each keeping its own scroll/stack state.
+      // Four bottom-nav tabs, each keeping its own scroll/stack state.
       StatefulShellRoute.indexedStack(
         builder: (context, state, shell) => MainShell(shell: shell),
         branches: [
@@ -67,14 +67,6 @@ GoRouter createRouter({bool showWelcome = false}) {
               GoRoute(
                 path: Routes.home,
                 builder: (context, _) => HomeScreen(pickedCategories: context.watch<TravelPreferences>().categories),
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: Routes.explore,
-                builder: (_, s) => ExploreScreen(tab: s.uri.queryParameters['tab']),
               ),
             ],
           ),
@@ -119,6 +111,7 @@ GoRouter createRouter({bool showWelcome = false}) {
         '/regions/:region/:dest/rooms',
         (s) => RoomsScreen(region: s.pathParameters['region']!, slug: s.pathParameters['dest']!),
       ),
+      page(Routes.explore, (s) => ExploreScreen(tab: s.uri.queryParameters['tab'])),
       page(Routes.exploreRegions, (_) => const RegionsExploreScreen()),
       page(
         '/regions/:region/:dest',

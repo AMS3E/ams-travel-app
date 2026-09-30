@@ -106,7 +106,7 @@ class _ProvinceView extends StatelessWidget {
               title: s.noResults,
               body: province.tagline,
               actionLabel: s.allNineRegions,
-              onAction: () => context.go(Routes.explore),
+              onAction: () => context.push(Routes.explore),
             ),
           )
         else ...[

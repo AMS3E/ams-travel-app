@@ -165,7 +165,7 @@ class _HomeBody extends StatelessWidget {
         const SizedBox(height: 22),
 
         // Corridors
-        _SectionHeader(title: s.exploreByCorridors, onMore: () => context.go(Routes.exploreTab('corridors'))),
+        _SectionHeader(title: s.exploreByCorridors, onMore: () => context.push(Routes.exploreTab('corridors'))),
         SizedBox(
           height: 212,
           child: ListView.separated(
