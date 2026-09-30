@@ -58,9 +58,9 @@ void main() {
     expect(find.text('Search destinations, places, food..'), findsOneWidget);
     expect(find.text('Explore by Tourism Region'), findsOneWidget);
 
-    await tester.tap(find.text('Explore').last);
-    await _settle(tester);
-    expect(find.text('Explore Cambodia'), findsOneWidget);
+    // The first tab is called Explore now and holds the home page.
+    expect(find.text('Explore'), findsOneWidget, reason: 'the first tab');
+    expect(find.text('Home'), findsNothing);
 
     await tester.tap(find.text('Profile').last);
     await tester.pump(const Duration(milliseconds: 300));

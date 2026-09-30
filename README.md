@@ -31,13 +31,13 @@ flutter test
 | Tab / page | Route |
 |---|---|
 | Welcome / onboarding | `/welcome` — slides, interests step, "journey is ready" |
-| Home | `/` — regions, popular, corridors, interests, provinces, reviews |
+| Home (the Explore tab) | `/` — regions, popular, corridors, interests, provinces, reviews |
 | Browse by region | `/regions/explore` — the nine regions and what they hold |
 | Popular | `/popular` — the popular places province by province |
 | Type-ahead search | `/popular/search` — matches as you type, then suggestions |
 | Browse by interest | `/interests/explore` — one category at a time, plus what travellers recommend |
 | Browse by province | `/provinces/explore` — filtered by interest, with Show all 25 provinces |
-| Explore | `/explore?tab=regions\|interests\|provinces\|corridors` |
+| Explore lists | `/explore?tab=regions\|interests\|provinces\|corridors` — pushed from the corridors arrow, not a tab |
 | Map | `/map`, `/map?place=region/slug` — layers for provinces, interests and corridors |
 | Saved | `/saved`, folders at `/folders` and `/folders/:name` |
 | Profile | `/profile` |
