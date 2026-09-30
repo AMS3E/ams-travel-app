@@ -37,6 +37,7 @@ class Routes {
 
   static String exploreTab(String tab) => '/explore?tab=$tab';
   static String region(String slug) => '/regions/$slug';
+  static String regionPlaces(String slug) => '/regions/$slug/places';
   static String destination(String region, String slug) => '/regions/$region/$slug';
   static String review(String region, String slug) => '/regions/$region/$slug/review';
   static String rooms(String region, String slug) => '/regions/$region/$slug/rooms';

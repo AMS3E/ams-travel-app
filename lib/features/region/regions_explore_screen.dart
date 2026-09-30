@@ -56,7 +56,7 @@ class RegionsExploreScreen extends StatelessWidget {
                         if ((byRegion[r.slug] ?? const []).isNotEmpty)
                           PlaceGroup(
                             title: bilingual(context, r.name, r.nameKh).$1,
-                            route: Routes.region(r.slug),
+                            route: Routes.regionPlaces(r.slug),
                             places: byRegion[r.slug]!.take(8).toList(),
                           ),
                     ],
