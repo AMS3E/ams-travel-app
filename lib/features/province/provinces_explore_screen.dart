@@ -66,15 +66,14 @@ class _Body extends StatefulWidget {
 }
 
 class _BodyState extends State<_Body> {
-  int _index = 0;
+  /// Which category is being looked at; null is "All".
+  int? _index;
 
   /// Every province, or only the ones with a few places worth seeing.
   bool _all = false;
 
   List<(Province, List<Destination>)> get _groups {
-    final categories = widget.interests.isEmpty
-        ? null
-        : widget.interests[_index].categories.toSet();
+    final categories = _index == null ? null : widget.interests[_index!].categories.toSet();
 
     final byProvince = <String, List<Destination>>{};
     for (final d in widget.places) {
@@ -104,13 +103,20 @@ class _BodyState extends State<_Body> {
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            itemCount: widget.interests.length,
+            // "All" first, then one chip per category.
+            itemCount: widget.interests.length + 1,
             separatorBuilder: (_, _) => const SizedBox(width: 8),
-            itemBuilder: (_, i) => CategoryChip(
-              interest: widget.interests[i],
-              selected: i == _index,
-              onTap: () => setState(() => _index = i),
-            ),
+            itemBuilder: (_, i) => i == 0
+                ? CategoryChip(
+                    label: s.all,
+                    selected: _index == null,
+                    onTap: () => setState(() => _index = null),
+                  )
+                : CategoryChip(
+                    label: shortInterestName(s, widget.interests[i - 1]),
+                    selected: _index == i - 1,
+                    onTap: () => setState(() => _index = i - 1),
+                  ),
           ),
         ),
         const SizedBox(height: 14),
@@ -121,8 +127,9 @@ class _BodyState extends State<_Body> {
               for (final (province, places) in groups)
                 PlaceGroup(
                   title: bilingual(context, province.name, province.nameKh).$1,
-                  route: Routes.province(province.slug),
+                  route: Routes.provincePlaces(province.slug),
                   places: places,
+                  showHeart: true,
                 ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 4, 16, 8),

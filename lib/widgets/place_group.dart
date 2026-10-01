@@ -8,6 +8,7 @@ import '../core/theme/app_theme.dart';
 import '../core/utils/geo.dart';
 import '../data/models/models.dart';
 import 'app_image.dart';
+import '../state/collections_provider.dart';
 import 'common.dart';
 import 'destination_card.dart';
 
@@ -15,13 +16,22 @@ import 'destination_card.dart';
 /// A named group of places — a province or a region — with a way into its own
 /// page and a row of what it holds.
 class PlaceGroup extends StatelessWidget {
-  const PlaceGroup({super.key, required this.title, required this.route, required this.places});
+  const PlaceGroup({
+    super.key,
+    required this.title,
+    required this.route,
+    required this.places,
+    this.showHeart = false,
+  });
 
   final String title;
 
   /// Where the arrow leads: the province or region page.
   final String route;
   final List<Destination> places;
+
+  /// A heart on each photo, for saving straight from the row.
+  final bool showHeart;
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +81,7 @@ class PlaceGroup extends StatelessWidget {
               padding: const EdgeInsets.only(right: 14),
               itemCount: places.length,
               separatorBuilder: (_, _) => const SizedBox(width: 10),
-              itemBuilder: (_, i) => _PlaceCard(destination: places[i]),
+              itemBuilder: (_, i) => _PlaceCard(destination: places[i], showHeart: showHeart),
             ),
           ),
         ],
@@ -82,8 +92,9 @@ class PlaceGroup extends StatelessWidget {
 
 /// Photo, name, stars and how many people have reviewed the place.
 class _PlaceCard extends StatelessWidget {
-  const _PlaceCard({required this.destination});
+  const _PlaceCard({required this.destination, required this.showHeart});
   final Destination destination;
+  final bool showHeart;
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +111,21 @@ class _PlaceCard extends StatelessWidget {
             SizedBox(
               height: 112,
               width: double.infinity,
-              child: AppImage(d.image, radius: BorderRadius.circular(14)),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(14),
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    AppImage(d.image),
+                    if (showHeart)
+                      Positioned(
+                        right: 2,
+                        top: 2,
+                        child: SaveButton(kind: SavedKind.destination, itemKey: d.key, plain: true),
+                      ),
+                  ],
+                ),
+              ),
             ),
             const SizedBox(height: 8),
             Text(

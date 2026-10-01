@@ -38,6 +38,7 @@ flutter test
 | Type-ahead search | `/popular/search` — matches as you type, then suggestions |
 | Browse by interest | `/interests/explore` — one category at a time, plus what travellers recommend |
 | Browse by province | `/provinces/explore` — filtered by interest, with Show all 25 provinces |
+| Province place list | `/provinces/:province/places` — every place in one province |
 | Explore lists | `/explore?tab=regions\|interests\|provinces\|corridors` — pushed from the corridors arrow, not a tab |
 | Map | `/map`, `/map?place=region/slug` — layers for provinces, interests and corridors |
 | Saved | `/saved`, folders at `/folders` and `/folders/:name` |

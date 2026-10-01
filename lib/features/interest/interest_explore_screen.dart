@@ -122,7 +122,7 @@ class _BodyState extends State<_Body> {
             itemCount: widget.interests.length,
             separatorBuilder: (_, _) => const SizedBox(width: 8),
             itemBuilder: (_, i) => CategoryChip(
-              interest: widget.interests[i],
+              label: bilingual(context, widget.interests[i].name, widget.interests[i].nameKh).$1,
               selected: i == _index,
               onTap: () => setState(() => _index = i),
             ),
