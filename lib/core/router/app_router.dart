@@ -2,6 +2,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:material_ui/material_ui.dart';
 
+import '../../data/models/models.dart';
 import '../../features/auth/forgot_password_screen.dart';
 import '../../features/auth/login_screen.dart';
 import '../../features/auth/register_screen.dart';
@@ -20,6 +21,7 @@ import '../../features/profile/achievement_screen.dart';
 import '../../features/profile/badge_tiers_screen.dart';
 import '../../features/profile/badges_screen.dart';
 import '../../features/profile/my_reviews_screen.dart';
+import '../../features/profile/review_detail_screen.dart';
 import '../../features/home/popular_screen.dart';
 import '../../features/interest/interest_explore_screen.dart';
 import '../../features/home/popular_search_screen.dart';
@@ -153,6 +155,13 @@ GoRouter createRouter({bool showWelcome = false}) {
       page(Routes.currency, (_) => const CurrencyPage()),
       page(Routes.units, (_) => const UnitsPage()),
       page(Routes.notifications, (_) => const NotificationsPage()),
+      page(
+        '/my-reviews/:id',
+        (s) => ReviewDetailScreen(
+          id: s.pathParameters['id']!,
+          review: s.extra is Review ? s.extra as Review : null,
+        ),
+      ),
       page(Routes.myReviews, (_) => const MyReviewsScreen()),
       page('/folders/:folder', (s) => FolderScreen(name: Uri.decodeComponent(s.pathParameters['folder']!))),
       page('/badges/:badge/achievement', (s) => AchievementScreen(badgeKey: s.pathParameters['badge']!)),

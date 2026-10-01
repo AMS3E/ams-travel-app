@@ -19,6 +19,7 @@ class Routes {
   static const units = '/preferences/units';
   static const notifications = '/preferences/notifications';
   static const myReviews = '/my-reviews';
+  static String myReview(String id) => '/my-reviews/${Uri.encodeComponent(id)}';
   static String folder(String name) => '/folders/${Uri.encodeComponent(name)}';
   static String badgeTiers(String badge) => '/badges/$badge';
   static String achievement(String badge) => '/badges/$badge/achievement';
