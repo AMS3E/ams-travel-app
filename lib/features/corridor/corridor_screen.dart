@@ -78,11 +78,6 @@ class _CorridorViewState extends State<_CorridorView> {
   final _photos = PageController();
   int _photo = 0;
 
-  /// The place picked out of the day-by-day plan, pinned on the map. The day
-  /// is part of it because the same place can appear on more than one day.
-  Destination? _focus;
-  int? _focusDay;
-
   Corridor get corridor => widget.corridor;
   List<Destination> get all => widget.all;
 
@@ -116,17 +111,6 @@ class _CorridorViewState extends State<_CorridorView> {
     final sum = rated.map((d) => d.rating!).reduce((a, b) => a + b);
     final reviews = _along.fold(0, (n, d) => n + (d.reviewCount ?? 0));
     return (sum / rated.length, reviews);
-  }
-
-  /// Moves the map to a place from the plan and marks it, on that day only.
-  void _focusOn(int day, Destination d) {
-    setState(() {
-      _focus = d;
-      _focusDay = day;
-    });
-    try {
-      _map.move(LatLng(d.lat, d.lng), 12);
-    } catch (_) {}
   }
 
   /// The place that stands for a stop in the route overview: one that carries
@@ -389,47 +373,12 @@ class _CorridorViewState extends State<_CorridorView> {
                           pillText: c.stops[i].name,
                           color: AppColors.violet,
                         ),
-                      if (_focus != null)
-                        MapPin(
-                          id: _focus!.key,
-                          point: LatLng(_focus!.lat, _focus!.lng),
-                          highlighted: true,
-                          onTap: () => context.push(Routes.destination(_focus!.region, _focus!.slug)),
-                        ),
                     ],
                   ),
                 ),
               ],
             ),
           ),
-
-          if (c.itinerary.isNotEmpty) ...[
-            const SizedBox(height: 22),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 18),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(s.dayByDay, style: AppText.sans(17, weight: FontWeight.w700, color: AppColors.sand900)),
-                  Text(
-                    '${c.days ?? c.itinerary.length} ${s.daysWord}',
-                    style: AppText.sans(12.5, color: AppColors.sand500),
-                  ),
-                  const SizedBox(height: 14),
-                  for (var i = 0; i < c.itinerary.length; i++)
-                    _DayRow(
-                      day: c.itinerary[i],
-                      isLast: i == c.itinerary.length - 1,
-                      places: [
-                        for (final key in c.itinerary[i].places) ...all.where((d) => d.key == key),
-                      ],
-                      focused: _focusDay == c.itinerary[i].day ? _focus : null,
-                      onPlace: (d) => _focusOn(c.itinerary[i].day, d),
-                    ),
-                ],
-              ),
-            ),
-          ],
 
           if (stays.isNotEmpty) ...[
             const SizedBox(height: 24),
@@ -610,140 +559,6 @@ class _StayCard extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-/// One day of the plan: the number, where it runs from and to, and what it
-/// covers — joined by a line down the left.
-class _DayRow extends StatelessWidget {
-  const _DayRow({
-    required this.day,
-    required this.isLast,
-    required this.places,
-    required this.onPlace,
-    this.focused,
-  });
-
-  final CorridorDay day;
-  final bool isLast;
-
-  /// The places this day takes in; tapping one moves the map above.
-  final List<Destination> places;
-  final ValueChanged<Destination> onPlace;
-  final Destination? focused;
-
-  @override
-  Widget build(BuildContext context) {
-    final s = S.of(context);
-    return IntrinsicHeight(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Column(
-            children: [
-              Container(
-                width: 34,
-                height: 34,
-                alignment: Alignment.center,
-                decoration: const BoxDecoration(color: AppColors.brand600, shape: BoxShape.circle),
-                child: Text(
-                  '${day.day}',
-                  style: AppText.sans(14, weight: FontWeight.w700, color: Colors.white),
-                ),
-              ),
-              if (!isLast) Expanded(child: Container(width: 2, color: AppColors.sand200)),
-            ],
-          ),
-          const SizedBox(width: 14),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.only(bottom: isLast ? 0 : 18),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '${s.dayWord} ${day.day}',
-                    style: AppText.sans(12, weight: FontWeight.w600, color: AppColors.sand500),
-                  ),
-                  const SizedBox(height: 2),
-                  Row(
-                    children: [
-                      Flexible(
-                        child: Text(
-                          day.from,
-                          style: AppText.sans(15.5, weight: FontWeight.w700, color: AppColors.sand900),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 6),
-                        child: Icon(Icons.arrow_forward_rounded, size: 15, color: AppColors.sand400),
-                      ),
-                      Flexible(
-                        child: Text(
-                          day.to,
-                          style: AppText.sans(15.5, weight: FontWeight.w700, color: AppColors.sand900),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    day.summary,
-                    style: AppText.sans(14, color: AppColors.sand600, height: 1.45),
-                  ),
-                  if (places.isNotEmpty) ...[
-                    const SizedBox(height: 8),
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      children: [
-                        for (final p in places)
-                          GestureDetector(
-                            onTap: () => onPlace(p),
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                              decoration: BoxDecoration(
-                                color: focused?.key == p.key ? AppColors.brand600 : Colors.white,
-                                borderRadius: BorderRadius.circular(999),
-                                border: Border.all(
-                                  color: focused?.key == p.key ? AppColors.brand600 : AppColors.sand200,
-                                ),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Icon(
-                                    Icons.place_outlined,
-                                    size: 14,
-                                    color: focused?.key == p.key ? Colors.white : AppColors.sand500,
-                                  ),
-                                  const SizedBox(width: 4),
-                                  Text(
-                                    p.name,
-                                    style: AppText.sans(
-                                      12.5,
-                                      weight: FontWeight.w600,
-                                      color: focused?.key == p.key ? Colors.white : AppColors.sand800,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                      ],
-                    ),
-                  ],
-                ],
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }
