@@ -15,6 +15,7 @@ import 'data/repositories/mock_travel_repository.dart';
 import 'data/repositories/travel_repository.dart';
 import 'state/auth_provider.dart';
 import 'state/collections_provider.dart';
+import 'state/notifications_provider.dart';
 import 'state/locale_provider.dart';
 import 'state/settings_provider.dart';
 import 'state/travel_preferences.dart';
@@ -62,6 +63,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (_) => SettingsProvider(prefs)),
         ChangeNotifierProvider.value(value: saved),
         ChangeNotifierProvider(create: (_) => StampsProvider(prefs)),
+        ChangeNotifierProvider(create: (_) => NotificationsProvider(prefs)),
         ChangeNotifierProvider(create: (_) => BrowseCounter(prefs)),
         ChangeNotifierProvider(create: (_) => BadgeLog(prefs)),
         ChangeNotifierProvider.value(value: folders),

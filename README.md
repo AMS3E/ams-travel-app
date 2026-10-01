@@ -55,6 +55,7 @@ flutter test
 | Badges | `/badges`, `/badges/:badge` (achievement page) |
 | My reviews | `/my-reviews` |
 | Account info | `/account` |
+| Notifications | `/notifications` — All / Unread, grouped by day |
 | Preference | `/preferences` and `/preferences/language\|currency\|units\|notifications` |
 | Help & support / Terms | `/help`, `/terms` |
 | Auth | `/login`, `/register`, `/forgot-password` |
@@ -149,7 +150,7 @@ the code — `grep -rn "TODO(api)" lib` lists them all.
 | Profile | `state/auth_provider.dart` | `location` and `joinedOn` on the user, plus `PATCH /me` and `PATCH /me/password` |
 | Saved, folders, stamps, badges | `state/collections_provider.dart` | `/me/saved`, `/me/folders`, `/me/stamps`, badge tiers and earned dates |
 | Preferences | `state/settings_provider.dart` | store language/currency/unit/notifications on the account; a live USD→KHR rate (fixed at 4100 now) |
-| Notifications | `features/profile/preference_pages.dart` | a push service behind the toggle |
+| Notifications | `features/profile/preference_pages.dart`, `assets/mock/notifications.json` | a push service behind the toggle, and `GET /me/notifications` — the eight on the page are seeded |
 | Review photos | `features/destination/review_screen.dart` | photo upload |
 | Support details | `features/profile/help_support_screen.dart` | real support email, phone, website and social links |
 | Terms & privacy | `features/profile/terms_screen.dart` | the final legal wording, and a Khmer translation by a person |
