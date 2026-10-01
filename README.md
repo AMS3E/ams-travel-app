@@ -54,7 +54,7 @@ flutter test
 | Corridor | `/corridors/:slug` — stops, day-by-day plan |
 | Search | `/search?q=` |
 | Badges | `/badges`, `/badges/:badge` (achievement page) |
-| My reviews | `/my-reviews` |
+| My reviews | `/my-reviews`, `/my-reviews/:id` |
 | Account info | `/account` |
 | Notifications | `/notifications` — All / Unread, grouped by day |
 | Preference | `/preferences` and `/preferences/language\|currency\|units\|notifications` |

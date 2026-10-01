@@ -213,7 +213,7 @@ class _ReviewRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final r = review;
     return InkWell(
-      onTap: place == null ? null : () => context.push(Routes.destination(place!.region, place!.slug)),
+      onTap: () => context.push(Routes.myReview(review.id), extra: review),
       borderRadius: BorderRadius.circular(AppTheme.radius),
       child: Container(
         padding: const EdgeInsets.all(12),

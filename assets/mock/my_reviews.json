@@ -6,7 +6,10 @@
     "text": "We arrived before six and had the reflecting pool almost to ourselves. Bring a torch for the walk in, and stay for the light on the towers afterwards.",
     "tripType": "Couples",
     "visitedOn": "2026-08-12",
-    "createdAt": "2026-08-14T09:12:00Z"
+    "createdAt": "2026-08-14T09:12:00Z",
+    "photos": [
+      "https://images.unsplash.com/photo-1541429464955-87bd98d6d8f8?auto=format&fit=crop&w=800&q=70"
+    ]
   },
   {
     "destination": "coastal-island/koh-rong",
@@ -15,7 +18,10 @@
     "text": "Walked twenty minutes past the pier and found an empty stretch of sand. The boat back fills up fast, so get there early.",
     "tripType": "Friends",
     "visitedOn": "2026-08-03",
-    "createdAt": "2026-08-05T15:40:00Z"
+    "createdAt": "2026-08-05T15:40:00Z",
+    "photos": [
+      "https://images.unsplash.com/photo-1509781847595-a430dc27c7af?auto=format&fit=crop&w=800&q=70"
+    ]
   },
   {
     "destination": "ancient-capitals/royal-palace",
@@ -24,7 +30,10 @@
     "text": "The Silver Pagoda is the highlight. Shoulders and knees must be covered, and the middle of the day gets very hot in the courtyards.",
     "tripType": "Family",
     "visitedOn": "2026-07-21",
-    "createdAt": "2026-07-22T11:05:00Z"
+    "createdAt": "2026-07-22T11:05:00Z",
+    "photos": [
+      "https://images.unsplash.com/photo-1540525080980-b97c4be3c779?auto=format&fit=crop&w=800&q=70"
+    ]
   },
   {
     "destination": "khmer-culinary/kampot-pepper",
@@ -33,6 +42,9 @@
     "text": "The farm walk explains the difference between green, black and red pepper, and you taste each one. We came away with a bag of every kind.",
     "tripType": "Couples",
     "visitedOn": "2026-07-09",
-    "createdAt": "2026-07-10T08:30:00Z"
+    "createdAt": "2026-07-10T08:30:00Z",
+    "photos": [
+      "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=800&q=70"
+    ]
   }
 ]
