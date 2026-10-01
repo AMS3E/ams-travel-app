@@ -29,6 +29,7 @@ import '../../features/profile/preferences_screen.dart';
 import '../../features/profile/profile_screen.dart';
 import '../../features/profile/terms_screen.dart';
 import '../../features/province/province_screen.dart';
+import '../../features/province/province_places_screen.dart';
 import '../../features/province/provinces_explore_screen.dart';
 import '../../features/region/region_screen.dart';
 import '../../features/region/region_places_screen.dart';
@@ -121,6 +122,7 @@ GoRouter createRouter({bool showWelcome = false}) {
       ),
       page('/regions/:region', (s) => RegionScreen(slug: s.pathParameters['region']!)),
       page(Routes.exploreProvinces, (_) => const ProvincesExploreScreen()),
+      page('/provinces/:province/places', (s) => ProvincePlacesScreen(slug: s.pathParameters['province']!)),
       page('/provinces/:province', (s) => ProvinceScreen(slug: s.pathParameters['province']!)),
       page(Routes.exploreInterests, (_) => const InterestExploreScreen()),
       page('/interests/:interest', (s) => InterestScreen(slug: s.pathParameters['interest']!)),

@@ -1,11 +1,11 @@
 import 'package:go_router/go_router.dart';
 import 'package:material_ui/material_ui.dart';
 
+import '../core/l10n/app_strings.dart';
 import '../core/router/routes.dart';
 import '../core/theme/app_colors.dart';
 import '../core/theme/app_theme.dart';
 import '../data/models/models.dart';
-import 'destination_card.dart';
 
 /// The top of the browse pages: back arrow, the words being looked for, and
 /// the search button. Tapping anywhere opens the type-ahead page.
@@ -73,16 +73,26 @@ class BrowseSearchBar extends StatelessWidget {
   }
 }
 
-/// One interest category along the top of a browse page.
+/// The short name a browse page puts on an interest chip.
+String shortInterestName(S s, Interest interest) => switch (interest.slug) {
+  'attraction-sites' => s.quickAttraction,
+  'stays' => s.quickStays,
+  'food' => s.quickFood,
+  'water' => s.quickNature,
+  'activities-experiences' => s.quickExperiences,
+  _ => interest.name,
+};
+
+/// One category along the top of a browse page.
 class CategoryChip extends StatelessWidget {
   const CategoryChip({
     super.key,
-    required this.interest,
+    required this.label,
     required this.selected,
     required this.onTap,
   });
 
-  final Interest interest;
+  final String label;
   final bool selected;
   final VoidCallback onTap;
 
@@ -100,7 +110,7 @@ class CategoryChip extends StatelessWidget {
           border: Border.all(color: selected ? AppColors.violet : AppColors.sand200),
         ),
         child: Text(
-          bilingual(context, interest.name, interest.nameKh).$1,
+          label,
           style: AppText.sans(
             13.5,
             weight: FontWeight.w600,

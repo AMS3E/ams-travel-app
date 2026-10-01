@@ -44,6 +44,7 @@ class Routes {
   static String room(String region, String slug, String roomId) => '/regions/$region/$slug/rooms/$roomId';
   static String story(String region, String slug) => '/regions/$region/stories/$slug';
   static String province(String slug) => '/provinces/$slug';
+  static String provincePlaces(String slug) => '/provinces/$slug/places';
   static String interest(String slug) => '/interests/$slug';
   static String corridor(String slug) => '/corridors/$slug';
   static String mapFocus(String destinationKey) => '/map?place=${Uri.encodeComponent(destinationKey)}';
