@@ -50,6 +50,7 @@ flutter test
 | Story | `/regions/:region/stories/:slug` |
 | Province | `/provinces/:slug` |
 | Interest | `/interests/:slug` — one category across the regions |
+| Corridors | `/corridors` — the five corridors and their stops |
 | Corridor | `/corridors/:slug` — stops, day-by-day plan |
 | Search | `/search?q=` |
 | Badges | `/badges`, `/badges/:badge` (achievement page) |

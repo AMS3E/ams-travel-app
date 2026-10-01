@@ -6,6 +6,7 @@ import '../../features/auth/forgot_password_screen.dart';
 import '../../features/auth/login_screen.dart';
 import '../../features/auth/register_screen.dart';
 import '../../features/corridor/corridor_screen.dart';
+import '../../features/corridor/corridors_explore_screen.dart';
 import '../../features/destination/destination_screen.dart';
 import '../../features/destination/review_screen.dart';
 import '../../features/destination/room_screen.dart';
@@ -127,6 +128,7 @@ GoRouter createRouter({bool showWelcome = false}) {
       page('/provinces/:province', (s) => ProvinceScreen(slug: s.pathParameters['province']!)),
       page(Routes.exploreInterests, (_) => const InterestExploreScreen()),
       page('/interests/:interest', (s) => InterestScreen(slug: s.pathParameters['interest']!)),
+      page(Routes.exploreCorridors, (_) => const CorridorsExploreScreen()),
       page('/corridors/:corridor', (s) => CorridorScreen(slug: s.pathParameters['corridor']!)),
       page(
         Routes.search,

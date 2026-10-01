@@ -26,6 +26,7 @@ class Routes {
   static const exploreInterests = '/interests/explore';
   static const exploreProvinces = '/provinces/explore';
   static const exploreRegions = '/regions/explore';
+  static const exploreCorridors = '/corridors';
   static const home = '/';
   static const explore = '/explore';
   static const map = '/map';
