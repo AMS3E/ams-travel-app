@@ -1,0 +1,58 @@
+[
+  {
+    "id": "n1",
+    "kind": "place",
+    "title": "New Places added in Siem Reap",
+    "body": "3 new attractions were added to your saved places in Siem Reap.",
+    "minutesAgo": 18
+  },
+  {
+    "id": "n2",
+    "kind": "profile",
+    "title": "Complete your profile",
+    "body": "Add your profile photo and location to get personalized travel recommendations.",
+    "minutesAgo": 32
+  },
+  {
+    "id": "n3",
+    "kind": "info",
+    "title": "New Information updated",
+    "body": "Opening hours and ticket prices for Bayon Temple have been updated.",
+    "minutesAgo": 33
+  },
+  {
+    "id": "n4",
+    "kind": "place",
+    "title": "New Places added in Kampot",
+    "body": "2 new riverside stays were added near Kampot town.",
+    "minutesAgo": 1500
+  },
+  {
+    "id": "n5",
+    "kind": "info",
+    "title": "Corridor route updated",
+    "body": "The Khmer Civilization corridor now takes in Sambor Prei Kuk.",
+    "minutesAgo": 1620
+  },
+  {
+    "id": "n6",
+    "kind": "review",
+    "title": "Your review was published",
+    "body": "Your review of Angkor Wat is now live for other travellers to read.",
+    "minutesAgo": 1700
+  },
+  {
+    "id": "n7",
+    "kind": "badge",
+    "title": "Silver Browser is within reach",
+    "body": "Open 40 more places to earn the Silver tier of your Browser badge.",
+    "minutesAgo": 4400
+  },
+  {
+    "id": "n8",
+    "kind": "place",
+    "title": "New Places added in Preah Sihanouk",
+    "body": "4 islands were added to the Water category this week.",
+    "minutesAgo": 5600
+  }
+]

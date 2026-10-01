@@ -13,7 +13,6 @@ import '../../data/repositories/travel_repository.dart';
 import '../../state/collections_provider.dart';
 import '../../widgets/app_image.dart';
 import '../../widgets/async_view.dart';
-import '../../widgets/common.dart';
 import '../../widgets/destination_card.dart';
 import '../search/filter_sheet.dart';
 
@@ -268,7 +267,7 @@ class _TopBar extends StatelessWidget {
             shape: const CircleBorder(),
             child: InkWell(
               customBorder: const CircleBorder(),
-              onTap: () => showToast(context, s.noNotifications),
+              onTap: () => context.push(Routes.notificationsPage),
               child: const Padding(
                 padding: EdgeInsets.all(9),
                 child: Icon(Icons.notifications_none_rounded, size: 22, color: AppColors.sand800),

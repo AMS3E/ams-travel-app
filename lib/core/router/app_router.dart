@@ -24,6 +24,7 @@ import '../../features/interest/interest_explore_screen.dart';
 import '../../features/home/popular_search_screen.dart';
 import '../../features/profile/edit_profile_screen.dart';
 import '../../features/profile/help_support_screen.dart';
+import '../../features/profile/notifications_screen.dart';
 import '../../features/profile/preference_pages.dart';
 import '../../features/profile/preferences_screen.dart';
 import '../../features/profile/profile_screen.dart';
@@ -139,6 +140,7 @@ GoRouter createRouter({bool showWelcome = false}) {
       page(Routes.interests, (_) => const Scaffold(body: InterestsStep())),
       page(Routes.badges, (_) => const BadgesScreen()),
       page(Routes.account, (_) => const AccountInfoScreen()),
+      page(Routes.notificationsPage, (_) => const NotificationsScreen()),
       page(Routes.editProfile, (_) => const EditProfileScreen()),
       page(Routes.popular, (_) => const PopularScreen()),
       page(Routes.popularSearch, (_) => const PopularSearchScreen()),
