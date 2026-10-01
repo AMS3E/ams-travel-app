@@ -14,7 +14,6 @@ import '../../widgets/app_image.dart';
 import '../../widgets/common.dart';
 import '../../widgets/destination_card.dart';
 import '../../widgets/map_view.dart';
-import 'contact_card.dart';
 import 'reviews_section.dart';
 
 /// Detail page for any place. Every category gets the same shape — photos,
@@ -54,7 +53,11 @@ class PlaceView extends StatelessWidget {
     // Nearby is what else is around; "you may like" stays in the same interest.
     final nearby = byDistance.where((o) => !categories.contains(o.category)).take(8).toList();
     String away(Destination o) => '${formatKm(distanceKm(d.lat, d.lng, o.lat, o.lng))} $distanceUnit ${s.kmAway}';
-    final keywords = d.tags.isNotEmpty ? d.tags : d.facets.keys.toList();
+    // The chips under the map: what a stay offers, or what a place is known
+    // for.
+    final keywords = d.isStay && d.facilities.isNotEmpty
+        ? d.facilities
+        : (d.tags.isNotEmpty ? d.tags : d.facets.keys.toList());
 
     return Scaffold(
       body: CustomScrollView(
@@ -67,31 +70,6 @@ class PlaceView extends StatelessWidget {
             ),
           ),
           SliverToBoxAdapter(child: _Description(destination: d)),
-          // Facilities, house rules and contact belong to a stay; an
-          // attraction or a place to eat shows the design's sections only.
-          if (d.isStay && d.facilities.isNotEmpty)
-            SliverToBoxAdapter(
-              child: _Card(
-                title: s.popularFacilities,
-                child: Column(
-                  children: [
-                    for (final f in d.facilities)
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 7),
-                        child: Row(
-                          children: [
-                            Icon(_facilityIcon(f), size: 19, color: AppColors.sand600),
-                            const SizedBox(width: 12),
-                            Expanded(child: Text(f, style: AppText.sans(14.5, color: AppColors.sand800))),
-                          ],
-                        ),
-                      ),
-                  ],
-                ),
-              ),
-            ),
-          if (d.isStay) SliverToBoxAdapter(child: _Policies(destination: d)),
-          if (d.isStay) SliverToBoxAdapter(child: ContactCard(destination: d)),
           SliverToBoxAdapter(
             child: _Card(
               title: s.howToGetThere,
@@ -138,7 +116,7 @@ class PlaceView extends StatelessWidget {
           SliverToBoxAdapter(child: SizedBox(height: 28 + MediaQuery.paddingOf(context).bottom)),
         ],
       ),
-      bottomNavigationBar: d.isStay ? _RoomsBar(destination: d) : _ActionBar(destination: d),
+      bottomNavigationBar: _ActionBar(destination: d),
     );
   }
 }
@@ -441,54 +419,6 @@ class _ActionBar extends StatelessWidget {
   }
 }
 
-/// House rules. Generic defaults until the API sends the real ones.
-class _Policies extends StatelessWidget {
-  const _Policies({required this.destination});
-  final Destination destination;
-
-  @override
-  Widget build(BuildContext context) {
-    final s = S.of(context);
-    final d = destination;
-    // TODO(api): replace with the stay's own policies once the backend has them.
-    final checkIn = d.openTime ?? '14:00';
-    final checkOut = d.closeTime ?? '12:00';
-    return _Card(
-      title: s.policies,
-      child: Column(
-        children: [
-          _PolicyRow(icon: Icons.login_rounded, label: s.checkIn, value: formatTime(checkIn)),
-          _PolicyRow(icon: Icons.logout_rounded, label: s.checkOut, value: formatTime(checkOut)),
-          _PolicyRow(icon: Icons.event_busy_outlined, label: s.cancellation, value: s.contactForPolicy),
-          _PolicyRow(icon: Icons.pets_outlined, label: s.pets, value: s.contactForPolicy),
-        ],
-      ),
-    );
-  }
-}
-
-class _PolicyRow extends StatelessWidget {
-  const _PolicyRow({required this.icon, required this.label, required this.value});
-  final IconData icon;
-  final String label;
-  final String value;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 7),
-      child: Row(
-        children: [
-          Icon(icon, size: 18, color: AppColors.sand500),
-          const SizedBox(width: 12),
-          Expanded(child: Text(label, style: AppText.sans(14.5, color: AppColors.sand800))),
-          Text(value, style: AppText.sans(13.5, weight: FontWeight.w600, color: AppColors.sand600)),
-        ],
-      ),
-    );
-  }
-}
-
 /// Blurb and detail, folded to four lines until "Read more".
 class _Description extends StatefulWidget {
   const _Description({required this.destination});
@@ -528,35 +458,6 @@ class _DescriptionState extends State<_Description> {
             ),
           ],
         ],
-      ),
-    );
-  }
-}
-
-/// Nightly price and the call to action. Hidden until the API prices the stay.
-class _RoomsBar extends StatelessWidget {
-  const _RoomsBar({required this.destination});
-  final Destination destination;
-
-  @override
-  Widget build(BuildContext context) {
-    final s = S.of(context);
-    return Container(
-      padding: EdgeInsets.fromLTRB(20, 12, 20, 12 + MediaQuery.paddingOf(context).bottom),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        border: Border(top: BorderSide(color: AppColors.sand200)),
-      ),
-      child: SizedBox(
-        width: double.infinity,
-        child: FilledButton(
-          style: FilledButton.styleFrom(
-            backgroundColor: AppColors.sand900,
-            minimumSize: const Size(0, 50),
-          ),
-          onPressed: () => context.push(Routes.rooms(destination.region, destination.slug)),
-          child: Text(s.seeAllRooms),
-        ),
       ),
     );
   }
@@ -647,24 +548,4 @@ class _Card extends StatelessWidget {
       ),
     );
   }
-}
-
-/// Symbol for a facility line ("Free Wi-Fi", "Swimming pool"…).
-IconData _facilityIcon(String facility) {
-  final f = facility.toLowerCase();
-  bool any(List<String> words) => words.any(f.contains);
-  if (any(['wifi', 'wi-fi', 'internet'])) return Icons.wifi_rounded;
-  if (any(['front desk', 'reception', '24'])) return Icons.room_service_outlined;
-  if (any(['restaurant', 'meal', 'breakfast', 'food', 'dining'])) return Icons.restaurant_rounded;
-  if (any(['pool', 'swim'])) return Icons.pool_rounded;
-  if (any(['spa', 'massage'])) return Icons.spa_outlined;
-  if (any(['bike', 'bicycle', 'cycling'])) return Icons.pedal_bike_rounded;
-  if (any(['boat', 'ferry', 'kayak'])) return Icons.directions_boat_outlined;
-  if (any(['guide', 'tour', 'trek'])) return Icons.tour_outlined;
-  if (any(['air con', 'aircon', 'a/c', 'fan'])) return Icons.ac_unit_rounded;
-  if (any(['parking', 'car'])) return Icons.local_parking_rounded;
-  if (any(['mosquito', 'bed', 'room', 'net'])) return Icons.bed_outlined;
-  if (any(['shower', 'bath', 'toilet'])) return Icons.shower_outlined;
-  if (any(['power', 'electric', 'solar'])) return Icons.bolt_rounded;
-  return Icons.check_circle_outline_rounded;
 }
