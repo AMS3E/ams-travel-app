@@ -26,25 +26,20 @@ class RoomsScreen extends StatelessWidget {
     final s = S.of(context);
     final repo = context.read<TravelRepository>();
     final ref = DestinationRef(region, slug);
+
     return Scaffold(
-      appBar: AppBar(title: Text(s.rooms, style: AppText.display(24))),
-      body: AsyncView<(Destination, List<Room>)>(
-        load: () => (repo.getDestination(region, slug), repo.getRooms(ref)).wait,
-        builder: (context, data, _) {
-          final (stay, rooms) = data;
+      appBar: AppBar(title: Text(s.rooms, style: AppText.display(20)), centerTitle: true),
+      body: AsyncView<List<Room>>(
+        load: () => repo.getRooms(ref),
+        builder: (context, rooms, _) {
           if (rooms.isEmpty) {
             return EmptyState(icon: Icons.bed_outlined, title: s.noRooms, body: s.noRoomsBody);
           }
           return ListView.separated(
-            padding: EdgeInsets.fromLTRB(20, 16, 20, 28 + MediaQuery.paddingOf(context).bottom),
-            itemCount: rooms.length + 1,
+            padding: EdgeInsets.fromLTRB(16, 14, 16, 28 + MediaQuery.paddingOf(context).bottom),
+            itemCount: rooms.length,
             separatorBuilder: (_, _) => const SizedBox(height: 16),
-            itemBuilder: (context, i) => i == 0
-                ? Text(
-                    stay.name,
-                    style: AppText.sans(15, weight: FontWeight.w600, color: AppColors.sand600),
-                  )
-                : _RoomCard(stay: stay, room: rooms[i - 1]),
+            itemBuilder: (_, i) => _RoomCard(room: rooms[i], region: region, slug: slug),
           );
         },
       ),
@@ -52,83 +47,89 @@ class RoomsScreen extends StatelessWidget {
   }
 }
 
+/// One room: its photo, the facts about it, what the rate includes and the
+/// way into the full details.
 class _RoomCard extends StatelessWidget {
-  const _RoomCard({required this.stay, required this.room});
-  final Destination stay;
+  const _RoomCard({required this.room, required this.region, required this.slug});
   final Room room;
+  final String region;
+  final String slug;
 
   @override
   Widget build(BuildContext context) {
     final s = S.of(context);
+    final r = room;
+    final price = context.watch<SettingsProvider>().price(r.pricePerNight);
+
     return Container(
+      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(AppTheme.radius),
+        borderRadius: BorderRadius.circular(18),
         border: Border.all(color: AppColors.sand200),
       ),
-      clipBehavior: Clip.antiAlias,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: 170, width: double.infinity, child: AppImage(room.image)),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 14, 16, 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(room.name, style: AppText.display(19)),
-                const SizedBox(height: 8),
-                Wrap(
-                  spacing: 14,
-                  runSpacing: 6,
-                  children: [
-                    _Fact(icon: Icons.person_outline_rounded, text: '${room.guests} ${s.guests}'),
-                    if (room.beds != null) _Fact(icon: Icons.bed_outlined, text: room.beds!),
-                    if (room.sizeSqm != null) _Fact(icon: Icons.crop_free_rounded, text: '${room.sizeSqm} m²'),
-                    if (!room.available) _Fact(icon: Icons.event_busy_rounded, text: s.soldOut),
-                  ],
+          SizedBox(
+            height: 180,
+            width: double.infinity,
+            child: AppImage(r.image, radius: BorderRadius.circular(14)),
+          ),
+          const SizedBox(height: 12),
+          Text(r.name, style: AppText.sans(18, weight: FontWeight.w700, color: AppColors.sand900)),
+          const SizedBox(height: 8),
+
+          // The facts a traveller scans first.
+          Wrap(
+            spacing: 14,
+            runSpacing: 6,
+            children: [
+              _Fact(icon: Icons.person_rounded, label: '${s.maxAdults} ${r.guests} ${s.adultsWord}'),
+              if (r.breakfast)
+                _Fact(
+                  icon: Icons.restaurant_rounded,
+                  label: s.breakfastIncluded,
+                  color: AppColors.success,
                 ),
-                if (room.amenities.isNotEmpty) ...[
-                  const SizedBox(height: 12),
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: [
-                      for (final a in room.amenities)
-                        Pill(a, icon: Icons.check_rounded, color: AppColors.brand700, background: AppColors.brand50),
-                    ],
-                  ),
-                ],
-                const SizedBox(height: 14),
-                Row(
-                  children: [
-                    Text.rich(
-                      TextSpan(
-                        children: [
-                          TextSpan(
-                            text: context.watch<SettingsProvider>().price(room.pricePerNight),
-                            style: AppText.display(20),
-                          ),
-                          TextSpan(
-                            text: ' / ${s.night}',
-                            style: AppText.sans(13, color: AppColors.sand500),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const Spacer(),
-                    FilledButton(
-                      style: FilledButton.styleFrom(
-                        backgroundColor: AppColors.sand900,
-                        minimumSize: const Size(0, 44),
-                        padding: const EdgeInsets.symmetric(horizontal: 18),
-                      ),
-                      onPressed: () => context.push(Routes.room(stay.region, stay.slug, room.id)),
-                      child: Text(s.roomDetails),
-                    ),
-                  ],
-                ),
-              ],
+              if (r.sizeSqm != null)
+                _Fact(icon: Icons.open_in_full_rounded, label: _size(r.sizeSqm!)),
+            ],
+          ),
+
+          if (r.highlights.isNotEmpty) ...[
+            const SizedBox(height: 10),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: [for (final h in r.highlights) _Check(label: h)],
+            ),
+          ],
+
+          const SizedBox(height: 14),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.baseline,
+            textBaseline: TextBaseline.alphabetic,
+            children: [
+              Text(price, style: AppText.sans(22, weight: FontWeight.w800, color: AppColors.sand900)),
+              const SizedBox(width: 8),
+              Text(s.perNight, style: AppText.sans(12.5, color: AppColors.sand500)),
+            ],
+          ),
+          const SizedBox(height: 12),
+          SizedBox(
+            width: double.infinity,
+            child: FilledButton(
+              style: FilledButton.styleFrom(
+                backgroundColor: AppColors.violet,
+                minimumSize: const Size(0, 48),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(99)),
+              ),
+              onPressed: () => context.push(Routes.room(region, slug, r.id)),
+              child: Text(
+                s.roomDetails,
+                style: AppText.sans(15, weight: FontWeight.w700, color: Colors.white),
+              ),
             ),
           ),
         ],
@@ -137,20 +138,53 @@ class _RoomCard extends StatelessWidget {
   }
 }
 
+/// "60 m²/646 ft²".
+String _size(int sqm) => '$sqm m²/${(sqm * 10.7639).round()} ft²';
+
+/// One fact with its symbol.
 class _Fact extends StatelessWidget {
-  const _Fact({required this.icon, required this.text});
+  const _Fact({required this.icon, required this.label, this.color});
   final IconData icon;
-  final String text;
+  final String label;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(icon, size: 16, color: AppColors.sand500),
+        Icon(icon, size: 15, color: color ?? AppColors.sand700),
         const SizedBox(width: 5),
-        Text(text, style: AppText.sans(13, color: AppColors.sand600)),
+        Text(
+          label,
+          style: AppText.sans(12.5, weight: FontWeight.w500, color: color ?? AppColors.sand700),
+        ),
       ],
+    );
+  }
+}
+
+/// One thing the rate includes, with a tick.
+class _Check extends StatelessWidget {
+  const _Check({required this.label});
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      decoration: BoxDecoration(
+        color: AppColors.sand100,
+        borderRadius: BorderRadius.circular(99),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(Icons.check_rounded, size: 13, color: AppColors.sand600),
+          const SizedBox(width: 5),
+          Text(label, style: AppText.sans(11.5, color: AppColors.sand700)),
+        ],
+      ),
     );
   }
 }

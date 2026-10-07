@@ -1,6 +1,8 @@
 import 'package:go_router/go_router.dart';
 import 'package:material_ui/material_ui.dart';
+import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../core/l10n/app_strings.dart';
 import '../../core/router/routes.dart';
@@ -9,6 +11,7 @@ import '../../core/theme/app_theme.dart';
 import '../../core/utils/geo.dart';
 import '../../core/utils/opening_hours.dart';
 import '../../data/models/models.dart';
+import '../../data/repositories/travel_repository.dart';
 import '../../state/collections_provider.dart';
 import '../../widgets/app_image.dart';
 import '../../widgets/common.dart';
@@ -52,12 +55,6 @@ class PlaceView extends StatelessWidget {
       ..sort((a, b) => distanceKm(d.lat, d.lng, a.lat, a.lng).compareTo(distanceKm(d.lat, d.lng, b.lat, b.lng)));
     // Nearby is what else is around; "you may like" stays in the same interest.
     final nearby = byDistance.where((o) => !categories.contains(o.category)).take(8).toList();
-    String away(Destination o) => '${formatKm(distanceKm(d.lat, d.lng, o.lat, o.lng))} $distanceUnit ${s.kmAway}';
-    // The chips under the map: what a stay offers, or what a place is known
-    // for.
-    final keywords = d.isStay && d.facilities.isNotEmpty
-        ? d.facilities
-        : (d.tags.isNotEmpty ? d.tags : d.facets.keys.toList());
 
     return Scaffold(
       body: CustomScrollView(
@@ -69,7 +66,10 @@ class PlaceView extends StatelessWidget {
               child: _TitleBlock(destination: d, title: title, interest: _interest),
             ),
           ),
+          SliverToBoxAdapter(child: _Quote(destination: d)),
           SliverToBoxAdapter(child: _Description(destination: d)),
+          // Facilities, house rules and contact belong to a stay; an
+          // attraction or a place to eat shows the design's sections only.
           SliverToBoxAdapter(
             child: _Card(
               title: s.howToGetThere,
@@ -94,7 +94,9 @@ class PlaceView extends StatelessWidget {
               ),
             ),
           ),
-          if (keywords.isNotEmpty) SliverToBoxAdapter(child: _Keywords(words: keywords)),
+          // What a stay offers, between the map and what travellers say.
+          if (d.isStay && d.facilities.isNotEmpty)
+            SliverToBoxAdapter(child: _Keywords(words: d.facilities)),
           SliverToBoxAdapter(child: ReviewsSection(destination: d)),
           if (nearby.isNotEmpty)
             SliverToBoxAdapter(
@@ -108,15 +110,18 @@ class PlaceView extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     itemCount: nearby.length,
                     separatorBuilder: (_, _) => const SizedBox(width: 12),
-                    itemBuilder: (_, i) => _SimilarCard(destination: nearby[i], caption: away(nearby[i])),
+                    itemBuilder: (_, i) => _SimilarCard(destination: nearby[i]),
                   ),
                 ),
               ),
             ),
+          if (d.isStay) SliverToBoxAdapter(child: _StayPolicies(destination: d)),
+          if (d.isStay && (d.phone != null || d.website != null))
+            SliverToBoxAdapter(child: _ContactPills(destination: d)),
           SliverToBoxAdapter(child: SizedBox(height: 28 + MediaQuery.paddingOf(context).bottom)),
         ],
       ),
-      bottomNavigationBar: _ActionBar(destination: d),
+      bottomNavigationBar: d.isStay ? _RoomsBar(destination: d) : null,
     );
   }
 }
@@ -254,7 +259,6 @@ class _TitleBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     final s = S.of(context);
     final d = destination;
-    final status = openStatus(d);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -265,8 +269,17 @@ class _TitleBlock extends StatelessWidget {
           children: [
             const Icon(Icons.verified_rounded, size: 15, color: Color(0xFF34D399)),
             const SizedBox(width: 5),
-            Text(s.recommendByTraveler, style: AppText.sans(12.5, color: AppColors.sand600)),
-            const Spacer(),
+            // The score and what the place is are never cut; the line on the
+            // left gives way instead.
+            Flexible(
+              child: Text(
+                s.recommendByTraveler,
+                style: AppText.sans(12.5, color: AppColors.sand600),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            const SizedBox(width: 10),
             if (d.rating != null) ...[
               const Icon(Icons.star_rounded, size: 17, color: AppColors.star),
               const SizedBox(width: 3),
@@ -276,8 +289,9 @@ class _TitleBlock extends StatelessWidget {
               ),
               if (d.reviewCount != null)
                 Text(
-                  ' (${thousands(d.reviewCount!)} ${s.reviewsWord.toLowerCase()})',
-                  style: AppText.sans(12.5, color: AppColors.sand500),
+                  ' ${thousands(d.reviewCount!)} ${s.reviewsWord.toLowerCase()}'
+                  '${d.stars == null ? '' : '  ·  ${d.stars}-star ${_stayNoun(d.category)}'}',
+                  style: AppText.sans(11.5, color: AppColors.sand500),
                 ),
             ] else
               Text(s.noReviews, style: AppText.sans(12.5, color: AppColors.sand500)),
@@ -288,63 +302,85 @@ class _TitleBlock extends StatelessWidget {
           spacing: 8,
           runSpacing: 8,
           children: [
-            _Tag(label: d.province, icon: Icons.place_outlined),
+            // A stay says when its reception is open; elsewhere the chips are
+            // about what kind of place it is.
+            if (d.isStay && openStatus(d) != OpenStatus.unknown)
+              _Tag(
+                label: d.open24h ? s.open24h : s.openNow,
+                icon: Icons.schedule_rounded,
+                color: AppColors.success,
+              ),
             _Tag(label: d.category, icon: Icons.local_offer_outlined),
             if (interest != null && interest!.name != d.category)
               _Tag(label: interest!.name, icon: Icons.interests_outlined),
           ],
         ),
-        if (status != OpenStatus.unknown) ...[
-          const SizedBox(height: 10),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            decoration: BoxDecoration(
-              color: (status == OpenStatus.open ? AppColors.success : AppColors.sunset600)
-                  .withValues(alpha: 0.10),
-              borderRadius: BorderRadius.circular(99),
-            ),
-            child: Text(
-              status == OpenStatus.open ? s.openNow : s.closedNow,
-              style: AppText.sans(
-                12.5,
-                weight: FontWeight.w600,
-                color: status == OpenStatus.open ? AppColors.success : AppColors.sunset600,
-              ),
-            ),
-          ),
-        ],
       ],
     );
   }
 }
 
-/// A violet outline chip under the title.
-class _Tag extends StatelessWidget {
-  const _Tag({required this.label, required this.icon});
-  final String label;
-  final IconData icon;
+/// What a traveller said about the place, pulled out above the description.
+/// Nothing is shown until someone has written something.
+class _Quote extends StatelessWidget {
+  const _Quote({required this.destination});
+  final Destination destination;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(99),
-        border: Border.all(color: AppColors.violet.withValues(alpha: 0.45)),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 14, color: AppColors.violet),
-          const SizedBox(width: 5),
-          Text(label, style: AppText.sans(12.5, weight: FontWeight.w600, color: AppColors.violet)),
-        ],
-      ),
+    return FutureBuilder<List<Review>>(
+      future: context.read<TravelRepository>().getReviews(destination.ref),
+      builder: (context, snap) {
+        final reviews = snap.data ?? const <Review>[];
+        if (reviews.isEmpty) return const SizedBox.shrink();
+        final best = reviews.reduce((a, b) => b.rating > a.rating ? b : a);
+        final words = best.text ?? best.title;
+        if (words == null || words.isEmpty) return const SizedBox.shrink();
+
+        return Container(
+          margin: const EdgeInsets.fromLTRB(20, 16, 20, 0),
+          padding: const EdgeInsets.all(14),
+          decoration: BoxDecoration(
+            color: AppColors.violet.withValues(alpha: 0.04),
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: AppColors.violet.withValues(alpha: 0.25)),
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Icon(Icons.format_quote_rounded, size: 20, color: AppColors.violet.withValues(alpha: 0.6)),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      words,
+                      style: AppText.sans(
+                        13.5,
+                        color: AppColors.violet,
+                        height: 1.5,
+                      ).copyWith(fontStyle: FontStyle.italic),
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 6),
+                    Text(
+                      '— ${best.author}',
+                      style: AppText.sans(12, weight: FontWeight.w600, color: AppColors.violet),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
 
-/// What this place is known for, in red outline chips.
+/// What a stay offers, in red outline chips.
 class _Keywords extends StatelessWidget {
   const _Keywords({required this.words});
   final List<String> words;
@@ -372,52 +408,42 @@ class _Keywords extends StatelessWidget {
   }
 }
 
-/// Write a review or open the place on the map.
-class _ActionBar extends StatelessWidget {
-  const _ActionBar({required this.destination});
-  final Destination destination;
+/// What a stay is called once it has a star rating: "5-star hotel".
+String _stayNoun(String category) => switch (category) {
+  'Homestay' => 'homestay',
+  'Eco Lodge' => 'lodge',
+  'Private Island' => 'resort',
+  _ => 'hotel',
+};
+
+/// A violet outline chip under the title.
+class _Tag extends StatelessWidget {
+  const _Tag({required this.label, required this.icon, this.color = AppColors.violet});
+  final String label;
+  final IconData icon;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
-    final s = S.of(context);
-    final d = destination;
-    return SafeArea(
-      minimum: const EdgeInsets.fromLTRB(20, 0, 20, 10),
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(99),
+        border: Border.all(color: color.withValues(alpha: 0.45)),
+      ),
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Expanded(
-            child: OutlinedButton.icon(
-              style: OutlinedButton.styleFrom(
-                minimumSize: const Size(0, 50),
-                side: const BorderSide(color: AppColors.violet),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-              ),
-              onPressed: () => context.push(Routes.review(d.region, d.slug)),
-              icon: const Icon(Icons.edit_outlined, size: 18, color: AppColors.violet),
-              label: Text(
-                s.writeReview,
-                style: AppText.sans(14, weight: FontWeight.w700, color: AppColors.violet),
-              ),
-            ),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: FilledButton.icon(
-              style: FilledButton.styleFrom(
-                backgroundColor: AppColors.violet,
-                minimumSize: const Size(0, 50),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-              ),
-              onPressed: () => context.go(Routes.mapFocus(d.key)),
-              icon: const Icon(Icons.place_outlined, size: 18, color: Colors.white),
-              label: Text(s.viewOnMap, style: AppText.sans(14, weight: FontWeight.w700, color: Colors.white)),
-            ),
-          ),
+          Icon(icon, size: 14, color: color),
+          const SizedBox(width: 5),
+          Text(label, style: AppText.sans(12.5, weight: FontWeight.w600, color: color)),
         ],
       ),
     );
   }
 }
+
+
 
 /// Blurb and detail, folded to four lines until "Read more".
 class _Description extends StatefulWidget {
@@ -463,48 +489,249 @@ class _DescriptionState extends State<_Description> {
   }
 }
 
-/// Small card in the "You may like" row.
-class _SimilarCard extends StatelessWidget {
-  const _SimilarCard({required this.destination, this.caption});
+/// Nightly price and the call to action. Hidden until the API prices the stay.
+class _RoomsBar extends StatelessWidget {
+  const _RoomsBar({required this.destination});
   final Destination destination;
-
-  /// Small grey line under the name — how far away it is.
-  final String? caption;
 
   @override
   Widget build(BuildContext context) {
+    final s = S.of(context);
+    return Container(
+      padding: EdgeInsets.fromLTRB(20, 12, 20, 12 + MediaQuery.paddingOf(context).bottom),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        border: Border(top: BorderSide(color: AppColors.sand200)),
+      ),
+      child: SizedBox(
+        width: double.infinity,
+        child: FilledButton(
+          style: FilledButton.styleFrom(
+            backgroundColor: AppColors.violet,
+            minimumSize: const Size(0, 52),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+          ),
+          onPressed: () => context.push(Routes.rooms(destination.region, destination.slug)),
+          child: Text(s.viewRooms, style: AppText.sans(15.5, weight: FontWeight.w700, color: Colors.white)),
+        ),
+      ),
+    );
+  }
+}
+
+/// House rules, as the design lists them.
+///
+/// TODO(api): the times and the note are the same for every stay until the
+/// backend sends each one's own.
+class _StayPolicies extends StatelessWidget {
+  const _StayPolicies({required this.destination});
+  final Destination destination;
+
+  @override
+  Widget build(BuildContext context) {
+    final s = S.of(context);
+    final d = destination;
+    final checkIn = formatTime(d.openTime ?? '14:00');
+    final checkOut = formatTime(d.closeTime ?? '12:00');
+
+    return _Card(
+      title: s.stayPolicies,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _Bullet(text: '${s.checkIn}: ${s.fromTime} $checkIn'),
+          _Bullet(text: '${s.checkOut}: ${s.beforeTime} $checkOut'),
+          _Bullet(text: s.earlyCheckInNote),
+        ],
+      ),
+    );
+  }
+}
+
+/// One line of the house rules.
+class _Bullet extends StatelessWidget {
+  const _Bullet({required this.text});
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('•  ', style: AppText.sans(13.5, color: AppColors.sand600)),
+          Expanded(
+            child: Text(text, style: AppText.sans(13.5, color: AppColors.sand700, height: 1.45)),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
+
+/// How to reach the stay: a row per way, big enough to read and to tap.
+class _ContactPills extends StatelessWidget {
+  const _ContactPills({required this.destination});
+  final Destination destination;
+
+  @override
+  Widget build(BuildContext context) {
+    final s = S.of(context);
+    final d = destination;
+
+    return Container(
+      margin: const EdgeInsets.fromLTRB(20, 16, 20, 0),
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(color: AppColors.sand200),
+      ),
+      child: Column(
+        children: [
+          if (d.phone != null)
+            _ContactRow(
+              icon: Icons.call_rounded,
+              label: s.callWord,
+              value: d.phone!,
+              onTap: () => launchUrl(Uri.parse('tel:${d.phone!.replaceAll(' ', '')}')),
+            ),
+          if (d.phone != null && d.website != null)
+            const Divider(height: 1, color: AppColors.sand200),
+          if (d.website != null)
+            _ContactRow(
+              icon: Icons.public_rounded,
+              label: s.website,
+              // Just the site's name; the whole link is what opens.
+              value: d.website!.replaceFirst(RegExp('^https?://'), '').split('/').first,
+              onTap: () => launchUrl(
+                Uri.parse(d.website!.startsWith('http') ? d.website! : 'https://${d.website!}'),
+                mode: LaunchMode.externalApplication,
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+/// One way of getting in touch.
+class _ContactRow extends StatelessWidget {
+  const _ContactRow({required this.icon, required this.label, required this.value, required this.onTap});
+  final IconData icon;
+  final String label;
+  final String value;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 12),
+        child: Row(
+          children: [
+            Container(
+              width: 42,
+              height: 42,
+              decoration: BoxDecoration(
+                color: AppColors.violet.withValues(alpha: 0.10),
+                shape: BoxShape.circle,
+              ),
+              child: Icon(icon, size: 20, color: AppColors.violet),
+            ),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(label, style: AppText.sans(11.5, color: AppColors.sand500)),
+                  const SizedBox(height: 2),
+                  Text(
+                    value,
+                    style: AppText.sans(15, weight: FontWeight.w700, color: AppColors.sand900),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+            ),
+            const Icon(Icons.chevron_right_rounded, color: AppColors.sand400),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Small card in the "You may like" row.
+class _SimilarCard extends StatelessWidget {
+  const _SimilarCard({required this.destination});
+  final Destination destination;
+
+  @override
+  Widget build(BuildContext context) {
+    final s = S.of(context);
     final d = destination;
     return GestureDetector(
       onTap: () => context.push(Routes.destination(d.region, d.slug)),
       child: SizedBox(
-        width: 150,
+        width: 152,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: 120,
+              height: 126,
               width: double.infinity,
-              child: Stack(
-                fit: StackFit.expand,
-                children: [
-                  AppImage(d.image, radius: BorderRadius.circular(16)),
-                  Positioned(
-                    top: 6,
-                    left: 6,
-                    child: SaveButton(kind: SavedKind.destination, itemKey: d.key, size: 30),
-                  ),
-                ],
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    AppImage(d.image),
+                    Positioned(
+                      right: 6,
+                      top: 6,
+                      child: SaveButton(kind: SavedKind.destination, itemKey: d.key, size: 32),
+                    ),
+                  ],
+                ),
               ),
             ),
             const SizedBox(height: 8),
             Text(
               bilingual(context, d.name, d.nameKh).$1,
               style: AppText.sans(13.5, weight: FontWeight.w700, color: AppColors.sand900),
-              maxLines: 2,
+              maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
-            if (caption != null)
-              Text(caption!, style: AppText.sans(12, color: AppColors.sand500), maxLines: 1),
+            if (d.rating != null) ...[
+              const SizedBox(height: 4),
+              Row(
+                children: [
+                  const Icon(Icons.star_rounded, size: 15, color: AppColors.star),
+                  const SizedBox(width: 3),
+                  Text(
+                    d.rating!.toStringAsFixed(1),
+                    style: AppText.sans(12.5, weight: FontWeight.w700, color: AppColors.sand900),
+                  ),
+                  if (d.reviewCount != null) ...[
+                    const SizedBox(width: 6),
+                    Expanded(
+                      child: Text(
+                        '${thousands(d.reviewCount!)} ${s.reviewsWord.toLowerCase()}',
+                        style: AppText.sans(11.5, color: AppColors.sand500),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            ],
           ],
         ),
       ),
@@ -549,3 +776,4 @@ class _Card extends StatelessWidget {
     );
   }
 }
+

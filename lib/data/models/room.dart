@@ -14,6 +14,11 @@ class Room {
     this.beds,
     this.sizeSqm,
     this.amenities = const [],
+    this.breakfast = false,
+    this.view,
+    this.smoking = false,
+    this.highlights = const [],
+    this.amenityGroups = const {},
     this.available = true,
   });
 
@@ -38,6 +43,19 @@ class Room {
   final String? beds;
   final int? sizeSqm;
   final List<String> amenities;
+
+  /// Breakfast comes with the room.
+  final bool breakfast;
+
+  /// "Garden view", "Pool view"…
+  final String? view;
+  final bool smoking;
+
+  /// What the room card promises: free cancellation, parking, free WiFi…
+  final List<String> highlights;
+
+  /// Everything in the room, under the heading it belongs to.
+  final Map<String, List<String>> amenityGroups;
   final bool available;
 
   factory Room.fromJson(Json j) => Room(
@@ -52,6 +70,14 @@ class Room {
     beds: strOrNull(j, 'beds', alt: ['bed']),
     sizeSqm: j['sizeSqm'] == null && j['size_sqm'] == null ? null : integer(j, 'sizeSqm', alt: ['size_sqm']),
     amenities: strList(j, 'amenities', alt: ['facilities']),
+    breakfast: j['breakfast'] == null ? false : boolean(j, 'breakfast'),
+    view: strOrNull(j, 'view'),
+    smoking: j['smoking'] == null ? false : boolean(j, 'smoking'),
+    highlights: strList(j, 'highlights'),
+    amenityGroups: {
+      for (final e in (j['amenityGroups'] as Map?)?.entries ?? const <MapEntry<Object?, Object?>>[])
+        e.key.toString(): [for (final v in e.value as List) v.toString()],
+    },
     available: j['available'] == null ? true : boolean(j, 'available'),
   );
 
@@ -67,6 +93,11 @@ class Room {
     if (beds != null) 'beds': beds,
     if (sizeSqm != null) 'sizeSqm': sizeSqm,
     'amenities': amenities,
+    'breakfast': breakfast,
+    if (view != null) 'view': view,
+    'smoking': smoking,
+    if (highlights.isNotEmpty) 'highlights': highlights,
+    if (amenityGroups.isNotEmpty) 'amenityGroups': amenityGroups,
     'available': available,
   };
 }

@@ -33,7 +33,7 @@ flutter test
 | Welcome / onboarding | `/welcome` — slides, interests step, "journey is ready" |
 | Home (the Explore tab) | `/` — regions, popular, corridors, interests, provinces, reviews |
 | Browse by region | `/regions/explore` — the nine regions and what they hold |
-| Region place list | `/regions/:region/places` — every place in one region |
+| Region | `/regions/:region` — overview, map and every place in it |
 | Popular | `/popular` — the best known places in one list |
 | Type-ahead search | `/popular/search` — matches as you type, then suggestions |
 | Browse by interest | `/interests/explore` — one category at a time, plus what travellers recommend |
@@ -43,7 +43,6 @@ flutter test
 | Map | `/map`, `/map?place=region/slug` — layers for provinces, interests and corridors |
 | Saved | `/saved`, folders at `/folders` and `/folders/:name` |
 | Profile | `/profile` |
-| Region | `/regions/:region` |
 | Destination (all categories) | `/regions/:region/:slug` |
 | Write a review | `/regions/:region/:slug/review` |
 | Rooms (stays) | `/regions/:region/:slug/rooms`, `/regions/:region/:slug/rooms/:roomId` |
@@ -140,14 +139,16 @@ the code — `grep -rn "TODO(api)" lib` lists them all.
 
 | Area | Where | What is needed |
 |---|---|---|
-| Room prices | `data/models/destination.dart`, `assets/mock/rooms.json` | `priceFrom` and `currency` per stay, and the rooms themselves |
+| Room prices and details | `data/models/destination.dart`, `assets/mock/rooms.json` | `priceFrom` and `currency` per stay, and the rooms themselves — size, beds, view, what the rate includes and the amenity groups are sample values |
 | Opening hours | `assets/mock/destinations.json` | real `openTime` / `closeTime` / `open24h` — the mock values are guesses by place type |
 | Stay policies | `features/destination/place_view.dart` | check-in/out, cancellation, children, pets |
-| Contact details | `assets/mock/destinations.json` | phone, email, website, Telegram per place |
+| Contact details | `assets/mock/destinations.json` | phone, email, website, Telegram per place — the stays currently show AMS Travel's own support number and a link to the place's page on the website |
 | Corridor plans | `assets/mock/corridors.json` | the day-by-day itineraries are invented |
 | Reviews | `/regions/:region/destinations/:slug/reviews`, `/me/reviews` | the seeded reviews in `assets/mock` (including `place_reviews.json`) are placeholders |
+| Stay classification | `assets/mock/destinations.json` | the `stars` on each stay (5-star hotel, 3-star homestay…) is a sample value |
 | Ratings and review counts | `assets/mock/destinations.json` | only 13 ratings came from the website; the rest, and every `reviewCount`, are generated placeholders |
 | Place photos | `assets/mock/destinations.json` | each place has one real photo; the other four in its gallery are stock shots borrowed from the same interest and region |
+| Region map picture | `assets/images/cambodia_map.jpg` | one map of the whole country stands in for a map image per region |
 | Profile | `state/auth_provider.dart` | `location` and `joinedOn` on the user, plus `PATCH /me` and `PATCH /me/password` |
 | Saved, folders, stamps, badges | `state/collections_provider.dart` | `/me/saved`, `/me/folders`, `/me/stamps`, badge tiers and earned dates |
 | Preferences | `state/settings_provider.dart` | store language/currency/unit/notifications on the account; a live USD→KHR rate (fixed at 4100 now) |

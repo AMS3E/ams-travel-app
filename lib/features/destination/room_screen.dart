@@ -3,16 +3,13 @@ import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/l10n/app_strings.dart';
-import '../../core/router/routes.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_theme.dart';
 import '../../data/models/models.dart';
 import '../../data/repositories/travel_repository.dart';
-import '../../state/settings_provider.dart';
 import '../../widgets/app_image.dart';
 import '../../widgets/async_view.dart';
 import '../../widgets/common.dart';
-import 'contact_card.dart';
 
 /// One room: its photos, who it sleeps, what it includes and the rate.
 class RoomScreen extends StatelessWidget {
@@ -48,111 +45,131 @@ class _RoomView extends StatelessWidget {
   final Destination stay;
   final Room room;
 
+  /// "60 m²/646 ft²".
+  static String _size(int sqm) => '$sqm m²/${(sqm * 10.7639).round()} ft²';
+
   @override
   Widget build(BuildContext context) {
     final s = S.of(context);
+    final r = room;
+
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverToBoxAdapter(child: _Gallery(room: room)),
-          SliverToBoxAdapter(
-            child: Padding(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: Text(s.roomDetails, style: AppText.display(20)),
+        centerTitle: true,
+      ),
+      body: ListView(
+        padding: EdgeInsets.only(bottom: 28 + MediaQuery.paddingOf(context).bottom),
+        children: [
+          _Gallery(room: r),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
+            child: Text(r.name, style: AppText.sans(20, weight: FontWeight.w700, color: AppColors.sand900)),
+          ),
+
+          // What the room is known for, in one line of facts.
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 14, 20, 0),
+            child: Text(
+              s.featuredAmenities,
+              style: AppText.sans(15.5, weight: FontWeight.w700, color: AppColors.violet),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+            child: Wrap(
+              spacing: 14,
+              runSpacing: 8,
+              children: [
+                if (r.sizeSqm != null) _Fact(icon: Icons.open_in_full_rounded, label: _size(r.sizeSqm!)),
+                if (r.beds != null) _Fact(icon: Icons.bed_rounded, label: r.beds!),
+                if (r.view != null) _Fact(icon: Icons.photo_camera_outlined, label: r.view!),
+                if (!r.smoking) _Fact(icon: Icons.smoke_free_rounded, label: s.nonSmoking),
+                for (final a in r.amenities.take(2)) _Fact(icon: Icons.check_rounded, label: a),
+              ],
+            ),
+          ),
+
+          if (r.description != null)
+            Container(
+              margin: const EdgeInsets.fromLTRB(20, 16, 20, 0),
+              padding: const EdgeInsets.all(14),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: AppColors.violet.withValues(alpha: 0.25)),
+              ),
+              child: Text(
+                r.description!,
+                style: AppText.sans(13, color: AppColors.sand700, height: 1.6),
+              ),
+            ),
+
+          // Everything in the room, under the heading it belongs to.
+          for (final group in r.amenityGroups.entries) ...[
+            Padding(
               padding: const EdgeInsets.fromLTRB(20, 18, 20, 0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Row(
                 children: [
-                  Text(room.name, style: AppText.display(24)),
-                  const SizedBox(height: 6),
-                  GestureDetector(
-                    onTap: () => context.push(Routes.destination(stay.region, stay.slug)),
-                    child: Row(
-                      children: [
-                        const Icon(Icons.hotel_rounded, size: 16, color: AppColors.sand500),
-                        const SizedBox(width: 5),
-                        Text(
-                          stay.name,
-                          style: AppText.sans(13.5, weight: FontWeight.w600, color: AppColors.brand600),
-                        ),
-                      ],
+                  Icon(_groupIcon(group.key), size: 18, color: AppColors.violet),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      group.key,
+                      style: AppText.sans(15.5, weight: FontWeight.w700, color: AppColors.violet),
                     ),
                   ),
-                  const SizedBox(height: 14),
-                  Wrap(
-                    spacing: 10,
-                    runSpacing: 10,
-                    children: [
-                      _Fact(icon: Icons.person_outline_rounded, text: '${room.guests} ${s.guests}'),
-                      if (room.beds != null) _Fact(icon: Icons.bed_outlined, text: room.beds!),
-                      if (room.sizeSqm != null) _Fact(icon: Icons.crop_free_rounded, text: '${room.sizeSqm} m²'),
-                      _Fact(
-                        icon: room.available ? Icons.event_available_rounded : Icons.event_busy_rounded,
-                        text: room.available ? s.available : s.soldOut,
-                      ),
-                    ],
-                  ),
                 ],
               ),
             ),
-          ),
-          if (room.description != null)
-            SliverToBoxAdapter(
-              child: _Card(
-                title: s.description,
-                child: Text(
-                  room.description!,
-                  style: AppText.sans(14.5, color: AppColors.sand700, height: 1.6),
-                ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 6, 20, 0),
+              child: Text(
+                group.value.join('  ·  '),
+                style: AppText.sans(12.5, color: AppColors.sand600, height: 1.6),
               ),
             ),
-          if (room.amenities.isNotEmpty)
-            SliverToBoxAdapter(
-              child: _Card(
-                title: s.whatsIncluded,
-                child: Column(
-                  children: [
-                    for (final a in room.amenities)
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 7),
-                        child: Row(
-                          children: [
-                            const Icon(Icons.check_circle_outline_rounded, size: 19, color: AppColors.success),
-                            const SizedBox(width: 12),
-                            Expanded(child: Text(a, style: AppText.sans(14.5, color: AppColors.sand800))),
-                          ],
-                        ),
-                      ),
-                  ],
-                ),
-              ),
-            ),
-          SliverToBoxAdapter(
-            child: _Card(
-              title: s.policies,
-              child: Column(
-                children: [
-                  _PolicyLine(label: s.checkIn, value: '2PM'),
-                  _PolicyLine(label: s.checkOut, value: '12PM'),
-                  _PolicyLine(label: s.cancellation, value: s.contactForPolicy),
-                ],
-              ),
-            ),
-          ),
-          // Same contacts as the stay — a guest asking about this room does
-          // not have to go back a page to find them.
-          SliverToBoxAdapter(
-            child: ContactCard(
-              destination: stay,
-              price: context.watch<SettingsProvider>().price(room.pricePerNight),
-            ),
-          ),
-          SliverToBoxAdapter(child: SizedBox(height: 28 + MediaQuery.paddingOf(context).bottom)),
+          ],
         ],
       ),
     );
   }
 }
 
-/// Swipeable room photos with a counter and the back button.
+/// A symbol for each group of amenities.
+IconData _groupIcon(String group) => switch (group) {
+  'Kitchen' => Icons.kitchen_rounded,
+  'Entertainment' => Icons.tv_rounded,
+  'Comforts' => Icons.weekend_rounded,
+  'Clothing and laundry' => Icons.checkroom_rounded,
+  'For the kids' => Icons.child_friendly_rounded,
+  'Safety and security features' => Icons.verified_user_rounded,
+  'Bathroom and toiletries' => Icons.bathtub_rounded,
+  'Dining, drinking, and snacking' => Icons.local_cafe_rounded,
+  'Layout and furnishings' => Icons.chair_rounded,
+  _ => Icons.check_circle_outline_rounded,
+};
+
+/// One fact with its symbol.
+class _Fact extends StatelessWidget {
+  const _Fact({required this.icon, required this.label});
+  final IconData icon;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(icon, size: 15, color: AppColors.sand700),
+        const SizedBox(width: 5),
+        Text(label, style: AppText.sans(12, weight: FontWeight.w500, color: AppColors.sand700)),
+      ],
+    );
+  }
+}
+
 class _Gallery extends StatefulWidget {
   const _Gallery({required this.room});
   final Room room;
@@ -217,76 +234,5 @@ class _GalleryState extends State<_Gallery> {
   }
 }
 
-class _Fact extends StatelessWidget {
-  const _Fact({required this.icon, required this.text});
-  final IconData icon;
-  final String text;
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(999),
-        border: Border.all(color: AppColors.sand200),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 16, color: AppColors.sand500),
-          const SizedBox(width: 6),
-          Text(text, style: AppText.sans(13, color: AppColors.sand700)),
-        ],
-      ),
-    );
-  }
-}
 
-class _PolicyLine extends StatelessWidget {
-  const _PolicyLine({required this.label, required this.value});
-  final String label;
-  final String value;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 7),
-      child: Row(
-        children: [
-          Expanded(child: Text(label, style: AppText.sans(14.5, color: AppColors.sand800))),
-          Text(value, style: AppText.sans(13.5, weight: FontWeight.w600, color: AppColors.sand600)),
-        ],
-      ),
-    );
-  }
-}
-
-class _Card extends StatelessWidget {
-  const _Card({required this.title, required this.child});
-  final String title;
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 18, 20, 0),
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(AppTheme.radius),
-          border: Border.all(color: AppColors.sand200),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(title, style: AppText.display(17)),
-            const SizedBox(height: 10),
-            child,
-          ],
-        ),
-      ),
-    );
-  }
-}
