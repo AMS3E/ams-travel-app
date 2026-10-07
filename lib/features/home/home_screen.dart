@@ -101,14 +101,6 @@ class _HomeBody extends StatelessWidget {
   const _HomeBody({required this.data});
   final _HomeData data;
 
-  /// Average rating of a region's places, and how many it holds.
-  (double?, int) _regionStats(String slug) {
-    final places = data.places.where((d) => d.region == slug).toList();
-    final rated = places.where((d) => d.rating != null).toList();
-    final average = rated.isEmpty ? null : rated.map((d) => d.rating!).reduce((a, b) => a + b) / rated.length;
-    return (average, places.length);
-  }
-
   @override
   Widget build(BuildContext context) {
     final s = S.of(context);
@@ -120,7 +112,7 @@ class _HomeBody extends StatelessWidget {
         const SizedBox(height: 14),
         const _SearchBar(),
         const SizedBox(height: 18),
-        const _QuickActions(),
+        _QuickActions(interests: data.interests),
         const SizedBox(height: 22),
 
         // Tourism regions
@@ -134,12 +126,9 @@ class _HomeBody extends StatelessWidget {
             separatorBuilder: (_, _) => const SizedBox(width: 12),
             itemBuilder: (_, i) {
               final r = data.regions[i];
-              final (rating, count) = _regionStats(r.slug);
               return _WideCard(
                 image: r.image,
                 title: bilingual(context, r.name, r.nameKh).$1,
-                rating: rating,
-                count: count,
                 savedKind: SavedKind.region,
                 savedKey: r.slug,
                 onTap: () => context.push(Routes.region(r.slug)),
@@ -152,7 +141,7 @@ class _HomeBody extends StatelessWidget {
         // Popular places
         _SectionHeader(title: s.exploreByPopular, onMore: () => context.push(Routes.popular)),
         SizedBox(
-          height: 166,
+          height: 182,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -177,7 +166,6 @@ class _HomeBody extends StatelessWidget {
               return _WideCard(
                 image: c.image,
                 title: c.name,
-                caption: '${c.duration}  ·  ${c.stops.length} ${s.stops.toLowerCase()}',
                 savedKind: SavedKind.corridor,
                 savedKey: c.slug,
                 onTap: () => context.push(Routes.corridor(c.slug)),
@@ -187,29 +175,15 @@ class _HomeBody extends StatelessWidget {
         ),
         const SizedBox(height: 22),
 
-        // Interests
-        _SectionHeader(title: s.exploreByInterest, onMore: () => context.push(Routes.exploreInterests)),
-        SizedBox(
-          height: 124,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            itemCount: data.interests.length,
-            separatorBuilder: (_, _) => const SizedBox(width: 12),
-            itemBuilder: (_, i) => _InterestTile(interest: data.interests[i]),
-          ),
-        ),
-        const SizedBox(height: 22),
-
         // Provinces
         _SectionHeader(title: s.exploreByProvinces, onMore: () => context.push(Routes.exploreProvinces)),
         SizedBox(
-          height: 234,
+          height: 182,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 16),
             itemCount: data.provinces.length,
-            separatorBuilder: (_, _) => const SizedBox(width: 14),
+            separatorBuilder: (_, _) => const SizedBox(width: 12),
             itemBuilder: (_, i) {
               final p = data.provinces[i];
               // Until the API rates provinces, the card averages the places
@@ -338,49 +312,61 @@ class _SearchBar extends StatelessWidget {
   }
 }
 
-/// Hotel · Restaurant · Tour · Tour Guide · More
+/// One circle per interest, in the order the interest data lists them. The full
+/// names run long, so the row scrolls sideways rather than squeezing them.
 class _QuickActions extends StatelessWidget {
-  const _QuickActions();
+  const _QuickActions({required this.interests});
+
+  final List<Interest> interests;
+
+  /// The icon each interest wears here, keyed by slug.
+  static const _icons = <String, IconData>{
+    'attraction-sites': Icons.temple_buddhist_rounded,
+    'stays': Icons.hotel_rounded,
+    'food': Icons.restaurant_rounded,
+    'water': Icons.eco_rounded,
+    'activities-experiences': Icons.hiking_rounded,
+    'tourism-corridors': Icons.route_rounded,
+  };
 
   @override
   Widget build(BuildContext context) {
-    final s = S.of(context);
-    // One per interest, straight into that category.
-    final actions = <(IconData, String, String)>[
-      (Icons.temple_buddhist_rounded, s.quickAttraction, 'attraction-sites'),
-      (Icons.hotel_rounded, s.quickStays, 'stays'),
-      (Icons.restaurant_rounded, s.quickFood, 'food'),
-      (Icons.eco_rounded, s.quickNature, 'water'),
-      (Icons.hiking_rounded, s.quickExperiences, 'activities-experiences'),
-    ];
+    final shown = interests.where((i) => _icons.containsKey(i.slug)).toList();
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          for (final (icon, label, slug) in actions)
-            Expanded(
-              child: InkWell(
-                borderRadius: BorderRadius.circular(16),
-                onTap: () => context.push(Routes.interest(slug)),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 6),
-                  child: Column(
-                    children: [
-                      Container(
-                        width: 52,
-                        height: 52,
-                        decoration: const BoxDecoration(color: AppColors.violet, shape: BoxShape.circle),
-                        child: Icon(icon, color: Colors.white, size: 25),
-                      ),
-                      const SizedBox(height: 7),
-                      Text(
-                        label,
-                        style: AppText.sans(11.5, weight: FontWeight.w500, color: AppColors.sand700),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
+          for (var i = 0; i < shown.length; i++)
+            Padding(
+              padding: EdgeInsets.only(right: i == shown.length - 1 ? 0 : 10),
+              child: SizedBox(
+                width: 78,
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(16),
+                  onTap: () => context.push(Routes.interest(shown[i].slug)),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 6),
+                    child: Column(
+                      children: [
+                        Container(
+                          width: 52,
+                          height: 52,
+                          decoration: const BoxDecoration(color: AppColors.violet, shape: BoxShape.circle),
+                          child: Icon(_icons[shown[i].slug], color: Colors.white, size: 25),
+                        ),
+                        const SizedBox(height: 7),
+                        Text(
+                          bilingual(context, shown[i].name, shown[i].nameKh).$1,
+                          textAlign: TextAlign.center,
+                          style: AppText.sans(11.5, weight: FontWeight.w500, color: AppColors.sand700),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -436,9 +422,6 @@ class _WideCard extends StatelessWidget {
     required this.savedKind,
     required this.savedKey,
     required this.onTap,
-    this.rating,
-    this.count,
-    this.caption,
   });
 
   final String image;
@@ -446,9 +429,6 @@ class _WideCard extends StatelessWidget {
   final SavedKind savedKind;
   final String savedKey;
   final VoidCallback onTap;
-  final double? rating;
-  final int? count;
-  final String? caption;
 
   @override
   Widget build(BuildContext context) {
@@ -495,30 +475,16 @@ class _WideCard extends StatelessWidget {
                     const SizedBox(height: 8),
                     Row(
                       children: [
+                        const Icon(Icons.verified_rounded, size: 15, color: Color(0xFF34D399)),
+                        const SizedBox(width: 5),
                         Expanded(
-                          child: caption != null
-                              ? Text(
-                                  caption!,
-                                  style: AppText.sans(12.5, color: Colors.white.withValues(alpha: 0.85)),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                )
-                              : Row(
-                                  children: [
-                                    const Icon(Icons.verified_rounded, size: 15, color: Color(0xFF34D399)),
-                                    const SizedBox(width: 5),
-                                    Flexible(
-                                      child: Text(
-                                        s.recommendByTraveler,
-                                        style: AppText.sans(12.5, color: Colors.white.withValues(alpha: 0.85)),
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                          child: Text(
+                            s.recommendByTraveler,
+                            style: AppText.sans(12.5, color: Colors.white.withValues(alpha: 0.85)),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
-                        if (rating != null) _RatingPill(rating: rating!, count: count),
                       ],
                     ),
                   ],
@@ -532,45 +498,14 @@ class _WideCard extends StatelessWidget {
   }
 }
 
-/// Amber star pill on a photo.
-class _RatingPill extends StatelessWidget {
-  const _RatingPill({required this.rating, this.count});
-  final double rating;
-  final int? count;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      decoration: BoxDecoration(
-        color: const Color(0xCC1A1206),
-        borderRadius: BorderRadius.circular(99),
-        border: Border.all(color: AppColors.star.withValues(alpha: 0.6)),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Icon(Icons.star_rounded, size: 14, color: AppColors.star),
-          const SizedBox(width: 3),
-          Text(
-            count == null
-                ? rating.toStringAsFixed(1)
-                : '${rating.toStringAsFixed(1)} (${thousands(count!)})',
-            style: AppText.sans(12, weight: FontWeight.w700, color: Colors.white),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-/// Popular place: photo with its score and a heart, name underneath.
+/// Popular place: photo with a heart, then the name and its score.
 class _SmallCard extends StatelessWidget {
   const _SmallCard({required this.destination});
   final Destination destination;
 
   @override
   Widget build(BuildContext context) {
+    final s = S.of(context);
     final d = destination;
     final (title, _) = bilingual(context, d.name, d.nameKh);
     return GestureDetector(
@@ -589,16 +524,10 @@ class _SmallCard extends StatelessWidget {
                   fit: StackFit.expand,
                   children: [
                     AppImage(d.image),
-                    if (d.rating != null)
-                      Positioned(
-                        left: 7,
-                        top: 7,
-                        child: _RatingPill(rating: d.rating!, count: d.reviewCount),
-                      ),
                     Positioned(
-                      right: 2,
-                      top: 2,
-                      child: SaveButton(kind: SavedKind.destination, itemKey: d.key, plain: true),
+                      right: 6,
+                      top: 6,
+                      child: SaveButton(kind: SavedKind.destination, itemKey: d.key, size: 32),
                     ),
                   ],
                 ),
@@ -611,40 +540,30 @@ class _SmallCard extends StatelessWidget {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-/// Square photo tile with the interest name underneath.
-class _InterestTile extends StatelessWidget {
-  const _InterestTile({required this.interest});
-  final Interest interest;
-
-  @override
-  Widget build(BuildContext context) {
-    final (title, _) = bilingual(context, interest.name, interest.nameKh);
-    return GestureDetector(
-      onTap: () => context.push(Routes.interest(interest.slug)),
-      child: SizedBox(
-        width: 92,
-        child: Column(
-          children: [
-            SizedBox(
-              height: 88,
-              width: 92,
-              child: AppImage(interest.image, radius: BorderRadius.circular(18)),
-            ),
-            const SizedBox(height: 7),
-            Text(
-              title,
-              textAlign: TextAlign.center,
-              style: AppText.sans(11.5, weight: FontWeight.w600, color: AppColors.sand800),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
+            if (d.rating != null) ...[
+              const SizedBox(height: 4),
+              Row(
+                children: [
+                  const Icon(Icons.star_rounded, size: 15, color: AppColors.star),
+                  const SizedBox(width: 3),
+                  Text(
+                    d.rating!.toStringAsFixed(1),
+                    style: AppText.sans(12.5, weight: FontWeight.w700, color: AppColors.sand900),
+                  ),
+                  if (d.reviewCount != null) ...[
+                    const SizedBox(width: 6),
+                    Expanded(
+                      child: Text(
+                        '${thousands(d.reviewCount!)} ${s.reviewsWord.toLowerCase()}',
+                        style: AppText.sans(11.5, color: AppColors.sand500),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            ],
           ],
         ),
       ),
@@ -671,31 +590,34 @@ class _ProvinceCard extends StatelessWidget {
     return GestureDetector(
       onTap: () => context.push(Routes.province(province.slug)),
       child: SizedBox(
-        width: 168,
+        width: 152,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: 168,
+              height: 126,
               width: double.infinity,
-              child: Stack(
-                // Without this the stack shrinks to the photo's own size and
-                // leaves the rest of the card blank.
-                fit: StackFit.expand,
-                children: [
-                  AppImage(province.image, radius: BorderRadius.circular(20)),
-                  Positioned(
-                    top: 8,
-                    right: 8,
-                    child: SaveButton(kind: SavedKind.province, itemKey: province.slug, size: 30),
-                  ),
-                ],
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: Stack(
+                  // Without this the stack shrinks to the photo's own size and
+                  // leaves the rest of the card blank.
+                  fit: StackFit.expand,
+                  children: [
+                    AppImage(province.image),
+                    Positioned(
+                      right: 6,
+                      top: 6,
+                      child: SaveButton(kind: SavedKind.province, itemKey: province.slug, size: 32),
+                    ),
+                  ],
+                ),
               ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 8),
             Text(
               title,
-              style: AppText.sans(15, weight: FontWeight.w700, color: AppColors.sand900),
+              style: AppText.sans(13.5, weight: FontWeight.w700, color: AppColors.sand900),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
@@ -707,15 +629,24 @@ class _ProvinceCard extends StatelessWidget {
                   const SizedBox(width: 3),
                   Text(
                     score.toStringAsFixed(1),
-                    style: AppText.sans(12.5, weight: FontWeight.w600, color: AppColors.sand900),
+                    style: AppText.sans(12.5, weight: FontWeight.w700, color: AppColors.sand900),
                   ),
-                  if (reviewCount != null && reviewCount! > 0)
-                    Text(' (${thousands(reviewCount!)})', style: AppText.sans(12.5, color: AppColors.sand500)),
+                  if (reviewCount != null && reviewCount! > 0) ...[
+                    const SizedBox(width: 6),
+                    Expanded(
+                      child: Text(
+                        '${thousands(reviewCount!)} ${s.reviewsWord.toLowerCase()}',
+                        style: AppText.sans(11.5, color: AppColors.sand500),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
                 ],
               )
             else
               // No rating for this province yet — see the model's note.
-              Text('$count ${s.places.toLowerCase()}', style: AppText.sans(12.5, color: AppColors.sand500)),
+              Text('$count ${s.places.toLowerCase()}', style: AppText.sans(11.5, color: AppColors.sand500)),
           ],
         ),
       ),

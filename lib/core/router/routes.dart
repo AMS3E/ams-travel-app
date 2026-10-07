@@ -4,7 +4,6 @@ class Routes {
   const Routes._();
 
   static const welcome = '/welcome';
-  static const interests = '/your-interests';
   static const popular = '/popular';
   static const popularSearch = '/popular/search';
   static const badges = '/badges';
@@ -40,16 +39,22 @@ class Routes {
 
   static String exploreTab(String tab) => '/explore?tab=$tab';
   static String region(String slug) => '/regions/$slug';
-  static String regionPlaces(String slug) => '/regions/$slug/places';
-  static String destination(String region, String slug) => '/regions/$region/$slug';
-  static String review(String region, String slug) => '/regions/$region/$slug/review';
-  static String rooms(String region, String slug) => '/regions/$region/$slug/rooms';
-  static String room(String region, String slug, String roomId) => '/regions/$region/$slug/rooms/$roomId';
-  static String story(String region, String slug) => '/regions/$region/stories/$slug';
+  static String destination(String region, String slug) =>
+      '/regions/$region/$slug';
+  static String review(String region, String slug) =>
+      '/regions/$region/$slug/review';
+  static String rooms(String region, String slug) =>
+      '/regions/$region/$slug/rooms';
+  static String room(String region, String slug, String roomId) =>
+      '/regions/$region/$slug/rooms/$roomId';
+  static String story(String region, String slug) =>
+      '/regions/$region/stories/$slug';
   static String province(String slug) => '/provinces/$slug';
   static String provincePlaces(String slug) => '/provinces/$slug/places';
   static String interest(String slug) => '/interests/$slug';
   static String corridor(String slug) => '/corridors/$slug';
-  static String mapFocus(String destinationKey) => '/map?place=${Uri.encodeComponent(destinationKey)}';
-  static String mapCorridor(String slug) => '/map?corridor=${Uri.encodeComponent(slug)}';
+  static String mapFocus(String destinationKey) =>
+      '/map?place=${Uri.encodeComponent(destinationKey)}';
+  static String mapCorridor(String slug) =>
+      '/map?corridor=${Uri.encodeComponent(slug)}';
 }

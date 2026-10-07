@@ -35,7 +35,6 @@ import '../../features/profile/terms_screen.dart';
 import '../../features/province/province_screen.dart';
 import '../../features/province/province_places_screen.dart';
 import '../../features/province/provinces_explore_screen.dart';
-import '../../features/region/region_screen.dart';
 import '../../features/region/region_places_screen.dart';
 import '../../features/region/regions_explore_screen.dart';
 import '../../features/saved/folders_screen.dart';
@@ -43,7 +42,6 @@ import '../../features/saved/saved_screen.dart';
 import '../../features/search/filter_sheet.dart';
 import '../../features/search/search_screen.dart';
 import '../../features/shell/main_shell.dart';
-import '../../features/welcome/interests_step.dart';
 import '../../features/welcome/welcome_screen.dart';
 import '../../features/story/story_screen.dart';
 import '../../state/travel_preferences.dart';
@@ -52,8 +50,32 @@ import 'routes.dart';
 final _rootKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 
 GoRouter createRouter({bool showWelcome = false}) {
-  GoRoute page(String path, Widget Function(GoRouterState s) build) =>
-      GoRoute(path: path, parentNavigatorKey: _rootKey, builder: (_, s) => build(s));
+  GoRoute page(String path, Widget Function(GoRouterState s) build) => GoRoute(
+    path: path,
+    parentNavigatorKey: _rootKey,
+    builder: (_, s) => build(s),
+  );
+
+  /// Slides in from [from] and back out the same way, so a push and the matching
+  /// back arrow mirror each other on every platform.
+  GoRoute slidePage(
+    String path,
+    Offset from,
+    Widget Function(GoRouterState s) build,
+  ) => GoRoute(
+    path: path,
+    parentNavigatorKey: _rootKey,
+    pageBuilder: (_, s) => CustomTransitionPage(
+      child: build(s),
+      transitionsBuilder: (_, animation, _, child) => SlideTransition(
+        position: Tween(
+          begin: from,
+          end: Offset.zero,
+        ).animate(CurvedAnimation(parent: animation, curve: Curves.easeOut)),
+        child: child,
+      ),
+    ),
+  );
 
   return GoRouter(
     navigatorKey: _rootKey,
@@ -72,7 +94,11 @@ GoRouter createRouter({bool showWelcome = false}) {
             routes: [
               GoRoute(
                 path: Routes.home,
-                builder: (context, _) => HomeScreen(pickedCategories: context.watch<TravelPreferences>().categories),
+                builder: (context, _) => HomeScreen(
+                  pickedCategories: context
+                      .watch<TravelPreferences>()
+                      .categories,
+                ),
               ),
             ],
           ),
@@ -88,10 +114,20 @@ GoRouter createRouter({bool showWelcome = false}) {
             ],
           ),
           StatefulShellBranch(
-            routes: [GoRoute(path: Routes.saved, builder: (_, _) => const SavedScreen())],
+            routes: [
+              GoRoute(
+                path: Routes.saved,
+                builder: (_, _) => const SavedScreen(),
+              ),
+            ],
           ),
           StatefulShellBranch(
-            routes: [GoRoute(path: Routes.profile, builder: (_, _) => const ProfileScreen())],
+            routes: [
+              GoRoute(
+                path: Routes.profile,
+                builder: (_, _) => const ProfileScreen(),
+              ),
+            ],
           ),
         ],
       ),
@@ -99,11 +135,17 @@ GoRouter createRouter({bool showWelcome = false}) {
       // Full-screen pages pushed above the tabs. Most specific paths first.
       page(
         '/regions/:region/stories/:story',
-        (s) => StoryScreen(region: s.pathParameters['region']!, slug: s.pathParameters['story']!),
+        (s) => StoryScreen(
+          region: s.pathParameters['region']!,
+          slug: s.pathParameters['story']!,
+        ),
       ),
       page(
         '/regions/:region/:dest/review',
-        (s) => ReviewScreen(region: s.pathParameters['region']!, slug: s.pathParameters['dest']!),
+        (s) => ReviewScreen(
+          region: s.pathParameters['region']!,
+          slug: s.pathParameters['dest']!,
+        ),
       ),
       page(
         '/regions/:region/:dest/rooms/:room',
@@ -115,33 +157,63 @@ GoRouter createRouter({bool showWelcome = false}) {
       ),
       page(
         '/regions/:region/:dest/rooms',
-        (s) => RoomsScreen(region: s.pathParameters['region']!, slug: s.pathParameters['dest']!),
+        (s) => RoomsScreen(
+          region: s.pathParameters['region']!,
+          slug: s.pathParameters['dest']!,
+        ),
       ),
-      page(Routes.explore, (s) => ExploreScreen(tab: s.uri.queryParameters['tab'])),
+      page(
+        Routes.explore,
+        (s) => ExploreScreen(tab: s.uri.queryParameters['tab']),
+      ),
       page(Routes.exploreRegions, (_) => const RegionsExploreScreen()),
-      page('/regions/:region/places', (s) => RegionPlacesScreen(slug: s.pathParameters['region']!)),
+      page(
+        '/regions/:region',
+        (s) => RegionPlacesScreen(slug: s.pathParameters['region']!),
+      ),
       page(
         '/regions/:region/:dest',
-        (s) => DestinationScreen(region: s.pathParameters['region']!, slug: s.pathParameters['dest']!),
+        (s) => DestinationScreen(
+          region: s.pathParameters['region']!,
+          slug: s.pathParameters['dest']!,
+        ),
       ),
-      page('/regions/:region', (s) => RegionScreen(slug: s.pathParameters['region']!)),
       page(Routes.exploreProvinces, (_) => const ProvincesExploreScreen()),
-      page('/provinces/:province/places', (s) => ProvincePlacesScreen(slug: s.pathParameters['province']!)),
-      page('/provinces/:province', (s) => ProvinceScreen(slug: s.pathParameters['province']!)),
+      page(
+        '/provinces/:province/places',
+        (s) => ProvincePlacesScreen(slug: s.pathParameters['province']!),
+      ),
+      page(
+        '/provinces/:province',
+        (s) => ProvinceScreen(slug: s.pathParameters['province']!),
+      ),
       page(Routes.exploreInterests, (_) => const InterestExploreScreen()),
-      page('/interests/:interest', (s) => InterestScreen(slug: s.pathParameters['interest']!)),
+      page(
+        '/interests/:interest',
+        (s) => InterestScreen(slug: s.pathParameters['interest']!),
+      ),
       page(Routes.exploreCorridors, (_) => const CorridorsExploreScreen()),
-      page('/corridors/:corridor', (s) => CorridorScreen(slug: s.pathParameters['corridor']!)),
+      page(
+        '/corridors/:corridor',
+        (s) => CorridorScreen(slug: s.pathParameters['corridor']!),
+      ),
       page(
         Routes.search,
         (s) => SearchScreen(
           initialQuery: s.uri.queryParameters['q'],
           // Home hands over the filters already picked in its sheet.
-          initialFilters: s.extra is SearchFilters ? s.extra as SearchFilters : null,
+          initialFilters: s.extra is SearchFilters
+              ? s.extra as SearchFilters
+              : null,
         ),
       ),
-      page(Routes.welcome, (_) => const WelcomeScreen()),
-      page(Routes.interests, (_) => const Scaffold(body: InterestsStep())),
+      // Reached by the back arrow on log in / register, so it animates like a
+      // pop: in from the left, while the auth page slides off to the right.
+      slidePage(
+        Routes.welcome,
+        const Offset(-1, 0),
+        (_) => const WelcomeScreen(),
+      ),
       page(Routes.badges, (_) => const BadgesScreen()),
       page(Routes.account, (_) => const AccountInfoScreen()),
       page(Routes.notificationsPage, (_) => const NotificationsScreen()),
@@ -163,11 +235,26 @@ GoRouter createRouter({bool showWelcome = false}) {
         ),
       ),
       page(Routes.myReviews, (_) => const MyReviewsScreen()),
-      page('/folders/:folder', (s) => FolderScreen(name: Uri.decodeComponent(s.pathParameters['folder']!))),
-      page('/badges/:badge/achievement', (s) => AchievementScreen(badgeKey: s.pathParameters['badge']!)),
-      page('/badges/:badge', (s) => BadgeTiersScreen(badgeKey: s.pathParameters['badge']!)),
-      page(Routes.login, (_) => const LoginScreen()),
-      page(Routes.register, (_) => const RegisterScreen()),
+      page(
+        '/folders/:folder',
+        (s) => FolderScreen(
+          name: Uri.decodeComponent(s.pathParameters['folder']!),
+        ),
+      ),
+      page(
+        '/badges/:badge/achievement',
+        (s) => AchievementScreen(badgeKey: s.pathParameters['badge']!),
+      ),
+      page(
+        '/badges/:badge',
+        (s) => BadgeTiersScreen(badgeKey: s.pathParameters['badge']!),
+      ),
+      slidePage(Routes.login, const Offset(1, 0), (_) => const LoginScreen()),
+      slidePage(
+        Routes.register,
+        const Offset(1, 0),
+        (_) => const RegisterScreen(),
+      ),
       page(Routes.forgotPassword, (_) => const ForgotPasswordScreen()),
     ],
   );

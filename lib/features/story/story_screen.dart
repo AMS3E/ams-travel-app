@@ -14,7 +14,7 @@ import '../../widgets/app_image.dart';
 import '../../widgets/async_view.dart';
 import '../../widgets/common.dart';
 import '../../widgets/map_view.dart';
-import '../region/region_screen.dart';
+import '../../widgets/region_widgets.dart';
 
 /// One step of a region's historical line (Ishanapura → Chaktomuk), laid out
 /// like the region page: hero, chips, the story itself, a historical map,

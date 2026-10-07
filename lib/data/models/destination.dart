@@ -52,6 +52,7 @@ class Destination {
     this.closeTime,
     this.open24h = false,
     this.reviewCount,
+    this.stars,
     this.priceFrom,
     this.currency = 'USD',
     this.entryFee,
@@ -108,6 +109,9 @@ class Destination {
 
   /// Nightly price for a stay, shown in the booking bar. Null hides the bar.
   /// TODO(api): send `priceFrom` (and `currency`) for hotels and homestays.
+  /// How a stay is classified: 5 for a five-star hotel.
+  final int? stars;
+
   final double? priceFrom;
   final String currency;
 
@@ -171,7 +175,8 @@ class Destination {
       reviewCount: j['reviewCount'] == null && j['review_count'] == null
           ? null
           : integer(j, 'reviewCount', alt: ['review_count']),
-      priceFrom: dbl(j, 'priceFrom', alt: ['price_from', 'price']),
+      stars: j['stars'] == null ? null : integer(j, 'stars'),
+    priceFrom: dbl(j, 'priceFrom', alt: ['price_from', 'price']),
       currency: strOrNull(j, 'currency') ?? 'USD',
       entryFee: strOrNull(j, 'entryFee', alt: ['entry_fee', 'ticket']),
       visitDuration: strOrNull(j, 'visitDuration', alt: ['visit_duration', 'duration']),

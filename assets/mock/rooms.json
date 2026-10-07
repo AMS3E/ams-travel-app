@@ -11,6 +11,44 @@
         "guests": 2,
         "beds": "1 double bed",
         "sizeSqm": 18,
+        "breakfast": true,
+        "view": "River view",
+        "smoking": false,
+        "highlights": [
+          "Non-refundable (Low price!)",
+          "Parking",
+          "Express check-in",
+          "Free WiFi"
+        ],
+        "amenityGroups": {
+          "Comforts": [
+            "Adapter",
+            "Air conditioning",
+            "Blackout curtains",
+            "Hypoallergenic",
+            "Linens",
+            "Mosquito net"
+          ],
+          "Clothing and laundry": [
+            "Closet",
+            "Ironing facilities"
+          ],
+          "For the kids": [
+            "Baby cot (upon request)"
+          ],
+          "Safety and security features": [
+            "Individual air conditioning",
+            "Non-smoking"
+          ],
+          "Dining, drinking, and snacking": [
+            "Coffee/tea maker",
+            "Mini bar"
+          ],
+          "Layout and furnishings": [
+            "Balcony/terrace",
+            "Desk"
+          ]
+        },
         "amenities": [
           "Home-cooked breakfast",
           "Mosquito net",
@@ -31,6 +69,44 @@
         "guests": 4,
         "beds": "2 double beds",
         "sizeSqm": 24,
+        "breakfast": true,
+        "view": "River view",
+        "smoking": false,
+        "highlights": [
+          "Non-refundable (Low price!)",
+          "Airport transfer",
+          "Free WiFi"
+        ],
+        "amenityGroups": {
+          "Kitchen": [
+            "Electric kettle",
+            "Mini fridge",
+            "Bottled water"
+          ],
+          "Entertainment": [
+            "Internet access – wireless",
+            "Satellite/cable channels",
+            "Streaming service like Netflix",
+            "Telephone",
+            "TV"
+          ],
+          "Clothing and laundry": [
+            "Closet",
+            "Ironing facilities"
+          ],
+          "For the kids": [
+            "Baby cot (upon request)"
+          ],
+          "Bathroom and toiletries": [
+            "Bathrobes",
+            "Bathtub",
+            "Hairdryer"
+          ],
+          "Dining, drinking, and snacking": [
+            "Coffee/tea maker",
+            "Mini bar"
+          ]
+        },
         "amenities": [
           "Home-cooked breakfast",
           "Mosquito net",
@@ -56,6 +132,59 @@
         "guests": 2,
         "beds": "1 double bed",
         "sizeSqm": 18,
+        "breakfast": true,
+        "view": "Mountain view",
+        "smoking": false,
+        "highlights": [
+          "Non-refundable (Low price!)",
+          "Airport transfer",
+          "Free WiFi"
+        ],
+        "amenityGroups": {
+          "Kitchen": [
+            "Electric kettle",
+            "Mini fridge",
+            "Bottled water"
+          ],
+          "Entertainment": [
+            "Internet access – wireless",
+            "Satellite/cable channels",
+            "Streaming service like Netflix",
+            "Telephone",
+            "TV",
+            "TV [flat screen]",
+            "Wi-Fi [free]"
+          ],
+          "Comforts": [
+            "Adapter",
+            "Air conditioning"
+          ],
+          "Clothing and laundry": [
+            "Closet",
+            "Ironing facilities"
+          ],
+          "For the kids": [
+            "Baby cot (upon request)"
+          ],
+          "Safety and security features": [
+            "Individual air conditioning",
+            "Non-smoking"
+          ],
+          "Bathroom and toiletries": [
+            "Bathrobes",
+            "Bathtub"
+          ],
+          "Dining, drinking, and snacking": [
+            "Coffee/tea maker",
+            "Mini bar"
+          ],
+          "Layout and furnishings": [
+            "Balcony/terrace",
+            "Desk",
+            "Fold-up bed",
+            "Ground floor available"
+          ]
+        },
         "amenities": [
           "Home-cooked breakfast",
           "Mosquito net",
@@ -76,6 +205,30 @@
         "guests": 4,
         "beds": "2 double beds",
         "sizeSqm": 24,
+        "breakfast": true,
+        "view": "Mountain view",
+        "smoking": false,
+        "highlights": [
+          "Non-refundable (Low price!)",
+          "Parking",
+          "Express check-in",
+          "Free WiFi"
+        ],
+        "amenityGroups": {
+          "Entertainment": [
+            "Internet access – wireless",
+            "Satellite/cable channels",
+            "Streaming service like Netflix",
+            "Telephone",
+            "TV",
+            "TV [flat screen]",
+            "Wi-Fi [free]"
+          ],
+          "Comforts": [
+            "Adapter",
+            "Air conditioning"
+          ]
+        },
         "amenities": [
           "Home-cooked breakfast",
           "Mosquito net",
@@ -101,6 +254,54 @@
         "guests": 2,
         "beds": "1 double bed",
         "sizeSqm": 18,
+        "breakfast": false,
+        "view": "Garden view",
+        "smoking": false,
+        "highlights": [
+          "Non-refundable (Low price!)",
+          "Airport transfer",
+          "Free WiFi"
+        ],
+        "amenityGroups": {
+          "Kitchen": [
+            "Electric kettle",
+            "Mini fridge",
+            "Bottled water"
+          ],
+          "Entertainment": [
+            "Internet access – wireless",
+            "Satellite/cable channels",
+            "Streaming service like Netflix"
+          ],
+          "Comforts": [
+            "Adapter",
+            "Air conditioning",
+            "Blackout curtains",
+            "Hypoallergenic"
+          ],
+          "For the kids": [
+            "Baby cot (upon request)"
+          ],
+          "Safety and security features": [
+            "Individual air conditioning",
+            "Non-smoking"
+          ],
+          "Bathroom and toiletries": [
+            "Bathrobes",
+            "Bathtub",
+            "Hairdryer",
+            "Shower"
+          ],
+          "Dining, drinking, and snacking": [
+            "Coffee/tea maker",
+            "Mini bar"
+          ],
+          "Layout and furnishings": [
+            "Balcony/terrace",
+            "Desk",
+            "Fold-up bed"
+          ]
+        },
         "amenities": [
           "Home-cooked breakfast",
           "Mosquito net",
@@ -121,6 +322,55 @@
         "guests": 4,
         "beds": "2 double beds",
         "sizeSqm": 24,
+        "breakfast": true,
+        "view": "Mountain view",
+        "smoking": false,
+        "highlights": [
+          "Non-refundable (Low price!)",
+          "Parking",
+          "Express check-in",
+          "Free WiFi"
+        ],
+        "amenityGroups": {
+          "Entertainment": [
+            "Internet access – wireless",
+            "Satellite/cable channels",
+            "Streaming service like Netflix",
+            "Telephone",
+            "TV",
+            "TV [flat screen]",
+            "Wi-Fi [free]"
+          ],
+          "Comforts": [
+            "Adapter",
+            "Air conditioning"
+          ],
+          "Clothing and laundry": [
+            "Closet",
+            "Ironing facilities"
+          ],
+          "For the kids": [
+            "Baby cot (upon request)"
+          ],
+          "Safety and security features": [
+            "Individual air conditioning",
+            "Non-smoking"
+          ],
+          "Bathroom and toiletries": [
+            "Bathrobes",
+            "Bathtub"
+          ],
+          "Dining, drinking, and snacking": [
+            "Coffee/tea maker",
+            "Mini bar"
+          ],
+          "Layout and furnishings": [
+            "Balcony/terrace",
+            "Desk",
+            "Fold-up bed",
+            "Ground floor available"
+          ]
+        },
         "amenities": [
           "Home-cooked breakfast",
           "Mosquito net",
@@ -146,6 +396,59 @@
         "guests": 2,
         "beds": "1 double bed",
         "sizeSqm": 18,
+        "breakfast": false,
+        "view": "Courtyard view",
+        "smoking": false,
+        "highlights": [
+          "Free cancellation",
+          "Parking",
+          "Breakfast included",
+          "Free WiFi"
+        ],
+        "amenityGroups": {
+          "Kitchen": [
+            "Electric kettle",
+            "Mini fridge"
+          ],
+          "Entertainment": [
+            "Internet access – wireless",
+            "Satellite/cable channels",
+            "Streaming service like Netflix",
+            "Telephone",
+            "TV",
+            "TV [flat screen]"
+          ],
+          "Comforts": [
+            "Adapter",
+            "Air conditioning",
+            "Blackout curtains",
+            "Hypoallergenic",
+            "Linens",
+            "Mosquito net",
+            "Private entrance"
+          ],
+          "Clothing and laundry": [
+            "Closet",
+            "Ironing facilities"
+          ],
+          "For the kids": [
+            "Baby cot (upon request)"
+          ],
+          "Safety and security features": [
+            "Individual air conditioning",
+            "Non-smoking"
+          ],
+          "Bathroom and toiletries": [
+            "Bathrobes",
+            "Bathtub",
+            "Hairdryer",
+            "Shower"
+          ],
+          "Dining, drinking, and snacking": [
+            "Coffee/tea maker",
+            "Mini bar"
+          ]
+        },
         "amenities": [
           "Home-cooked breakfast",
           "Mosquito net",
@@ -166,6 +469,56 @@
         "guests": 4,
         "beds": "2 double beds",
         "sizeSqm": 24,
+        "breakfast": false,
+        "view": "Courtyard view",
+        "smoking": false,
+        "highlights": [
+          "Free cancellation",
+          "Parking",
+          "Free WiFi"
+        ],
+        "amenityGroups": {
+          "Kitchen": [
+            "Electric kettle",
+            "Mini fridge"
+          ],
+          "Entertainment": [
+            "Internet access – wireless",
+            "Satellite/cable channels",
+            "Streaming service like Netflix",
+            "Telephone",
+            "TV",
+            "TV [flat screen]"
+          ],
+          "Comforts": [
+            "Adapter",
+            "Air conditioning",
+            "Blackout curtains",
+            "Hypoallergenic",
+            "Linens",
+            "Mosquito net",
+            "Private entrance"
+          ],
+          "Safety and security features": [
+            "Individual air conditioning",
+            "Non-smoking"
+          ],
+          "Bathroom and toiletries": [
+            "Bathrobes",
+            "Bathtub",
+            "Hairdryer",
+            "Shower"
+          ],
+          "Dining, drinking, and snacking": [
+            "Coffee/tea maker",
+            "Mini bar"
+          ],
+          "Layout and furnishings": [
+            "Balcony/terrace",
+            "Desk",
+            "Fold-up bed"
+          ]
+        },
         "amenities": [
           "Home-cooked breakfast",
           "Mosquito net",
@@ -191,6 +544,50 @@
         "guests": 2,
         "beds": "1 queen bed",
         "sizeSqm": 26,
+        "breakfast": true,
+        "view": "Sea view",
+        "smoking": false,
+        "highlights": [
+          "Free cancellation",
+          "Parking",
+          "Breakfast included",
+          "Free WiFi"
+        ],
+        "amenityGroups": {
+          "Kitchen": [
+            "Electric kettle",
+            "Mini fridge"
+          ],
+          "Entertainment": [
+            "Internet access – wireless",
+            "Satellite/cable channels"
+          ],
+          "Comforts": [
+            "Adapter",
+            "Air conditioning",
+            "Blackout curtains"
+          ],
+          "For the kids": [
+            "Baby cot (upon request)"
+          ],
+          "Safety and security features": [
+            "Individual air conditioning",
+            "Non-smoking"
+          ],
+          "Bathroom and toiletries": [
+            "Bathrobes",
+            "Bathtub",
+            "Hairdryer"
+          ],
+          "Dining, drinking, and snacking": [
+            "Coffee/tea maker",
+            "Mini bar"
+          ],
+          "Layout and furnishings": [
+            "Balcony/terrace",
+            "Desk"
+          ]
+        },
         "amenities": [
           "Breakfast",
           "Fan",
@@ -211,6 +608,58 @@
         "guests": 2,
         "beds": "1 king bed",
         "sizeSqm": 32,
+        "breakfast": true,
+        "view": "Pool view",
+        "smoking": false,
+        "highlights": [
+          "Free cancellation",
+          "Parking",
+          "Free WiFi"
+        ],
+        "amenityGroups": {
+          "Kitchen": [
+            "Electric kettle",
+            "Mini fridge"
+          ],
+          "Entertainment": [
+            "Internet access – wireless",
+            "Satellite/cable channels",
+            "Streaming service like Netflix",
+            "Telephone"
+          ],
+          "Comforts": [
+            "Adapter",
+            "Air conditioning",
+            "Blackout curtains",
+            "Hypoallergenic",
+            "Linens"
+          ],
+          "Clothing and laundry": [
+            "Closet",
+            "Ironing facilities"
+          ],
+          "For the kids": [
+            "Baby cot (upon request)"
+          ],
+          "Safety and security features": [
+            "Individual air conditioning",
+            "Non-smoking"
+          ],
+          "Bathroom and toiletries": [
+            "Bathrobes",
+            "Bathtub"
+          ],
+          "Dining, drinking, and snacking": [
+            "Coffee/tea maker",
+            "Mini bar"
+          ],
+          "Layout and furnishings": [
+            "Balcony/terrace",
+            "Desk",
+            "Fold-up bed",
+            "Ground floor available"
+          ]
+        },
         "amenities": [
           "Breakfast",
           "Balcony",
@@ -231,6 +680,47 @@
         "guests": 4,
         "beds": "2 queen beds",
         "sizeSqm": 38,
+        "breakfast": true,
+        "view": "Sea view",
+        "smoking": false,
+        "highlights": [
+          "Free cancellation",
+          "Parking",
+          "Breakfast included",
+          "Free WiFi"
+        ],
+        "amenityGroups": {
+          "Kitchen": [
+            "Electric kettle",
+            "Mini fridge"
+          ],
+          "Comforts": [
+            "Adapter",
+            "Air conditioning",
+            "Blackout curtains"
+          ],
+          "Clothing and laundry": [
+            "Closet",
+            "Ironing facilities"
+          ],
+          "Safety and security features": [
+            "Individual air conditioning",
+            "Non-smoking"
+          ],
+          "Bathroom and toiletries": [
+            "Bathrobes",
+            "Bathtub",
+            "Hairdryer"
+          ],
+          "Dining, drinking, and snacking": [
+            "Coffee/tea maker",
+            "Mini bar"
+          ],
+          "Layout and furnishings": [
+            "Balcony/terrace",
+            "Desk"
+          ]
+        },
         "amenities": [
           "Breakfast",
           "Terrace",
@@ -256,6 +746,35 @@
         "guests": 2,
         "beds": "1 queen bed",
         "sizeSqm": 26,
+        "breakfast": true,
+        "view": "Pool view",
+        "smoking": false,
+        "highlights": [
+          "Free cancellation",
+          "Parking",
+          "Breakfast included",
+          "Free WiFi"
+        ],
+        "amenityGroups": {
+          "Kitchen": [
+            "Electric kettle",
+            "Mini fridge"
+          ],
+          "Safety and security features": [
+            "Individual air conditioning",
+            "Non-smoking"
+          ],
+          "Bathroom and toiletries": [
+            "Bathrobes",
+            "Bathtub"
+          ],
+          "Layout and furnishings": [
+            "Balcony/terrace",
+            "Desk",
+            "Fold-up bed",
+            "Ground floor available"
+          ]
+        },
         "amenities": [
           "Breakfast",
           "Fan",
@@ -276,6 +795,53 @@
         "guests": 2,
         "beds": "1 king bed",
         "sizeSqm": 32,
+        "breakfast": true,
+        "view": "Sea view",
+        "smoking": false,
+        "highlights": [
+          "Free cancellation",
+          "Parking",
+          "Free WiFi"
+        ],
+        "amenityGroups": {
+          "Kitchen": [
+            "Electric kettle",
+            "Mini fridge"
+          ],
+          "Entertainment": [
+            "Internet access – wireless",
+            "Satellite/cable channels"
+          ],
+          "Comforts": [
+            "Adapter",
+            "Air conditioning",
+            "Blackout curtains"
+          ],
+          "Clothing and laundry": [
+            "Closet",
+            "Ironing facilities"
+          ],
+          "For the kids": [
+            "Baby cot (upon request)"
+          ],
+          "Safety and security features": [
+            "Individual air conditioning",
+            "Non-smoking"
+          ],
+          "Bathroom and toiletries": [
+            "Bathrobes",
+            "Bathtub",
+            "Hairdryer"
+          ],
+          "Dining, drinking, and snacking": [
+            "Coffee/tea maker",
+            "Mini bar"
+          ],
+          "Layout and furnishings": [
+            "Balcony/terrace",
+            "Desk"
+          ]
+        },
         "amenities": [
           "Breakfast",
           "Balcony",
@@ -296,6 +862,54 @@
         "guests": 4,
         "beds": "2 queen beds",
         "sizeSqm": 38,
+        "breakfast": true,
+        "view": "Sea view",
+        "smoking": false,
+        "highlights": [
+          "Free cancellation",
+          "Parking",
+          "Breakfast included",
+          "Free WiFi"
+        ],
+        "amenityGroups": {
+          "Kitchen": [
+            "Electric kettle",
+            "Mini fridge"
+          ],
+          "Entertainment": [
+            "Internet access – wireless",
+            "Satellite/cable channels"
+          ],
+          "Comforts": [
+            "Adapter",
+            "Air conditioning",
+            "Blackout curtains"
+          ],
+          "Clothing and laundry": [
+            "Closet",
+            "Ironing facilities"
+          ],
+          "For the kids": [
+            "Baby cot (upon request)"
+          ],
+          "Safety and security features": [
+            "Individual air conditioning",
+            "Non-smoking"
+          ],
+          "Bathroom and toiletries": [
+            "Bathrobes",
+            "Bathtub",
+            "Hairdryer"
+          ],
+          "Dining, drinking, and snacking": [
+            "Coffee/tea maker",
+            "Mini bar"
+          ],
+          "Layout and furnishings": [
+            "Balcony/terrace",
+            "Desk"
+          ]
+        },
         "amenities": [
           "Breakfast",
           "Terrace",
@@ -321,6 +935,41 @@
         "guests": 2,
         "beds": "1 queen bed",
         "sizeSqm": 26,
+        "breakfast": true,
+        "view": "Sea view",
+        "smoking": false,
+        "highlights": [
+          "Free cancellation",
+          "Parking",
+          "Breakfast included",
+          "Free WiFi"
+        ],
+        "amenityGroups": {
+          "Kitchen": [
+            "Electric kettle",
+            "Mini fridge"
+          ],
+          "Comforts": [
+            "Adapter",
+            "Air conditioning",
+            "Blackout curtains"
+          ],
+          "Clothing and laundry": [
+            "Closet",
+            "Ironing facilities"
+          ],
+          "For the kids": [
+            "Baby cot (upon request)"
+          ],
+          "Dining, drinking, and snacking": [
+            "Coffee/tea maker",
+            "Mini bar"
+          ],
+          "Layout and furnishings": [
+            "Balcony/terrace",
+            "Desk"
+          ]
+        },
         "amenities": [
           "Breakfast",
           "Fan",
@@ -341,6 +990,45 @@
         "guests": 2,
         "beds": "1 king bed",
         "sizeSqm": 32,
+        "breakfast": false,
+        "view": "Courtyard view",
+        "smoking": false,
+        "highlights": [
+          "Free cancellation",
+          "Parking",
+          "Free WiFi"
+        ],
+        "amenityGroups": {
+          "Kitchen": [
+            "Electric kettle",
+            "Mini fridge"
+          ],
+          "Entertainment": [
+            "Internet access – wireless",
+            "Satellite/cable channels",
+            "Streaming service like Netflix",
+            "Telephone",
+            "TV",
+            "TV [flat screen]"
+          ],
+          "For the kids": [
+            "Baby cot (upon request)"
+          ],
+          "Safety and security features": [
+            "Individual air conditioning",
+            "Non-smoking"
+          ],
+          "Bathroom and toiletries": [
+            "Bathrobes",
+            "Bathtub",
+            "Hairdryer",
+            "Shower"
+          ],
+          "Dining, drinking, and snacking": [
+            "Coffee/tea maker",
+            "Mini bar"
+          ]
+        },
         "amenities": [
           "Breakfast",
           "Balcony",
@@ -361,6 +1049,49 @@
         "guests": 4,
         "beds": "2 queen beds",
         "sizeSqm": 38,
+        "breakfast": false,
+        "view": "Courtyard view",
+        "smoking": false,
+        "highlights": [
+          "Free cancellation",
+          "Parking",
+          "Breakfast included",
+          "Free WiFi"
+        ],
+        "amenityGroups": {
+          "Kitchen": [
+            "Electric kettle",
+            "Mini fridge"
+          ],
+          "Entertainment": [
+            "Internet access – wireless",
+            "Satellite/cable channels",
+            "Streaming service like Netflix",
+            "Telephone",
+            "TV",
+            "TV [flat screen]"
+          ],
+          "Comforts": [
+            "Adapter",
+            "Air conditioning",
+            "Blackout curtains",
+            "Hypoallergenic",
+            "Linens",
+            "Mosquito net",
+            "Private entrance"
+          ],
+          "Clothing and laundry": [
+            "Closet",
+            "Ironing facilities"
+          ],
+          "For the kids": [
+            "Baby cot (upon request)"
+          ],
+          "Safety and security features": [
+            "Individual air conditioning",
+            "Non-smoking"
+          ]
+        },
         "amenities": [
           "Breakfast",
           "Terrace",
@@ -386,6 +1117,55 @@
         "guests": 2,
         "beds": "1 king bed",
         "sizeSqm": 34,
+        "breakfast": true,
+        "view": "River view",
+        "smoking": false,
+        "highlights": [
+          "Non-refundable (Low price!)",
+          "Airport transfer",
+          "Free WiFi"
+        ],
+        "amenityGroups": {
+          "Kitchen": [
+            "Electric kettle",
+            "Mini fridge",
+            "Bottled water"
+          ],
+          "Entertainment": [
+            "Internet access – wireless",
+            "Satellite/cable channels",
+            "Streaming service like Netflix",
+            "Telephone",
+            "TV"
+          ],
+          "Comforts": [
+            "Adapter",
+            "Air conditioning",
+            "Blackout curtains",
+            "Hypoallergenic",
+            "Linens",
+            "Mosquito net"
+          ],
+          "Clothing and laundry": [
+            "Closet",
+            "Ironing facilities"
+          ],
+          "For the kids": [
+            "Baby cot (upon request)"
+          ],
+          "Safety and security features": [
+            "Individual air conditioning",
+            "Non-smoking"
+          ],
+          "Dining, drinking, and snacking": [
+            "Coffee/tea maker",
+            "Mini bar"
+          ],
+          "Layout and furnishings": [
+            "Balcony/terrace",
+            "Desk"
+          ]
+        },
         "amenities": [
           "Breakfast",
           "Air conditioning",
@@ -406,6 +1186,38 @@
         "guests": 2,
         "beds": "1 king bed",
         "sizeSqm": 40,
+        "breakfast": true,
+        "view": "Mountain view",
+        "smoking": false,
+        "highlights": [
+          "Non-refundable (Low price!)",
+          "Parking",
+          "Express check-in",
+          "Free WiFi"
+        ],
+        "amenityGroups": {
+          "Entertainment": [
+            "Internet access – wireless",
+            "Satellite/cable channels",
+            "Streaming service like Netflix",
+            "Telephone",
+            "TV",
+            "TV [flat screen]",
+            "Wi-Fi [free]"
+          ],
+          "Comforts": [
+            "Adapter",
+            "Air conditioning"
+          ],
+          "Bathroom and toiletries": [
+            "Bathrobes",
+            "Bathtub"
+          ],
+          "Dining, drinking, and snacking": [
+            "Coffee/tea maker",
+            "Mini bar"
+          ]
+        },
         "amenities": [
           "Breakfast",
           "Pool access",
@@ -427,6 +1239,33 @@
         "guests": 4,
         "beds": "2 queen beds",
         "sizeSqm": 46,
+        "breakfast": false,
+        "view": "Garden view",
+        "smoking": false,
+        "highlights": [
+          "Non-refundable (Low price!)",
+          "Airport transfer",
+          "Free WiFi"
+        ],
+        "amenityGroups": {
+          "Kitchen": [
+            "Electric kettle",
+            "Mini fridge",
+            "Bottled water"
+          ],
+          "Entertainment": [
+            "Internet access – wireless",
+            "Satellite/cable channels",
+            "Streaming service like Netflix"
+          ],
+          "Clothing and laundry": [
+            "Closet",
+            "Ironing facilities"
+          ],
+          "For the kids": [
+            "Baby cot (upon request)"
+          ]
+        },
         "amenities": [
           "Breakfast",
           "Air conditioning",
@@ -452,6 +1291,48 @@
         "guests": 2,
         "beds": "1 king bed",
         "sizeSqm": 34,
+        "breakfast": false,
+        "view": "Garden view",
+        "smoking": false,
+        "highlights": [
+          "Non-refundable (Low price!)",
+          "Airport transfer",
+          "Free WiFi"
+        ],
+        "amenityGroups": {
+          "Kitchen": [
+            "Electric kettle",
+            "Mini fridge",
+            "Bottled water"
+          ],
+          "Entertainment": [
+            "Internet access – wireless",
+            "Satellite/cable channels",
+            "Streaming service like Netflix"
+          ],
+          "Comforts": [
+            "Adapter",
+            "Air conditioning",
+            "Blackout curtains",
+            "Hypoallergenic"
+          ],
+          "Clothing and laundry": [
+            "Closet",
+            "Ironing facilities"
+          ],
+          "For the kids": [
+            "Baby cot (upon request)"
+          ],
+          "Dining, drinking, and snacking": [
+            "Coffee/tea maker",
+            "Mini bar"
+          ],
+          "Layout and furnishings": [
+            "Balcony/terrace",
+            "Desk",
+            "Fold-up bed"
+          ]
+        },
         "amenities": [
           "Breakfast",
           "Air conditioning",
@@ -472,6 +1353,48 @@
         "guests": 2,
         "beds": "1 king bed",
         "sizeSqm": 40,
+        "breakfast": true,
+        "view": "River view",
+        "smoking": false,
+        "highlights": [
+          "Non-refundable (Low price!)",
+          "Parking",
+          "Express check-in",
+          "Free WiFi"
+        ],
+        "amenityGroups": {
+          "Entertainment": [
+            "Internet access – wireless",
+            "Satellite/cable channels",
+            "Streaming service like Netflix",
+            "Telephone",
+            "TV"
+          ],
+          "Comforts": [
+            "Adapter",
+            "Air conditioning",
+            "Blackout curtains",
+            "Hypoallergenic",
+            "Linens",
+            "Mosquito net"
+          ],
+          "For the kids": [
+            "Baby cot (upon request)"
+          ],
+          "Safety and security features": [
+            "Individual air conditioning",
+            "Non-smoking"
+          ],
+          "Bathroom and toiletries": [
+            "Bathrobes",
+            "Bathtub",
+            "Hairdryer"
+          ],
+          "Dining, drinking, and snacking": [
+            "Coffee/tea maker",
+            "Mini bar"
+          ]
+        },
         "amenities": [
           "Breakfast",
           "Pool access",
@@ -493,6 +1416,37 @@
         "guests": 4,
         "beds": "2 queen beds",
         "sizeSqm": 46,
+        "breakfast": false,
+        "view": "Garden view",
+        "smoking": false,
+        "highlights": [
+          "Non-refundable (Low price!)",
+          "Airport transfer",
+          "Free WiFi"
+        ],
+        "amenityGroups": {
+          "Kitchen": [
+            "Electric kettle",
+            "Mini fridge",
+            "Bottled water"
+          ],
+          "Entertainment": [
+            "Internet access – wireless",
+            "Satellite/cable channels",
+            "Streaming service like Netflix"
+          ],
+          "Clothing and laundry": [
+            "Closet",
+            "Ironing facilities"
+          ],
+          "For the kids": [
+            "Baby cot (upon request)"
+          ],
+          "Safety and security features": [
+            "Individual air conditioning",
+            "Non-smoking"
+          ]
+        },
         "amenities": [
           "Breakfast",
           "Air conditioning",
@@ -518,6 +1472,39 @@
         "guests": 2,
         "beds": "1 king bed",
         "sizeSqm": 34,
+        "breakfast": true,
+        "view": "Sea view",
+        "smoking": false,
+        "highlights": [
+          "Free cancellation",
+          "Parking",
+          "Breakfast included",
+          "Free WiFi"
+        ],
+        "amenityGroups": {
+          "Kitchen": [
+            "Electric kettle",
+            "Mini fridge"
+          ],
+          "Comforts": [
+            "Adapter",
+            "Air conditioning",
+            "Blackout curtains"
+          ],
+          "Clothing and laundry": [
+            "Closet",
+            "Ironing facilities"
+          ],
+          "Bathroom and toiletries": [
+            "Bathrobes",
+            "Bathtub",
+            "Hairdryer"
+          ],
+          "Dining, drinking, and snacking": [
+            "Coffee/tea maker",
+            "Mini bar"
+          ]
+        },
         "amenities": [
           "Breakfast",
           "Air conditioning",
@@ -538,6 +1525,43 @@
         "guests": 2,
         "beds": "1 king bed",
         "sizeSqm": 40,
+        "breakfast": true,
+        "view": "Sea view",
+        "smoking": false,
+        "highlights": [
+          "Free cancellation",
+          "Parking",
+          "Free WiFi"
+        ],
+        "amenityGroups": {
+          "Kitchen": [
+            "Electric kettle",
+            "Mini fridge"
+          ],
+          "Entertainment": [
+            "Internet access – wireless",
+            "Satellite/cable channels"
+          ],
+          "Clothing and laundry": [
+            "Closet",
+            "Ironing facilities"
+          ],
+          "For the kids": [
+            "Baby cot (upon request)"
+          ],
+          "Safety and security features": [
+            "Individual air conditioning",
+            "Non-smoking"
+          ],
+          "Dining, drinking, and snacking": [
+            "Coffee/tea maker",
+            "Mini bar"
+          ],
+          "Layout and furnishings": [
+            "Balcony/terrace",
+            "Desk"
+          ]
+        },
         "amenities": [
           "Breakfast",
           "Pool access",
@@ -559,6 +1583,50 @@
         "guests": 4,
         "beds": "2 queen beds",
         "sizeSqm": 46,
+        "breakfast": true,
+        "view": "Sea view",
+        "smoking": false,
+        "highlights": [
+          "Free cancellation",
+          "Parking",
+          "Breakfast included",
+          "Free WiFi"
+        ],
+        "amenityGroups": {
+          "Kitchen": [
+            "Electric kettle",
+            "Mini fridge"
+          ],
+          "Entertainment": [
+            "Internet access – wireless",
+            "Satellite/cable channels"
+          ],
+          "Comforts": [
+            "Adapter",
+            "Air conditioning",
+            "Blackout curtains"
+          ],
+          "For the kids": [
+            "Baby cot (upon request)"
+          ],
+          "Safety and security features": [
+            "Individual air conditioning",
+            "Non-smoking"
+          ],
+          "Bathroom and toiletries": [
+            "Bathrobes",
+            "Bathtub",
+            "Hairdryer"
+          ],
+          "Dining, drinking, and snacking": [
+            "Coffee/tea maker",
+            "Mini bar"
+          ],
+          "Layout and furnishings": [
+            "Balcony/terrace",
+            "Desk"
+          ]
+        },
         "amenities": [
           "Breakfast",
           "Air conditioning",
@@ -584,6 +1652,26 @@
         "guests": 2,
         "beds": "1 king bed",
         "sizeSqm": 34,
+        "breakfast": false,
+        "view": "Garden view",
+        "smoking": false,
+        "highlights": [
+          "Non-refundable (Low price!)",
+          "Parking",
+          "Express check-in",
+          "Free WiFi"
+        ],
+        "amenityGroups": {
+          "Dining, drinking, and snacking": [
+            "Coffee/tea maker",
+            "Mini bar"
+          ],
+          "Layout and furnishings": [
+            "Balcony/terrace",
+            "Desk",
+            "Fold-up bed"
+          ]
+        },
         "amenities": [
           "Breakfast",
           "Air conditioning",
@@ -604,6 +1692,53 @@
         "guests": 2,
         "beds": "1 king bed",
         "sizeSqm": 40,
+        "breakfast": true,
+        "view": "Mountain view",
+        "smoking": false,
+        "highlights": [
+          "Non-refundable (Low price!)",
+          "Airport transfer",
+          "Free WiFi"
+        ],
+        "amenityGroups": {
+          "Kitchen": [
+            "Electric kettle",
+            "Mini fridge",
+            "Bottled water"
+          ],
+          "Entertainment": [
+            "Internet access – wireless",
+            "Satellite/cable channels",
+            "Streaming service like Netflix",
+            "Telephone",
+            "TV",
+            "TV [flat screen]",
+            "Wi-Fi [free]"
+          ],
+          "Comforts": [
+            "Adapter",
+            "Air conditioning"
+          ],
+          "Clothing and laundry": [
+            "Closet",
+            "Ironing facilities"
+          ],
+          "For the kids": [
+            "Baby cot (upon request)"
+          ],
+          "Safety and security features": [
+            "Individual air conditioning",
+            "Non-smoking"
+          ],
+          "Bathroom and toiletries": [
+            "Bathrobes",
+            "Bathtub"
+          ],
+          "Dining, drinking, and snacking": [
+            "Coffee/tea maker",
+            "Mini bar"
+          ]
+        },
         "amenities": [
           "Breakfast",
           "Pool access",
@@ -625,6 +1760,41 @@
         "guests": 4,
         "beds": "2 queen beds",
         "sizeSqm": 46,
+        "breakfast": true,
+        "view": "Mountain view",
+        "smoking": false,
+        "highlights": [
+          "Non-refundable (Low price!)",
+          "Parking",
+          "Express check-in",
+          "Free WiFi"
+        ],
+        "amenityGroups": {
+          "Entertainment": [
+            "Internet access – wireless",
+            "Satellite/cable channels",
+            "Streaming service like Netflix",
+            "Telephone",
+            "TV",
+            "TV [flat screen]",
+            "Wi-Fi [free]"
+          ],
+          "Comforts": [
+            "Adapter",
+            "Air conditioning"
+          ],
+          "Clothing and laundry": [
+            "Closet",
+            "Ironing facilities"
+          ],
+          "For the kids": [
+            "Baby cot (upon request)"
+          ],
+          "Safety and security features": [
+            "Individual air conditioning",
+            "Non-smoking"
+          ]
+        },
         "amenities": [
           "Breakfast",
           "Air conditioning",
@@ -650,6 +1820,51 @@
         "guests": 2,
         "beds": "1 king bed",
         "sizeSqm": 60,
+        "breakfast": true,
+        "view": "Pool view",
+        "smoking": false,
+        "highlights": [
+          "Free cancellation",
+          "Parking",
+          "Free WiFi"
+        ],
+        "amenityGroups": {
+          "Kitchen": [
+            "Electric kettle",
+            "Mini fridge"
+          ],
+          "Entertainment": [
+            "Internet access – wireless",
+            "Satellite/cable channels",
+            "Streaming service like Netflix",
+            "Telephone"
+          ],
+          "Comforts": [
+            "Adapter",
+            "Air conditioning",
+            "Blackout curtains",
+            "Hypoallergenic",
+            "Linens"
+          ],
+          "Safety and security features": [
+            "Individual air conditioning",
+            "Non-smoking"
+          ],
+          "Bathroom and toiletries": [
+            "Bathrobes",
+            "Bathtub"
+          ],
+          "Dining, drinking, and snacking": [
+            "Coffee/tea maker",
+            "Mini bar"
+          ],
+          "Layout and furnishings": [
+            "Balcony/terrace",
+            "Desk",
+            "Fold-up bed",
+            "Ground floor available"
+          ]
+        },
         "amenities": [
           "Breakfast",
           "Private terrace",
@@ -670,6 +1885,64 @@
         "guests": 2,
         "beds": "1 king bed",
         "sizeSqm": 66,
+        "breakfast": false,
+        "view": "Courtyard view",
+        "smoking": false,
+        "highlights": [
+          "Free cancellation",
+          "Parking",
+          "Breakfast included",
+          "Free WiFi"
+        ],
+        "amenityGroups": {
+          "Kitchen": [
+            "Electric kettle",
+            "Mini fridge"
+          ],
+          "Entertainment": [
+            "Internet access – wireless",
+            "Satellite/cable channels",
+            "Streaming service like Netflix",
+            "Telephone",
+            "TV",
+            "TV [flat screen]"
+          ],
+          "Comforts": [
+            "Adapter",
+            "Air conditioning",
+            "Blackout curtains",
+            "Hypoallergenic",
+            "Linens",
+            "Mosquito net",
+            "Private entrance"
+          ],
+          "Clothing and laundry": [
+            "Closet",
+            "Ironing facilities"
+          ],
+          "For the kids": [
+            "Baby cot (upon request)"
+          ],
+          "Safety and security features": [
+            "Individual air conditioning",
+            "Non-smoking"
+          ],
+          "Bathroom and toiletries": [
+            "Bathrobes",
+            "Bathtub",
+            "Hairdryer",
+            "Shower"
+          ],
+          "Dining, drinking, and snacking": [
+            "Coffee/tea maker",
+            "Mini bar"
+          ],
+          "Layout and furnishings": [
+            "Balcony/terrace",
+            "Desk",
+            "Fold-up bed"
+          ]
+        },
         "amenities": [
           "Breakfast",
           "Sea deck",
@@ -695,6 +1968,63 @@
         "guests": 2,
         "beds": "1 king bed",
         "sizeSqm": 60,
+        "breakfast": false,
+        "view": "Courtyard view",
+        "smoking": false,
+        "highlights": [
+          "Free cancellation",
+          "Parking",
+          "Free WiFi"
+        ],
+        "amenityGroups": {
+          "Kitchen": [
+            "Electric kettle",
+            "Mini fridge"
+          ],
+          "Entertainment": [
+            "Internet access – wireless",
+            "Satellite/cable channels",
+            "Streaming service like Netflix",
+            "Telephone",
+            "TV",
+            "TV [flat screen]"
+          ],
+          "Comforts": [
+            "Adapter",
+            "Air conditioning",
+            "Blackout curtains",
+            "Hypoallergenic",
+            "Linens",
+            "Mosquito net",
+            "Private entrance"
+          ],
+          "Clothing and laundry": [
+            "Closet",
+            "Ironing facilities"
+          ],
+          "For the kids": [
+            "Baby cot (upon request)"
+          ],
+          "Safety and security features": [
+            "Individual air conditioning",
+            "Non-smoking"
+          ],
+          "Bathroom and toiletries": [
+            "Bathrobes",
+            "Bathtub",
+            "Hairdryer",
+            "Shower"
+          ],
+          "Dining, drinking, and snacking": [
+            "Coffee/tea maker",
+            "Mini bar"
+          ],
+          "Layout and furnishings": [
+            "Balcony/terrace",
+            "Desk",
+            "Fold-up bed"
+          ]
+        },
         "amenities": [
           "Breakfast",
           "Private terrace",
@@ -715,6 +2045,38 @@
         "guests": 2,
         "beds": "1 king bed",
         "sizeSqm": 66,
+        "breakfast": false,
+        "view": "Courtyard view",
+        "smoking": false,
+        "highlights": [
+          "Free cancellation",
+          "Parking",
+          "Breakfast included",
+          "Free WiFi"
+        ],
+        "amenityGroups": {
+          "Kitchen": [
+            "Electric kettle",
+            "Mini fridge"
+          ],
+          "For the kids": [
+            "Baby cot (upon request)"
+          ],
+          "Safety and security features": [
+            "Individual air conditioning",
+            "Non-smoking"
+          ],
+          "Bathroom and toiletries": [
+            "Bathrobes",
+            "Bathtub",
+            "Hairdryer",
+            "Shower"
+          ],
+          "Dining, drinking, and snacking": [
+            "Coffee/tea maker",
+            "Mini bar"
+          ]
+        },
         "amenities": [
           "Breakfast",
           "Sea deck",

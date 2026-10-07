@@ -84,7 +84,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     left: 10,
                     top: top + 4,
                     child: IconButton(
-                      onPressed: () => context.canPop() ? context.pop() : context.go(Routes.home),
+                      onPressed: () => context.go(Routes.welcome),
                       icon: const Icon(Icons.arrow_back_rounded, color: Colors.white, size: 26),
                     ),
                   ),
@@ -189,13 +189,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           label: s.signInWithGoogle,
                           onTap: () => showToast(context, '${s.signInWithGoogle} — ${s.socialSoon}'),
                           logo: const GoogleLogo(),
-                        ),
-                        const SizedBox(height: 10),
-                        SocialButton(
-                          label: s.signInWithApple,
-                          dark: true,
-                          onTap: () => showToast(context, '${s.signInWithApple} — ${s.socialSoon}'),
-                          logo: const Icon(Icons.apple, color: Colors.white, size: 26),
                         ),
                         const SizedBox(height: 18),
                         Row(

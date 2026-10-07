@@ -26,7 +26,7 @@ class MainShell extends StatelessWidget {
     final s = S.of(context);
     final savedCount = context.select<SavedProvider, int>((p) => p.count);
     final items = [
-      (Icons.home_outlined, Icons.home_rounded, s.navExplore, 0),
+      (Icons.explore_outlined, Icons.explore_rounded, s.navExplore, 0),
       (Icons.public_outlined, Icons.public_rounded, s.navMap, 0),
       (Icons.favorite_border_rounded, Icons.favorite_rounded, s.navSaved, savedCount),
       (Icons.person_outline_rounded, Icons.person_rounded, s.navProfile, 0),
