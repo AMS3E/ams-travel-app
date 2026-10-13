@@ -66,6 +66,10 @@ class PlaceView extends StatelessWidget {
               child: _TitleBlock(destination: d, title: title, interest: _interest),
             ),
           ),
+          // What a place to eat cooks and when it serves, straight under the
+          // name as the design has it.
+          if (d.isFood && (d.cuisines.isNotEmpty || d.serving.isNotEmpty))
+            SliverToBoxAdapter(child: _AboutFood(destination: d)),
           SliverToBoxAdapter(child: _Quote(destination: d)),
           SliverToBoxAdapter(child: _Description(destination: d)),
           // Facilities, house rules and contact belong to a stay; an
@@ -116,12 +120,19 @@ class PlaceView extends StatelessWidget {
               ),
             ),
           if (d.isStay) SliverToBoxAdapter(child: _StayPolicies(destination: d)),
-          if (d.isStay && (d.phone != null || d.website != null))
+          if ((d.isStay || d.isFood) && (d.phone != null || d.website != null))
             SliverToBoxAdapter(child: _ContactPills(destination: d)),
           SliverToBoxAdapter(child: SizedBox(height: 28 + MediaQuery.paddingOf(context).bottom)),
         ],
       ),
-      bottomNavigationBar: d.isStay ? _RoomsBar(destination: d) : null,
+      bottomNavigationBar: switch (d) {
+        _ when d.isStay => _ActionBar(
+          label: s.viewRooms,
+          onPressed: () => context.push(Routes.rooms(d.region, d.slug)),
+        ),
+        _ when d.isFood => _MenuBar(destination: d),
+        _ => null,
+      },
     );
   }
 }
@@ -260,6 +271,44 @@ class _TitleBlock extends StatelessWidget {
     final s = S.of(context);
     final d = destination;
 
+    // A place to eat shows its score, what a meal costs and whether the
+    // kitchen is open now — the design has nothing else up here.
+    if (d.isFood) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(title, style: AppText.display(24)),
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              if (d.rating != null) ...[
+                const Icon(Icons.star_rounded, size: 20, color: AppColors.star),
+                const SizedBox(width: 5),
+                Text(
+                  d.rating!.toStringAsFixed(1),
+                  style: AppText.sans(15, weight: FontWeight.w700, color: AppColors.sand900),
+                ),
+                const SizedBox(width: 14),
+              ],
+              if (d.priceRange != null)
+                Flexible(
+                  child: Text(
+                    d.priceRange!,
+                    style: AppText.sans(14, color: AppColors.sand600),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+            ],
+          ),
+          if (d.open24h || openStatus(d) != OpenStatus.unknown) ...[
+            const SizedBox(height: 10),
+            _OpenLine(destination: d),
+          ],
+        ],
+      );
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -267,34 +316,34 @@ class _TitleBlock extends StatelessWidget {
         const SizedBox(height: 8),
         Row(
           children: [
-            const Icon(Icons.verified_rounded, size: 15, color: Color(0xFF34D399)),
-            const SizedBox(width: 5),
+            const Icon(Icons.verified_rounded, size: 19, color: Color(0xFF34D399)),
+            const SizedBox(width: 7),
             // The score and what the place is are never cut; the line on the
             // left gives way instead.
             Flexible(
               child: Text(
                 s.recommendByTraveler,
-                style: AppText.sans(12.5, color: AppColors.sand600),
+                style: AppText.sans(14, color: AppColors.sand700),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            const SizedBox(width: 10),
+            const SizedBox(width: 12),
             if (d.rating != null) ...[
-              const Icon(Icons.star_rounded, size: 17, color: AppColors.star),
-              const SizedBox(width: 3),
+              const Icon(Icons.star_rounded, size: 22, color: AppColors.star),
+              const SizedBox(width: 6),
               Text(
                 d.rating!.toStringAsFixed(1),
-                style: AppText.sans(13, weight: FontWeight.w700, color: AppColors.sand900),
+                style: AppText.sans(15, weight: FontWeight.w700, color: AppColors.sand900),
               ),
               if (d.reviewCount != null)
                 Text(
-                  ' ${thousands(d.reviewCount!)} ${s.reviewsWord.toLowerCase()}'
+                  '  ·  ${thousands(d.reviewCount!)} ${s.reviewsWord.toLowerCase()}'
                   '${d.stars == null ? '' : '  ·  ${d.stars}-star ${_stayNoun(d.category)}'}',
-                  style: AppText.sans(11.5, color: AppColors.sand500),
+                  style: AppText.sans(13.5, color: AppColors.sand600),
                 ),
             ] else
-              Text(s.noReviews, style: AppText.sans(12.5, color: AppColors.sand500)),
+              Text(s.noReviews, style: AppText.sans(13.5, color: AppColors.sand500)),
           ],
         ),
         const SizedBox(height: 12),
@@ -490,13 +539,132 @@ class _DescriptionState extends State<_Description> {
 }
 
 /// Nightly price and the call to action. Hidden until the API prices the stay.
-class _RoomsBar extends StatelessWidget {
-  const _RoomsBar({required this.destination});
+/// Whether the kitchen is open, and when it next opens or closes.
+class _OpenLine extends StatelessWidget {
+  const _OpenLine({required this.destination});
   final Destination destination;
 
   @override
   Widget build(BuildContext context) {
     final s = S.of(context);
+    final d = destination;
+    final open = d.open24h || openStatus(d) == OpenStatus.open;
+    final next = d.open24h
+        ? null
+        : open
+        ? '${s.closesAt} ${formatTime(d.closeTime!)}'
+        : '${s.opensAt} ${formatTime(d.openTime!)}';
+
+    return Row(
+      children: [
+        _Tag(
+          label: d.open24h ? s.open24h : (open ? s.openNowPill : s.closeNow),
+          icon: Icons.schedule_rounded,
+          color: open ? AppColors.success : AppColors.sunset600,
+        ),
+        if (next != null) ...[
+          const SizedBox(width: 12),
+          Flexible(
+            child: Text(
+              next,
+              style: AppText.sans(13.5, color: AppColors.sand600),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+}
+
+/// What a place to eat cooks and the meals it serves.
+class _AboutFood extends StatelessWidget {
+  const _AboutFood({required this.destination});
+  final Destination destination;
+
+  @override
+  Widget build(BuildContext context) {
+    final s = S.of(context);
+    final d = destination;
+
+    return _Card(
+      title: s.aboutPlace,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (d.cuisines.isNotEmpty)
+            _AboutRow(icon: Icons.restaurant_rounded, label: s.cuisines, value: d.cuisines.join(', ')),
+          if (d.cuisines.isNotEmpty && d.serving.isNotEmpty) const SizedBox(height: 12),
+          if (d.serving.isNotEmpty)
+            _AboutRow(icon: Icons.schedule_rounded, label: s.serving, value: d.serving.join('   ')),
+        ],
+      ),
+    );
+  }
+}
+
+/// One line of the About card: what it is, and what it says.
+class _AboutRow extends StatelessWidget {
+  const _AboutRow({required this.icon, required this.label, required this.value});
+  final IconData icon;
+  final String label;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Icon(icon, size: 17, color: AppColors.sand700),
+        const SizedBox(width: 10),
+        SizedBox(
+          width: 74,
+          child: Text(label, style: AppText.sans(13, color: AppColors.sand500)),
+        ),
+        Expanded(
+          child: Text(
+            value,
+            style: AppText.sans(13.5, weight: FontWeight.w600, color: AppColors.sand900),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+/// The menu button, shown once the kitchen has published one.
+class _MenuBar extends StatelessWidget {
+  const _MenuBar({required this.destination});
+  final Destination destination;
+
+  @override
+  Widget build(BuildContext context) {
+    final s = S.of(context);
+    final d = destination;
+
+    return FutureBuilder<List<MenuSection>>(
+      future: context.read<TravelRepository>().getMenu(d.ref),
+      builder: (context, snap) {
+        if ((snap.data ?? const <MenuSection>[]).isEmpty) return const SizedBox.shrink();
+        return _ActionBar(
+          label: s.showAllMenu,
+          onPressed: () => context.push(Routes.menu(d.region, d.slug)),
+        );
+      },
+    );
+  }
+}
+
+/// The violet bar at the foot of the page — rooms for a stay, the menu for a
+/// place to eat.
+class _ActionBar extends StatelessWidget {
+  const _ActionBar({required this.label, required this.onPressed});
+  final String label;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.fromLTRB(20, 12, 20, 12 + MediaQuery.paddingOf(context).bottom),
       decoration: const BoxDecoration(
@@ -511,8 +679,8 @@ class _RoomsBar extends StatelessWidget {
             minimumSize: const Size(0, 52),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
           ),
-          onPressed: () => context.push(Routes.rooms(destination.region, destination.slug)),
-          child: Text(s.viewRooms, style: AppText.sans(15.5, weight: FontWeight.w700, color: Colors.white)),
+          onPressed: onPressed,
+          child: Text(label, style: AppText.sans(15.5, weight: FontWeight.w700, color: Colors.white)),
         ),
       ),
     );

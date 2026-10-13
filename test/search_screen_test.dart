@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:ams_travel/core/l10n/app_strings.dart';
 import 'package:ams_travel/data/repositories/mock_travel_repository.dart';
 import 'package:ams_travel/data/repositories/travel_repository.dart';
 import 'package:ams_travel/features/search/filter_sheet.dart';
@@ -32,7 +33,9 @@ Future<void> _pumpUntil(WidgetTester tester, Finder finder) async {
 }
 
 void main() {
-  setUpAll(() {
+  setUpAll(() async {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    await S.load();
     GoogleFonts.config.allowRuntimeFetching = false;
     AppImage.useDiskCache = false;
   });

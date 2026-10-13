@@ -43,8 +43,12 @@ class Routes {
       '/regions/$region/$slug';
   static String review(String region, String slug) =>
       '/regions/$region/$slug/review';
+  static String reviews(String region, String slug) =>
+      '/regions/$region/$slug/reviews';
   static String rooms(String region, String slug) =>
       '/regions/$region/$slug/rooms';
+  static String menu(String region, String slug) =>
+      '/regions/$region/$slug/menu';
   static String room(String region, String slug, String roomId) =>
       '/regions/$region/$slug/rooms/$roomId';
   static String story(String region, String slug) =>

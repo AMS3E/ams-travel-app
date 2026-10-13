@@ -319,19 +319,21 @@ class _QuickActions extends StatelessWidget {
 
   final List<Interest> interests;
 
-  /// The icon each interest wears here, keyed by slug.
-  static const _icons = <String, IconData>{
-    'attraction-sites': Icons.temple_buddhist_rounded,
-    'stays': Icons.hotel_rounded,
-    'food': Icons.restaurant_rounded,
-    'water': Icons.eco_rounded,
-    'activities-experiences': Icons.hiking_rounded,
-    'tourism-corridors': Icons.route_rounded,
-  };
+  /// The interests that get a shortcut here, in this order.
+  static const _shown = [
+    'attraction-sites',
+    'stays',
+    'food',
+    'water',
+    'activities-experiences',
+    'tourism-corridors',
+  ];
 
   @override
   Widget build(BuildContext context) {
-    final shown = interests.where((i) => _icons.containsKey(i.slug)).toList();
+    final shown = [
+      for (final slug in _shown) ...interests.where((i) => i.slug == slug),
+    ];
 
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
@@ -351,11 +353,10 @@ class _QuickActions extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 6),
                     child: Column(
                       children: [
-                        Container(
-                          width: 52,
-                          height: 52,
-                          decoration: const BoxDecoration(color: AppColors.violet, shape: BoxShape.circle),
-                          child: Icon(_icons[shown[i].slug], color: Colors.white, size: 25),
+                        SizedBox(
+                          width: 62,
+                          height: 62,
+                          child: AppImage(shown[i].image, radius: BorderRadius.circular(16)),
                         ),
                         const SizedBox(height: 7),
                         Text(

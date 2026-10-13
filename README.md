@@ -44,8 +44,10 @@ flutter test
 | Saved | `/saved`, folders at `/folders` and `/folders/:name` |
 | Profile | `/profile` |
 | Destination (all categories) | `/regions/:region/:slug` |
+| Reviews of a place | `/regions/:region/:slug/reviews` |
 | Write a review | `/regions/:region/:slug/review` |
 | Rooms (stays) | `/regions/:region/:slug/rooms`, `/regions/:region/:slug/rooms/:roomId` |
+| Menu (food) | `/regions/:region/:slug/menu` — every dish, by section |
 | Story | `/regions/:region/stories/:slug` |
 | Province | `/provinces/:slug` |
 | Interest | `/interests/:slug` — one category across the regions |
@@ -107,6 +109,7 @@ Screens never call HTTP directly. They use `TravelRepository` and
    | GET | `/regions/:region/destinations/:slug/reviews` | reviews on a place |
    | POST | `/regions/:region/destinations/:slug/reviews` | write a review |
    | GET | `/regions/:region/destinations/:slug/rooms` | rooms in a stay |
+   | GET | `/regions/:region/destinations/:slug/menu` | the menu of a place to eat |
    | GET | `/provinces`, `/provinces/:slug` | province pages |
    | GET | `/interests` | interest pages |
    | GET | `/corridors`, `/corridors/:slug` | corridor pages |
@@ -140,9 +143,11 @@ the code — `grep -rn "TODO(api)" lib` lists them all.
 | Area | Where | What is needed |
 |---|---|---|
 | Room prices and details | `data/models/destination.dart`, `assets/mock/rooms.json` | `priceFrom` and `currency` per stay, and the rooms themselves — size, beds, view, what the rate includes and the amenity groups are sample values |
+| Menus | `assets/mock/menus.json` | every dish, its description, its price and its photo is invented, as is which dishes are popular, vegetarian or spicy; the photos are stock pictures of the kind of dish, not of the kitchen's own; 33 of the 43 food places have a menu (a farm, a rice field and a cooking class have none) |
+| Cuisines and serving | `assets/mock/destinations.json` | `cuisines` and `serving` in the About card are set per category, not per place |
 | Opening hours | `assets/mock/destinations.json` | real `openTime` / `closeTime` / `open24h` — the mock values are guesses by place type |
 | Stay policies | `features/destination/place_view.dart` | check-in/out, cancellation, children, pets |
-| Contact details | `assets/mock/destinations.json` | phone, email, website, Telegram per place — the stays currently show AMS Travel's own support number and a link to the place's page on the website |
+| Contact details | `assets/mock/destinations.json` | phone, email, website, Telegram per place — the stays and the places to eat currently show AMS Travel's own support number and a link to the place's page on the website |
 | Corridor plans | `assets/mock/corridors.json` | the day-by-day itineraries are invented |
 | Reviews | `/regions/:region/destinations/:slug/reviews`, `/me/reviews` | the seeded reviews in `assets/mock` (including `place_reviews.json`) are placeholders |
 | Stay classification | `assets/mock/destinations.json` | the `stars` on each stay (5-star hotel, 3-star homestay…) is a sample value |

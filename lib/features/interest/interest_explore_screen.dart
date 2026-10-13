@@ -71,6 +71,17 @@ class _Body extends StatefulWidget {
 class _BodyState extends State<_Body> {
   int _index = 0;
 
+  /// A finer filter inside the chosen interest.
+  final _picked = <String>{};
+
+  /// The groups of the chosen interest that places actually fall into. The
+  /// corridors chip has none — its children are the corridors themselves.
+  List<String> get _subCategories {
+    final interest = widget.interests[_index];
+    if (interest.isCorridors) return const [];
+    return interest.groups.keys.toList();
+  }
+
   /// What the chosen chip holds: places, or the corridors themselves.
   (List<_Item>, List<_Item>) get _items {
     if (widget.interests.isEmpty) return (const [], const []);
@@ -90,7 +101,9 @@ class _BodyState extends State<_Body> {
       return (items, items.take(5).toList());
     }
 
-    final categories = interest.categories.toSet();
+    final categories = _picked.isEmpty
+        ? interest.categories.toSet()
+        : {for (final g in _picked) ...?interest.groups[g]};
     final places = widget.places.where((d) => categories.contains(d.category)).toList();
     _Item of(Destination d) => _Item(
       image: d.image,
@@ -124,10 +137,37 @@ class _BodyState extends State<_Body> {
             itemBuilder: (_, i) => CategoryChip(
               label: bilingual(context, widget.interests[i].name, widget.interests[i].nameKh).$1,
               selected: i == _index,
-              onTap: () => setState(() => _index = i),
+              onTap: () => setState(() {
+                _index = i;
+                _picked.clear();
+              }),
             ),
           ),
         ),
+
+        // What the chosen interest is made of, for a finer filter.
+        if (_subCategories.isNotEmpty) ...[
+          const SizedBox(height: 8),
+          SizedBox(
+            height: 34,
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              itemCount: _subCategories.length,
+              separatorBuilder: (_, _) => const SizedBox(width: 8),
+              itemBuilder: (_, i) {
+                final c = _subCategories[i];
+                return CategoryChip(
+                  label: c,
+                  selected: _picked.contains(c),
+                  onTap: () => setState(() {
+                    _picked.contains(c) ? _picked.remove(c) : _picked.add(c);
+                  }),
+                );
+              },
+            ),
+          ),
+        ],
         const SizedBox(height: 14),
         Expanded(
           child: ListView(

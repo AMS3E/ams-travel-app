@@ -1011,7 +1011,17 @@
     "highlights": [
       "Iced Khmer coffee",
       "Local roasts"
-    ]
+    ],
+    "cuisines": [
+      "Coffee",
+      "Bakery"
+    ],
+    "serving": [
+      "Breakfast",
+      "Lunch"
+    ],
+    "phone": "+855 23 456 789",
+    "website": "ams-travel.netlify.app/regions/northeastern-civilization/ratanakiri-coffee"
   },
   {
     "slug": "mondulkiri-coffee",
@@ -1045,7 +1055,17 @@
     "highlights": [
       "Iced Khmer coffee",
       "Local roasts"
-    ]
+    ],
+    "cuisines": [
+      "Coffee",
+      "Bakery"
+    ],
+    "serving": [
+      "Breakfast",
+      "Lunch"
+    ],
+    "phone": "+855 23 456 789",
+    "website": "ams-travel.netlify.app/regions/northeastern-civilization/mondulkiri-coffee"
   },
   {
     "slug": "elephant-valley",
@@ -1914,7 +1934,15 @@
     "highlights": [
       "Paddy walk",
       "Rice tasting"
-    ]
+    ],
+    "cuisines": [
+      "Khmer"
+    ],
+    "serving": [
+      "Lunch"
+    ],
+    "phone": "+855 23 456 789",
+    "website": "ams-travel.netlify.app/regions/mekong-tonle-sap/kandal-rice-plains"
   },
   {
     "slug": "stung-sen-floodplain",
@@ -1949,7 +1977,15 @@
     "highlights": [
       "Paddy walk",
       "Rice tasting"
-    ]
+    ],
+    "cuisines": [
+      "Khmer"
+    ],
+    "serving": [
+      "Lunch"
+    ],
+    "phone": "+855 23 456 789",
+    "website": "ams-travel.netlify.app/regions/mekong-tonle-sap/stung-sen-floodplain"
   },
   {
     "slug": "kampong-chhnang-pottery",
@@ -3832,7 +3868,17 @@
     ],
     "tips": [
       "Prices are often by weight"
-    ]
+    ],
+    "cuisines": [
+      "Seafood",
+      "Khmer"
+    ],
+    "serving": [
+      "Lunch",
+      "Dinner"
+    ],
+    "phone": "+855 23 456 789",
+    "website": "ams-travel.netlify.app/regions/coastal-island/kep-beach"
   },
   {
     "slug": "psar-leu-seafood",
@@ -3869,7 +3915,17 @@
     ],
     "tips": [
       "Prices are often by weight"
-    ]
+    ],
+    "cuisines": [
+      "Seafood",
+      "Khmer"
+    ],
+    "serving": [
+      "Lunch",
+      "Dinner"
+    ],
+    "phone": "+855 23 456 789",
+    "website": "ams-travel.netlify.app/regions/coastal-island/psar-leu-seafood"
   },
   {
     "slug": "kampot-fish-market",
@@ -3905,7 +3961,17 @@
     ],
     "tips": [
       "Prices are often by weight"
-    ]
+    ],
+    "cuisines": [
+      "Seafood",
+      "Khmer"
+    ],
+    "serving": [
+      "Lunch",
+      "Dinner"
+    ],
+    "phone": "+855 23 456 789",
+    "website": "ams-travel.netlify.app/regions/coastal-island/kampot-fish-market"
   },
   {
     "slug": "peam-krasop",
@@ -4289,7 +4355,16 @@
     ],
     "tips": [
       "Carry small notes"
-    ]
+    ],
+    "cuisines": [
+      "Khmer",
+      "Street Food"
+    ],
+    "serving": [
+      "Dinner"
+    ],
+    "phone": "+855 23 456 789",
+    "website": "ams-travel.netlify.app/regions/urban-nightlife/pp-night-market"
   },
   {
     "slug": "angkor-night-market",
@@ -4326,7 +4401,16 @@
     ],
     "tips": [
       "Carry small notes"
-    ]
+    ],
+    "cuisines": [
+      "Khmer",
+      "Street Food"
+    ],
+    "serving": [
+      "Dinner"
+    ],
+    "phone": "+855 23 456 789",
+    "website": "ams-travel.netlify.app/regions/urban-nightlife/angkor-night-market"
   },
   {
     "slug": "sihanoukville-night-market",
@@ -4364,7 +4448,16 @@
     ],
     "tips": [
       "Carry small notes"
-    ]
+    ],
+    "cuisines": [
+      "Khmer",
+      "Street Food"
+    ],
+    "serving": [
+      "Dinner"
+    ],
+    "phone": "+855 23 456 789",
+    "website": "ams-travel.netlify.app/regions/urban-nightlife/sihanoukville-night-market"
   },
   {
     "slug": "street-240",
@@ -4400,7 +4493,17 @@
     "highlights": [
       "Iced Khmer coffee",
       "Local roasts"
-    ]
+    ],
+    "cuisines": [
+      "Coffee",
+      "Bakery"
+    ],
+    "serving": [
+      "Breakfast",
+      "Lunch"
+    ],
+    "phone": "+855 23 456 789",
+    "website": "ams-travel.netlify.app/regions/urban-nightlife/street-240"
   },
   {
     "slug": "battambang-cafes",
@@ -4434,7 +4537,17 @@
     "highlights": [
       "Iced Khmer coffee",
       "Local roasts"
-    ]
+    ],
+    "cuisines": [
+      "Coffee",
+      "Bakery"
+    ],
+    "serving": [
+      "Breakfast",
+      "Lunch"
+    ],
+    "phone": "+855 23 456 789",
+    "website": "ams-travel.netlify.app/regions/urban-nightlife/battambang-cafes"
   },
   {
     "slug": "kampot-cafes",
@@ -4468,7 +4581,17 @@
     "highlights": [
       "Iced Khmer coffee",
       "Local roasts"
-    ]
+    ],
+    "cuisines": [
+      "Coffee",
+      "Bakery"
+    ],
+    "serving": [
+      "Breakfast",
+      "Lunch"
+    ],
+    "phone": "+855 23 456 789",
+    "website": "ams-travel.netlify.app/regions/urban-nightlife/kampot-cafes"
   },
   {
     "slug": "pp-rooftops",
@@ -4504,7 +4627,16 @@
     ],
     "tips": [
       "Smart casual dress"
-    ]
+    ],
+    "cuisines": [
+      "Cocktails",
+      "Small Plates"
+    ],
+    "serving": [
+      "Dinner"
+    ],
+    "phone": "+855 23 456 789",
+    "website": "ams-travel.netlify.app/regions/urban-nightlife/pp-rooftops"
   },
   {
     "slug": "siem-reap-rooftops",
@@ -4538,7 +4670,16 @@
     ],
     "tips": [
       "Smart casual dress"
-    ]
+    ],
+    "cuisines": [
+      "Cocktails",
+      "Small Plates"
+    ],
+    "serving": [
+      "Dinner"
+    ],
+    "phone": "+855 23 456 789",
+    "website": "ams-travel.netlify.app/regions/urban-nightlife/siem-reap-rooftops"
   },
   {
     "slug": "russian-market",
@@ -4855,7 +4996,18 @@
     ],
     "tips": [
       "Busy stalls turn food over fastest"
-    ]
+    ],
+    "cuisines": [
+      "Khmer",
+      "Street Food"
+    ],
+    "serving": [
+      "Breakfast",
+      "Lunch",
+      "Dinner"
+    ],
+    "phone": "+855 23 456 789",
+    "website": "ams-travel.netlify.app/regions/urban-nightlife/bassac-lane"
   },
   {
     "slug": "pp-street-food",
@@ -4893,7 +5045,18 @@
     ],
     "tips": [
       "Busy stalls turn food over fastest"
-    ]
+    ],
+    "cuisines": [
+      "Khmer",
+      "Street Food"
+    ],
+    "serving": [
+      "Breakfast",
+      "Lunch",
+      "Dinner"
+    ],
+    "phone": "+855 23 456 789",
+    "website": "ams-travel.netlify.app/regions/urban-nightlife/pp-street-food"
   },
   {
     "slug": "pub-street",
@@ -4932,7 +5095,18 @@
     ],
     "tips": [
       "Busy stalls turn food over fastest"
-    ]
+    ],
+    "cuisines": [
+      "Khmer",
+      "Street Food"
+    ],
+    "serving": [
+      "Breakfast",
+      "Lunch",
+      "Dinner"
+    ],
+    "phone": "+855 23 456 789",
+    "website": "ams-travel.netlify.app/regions/urban-nightlife/pub-street"
   },
   {
     "slug": "kep-evening",
@@ -4969,7 +5143,18 @@
     ],
     "tips": [
       "Busy stalls turn food over fastest"
-    ]
+    ],
+    "cuisines": [
+      "Khmer",
+      "Street Food"
+    ],
+    "serving": [
+      "Breakfast",
+      "Lunch",
+      "Dinner"
+    ],
+    "phone": "+855 23 456 789",
+    "website": "ams-travel.netlify.app/regions/urban-nightlife/kep-evening"
   },
   {
     "slug": "kep-crab",
@@ -5008,7 +5193,16 @@
     ],
     "tips": [
       "Ask for mild if you prefer less chilli"
-    ]
+    ],
+    "cuisines": [
+      "Khmer"
+    ],
+    "serving": [
+      "Lunch",
+      "Dinner"
+    ],
+    "phone": "+855 23 456 789",
+    "website": "ams-travel.netlify.app/regions/khmer-culinary/kep-crab"
   },
   {
     "slug": "prahok-kampong-thom",
@@ -5046,7 +5240,16 @@
     ],
     "tips": [
       "Ask for mild if you prefer less chilli"
-    ]
+    ],
+    "cuisines": [
+      "Khmer"
+    ],
+    "serving": [
+      "Lunch",
+      "Dinner"
+    ],
+    "phone": "+855 23 456 789",
+    "website": "ams-travel.netlify.app/regions/khmer-culinary/prahok-kampong-thom"
   },
   {
     "slug": "num-banh-chok",
@@ -5085,7 +5288,16 @@
     ],
     "tips": [
       "Ask for mild if you prefer less chilli"
-    ]
+    ],
+    "cuisines": [
+      "Khmer"
+    ],
+    "serving": [
+      "Lunch",
+      "Dinner"
+    ],
+    "phone": "+855 23 456 789",
+    "website": "ams-travel.netlify.app/regions/khmer-culinary/num-banh-chok"
   },
   {
     "slug": "kien-svay",
@@ -5124,7 +5336,16 @@
     ],
     "tips": [
       "Ask for mild if you prefer less chilli"
-    ]
+    ],
+    "cuisines": [
+      "Khmer"
+    ],
+    "serving": [
+      "Lunch",
+      "Dinner"
+    ],
+    "phone": "+855 23 456 789",
+    "website": "ams-travel.netlify.app/regions/khmer-culinary/kien-svay"
   },
   {
     "slug": "kralan",
@@ -5162,7 +5383,16 @@
     ],
     "tips": [
       "Ask for mild if you prefer less chilli"
-    ]
+    ],
+    "cuisines": [
+      "Khmer"
+    ],
+    "serving": [
+      "Lunch",
+      "Dinner"
+    ],
+    "phone": "+855 23 456 789",
+    "website": "ams-travel.netlify.app/regions/khmer-culinary/kralan"
   },
   {
     "slug": "central-market",
@@ -5200,7 +5430,18 @@
     ],
     "tips": [
       "Busy stalls turn food over fastest"
-    ]
+    ],
+    "cuisines": [
+      "Khmer",
+      "Street Food"
+    ],
+    "serving": [
+      "Breakfast",
+      "Lunch",
+      "Dinner"
+    ],
+    "phone": "+855 23 456 789",
+    "website": "ams-travel.netlify.app/regions/khmer-culinary/central-market"
   },
   {
     "slug": "bai-sach-chrouk",
@@ -5238,7 +5479,18 @@
     ],
     "tips": [
       "Busy stalls turn food over fastest"
-    ]
+    ],
+    "cuisines": [
+      "Khmer",
+      "Street Food"
+    ],
+    "serving": [
+      "Breakfast",
+      "Lunch",
+      "Dinner"
+    ],
+    "phone": "+855 23 456 789",
+    "website": "ams-travel.netlify.app/regions/khmer-culinary/bai-sach-chrouk"
   },
   {
     "slug": "road-60",
@@ -5275,7 +5527,18 @@
     ],
     "tips": [
       "Busy stalls turn food over fastest"
-    ]
+    ],
+    "cuisines": [
+      "Khmer",
+      "Street Food"
+    ],
+    "serving": [
+      "Breakfast",
+      "Lunch",
+      "Dinner"
+    ],
+    "phone": "+855 23 456 789",
+    "website": "ams-travel.netlify.app/regions/khmer-culinary/road-60"
   },
   {
     "slug": "skun",
@@ -5311,7 +5574,18 @@
     ],
     "tips": [
       "Busy stalls turn food over fastest"
-    ]
+    ],
+    "cuisines": [
+      "Khmer",
+      "Street Food"
+    ],
+    "serving": [
+      "Breakfast",
+      "Lunch",
+      "Dinner"
+    ],
+    "phone": "+855 23 456 789",
+    "website": "ams-travel.netlify.app/regions/khmer-culinary/skun"
   },
   {
     "slug": "russian-market-food",
@@ -5349,7 +5623,18 @@
     ],
     "tips": [
       "Busy stalls turn food over fastest"
-    ]
+    ],
+    "cuisines": [
+      "Khmer",
+      "Street Food"
+    ],
+    "serving": [
+      "Breakfast",
+      "Lunch",
+      "Dinner"
+    ],
+    "phone": "+855 23 456 789",
+    "website": "ams-travel.netlify.app/regions/khmer-culinary/russian-market-food"
   },
   {
     "slug": "pp-fine-dining",
@@ -5387,7 +5672,17 @@
     ],
     "tips": [
       "Book ahead at weekends"
-    ]
+    ],
+    "cuisines": [
+      "Khmer",
+      "French"
+    ],
+    "serving": [
+      "Lunch",
+      "Dinner"
+    ],
+    "phone": "+855 23 456 789",
+    "website": "ams-travel.netlify.app/regions/khmer-culinary/pp-fine-dining"
   },
   {
     "slug": "siem-reap-fine-dining",
@@ -5423,7 +5718,17 @@
     ],
     "tips": [
       "Book ahead at weekends"
-    ]
+    ],
+    "cuisines": [
+      "Khmer",
+      "French"
+    ],
+    "serving": [
+      "Lunch",
+      "Dinner"
+    ],
+    "phone": "+855 23 456 789",
+    "website": "ams-travel.netlify.app/regions/khmer-culinary/siem-reap-fine-dining"
   },
   {
     "slug": "guide-listed-pp",
@@ -5458,7 +5763,16 @@
     ],
     "tips": [
       "Book well ahead"
-    ]
+    ],
+    "cuisines": [
+      "Khmer",
+      "Contemporary"
+    ],
+    "serving": [
+      "Dinner"
+    ],
+    "phone": "+855 23 456 789",
+    "website": "ams-travel.netlify.app/regions/khmer-culinary/guide-listed-pp"
   },
   {
     "slug": "guide-listed-sr",
@@ -5493,7 +5807,16 @@
     ],
     "tips": [
       "Book well ahead"
-    ]
+    ],
+    "cuisines": [
+      "Khmer",
+      "Contemporary"
+    ],
+    "serving": [
+      "Dinner"
+    ],
+    "phone": "+855 23 456 789",
+    "website": "ams-travel.netlify.app/regions/khmer-culinary/guide-listed-sr"
   },
   {
     "slug": "siem-reap-cooking",
@@ -5532,7 +5855,16 @@
     ],
     "tips": [
       "Tell them about allergies when booking"
-    ]
+    ],
+    "cuisines": [
+      "Khmer"
+    ],
+    "serving": [
+      "Lunch",
+      "Dinner"
+    ],
+    "phone": "+855 23 456 789",
+    "website": "ams-travel.netlify.app/regions/khmer-culinary/siem-reap-cooking"
   },
   {
     "slug": "pp-cooking",
@@ -5570,7 +5902,16 @@
     ],
     "tips": [
       "Tell them about allergies when booking"
-    ]
+    ],
+    "cuisines": [
+      "Khmer"
+    ],
+    "serving": [
+      "Lunch",
+      "Dinner"
+    ],
+    "phone": "+855 23 456 789",
+    "website": "ams-travel.netlify.app/regions/khmer-culinary/pp-cooking"
   },
   {
     "slug": "battambang-cooking",
@@ -5608,7 +5949,16 @@
     ],
     "tips": [
       "Tell them about allergies when booking"
-    ]
+    ],
+    "cuisines": [
+      "Khmer"
+    ],
+    "serving": [
+      "Lunch",
+      "Dinner"
+    ],
+    "phone": "+855 23 456 789",
+    "website": "ams-travel.netlify.app/regions/khmer-culinary/battambang-cooking"
   },
   {
     "slug": "kampot-pepper",
@@ -5648,7 +5998,16 @@
     ],
     "tips": [
       "Wear shoes you can get muddy"
-    ]
+    ],
+    "cuisines": [
+      "Farm to Table",
+      "Khmer"
+    ],
+    "serving": [
+      "Lunch"
+    ],
+    "phone": "+855 23 456 789",
+    "website": "ams-travel.netlify.app/regions/khmer-culinary/kampot-pepper"
   },
   {
     "slug": "palm-sugar",
@@ -5686,7 +6045,16 @@
     ],
     "tips": [
       "Wear shoes you can get muddy"
-    ]
+    ],
+    "cuisines": [
+      "Farm to Table",
+      "Khmer"
+    ],
+    "serving": [
+      "Lunch"
+    ],
+    "phone": "+855 23 456 789",
+    "website": "ams-travel.netlify.app/regions/khmer-culinary/palm-sugar"
   },
   {
     "slug": "battambang-rice",
@@ -5723,7 +6091,16 @@
     ],
     "tips": [
       "Wear shoes you can get muddy"
-    ]
+    ],
+    "cuisines": [
+      "Farm to Table",
+      "Khmer"
+    ],
+    "serving": [
+      "Lunch"
+    ],
+    "phone": "+855 23 456 789",
+    "website": "ams-travel.netlify.app/regions/khmer-culinary/battambang-rice"
   },
   {
     "slug": "rice-wine",
@@ -5760,7 +6137,16 @@
     ],
     "tips": [
       "Wear shoes you can get muddy"
-    ]
+    ],
+    "cuisines": [
+      "Farm to Table",
+      "Khmer"
+    ],
+    "serving": [
+      "Lunch"
+    ],
+    "phone": "+855 23 456 789",
+    "website": "ams-travel.netlify.app/regions/khmer-culinary/rice-wine"
   },
   {
     "slug": "siem-reap-farms",
@@ -5797,7 +6183,16 @@
     ],
     "tips": [
       "Wear shoes you can get muddy"
-    ]
+    ],
+    "cuisines": [
+      "Farm to Table",
+      "Khmer"
+    ],
+    "serving": [
+      "Lunch"
+    ],
+    "phone": "+855 23 456 789",
+    "website": "ams-travel.netlify.app/regions/khmer-culinary/siem-reap-farms"
   },
   {
     "slug": "banteay-chhmar-homestay",
@@ -7261,7 +7656,17 @@
     ],
     "tips": [
       "Book ahead at weekends"
-    ]
+    ],
+    "cuisines": [
+      "Khmer",
+      "French"
+    ],
+    "serving": [
+      "Lunch",
+      "Dinner"
+    ],
+    "phone": "+855 23 456 789",
+    "website": "ams-travel.netlify.app/regions/luxury/pp-fine-dining"
   },
   {
     "slug": "siem-reap-fine-dining",
@@ -7298,7 +7703,17 @@
     ],
     "tips": [
       "Book ahead at weekends"
-    ]
+    ],
+    "cuisines": [
+      "Khmer",
+      "French"
+    ],
+    "serving": [
+      "Lunch",
+      "Dinner"
+    ],
+    "phone": "+855 23 456 789",
+    "website": "ams-travel.netlify.app/regions/luxury/siem-reap-fine-dining"
   },
   {
     "slug": "siem-reap-spas",

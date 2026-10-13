@@ -105,6 +105,10 @@ class ApiTravelRepository implements TravelRepository {
       _list(await _api.get(ApiEndpoints.rooms(ref.region, ref.slug)), Room.fromJson);
 
   @override
+  Future<List<MenuSection>> getMenu(DestinationRef ref) async =>
+      _list(await _api.get(ApiEndpoints.menu(ref.region, ref.slug)), MenuSection.fromJson);
+
+  @override
   Future<Review> submitReview(
     DestinationRef ref, {
     required int rating,

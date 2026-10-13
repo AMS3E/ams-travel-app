@@ -41,6 +41,7 @@ class ApiEndpoints {
   static const myReviews = '/me/reviews';
 
   static String rooms(String region, String slug) => '/regions/$region/destinations/$slug/rooms';
+  static String menu(String region, String slug) => '/regions/$region/destinations/$slug/menu';
   static const provinces = '/provinces';
   static String province(String slug) => '/provinces/$slug';
   static const interests = '/interests';

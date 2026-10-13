@@ -24,6 +24,31 @@
    "Viewpoint",
    "Village"
   ],
+  "groups": {
+   "Historical Sites": [
+    "Temples",
+    "Ancient Cities",
+    "Ancient Roads",
+    "Archaeological Sites",
+    "Bridges",
+    "Sacred Mountain"
+   ],
+   "Culture": [
+    "Art Gallery",
+    "Museums",
+    "Indigenous Culture",
+    "Village",
+    "City Walk",
+    "Hospitals"
+   ],
+   "National Parks": [
+    "National Park",
+    "Mountain"
+   ],
+   "Cave": [
+    "Cave"
+   ]
+  },
   "count": 43
  },
  {
@@ -39,6 +64,24 @@
    "Luxury Hotel",
    "Private Island"
   ],
+  "groups": {
+   "Luxury Hotel": [
+    "Luxury Hotel"
+   ],
+   "Homestay": [
+    "Homestay"
+   ],
+   "Resorts": [
+    "Private Island",
+    "Luxury Hotel"
+   ],
+   "Private Island": [
+    "Private Island"
+   ],
+   "Eco Lodge": [
+    "Eco Lodge"
+   ]
+  },
   "count": 13
  },
  {
@@ -58,9 +101,35 @@
    "Rice",
    "Cooking Class",
    "Fine Dining",
-   "Michelin"
+   "Michelin",
+   "Sky Bar"
   ],
-  "count": 41
+  "groups": {
+   "Restaurants": [
+    "Fine Dining",
+    "Michelin",
+    "Seafood"
+   ],
+   "Markets": [
+    "Night Market"
+   ],
+   "Drinks": [
+    "Coffee"
+   ],
+   "Streetfood": [
+    "Street Food"
+   ],
+   "Traditional Food": [
+    "Traditional Food",
+    "Cooking Class",
+    "Rice",
+    "Farm"
+   ],
+   "Skybar": [
+    "Sky Bar"
+   ]
+  },
+  "count": 43
  },
  {
   "slug": "water",
@@ -86,6 +155,22 @@
    "Floating Village",
    "Volcano Lake"
   ],
+  "groups": {
+   "Beaches & Island": [
+    "Beach",
+    "Island",
+    "River Island",
+    "Coral"
+   ],
+   "Waterfalls": [
+    "Waterfall",
+    "Volcano Lake"
+   ],
+   "Floating Village": [
+    "Floating Village",
+    "Mangrove"
+   ]
+  },
   "count": 49
  },
  {
@@ -117,6 +202,46 @@
    "Golf",
    "Helicopter"
   ],
+  "groups": {
+   "Diving": [
+    "Diving",
+    "Snorkeling"
+   ],
+   "Kayak": [
+    "Boat Trip"
+   ],
+   "Bird Sanctuary": [
+    "Bird Sanctuary",
+    "Bird Watching"
+   ],
+   "Wildlife": [
+    "Wildlife",
+    "Forest"
+   ],
+   "Hiking/Trekking": [
+    "Trekking",
+    "Adventure",
+    "Cycling"
+   ],
+   "Fishing": [
+    "Fishing"
+   ],
+   "Camping": [
+    "Camping"
+   ],
+   "Viewpoint": [
+    "Viewpoint"
+   ],
+   "Cruise": [
+    "Cruise",
+    "Yacht",
+    "Sunset"
+   ],
+   "Shopping": [
+    "Shopping",
+    "Craft"
+   ]
+  },
   "count": 53
  },
  {

@@ -161,6 +161,18 @@ class MockTravelRepository implements TravelRepository {
   }
 
   @override
+  Future<List<MenuSection>> getMenu(DestinationRef ref) async {
+    final all = await _load('menus') as List;
+    return _delay(
+      all
+          .map((e) => Json.from(e))
+          .where((j) => j['destination'] == ref.key)
+          .expand((j) => (j['sections'] as List).map((s) => MenuSection.fromJson(Json.from(s))))
+          .toList(),
+    );
+  }
+
+  @override
   Future<Review> submitReview(
     DestinationRef ref, {
     required int rating,

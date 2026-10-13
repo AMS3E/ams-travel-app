@@ -65,6 +65,7 @@ class Interest {
     this.icon,
     this.type = 'destinations',
     this.categories = const [],
+    this.groups = const {},
     this.count,
   });
 
@@ -83,6 +84,10 @@ class Interest {
   /// Destination categories that belong to this interest.
   final List<String> categories;
 
+  /// How those categories are grouped for the filter chips, in AMS Travel's
+  /// own words: "Historical Sites" covers temples, ancient cities and the rest.
+  final Map<String, List<String>> groups;
+
   /// How many places (or corridors) the interest covers, when the API sends it.
   final int? count;
 
@@ -97,6 +102,10 @@ class Interest {
     icon: strOrNull(j, 'icon'),
     type: str(j, 'type', fallback: 'destinations'),
     categories: strList(j, 'categories'),
+    groups: {
+      for (final e in (j['groups'] as Map?)?.entries ?? const <MapEntry<Object?, Object?>>[])
+        e.key.toString(): [for (final v in e.value as List) v.toString()],
+    },
     count: j['count'] == null ? null : integer(j, 'count'),
   );
 
@@ -109,6 +118,7 @@ class Interest {
     'icon': icon,
     'type': type,
     'categories': categories,
+    if (groups.isNotEmpty) 'groups': groups,
     'count': ?count,
   };
 }

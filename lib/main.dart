@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app.dart';
 import 'core/config/api_config.dart';
+import 'core/l10n/app_strings.dart';
 import 'features/welcome/welcome_screen.dart';
 import 'core/network/api_client.dart';
 import 'data/repositories/api_travel_repository.dart';
@@ -31,6 +32,9 @@ Future<void> main() async {
     );
     yield LicenseEntryWithLineBreaks(['google_fonts'], text);
   });
+
+  // UI text in English and Khmer, from lib/l10n/*.json.
+  await S.load();
 
   final prefs = await SharedPreferences.getInstance();
 

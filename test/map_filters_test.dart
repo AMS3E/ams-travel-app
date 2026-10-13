@@ -1,3 +1,4 @@
+import 'package:ams_travel/core/l10n/app_strings.dart';
 import 'package:ams_travel/data/repositories/mock_travel_repository.dart';
 import 'package:ams_travel/data/repositories/travel_repository.dart';
 import 'package:ams_travel/features/map/map_screen.dart';
@@ -20,7 +21,9 @@ Future<void> _settle(WidgetTester tester) async {
 }
 
 void main() {
-  setUpAll(() {
+  setUpAll(() async {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    await S.load();
     GoogleFonts.config.allowRuntimeFetching = false;
     AppImage.useDiskCache = false;
     AppMap.useTileCache = false;

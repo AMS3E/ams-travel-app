@@ -5,11 +5,14 @@ import '../../core/l10n/app_strings.dart';
 import '../../core/router/routes.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_theme.dart';
+import '../../core/utils/geo.dart';
 import '../../data/models/models.dart';
 import '../../data/repositories/travel_repository.dart';
 import '../../widgets/async_view.dart';
 import '../../widgets/destination_card.dart';
 import '../../widgets/browse_bar.dart';
+import '../../widgets/interest_filter.dart';
+import '../../widgets/corridor_row.dart';
 import '../../widgets/place_group.dart';
 
 
@@ -17,11 +20,14 @@ import '../../widgets/place_group.dart';
 class ProvincesExploreScreen extends StatelessWidget {
   const ProvincesExploreScreen({super.key});
 
-  Future<(List<Province>, List<Destination>, List<Interest>)> _load(TravelRepository repo) async {
-    final (provinces, places, interests) = await (
+  Future<(List<Province>, List<Destination>, List<Interest>, List<Corridor>)> _load(
+    TravelRepository repo,
+  ) async {
+    final (provinces, places, interests, corridors) = await (
       repo.getProvinces(),
       repo.getDestinations(),
       repo.getInterests(),
+      repo.getCorridors(),
     ).wait;
 
     places.sort((a, b) {
@@ -31,8 +37,7 @@ class ProvincesExploreScreen extends StatelessWidget {
       return byRating != 0 ? byRating : (b.reviewCount ?? 0).compareTo(a.reviewCount ?? 0);
     });
 
-    // Corridors run across provinces, so they are not one of the chips here.
-    return (provinces, places, interests.where((i) => i.categories.isNotEmpty).toList());
+    return (provinces, places, interests, corridors);
   }
 
   @override
@@ -41,11 +46,16 @@ class ProvincesExploreScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         bottom: false,
-        child: AsyncView<(List<Province>, List<Destination>, List<Interest>)>(
+        child: AsyncView<(List<Province>, List<Destination>, List<Interest>, List<Corridor>)>(
           load: () => _load(repo),
           builder: (context, data, _) {
-            final (provinces, places, interests) = data;
-            return _Body(provinces: provinces, places: places, interests: interests);
+            final (provinces, places, interests, corridors) = data;
+            return _Body(
+              provinces: provinces,
+              places: places,
+              interests: interests,
+              corridors: corridors,
+            );
           },
         ),
       ),
@@ -54,12 +64,20 @@ class ProvincesExploreScreen extends StatelessWidget {
 }
 
 class _Body extends StatefulWidget {
-  const _Body({required this.provinces, required this.places, required this.interests});
+  const _Body({
+    required this.provinces,
+    required this.places,
+    required this.interests,
+    required this.corridors,
+  });
   final List<Province> provinces;
 
   /// Every place, the best known first.
   final List<Destination> places;
   final List<Interest> interests;
+
+  /// What the Tourism Corridors chip is made of.
+  final List<Corridor> corridors;
 
   @override
   State<_Body> createState() => _BodyState();
@@ -75,20 +93,41 @@ class _BodyState extends State<_Body> {
   /// Every province, or only the ones with a few places worth seeing.
   bool _all = false;
 
-  /// The categories of the chosen interest that places actually carry.
+  /// The groups of the chosen interest — AMS Travel's own names. Tourism
+  /// Corridors is made of the corridors themselves.
   List<String> get _subCategories {
     if (_index == null) return const [];
-    final inData = widget.places.map((d) => d.category).toSet();
-    return widget.interests[_index!].categories.where(inData.contains).toList();
+    final interest = widget.interests[_index!];
+    if (interest.isCorridors) return [for (final c in widget.corridors) c.name];
+    return interest.groups.keys.toList();
+  }
+
+  /// The categories behind the groups that are picked.
+  Set<String> get _pickedCategories => {
+    for (final g in _picked) ...?widget.interests[_index!].groups[g],
+  };
+
+  /// A place is on a corridor when it sits near one of its stops.
+  bool _onCorridor(Destination d) {
+    final chosen = _picked.isEmpty
+        ? widget.corridors
+        : widget.corridors.where((c) => _picked.contains(c.name));
+    for (final c in chosen) {
+      if (nearAny([for (final st in c.stops) (st.lat, st.lng)], d.lat, d.lng)) return true;
+    }
+    return false;
   }
 
   List<(Province, List<Destination>)> get _groups {
-    final categories = _index == null
+    final interest = _index == null ? null : widget.interests[_index!];
+    final onCorridors = interest?.isCorridors ?? false;
+    final categories = interest == null || onCorridors
         ? null
-        : (_picked.isEmpty ? widget.interests[_index!].categories.toSet() : _picked);
+        : (_picked.isEmpty ? interest.categories.toSet() : _pickedCategories);
 
     final byProvince = <String, List<Destination>>{};
     for (final d in widget.places) {
+      if (onCorridors && !_onCorridor(d)) continue;
       if (categories != null && !categories.contains(d.category)) continue;
       (byProvince[d.province] ??= []).add(d);
     }
@@ -104,63 +143,58 @@ class _BodyState extends State<_Body> {
   @override
   Widget build(BuildContext context) {
     final s = S.of(context);
-    final groups = _groups;
+    final onCorridors = _index != null && widget.interests[_index!].isCorridors;
+    final shownCorridors = _picked.isEmpty
+        ? widget.corridors
+        : widget.corridors.where((c) => _picked.contains(c.name)).toList();
+    final groups = onCorridors ? const <(Province, List<Destination>)>[] : _groups;
 
     return Column(
       children: [
         BrowseSearchBar(hint: s.searchProvince),
         const SizedBox(height: 12),
-        SizedBox(
-          height: 36,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            // "All" first, then one chip per category.
-            itemCount: widget.interests.length + 1,
-            separatorBuilder: (_, _) => const SizedBox(width: 8),
-            itemBuilder: (_, i) => i == 0
-                ? CategoryChip(
-                    label: s.all,
-                    selected: _index == null,
-                    onTap: () => setState(() => _index = null),
-                  )
-                : CategoryChip(
-                    label: shortInterestName(s, widget.interests[i - 1]),
-                    selected: _index == i - 1,
-                    onTap: () => setState(() {
-                      _index = i - 1;
-                      _picked.clear();
-                    }),
-                  ),
-          ),
+        InterestFilter(
+          interests: widget.interests,
+          index: _index,
+          onIndex: (i) => setState(() {
+            _index = i;
+            _picked.clear();
+          }),
+          groups: _subCategories,
+          picked: _picked,
+          onPicked: (g) => setState(() {
+            _picked.contains(g) ? _picked.remove(g) : _picked.add(g);
+          }),
         ),
-
-        // What the chosen category is made of, for a finer filter.
-        if (_subCategories.isNotEmpty) ...[
-          const SizedBox(height: 8),
-          SizedBox(
-            height: 34,
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              itemCount: _subCategories.length,
-              separatorBuilder: (_, _) => const SizedBox(width: 8),
-              itemBuilder: (_, i) {
-                final c = _subCategories[i];
-                return CategoryChip(
-                  label: c,
-                  selected: _picked.contains(c),
-                  onTap: () => setState(() {
-                    _picked.contains(c) ? _picked.remove(c) : _picked.add(c);
-                  }),
-                );
-              },
-            ),
-          ),
-        ],
         const SizedBox(height: 14),
         Expanded(
-          child: ListView(
+          child: onCorridors
+              // The corridors are not places in a province; they are the list.
+              ? ListView(
+                  padding: EdgeInsets.fromLTRB(16, 0, 16, 20 + MediaQuery.paddingOf(context).bottom),
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.fromLTRB(14, 14, 14, 6),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(18),
+                        border: Border.all(color: AppColors.sand200),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            s.tourismCorridors,
+                            style: AppText.sans(16, weight: FontWeight.w700, color: AppColors.sand900),
+                          ),
+                          const SizedBox(height: 6),
+                          for (final c in shownCorridors) CorridorRow(corridor: c),
+                        ],
+                      ),
+                    ),
+                  ],
+                )
+              : ListView(
             padding: EdgeInsets.only(bottom: 20 + MediaQuery.paddingOf(context).bottom),
             children: [
               for (final (province, places) in groups)

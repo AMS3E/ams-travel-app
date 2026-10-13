@@ -48,6 +48,8 @@ class Destination {
     this.tags = const [],
     this.facets = const {},
     this.facilities = const [],
+    this.cuisines = const [],
+    this.serving = const [],
     this.openTime,
     this.closeTime,
     this.open24h = false,
@@ -98,6 +100,11 @@ class Destination {
   final Map<String, String> facets;
   final List<String> facilities;
 
+  /// What a place to eat cooks ("Khmer", "French") and the meals it is open
+  /// for ("Lunch", "Dinner") — the two lines of the About card.
+  final List<String> cuisines;
+  final List<String> serving;
+
   /// Opening hours as "HH:mm" in Cambodia time; `closeTime` earlier than
   /// `openTime` means it closes after midnight. Null = not listed.
   final String? openTime;
@@ -144,6 +151,23 @@ class Destination {
   static const stayCategories = {'Homestay', 'Eco Lodge', 'Luxury Hotel', 'Private Island'};
   bool get isStay => stayCategories.contains(category);
 
+  /// Places you eat and drink in — they get the food layout: what is cooked,
+  /// the meals served, opening hours and the menu.
+  static const foodCategories = {
+    'Street Food',
+    'Traditional Food',
+    'Night Market',
+    'Seafood',
+    'Coffee',
+    'Farm',
+    'Rice',
+    'Cooking Class',
+    'Fine Dining',
+    'Michelin',
+    'Sky Bar',
+  };
+  bool get isFood => foodCategories.contains(category);
+
   DestinationRef get ref => DestinationRef(region, slug);
   String get key => ref.key;
 
@@ -169,6 +193,8 @@ class Destination {
       tags: strList(j, 'tags'),
       facets: rawFacets is Map ? rawFacets.map((k, v) => MapEntry(k.toString(), v.toString())) : const {},
       facilities: strList(j, 'facilities'),
+      cuisines: strList(j, 'cuisines', alt: ['cuisine']),
+      serving: strList(j, 'serving', alt: ['meals', 'serves']),
       openTime: strOrNull(j, 'openTime', alt: ['open_time', 'opensAt']),
       closeTime: strOrNull(j, 'closeTime', alt: ['close_time', 'closesAt']),
       open24h: boolean(j, 'open24h', alt: ['open_24h']),
@@ -214,6 +240,8 @@ class Destination {
     'tags': tags,
     'facets': facets,
     'facilities': facilities,
+    if (cuisines.isNotEmpty) 'cuisines': cuisines,
+    if (serving.isNotEmpty) 'serving': serving,
     if (openTime != null) 'openTime': openTime,
     if (closeTime != null) 'closeTime': closeTime,
     if (open24h) 'open24h': true,

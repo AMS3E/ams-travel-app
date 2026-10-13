@@ -41,3 +41,12 @@ String thousands(int n) {
   }
   return out.toString();
 }
+
+/// Whether a place sits within [km] of any of [points] — used to tell which
+/// places lie along a corridor.
+bool nearAny(List<(double, double)> points, double lat, double lng, {double km = 35}) {
+  for (final (plat, plng) in points) {
+    if (distanceKm(plat, plng, lat, lng) <= km) return true;
+  }
+  return false;
+}

@@ -10,7 +10,9 @@ import '../../features/corridor/corridor_screen.dart';
 import '../../features/corridor/corridors_explore_screen.dart';
 import '../../features/destination/destination_screen.dart';
 import '../../features/destination/review_screen.dart';
+import '../../features/destination/reviews_screen.dart';
 import '../../features/destination/room_screen.dart';
+import '../../features/destination/menu_screen.dart';
 import '../../features/destination/rooms_screen.dart';
 import '../../features/explore/explore_screen.dart';
 import '../../features/home/home_screen.dart';
@@ -141,8 +143,22 @@ GoRouter createRouter({bool showWelcome = false}) {
         ),
       ),
       page(
+        '/regions/:region/:dest/reviews',
+        (s) => ReviewsScreen(
+          region: s.pathParameters['region']!,
+          slug: s.pathParameters['dest']!,
+        ),
+      ),
+      page(
         '/regions/:region/:dest/review',
         (s) => ReviewScreen(
+          region: s.pathParameters['region']!,
+          slug: s.pathParameters['dest']!,
+        ),
+      ),
+      page(
+        '/regions/:region/:dest/menu',
+        (s) => MenuScreen(
           region: s.pathParameters['region']!,
           slug: s.pathParameters['dest']!,
         ),

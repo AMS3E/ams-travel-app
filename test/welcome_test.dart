@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:ams_travel/app.dart';
+import 'package:ams_travel/core/l10n/app_strings.dart';
 import 'package:ams_travel/data/repositories/auth_repository.dart';
 import 'package:ams_travel/data/repositories/mock_travel_repository.dart';
 import 'package:ams_travel/data/repositories/travel_repository.dart';
@@ -41,7 +42,9 @@ Future<Widget> _app(SharedPreferences prefs) async => MultiProvider(
 );
 
 void main() {
-  setUpAll(() {
+  setUpAll(() async {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    await S.load();
     GoogleFonts.config.allowRuntimeFetching = false;
     AppImage.useDiskCache = false;
   });

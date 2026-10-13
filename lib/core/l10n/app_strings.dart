@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:flutter/services.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 
@@ -5,1537 +8,435 @@ import '../../state/locale_provider.dart';
 
 /// UI copy in English and Khmer, matching the website's EN / ខ្មែរ toggle.
 ///
+/// The text lives in `lib/l10n/en.json` and `lib/l10n/km.json`, one key per
+/// string; edit those files to change or translate copy. To add a string, put
+/// the key in both files and add a getter below.
+///
 /// Usage: `final s = S.of(context); Text(s.startExploring)`.
 /// Content (place names, descriptions) comes from the API; only app chrome
 /// lives here.
 class S {
-  const S._({
-    required this.tagline,
-    required this.navHome,
-    required this.navExplore,
-    required this.navMap,
-    required this.navSaved,
-    required this.navProfile,
-    required this.whatTravelersSay,
-    required this.showMore,
-    required this.showAllReviews,
-    required this.reviewsWord,
-    required this.yourRate,
-    required this.kindOfVisit,
-    required this.reviewWord,
-    required this.overview,
-    required this.readMore,
-    required this.readLess,
-    required this.historicalMap,
-    required this.historicalMapSubtitle,
-    required this.regionMap,
-    required this.regionMapSubtitle,
-    required this.exploreByCapitals,
-    required this.youMayLike,
-    required this.relatedTags,
-    required this.discoverDestination,
-    required this.tags,
-    required this.popularKeywords,
-    required this.viewAll,
-    required this.reset,
-    required this.applyFilters,
-    required this.recommendExplore,
-    required this.tourismRegions,
-    required this.exploreNearby,
-    required this.allowLocationAccess,
-    required this.tourismRegion,
-    required this.recentAndPopular,
-    required this.recommendCorridors,
-    required this.locationSoon,
-    required this.yourLocation,
-    required this.searchEverythingHint,
-    required this.quickAttraction,
-    required this.quickStays,
-    required this.quickFood,
-    required this.quickNature,
-    required this.quickExperiences,
-    required this.exploreByRegion,
-    required this.exploreByPopular,
-    required this.exploreByCorridors,
-    required this.exploreByInterest,
-    required this.exploreByProvinces,
-    required this.searchRegion,
-    required this.recommendByAms,
-    required this.recommendByTraveler,
-    required this.notifications,
-    required this.unreadWord,
-    required this.today,
-    required this.yesterday,
-    required this.thisWeek,
-    required this.earlier,
-    required this.agoWord,
-    required this.noNotifications,
-    required this.loginTitle,
-    required this.loginSubtitle2,
-    required this.orLoginWith,
-    required this.noAccountYet,
-    required this.createAccountTitle,
-    required this.createAccountSubtitle,
-    required this.registerCta,
-    required this.orRegisterWith,
-    required this.signInWithGoogle,
-    required this.signInWithApple,
-    required this.socialSoon,
-    required this.login,
-    required this.continueJourney,
-    required this.readyTitle,
-    required this.interestsTitle2,
-    required this.interestsSubtitle,
-    required this.interestHistory,
-    required this.interestFood,
-    required this.interestNature,
-    required this.interestWellness,
-    required this.interestBeaches,
-    required this.interestArts,
-    required this.interestExperience,
-    required this.interestFamily,
-    required this.startJourney,
-    required this.exploreAsGuest,
-    required this.welcomeEyebrow1,
-    required this.welcomeTitleA1,
-    required this.welcomeTitleB1,
-    required this.welcomeBody1,
-    required this.welcomeEyebrow2,
-    required this.welcomeTitleA2,
-    required this.welcomeTitleB2,
-    required this.welcomeBody2,
-    required this.welcomeEyebrow3,
-    required this.welcomeTitleA3,
-    required this.welcomeTitleB3,
-    required this.welcomeBody3,
-    required this.welcomeEyebrow4,
-    required this.welcomeTitleA4,
-    required this.welcomeTitleB4,
-    required this.welcomeBody4,
-    required this.startExploring,
-    required this.saves,
-    required this.emailAddress,
-    required this.footerVersion,
-    required this.bestTime,
-    required this.openNow,
-    required this.closedNow,
-    required this.open24h,
-    required this.exploreRegion,
-    required this.featured,
-    required this.unesco,
-    required this.verified,
-    required this.exploreTitle,
-    required this.tabRegions,
-    required this.tabInterests,
-    required this.tabProvinces,
-    required this.tabCorridors,
-    required this.introRegions,
-    required this.introInterests,
-    required this.introProvinces,
-    required this.introCorridors,
-    required this.viewCorridor,
-    required this.searchProvinces,
-    required this.destinations,
-    required this.categories,
-    required this.provinces,
-    required this.regions,
-    required this.coreIdentity,
-    required this.filters,
-    required this.province,
-    required this.found,
-    required this.map,
-    required this.all,
-    required this.noResults,
-    required this.noResultsBody,
-    required this.allNineRegions,
-    required this.openFullMap,
-    required this.atAGlance,
-    required this.region,
-    required this.category,
-    required this.seeOnFullMap,
-    required this.nearby,
-    required this.kmAway,
-    required this.reviews,
-    required this.noReviews,
-    required this.beFirst,
-    required this.writeReview,
-    required this.editReview,
-    required this.logInToReview,
-    required this.facilities,
-    required this.share,
-    required this.save,
-    required this.savedToList,
-    required this.removedFromList,
-    required this.location,
-    required this.onTheMap,
-    required this.pinnedIn,
-    required this.groupedByRegion,
-    required this.allOfRegion,
-    required this.step,
-    required this.ofWord,
-    required this.next,
-    required this.when,
-    required this.period,
-    required this.knownAs,
-    required this.photos,
-    required this.stops,
-    required this.searchMap,
-    required this.rateNote,
-    required this.notificationsNote,
-    required this.currency,
-    required this.unit,
-    required this.notification,
-    required this.onWord,
-    required this.offWord,
-    required this.firstName,
-    required this.lastName,
-    required this.provinceOrCapital,
-    required this.reEnterPassword,
-    required this.passwordsDoNotMatch,
-    required this.accountSaved,
-    required this.passwordLater,
-    required this.dayByDay,
-    required this.dayWord,
-    required this.daysWord,
-    required this.folders,
-    required this.delete,
-    required this.emptyFolder,
-    required this.emptyFolderBody,
-    required this.mostRecent,
-    required this.oldest,
-    required this.highestRated,
-    required this.lowestRated,
-    required this.reviewsWritten,
-    required this.averageRating,
-    required this.sortBy,
-    required this.allRatings,
-    required this.noReviewsBody,
-    required this.shareToFacebook,
-    required this.achievement,
-    required this.badgeEarned,
-    required this.badgeInProgress,
-    required this.earnedOn,
-    required this.badgeSeasonNote,
-    required this.viewTerms,
-    required this.viewBadgeHistory,
-    required this.notYet,
-    required this.reviewNote,
-    required this.stampNote,
-    required this.digitalStamps,
-    required this.browserBadgeBlurb,
-    required this.reviewerBadgeBlurb,
-    required this.adventureBadgeBlurb,
-    required this.browseShort,
-    required this.badgeWord,
-    required this.browseNote,
-    required this.browseUnit,
-    required this.badges,
-    required this.progressLabel,
-    required this.requiredWord,
-    required this.completeFirst,
-    required this.ofTheWayTo,
-    required this.badgeCategories,
-    required this.currentStatus,
-    required this.browserBadge,
-    required this.reviewerBadge,
-    required this.adventureBadge,
-    required this.bronzeTier,
-    required this.silverTier,
-    required this.goldTier,
-    required this.platinumTier,
-    required this.topTierReached,
-    required this.accountInfo,
-    required this.preference,
-    required this.gallery,
-    required this.routeOverview,
-    required this.startThisTrip,
-    required this.corridorsMap,
-    required this.exploreThrough,
-    required this.whereToStay,
-    required this.exploreExperiences,
-    required this.exploreRegions,
-    required this.popularDestinations,
-    required this.exploreMoreIn,
-    required this.searchProvince,
-    required this.popularProvinces,
-    required this.showAllProvinces,
-    required this.exploreInterest,
-    required this.recommendTitle,
-    required this.helpSupport,
-    required this.helpIntro,
-    required this.socialLinkLater,
-    required this.termsConditions,
-    required this.yourBadge,
-    required this.joined,
-    required this.name,
-    required this.reviewTitle,
-    required this.rateYourExperience,
-    required this.whenDidYouVisit,
-    required this.reviewTitleLabel,
-    required this.reviewTitleHint,
-    required this.yourReview,
-    required this.yourReviewHint,
-    required this.photoOfYourVisit,
-    required this.addPhotos,
-    required this.photosComingSoon,
-    required this.submitReview,
-    required this.reviewSaved,
-    required this.max,
-    required this.min,
-    required this.characters,
-    required this.words,
-    required this.showRoute,
-    required this.howToGetThere,
-    required this.recommendNearby,
-    required this.viewOnMap,
-    required this.hoursLabel,
-    required this.goodToKnow,
-    required this.entryFee,
-    required this.priceRangeLabel,
-    required this.howLong,
-    required this.bestSeason,
-    required this.difficulty,
-    required this.groupSize,
-    required this.dishesToTry,
-    required this.thingsToDo,
-    required this.highlightsTitle,
-    required this.tipsTitle,
-    required this.bookByContact,
-    required this.available,
-    required this.whatsIncluded,
-    required this.perNight,
-    required this.maxAdults,
-    required this.adultsWord,
-    required this.breakfastIncluded,
-    required this.featuredAmenities,
-    required this.nonSmoking,
-    required this.roomDetails,
-    required this.rooms,
-    required this.noRooms,
-    required this.noRoomsBody,
-    required this.guests,
-    required this.night,
-    required this.soldOut,
-    required this.notListedYet,
-    required this.popularFacilities,
-    required this.nearbyAttractions,
-    required this.stayPolicies,
-    required this.viewRooms,
-    required this.earlyCheckInNote,
-    required this.fromTime,
-    required this.beforeTime,
-    required this.policies,
-    required this.checkIn,
-    required this.checkOut,
-    required this.cancellation,
-    required this.contactForPolicy,
-    required this.pets,
-    required this.description,
-    required this.showLess,
-    required this.contact,
-    required this.directions,
-    required this.callWord,
-    required this.website,
-    required this.call,
-    required this.seeAllRooms,
-    required this.back,
-    required this.zoomIn,
-    required this.zoomOut,
-    required this.resetView,
-    required this.collections,
-    required this.savedTitle,
-    required this.places,
-    required this.exploreCorridors,
-    required this.tourismCorridors,
-    required this.corridors,
-    required this.stamps,
-    required this.emptySaved,
-    required this.emptySavedBody,
-    required this.usernameOrEmail,
-    required this.password,
-    required this.forgotPassword,
-    required this.logIn,
-    required this.username,
-    required this.email,
-    required this.confirmPassword,
-    required this.alreadyHaveAccount,
-    required this.resetPassword,
-    required this.resetSubtitle,
-    required this.sendResetLink,
-    required this.resetSent,
-    required this.backToLogin,
-    required this.fieldRequired,
-    required this.invalidEmail,
-    required this.weakPassword,
-    required this.passwordsDontMatch,
-    required this.guestTitle,
-    required this.guestSubtitle,
-    required this.benefitSave,
-    required this.benefitAny,
-    required this.benefitOffline,
-    required this.benefitAlerts,
-    required this.language,
-    required this.editProfile,
-    required this.profileCompleted,
-    required this.changePhoto,
-    required this.photoLater,
-    required this.logOut,
-    required this.logOutConfirm,
-    required this.cancel,
-    required this.account,
-    required this.searchTitle,
-    required this.searchScopeAll,
-    required this.tryThese,
-    required this.retry,
-    required this.somethingWentWrong,
-  });
+  S._(this._strings);
 
-  final String tagline,
-      navHome,
-      navExplore,
-      navMap,
-      navSaved,
-      navProfile,
-      whatTravelersSay,
-      showMore,
-      showAllReviews,
-      reviewsWord,
-      yourRate,
-      kindOfVisit,
-      reviewWord,
-      overview,
-      readMore,
-      readLess,
-      historicalMap,
-      historicalMapSubtitle,
-      regionMap,
-      regionMapSubtitle,
-      exploreByCapitals,
-      youMayLike,
-      relatedTags,
-      discoverDestination,
-      tags,
-      popularKeywords,
-      viewAll,
-      reset,
-      applyFilters,
-      recommendExplore,
-      tourismRegions,
-      exploreNearby,
-      allowLocationAccess,
-      tourismRegion,
-      recentAndPopular,
-      recommendCorridors,
-      locationSoon,
-      yourLocation,
-      searchEverythingHint,
-      quickAttraction,
-      quickStays,
-      quickFood,
-      quickNature,
-      quickExperiences,
-      exploreByRegion,
-      exploreByPopular,
-      exploreByCorridors,
-      exploreByInterest,
-      exploreByProvinces,
-      searchRegion,
-      recommendByAms,
-      recommendByTraveler,
-      notifications,
-      unreadWord,
-      today,
-      yesterday,
-      thisWeek,
-      earlier,
-      agoWord,
-      noNotifications,
-      loginTitle,
-      loginSubtitle2,
-      orLoginWith,
-      noAccountYet,
-      createAccountTitle,
-      createAccountSubtitle,
-      registerCta,
-      orRegisterWith,
-      signInWithGoogle,
-      signInWithApple,
-      socialSoon,
-      login,
-      continueJourney,
-      readyTitle,
-      interestsTitle2,
-      interestsSubtitle,
-      interestHistory,
-      interestFood,
-      interestNature,
-      interestWellness,
-      interestBeaches,
-      interestArts,
-      interestExperience,
-      interestFamily,
-      startJourney,
-      exploreAsGuest,
-      welcomeEyebrow1,
-      welcomeTitleA1,
-      welcomeTitleB1,
-      welcomeBody1,
-      welcomeEyebrow2,
-      welcomeTitleA2,
-      welcomeTitleB2,
-      welcomeBody2,
-      welcomeEyebrow3,
-      welcomeTitleA3,
-      welcomeTitleB3,
-      welcomeBody3,
-      welcomeEyebrow4,
-      welcomeTitleA4,
-      welcomeTitleB4,
-      welcomeBody4,
-      startExploring,
-      saves,
-      emailAddress,
-      footerVersion,
-      bestTime,
-      openNow,
-      closedNow,
-      open24h,
-      exploreRegion,
-      featured,
-      unesco,
-      verified,
-      exploreTitle,
-      tabRegions,
-      tabInterests,
-      tabProvinces,
-      tabCorridors,
-      introRegions,
-      introInterests,
-      introProvinces,
-      introCorridors,
-      viewCorridor,
-      searchProvinces,
-      destinations,
-      categories,
-      provinces,
-      regions,
-      coreIdentity,
-      filters,
-      province,
-      found,
-      map,
-      all,
-      noResults,
-      noResultsBody,
-      allNineRegions,
-      openFullMap,
-      atAGlance,
-      region,
-      category,
-      seeOnFullMap,
-      nearby,
-      kmAway,
-      reviews,
-      noReviews,
-      beFirst,
-      writeReview,
-      editReview,
-      logInToReview,
-      facilities,
-      share,
-      save,
-      savedToList,
-      removedFromList,
-      location,
-      onTheMap,
-      pinnedIn,
-      groupedByRegion,
-      allOfRegion,
-      step,
-      ofWord,
-      next,
-      when,
-      period,
-      knownAs,
-      photos,
-      stops,
-      searchMap,
-      rateNote,
-      notificationsNote,
-      currency,
-      unit,
-      notification,
-      onWord,
-      offWord,
-      firstName,
-      lastName,
-      provinceOrCapital,
-      reEnterPassword,
-      passwordsDoNotMatch,
-      accountSaved,
-      passwordLater,
-      dayByDay,
-      dayWord,
-      daysWord,
-      folders,
-      delete,
-      emptyFolder,
-      emptyFolderBody,
-      mostRecent,
-      oldest,
-      highestRated,
-      lowestRated,
-      reviewsWritten,
-      averageRating,
-      sortBy,
-      allRatings,
-      noReviewsBody,
-      shareToFacebook,
-      achievement,
-      badgeEarned,
-      badgeInProgress,
-      earnedOn,
-      badgeSeasonNote,
-      viewTerms,
-      viewBadgeHistory,
-      notYet,
-      reviewNote,
-      stampNote,
-      digitalStamps,
-      browserBadgeBlurb,
-      reviewerBadgeBlurb,
-      adventureBadgeBlurb,
-      browseShort,
-      badgeWord,
-      browseNote,
-      browseUnit,
-      badges,
-      progressLabel,
-      requiredWord,
-      completeFirst,
-      ofTheWayTo,
-      badgeCategories,
-      currentStatus,
-      browserBadge,
-      reviewerBadge,
-      adventureBadge,
-      bronzeTier,
-      silverTier,
-      goldTier,
-      platinumTier,
-      topTierReached,
-      accountInfo,
-      preference,
-      gallery,
-      routeOverview,
-      startThisTrip,
-      corridorsMap,
-      exploreThrough,
-      whereToStay,
-      exploreExperiences,
-      exploreRegions,
-      popularDestinations,
-      exploreMoreIn,
-      searchProvince,
-      popularProvinces,
-      showAllProvinces,
-      exploreInterest,
-      recommendTitle,
-      helpSupport,
-      helpIntro,
-      socialLinkLater,
-      termsConditions,
-      yourBadge,
-      joined,
-      name,
-      reviewTitle,
-      rateYourExperience,
-      whenDidYouVisit,
-      reviewTitleLabel,
-      reviewTitleHint,
-      yourReview,
-      yourReviewHint,
-      photoOfYourVisit,
-      addPhotos,
-      photosComingSoon,
-      submitReview,
-      reviewSaved,
-      max,
-      min,
-      characters,
-      words,
-      showRoute,
-      howToGetThere,
-      recommendNearby,
-      viewOnMap,
-      hoursLabel,
-      goodToKnow,
-      entryFee,
-      priceRangeLabel,
-      howLong,
-      bestSeason,
-      difficulty,
-      groupSize,
-      dishesToTry,
-      thingsToDo,
-      highlightsTitle,
-      tipsTitle,
-      bookByContact,
-      available,
-      whatsIncluded,
-      perNight,
-      maxAdults,
-      adultsWord,
-      breakfastIncluded,
-      featuredAmenities,
-      nonSmoking,
-      roomDetails,
-      rooms,
-      noRooms,
-      noRoomsBody,
-      guests,
-      night,
-      soldOut,
-      notListedYet,
-      popularFacilities,
-      nearbyAttractions,
-      stayPolicies,
-      viewRooms,
-      earlyCheckInNote,
-      fromTime,
-      beforeTime,
-      policies,
-      checkIn,
-      checkOut,
-      cancellation,
-      contactForPolicy,
-      pets,
-      description,
-      showLess,
-      contact,
-      directions,
-      callWord,
-      website,
-      call,
-      seeAllRooms,
-      back,
-      zoomIn,
-      zoomOut,
-      resetView,
-      collections,
-      savedTitle,
-      places,
-      exploreCorridors,
-      tourismCorridors,
-      corridors,
-      stamps,
-      emptySaved,
-      emptySavedBody,
-      usernameOrEmail,
-      password,
-      forgotPassword,
-      logIn,
-      username,
-      email,
-      confirmPassword,
-      alreadyHaveAccount,
-      resetPassword,
-      resetSubtitle,
-      sendResetLink,
-      resetSent,
-      backToLogin,
-      fieldRequired,
-      invalidEmail,
-      weakPassword,
-      passwordsDontMatch,
-      guestTitle,
-      guestSubtitle,
-      benefitSave,
-      benefitAny,
-      benefitOffline,
-      benefitAlerts,
-      language,
-      editProfile,
-      profileCompleted,
-      changePhoto,
-      photoLater,
-      logOut,
-      logOutConfirm,
-      cancel,
-      account,
-      searchTitle,
-      searchScopeAll,
-      tryThese,
-      retry,
-      somethingWentWrong;
+  final Map<String, String> _strings;
+
+  static late S en;
+  static late S km;
+
+  /// Reads both language files; call once in `main` before `runApp`.
+  static Future<void> load() async {
+    en = S._(await _readFile('en'));
+    km = S._(await _readFile('km'));
+  }
+
+  static Future<Map<String, String>> _readFile(String lang) async {
+    final json = await rootBundle.loadString('lib/l10n/$lang.json');
+    return Map<String, String>.from(jsonDecode(json) as Map);
+  }
 
   static S of(BuildContext context) => context.watch<LocaleProvider>().isKhmer ? km : en;
 
   /// For callbacks where `watch` is not allowed.
   static S read(BuildContext context) => context.read<LocaleProvider>().isKhmer ? km : en;
 
-  static const en = S._(
-    tagline: 'Discover Cambodia',
-    navHome: 'Home',
-    navExplore: 'Explore',
-    navMap: 'Map',
-    navSaved: 'Saved',
-    navProfile: 'Profile',
-    whatTravelersSay: 'What Travelers Say',
-    showMore: 'Show more',
-    showAllReviews: 'Show all',
-    reviewsWord: 'reviews',
-    yourRate: 'Your rate',
-    kindOfVisit: 'Kind of visit',
-    reviewWord: 'review',
-    overview: 'Overview',
-    readMore: 'Read more',
-    readLess: 'Show less',
-    historicalMap: 'Historical Map',
-    historicalMapSubtitle: 'Explore locations of the ancient capitals',
-    regionMap: 'Region Map',
-    regionMapSubtitle: 'Where the places in this region are',
-    exploreByCapitals: 'Explore by Ancient Capitals',
-    youMayLike: 'You may like',
-    relatedTags: 'Related Tags',
-    discoverDestination: 'Discover Destination',
-    tags: 'Tags',
-    popularKeywords: 'Popular keywords',
-    viewAll: 'View All',
-    reset: 'Reset',
-    applyFilters: 'Apply Filters',
-    recommendExplore: 'Recommend Explore',
-    tourismRegions: 'Tourism Regions',
-    exploreNearby: 'Explore by Nearby',
-    allowLocationAccess: 'Allow location access',
-    tourismRegion: 'Tourism Region',
-    recentAndPopular: 'Recent & Popular',
-    recommendCorridors: 'Recommend Corridors',
-    locationSoon: 'Nearby search needs location access, which is not switched on yet.',
-    yourLocation: 'Your location',
-    searchEverythingHint: 'Search destinations, places, food..',
-    quickAttraction: 'Attraction',
-    quickStays: 'Stays',
-    quickFood: 'Food',
-    quickNature: 'Nature',
-    quickExperiences: 'Experiences',
-    exploreByRegion: 'Explore by Tourism Region',
-    exploreByPopular: 'Explore by Popular',
-    exploreByCorridors: 'Explore by Corridors',
-    exploreByInterest: 'Explore by Interest',
-    exploreByProvinces: 'Explore by Provinces',
-    searchRegion: 'Search region',
-    recommendByAms: 'Recommend by AMS Travel',
-    recommendByTraveler: 'Recommend by Traveler',
-    notifications: 'Notifications',
-    unreadWord: 'Unread',
-    today: 'Today',
-    yesterday: 'Yesterday',
-    thisWeek: 'This week',
-    earlier: 'Earlier',
-    agoWord: 'ago',
-    noNotifications: 'No notifications yet.',
-    loginTitle: 'Welcome Back',
-    loginSubtitle2: 'Log in to pick up your saved places and plan the rest of the trip',
-    orLoginWith: 'or log in with',
-    noAccountYet: "Don't have an account?",
-    createAccountTitle: 'Create Account',
-    createAccountSubtitle: 'Create your account and make your holiday easier and more comfortable',
-    registerCta: 'Register',
-    orRegisterWith: 'or register with',
-    signInWithGoogle: 'Sign in with Google',
-    signInWithApple: 'Sign in with Apple',
-    socialSoon: 'Available once the backend is connected.',
-    login: 'Login',
-    continueJourney: 'Continue Your Journey',
-    readyTitle: 'Your journey is Ready',
-    interestsTitle2: 'Make your journey yours',
-    interestsSubtitle: 'What would you love to experience in Cambodia?',
-    interestHistory: 'History & Culture',
-    interestFood: 'Food & Local Life',
-    interestNature: 'Nature & Adventure',
-    interestWellness: 'Wellness & Relaxation',
-    interestBeaches: 'Beaches & Islands',
-    interestArts: 'Arts & Crafts',
-    interestExperience: 'Experience Travel',
-    interestFamily: 'Family Activities',
-    startJourney: 'Start Your Journey',
-    exploreAsGuest: 'Explore as Guest',
-    welcomeEyebrow1: 'KINGDOM OF WONDER',
-    welcomeTitleA1: 'Discover the',
-    welcomeTitleB1: 'Kingdom of Wonder',
-    welcomeBody1: 'Ancient temples, local flavors, *hidden gems*, and unforgettable journeys — *all in one place*.',
-    welcomeEyebrow2: 'NINE TOURISM REGIONS',
-    welcomeTitleA2: 'Explore by',
-    welcomeTitleB2: 'Region and Province',
-    welcomeBody2: 'Nine themed regions across *twenty-five provinces* — temples and highlands, the Mekong, the coast and the kitchens in between.',
-    welcomeEyebrow3: 'SAVE AND GO OFFLINE',
-    welcomeTitleA3: 'Keep every place',
-    welcomeTitleB3: 'in one list',
-    welcomeBody3: 'Save any place, region or corridor, *collect a stamp* for each one you reach, and take your map with you *when the signal goes*.',
-    welcomeEyebrow4: 'TRUSTED LOCAL CONTACTS',
-    welcomeTitleA4: 'Plan a route',
-    welcomeTitleB4: 'that works on the road',
-    welcomeBody4:
-        'Curated corridors with *entry fees, opening hours and road conditions* as you will actually find them.',
-    startExploring: 'Start exploring',
-    saves: 'Saves',
-    emailAddress: 'Email address',
-    footerVersion: 'Version 1.0 with our team development',
-    bestTime: 'Best time to go',
-    openNow: 'Open',
-    closedNow: 'Closed',
-    open24h: 'Open 24 hours',
-    exploreRegion: 'Explore region',
-    featured: 'Featured',
-    unesco: 'UNESCO',
-    verified: 'Verified',
-    exploreTitle: 'Explore Cambodia',
-    tabRegions: 'Regions',
-    tabInterests: 'Interests',
-    tabProvinces: 'Provinces',
-    tabCorridors: 'Corridors',
-    introRegions: 'Nine themed regions spanning all twenty-five provinces. Start with the one that matches how you want to travel.',
-    introInterests:
-        'The same places, cut a different way. Follow one interest across every region and province at once.',
-    introProvinces: 'All twenty-five provinces, with what each is best known for. Pick one to see its sites, stays, food and activities.',
-    introCorridors: 'Routes that string several provinces together in an order that actually works on the road, with rough durations rather than fixed departures.',
-    viewCorridor: 'View corridor',
-    searchProvinces: 'Search provinces',
-    destinations: 'Destinations',
-    categories: 'Categories',
-    provinces: 'Provinces',
-    regions: 'Regions',
-    coreIdentity: 'CORE IDENTITY',
-    filters: 'Filters',
-    province: 'Province',
-    found: 'found',
-    map: 'Map',
-    all: 'All',
-    noResults: 'Nothing matches those filters',
-    noResultsBody: 'Try removing a category or clearing the search.',
-    allNineRegions: 'All nine regions',
-    openFullMap: 'Open the full map',
-    atAGlance: 'At a glance',
-    region: 'Region',
-    category: 'Category',
-    seeOnFullMap: 'See it on the full map',
-    nearby: 'Nearby in this region',
-    kmAway: 'away',
-    reviews: 'Reviews',
-    noReviews: 'No reviews yet',
-    beFirst: 'Be the first to rate it.',
-    writeReview: 'Write a review',
-    editReview: 'Edit your review',
-    logInToReview: 'Log in to write a review',
-    facilities: 'Facilities',
-    share: 'Share',
-    save: 'Save',
-    savedToList: 'Saved to your list',
-    removedFromList: 'Removed from your list',
-    location: 'Location',
-    onTheMap: 'On the map',
-    pinnedIn: 'pinned in',
-    groupedByRegion: 'Grouped by the tourism region each one belongs to.',
-    allOfRegion: 'All of this region',
-    step: 'Step',
-    ofWord: 'of',
-    next: 'Next',
-    when: 'When',
-    period: 'Period',
-    knownAs: 'Known today as',
-    photos: 'photos',
-    stops: 'Stops',
-    searchMap: 'Search places on the map',
-    rateNote: 'a fixed rate until the API sends a live one',
-    notificationsNote: 'Saved on this device. Alerts begin once push notifications are connected.',
-    currency: 'Currency',
-    unit: 'Unit',
-    notification: 'Notification',
-    onWord: 'On',
-    offWord: 'Off',
-    firstName: 'First name',
-    lastName: 'Last name',
-    provinceOrCapital: 'Province / Capital',
-    reEnterPassword: 'Re-enter password',
-    passwordsDoNotMatch: 'Passwords do not match',
-    accountSaved: 'Account saved',
-    passwordLater: 'Saved — changing the password needs the API',
-    dayByDay: 'Day by day',
-    dayWord: 'Day',
-    daysWord: 'days',
-    folders: 'Folders',
-    delete: 'Delete',
-    emptyFolder: 'Nothing in here yet',
-    emptyFolderBody: 'Add places to this folder from a place page.',
-    mostRecent: 'Most recent',
-    oldest: 'Oldest',
-    highestRated: 'Highest rated',
-    lowestRated: 'Lowest rated',
-    reviewsWritten: 'Reviews written',
-    averageRating: 'Average rating',
-    sortBy: 'Sort by',
-    allRatings: 'All ratings',
-    noReviewsBody: 'Places you review will show up here.',
-    shareToFacebook: 'Share to Facebook',
-    achievement: 'Achievement',
-    badgeEarned: 'Badge earned!',
-    badgeInProgress: 'Badge in progress',
-    earnedOn: 'Earned on',
-    badgeSeasonNote: 'This badge is active for the season and renews each year —',
-    viewTerms: 'View T&C',
-    viewBadgeHistory: 'View badge history',
-    notYet: 'Not yet',
-    reviewNote: 'A review counts once it is published. Editing one later does not add another.',
-    stampNote: 'Collect a stamp on a place page once you have visited. Each place counts once.',
-    digitalStamps: 'digital stamps',
-    browserBadgeBlurb: 'Browse places across the app',
-    reviewerBadgeBlurb: 'Share what you thought of a place',
-    adventureBadgeBlurb: 'Collect a stamp for every place you visit',
-    browseShort: 'browse',
-    badgeWord: 'badge',
-    browseNote: 'Opening a place, stay or room page counts as one browse. The same page within half an hour counts once.',
-    browseUnit: 'pages browsed',
-    badges: 'Badges',
-    progressLabel: 'Progress',
-    requiredWord: 'required',
-    completeFirst: 'Complete {tier} first',
-    ofTheWayTo: 'of the way to',
-    badgeCategories: 'Badge categories',
-    currentStatus: 'Current status',
-    browserBadge: 'Browser badge',
-    reviewerBadge: 'Reviewer badge',
-    adventureBadge: 'Adventure badge',
-    bronzeTier: 'Bronze',
-    silverTier: 'Silver',
-    goldTier: 'Gold',
-    platinumTier: 'Platinum',
-    topTierReached: 'Top tier reached — nothing left to climb.',
-    accountInfo: 'Account info',
-    preference: 'Preference',
-    gallery: 'Gallery',
-    routeOverview: 'Route Overview',
-    startThisTrip: 'Start This Trip',
-    corridorsMap: 'Corridors Map',
-    exploreThrough: 'Explore through',
-    whereToStay: 'Where to Stay',
-    exploreExperiences: 'Explore Experiences',
-    exploreRegions: 'Explore regions',
-    popularDestinations: 'Popular destinations',
-    exploreMoreIn: 'Explore more in',
-    searchProvince: 'Search province',
-    popularProvinces: 'Popular provinces',
-    showAllProvinces: 'Show all {n} provinces',
-    exploreInterest: 'Explore interest',
-    recommendTitle: 'Recommend',
-    helpSupport: 'Help & support',
-    helpIntro: 'Need a hand or have a question? Our support team is here to help you every step of the way. Reach out anytime.',
-    socialLinkLater: 'This account is not linked yet.',
-    termsConditions: 'Terms & conditions',
-    yourBadge: 'Your badge',
-    joined: 'Joined',
-    name: 'Name',
-    reviewTitle: 'Review',
-    rateYourExperience: 'Rate your experience',
-    whenDidYouVisit: 'When did you visit?',
-    reviewTitleLabel: 'Review title',
-    reviewTitleHint: 'Summarize your experience...',
-    yourReview: 'Your review',
-    yourReviewHint: 'Tell others about your experience...',
-    photoOfYourVisit: 'Photo of your visit',
-    addPhotos: 'Add photos',
-    photosComingSoon: 'Photo upload arrives with the API',
-    submitReview: 'Submit review',
-    reviewSaved: 'Thanks — your review is saved',
-    max: 'Max.',
-    min: 'Min.',
-    characters: 'characters',
-    words: 'words',
-    showRoute: 'Show route',
-    howToGetThere: 'How to get there',
-    recommendNearby: 'Recommend nearby',
-    viewOnMap: 'View on map',
-    hoursLabel: 'Opening hours',
-    goodToKnow: 'Good to know',
-    entryFee: 'Entry',
-    priceRangeLabel: 'Prices',
-    howLong: 'How long',
-    bestSeason: 'Best season',
-    difficulty: 'Difficulty',
-    groupSize: 'Group size',
-    dishesToTry: 'Dishes to try',
-    thingsToDo: 'Things to do',
-    highlightsTitle: 'Highlights',
-    tipsTitle: 'Before you go',
-    bookByContact: 'To book, contact the property directly.',
-    available: "Available",
-    whatsIncluded: "What's included",
-    perNight: 'Per night',
-    maxAdults: 'Max',
-    adultsWord: 'adults',
-    breakfastIncluded: 'Breakfast included',
-    featuredAmenities: 'Featured amenities',
-    nonSmoking: 'Non-smoking',
-    roomDetails: "Room details",
-    rooms: 'Rooms',
-    noRooms: 'No rooms listed',
-    noRoomsBody: 'This stay has not published its rooms yet.',
-    guests: 'guests',
-    night: 'night',
-    soldOut: 'Sold out',
-    notListedYet: 'Not listed yet',
-    popularFacilities: 'Most popular facilities',
-    nearbyAttractions: 'Nearby attractions',
-    stayPolicies: 'Stay Policies',
-    viewRooms: 'View Rooms',
-    earlyCheckInNote: 'Early check-in and late check-out are subject to availability.',
-    fromTime: 'From',
-    beforeTime: 'Before',
-    policies: 'Policies',
-    checkIn: 'Check-in',
-    checkOut: 'Check-out',
-    cancellation: 'Cancellation',
-    contactForPolicy: 'Ask the host',
-    pets: 'Pets',
-    description: 'Description',
-    showLess: 'Show less',
-    contact: 'Contact',
-    directions: 'Directions',
-    callWord: 'Call',
-    website: 'Website',
-    call: 'Call',
-    seeAllRooms: 'See all rooms',
-    back: 'Back',
-    zoomIn: 'Zoom in',
-    zoomOut: 'Zoom out',
-    resetView: 'Reset view',
-    collections: 'Collections',
-    savedTitle: 'Saved places',
-    places: 'Places',
-    exploreCorridors: 'Explore corridors',
-    tourismCorridors: 'Tourism Corridors',
-    corridors: 'Corridors',
-    stamps: 'Stamps',
-    emptySaved: 'Nothing saved yet',
-    emptySavedBody: 'Tap the heart on any place, region or corridor to keep it here.',
-    usernameOrEmail: 'Username or email',
-    password: 'Password',
-    forgotPassword: 'Forgot your password?',
-    logIn: 'Log in',
-    username: 'Username',
-    email: 'Email',
-    confirmPassword: 'Confirm password',
-    alreadyHaveAccount: 'Already have an account?',
-    resetPassword: 'Reset your password',
-    resetSubtitle: 'Enter the email on your account and we will send you a reset link.',
-    sendResetLink: 'Send reset link',
-    resetSent: 'If an account exists for that email, a reset link is on its way.',
-    backToLogin: 'Back to log in',
-    fieldRequired: 'This field is required',
-    invalidEmail: 'Enter a valid email address',
-    weakPassword: 'At least 8 characters, with a letter and a number',
-    passwordsDontMatch: 'Passwords do not match',
-    guestTitle: 'Keep the places you want to see in one list.',
-    guestSubtitle: 'Create a free account to sync your list, collect stamps and write reviews.',
-    benefitSave: 'Save any place, region or corridor to your own list.',
-    benefitAny: 'Collect a stamp for every place you visit.',
-    benefitOffline: 'Take your saved map with you when the signal goes.',
-    benefitAlerts: 'Get told when opening hours, fees or roads change.',
-    language: 'Language',
-    editProfile: 'Edit profile',
-    profileCompleted: '{n}% profile completed',
-    changePhoto: 'Change photo',
-    photoLater: 'Photo upload comes with the API.',
-    logOut: 'Log out',
-    logOutConfirm: 'Log out of AMS Travel?',
-    cancel: 'Cancel',
-    account: 'Account',
-    searchTitle: 'Search',
-    searchScopeAll: 'All',
-    tryThese: 'Try searching for',
-    retry: 'Try again',
-    somethingWentWrong: 'Something went wrong',
-  );
+  /// Falls back to English, then to the key, so a missing translation shows
+  /// something instead of crashing.
+  String _t(String key) => _strings[key] ?? en._strings[key] ?? key;
 
-  static const km = S._(
-    tagline: 'ស្វែងយល់កម្ពុជា',
-    navHome: 'ទំព័រដើម',
-    navExplore: 'ស្វែងរក',
-    navMap: 'ផែនទី',
-    navSaved: 'បានរក្សាទុក',
-    navProfile: 'គណនី',
-    whatTravelersSay: 'អ្វីដែលអ្នកដំណើរនិយាយ',
-    showMore: 'មើលបន្ថែម',
-    showAllReviews: 'មើលទាំង',
-    reviewsWord: 'មតិយោបល់',
-    yourRate: 'ការវាយតម្លៃរបស់អ្នក',
-    kindOfVisit: 'ប្រភេទដំណើរ',
-    reviewWord: 'មតិយោបល់',
-    overview: 'ទិដ្ឋភាពទូទៅ',
-    readMore: 'អានបន្ថែម',
-    readLess: 'បង្ហាញតិច',
-    historicalMap: 'ផែនទីប្រវត្តិសាស្ត្រ',
-    historicalMapSubtitle: 'ស្វែងរកទីតាំងអតីតរាជធានី',
-    regionMap: 'ផែនទីតំបន់',
-    regionMapSubtitle: 'ទីតាំងកន្លែងនានាក្នុងតំបន់នេះ',
-    exploreByCapitals: 'ស្វែងរកតាមអតីតរាជធានី',
-    youMayLike: 'អ្នកប្រហែលជាចូលចិត្ត',
-    relatedTags: 'ស្លាកពាក់ព័ន្ធ',
-    discoverDestination: 'ស្វែងរកគោលដៅ',
-    tags: 'ស្លាក',
-    popularKeywords: 'ពាក្យពេញនិយម',
-    viewAll: 'មើលទាំងអស់',
-    reset: 'កំណត់ឡើងវិញ',
-    applyFilters: 'អនុវត្តតម្រង',
-    recommendExplore: 'ណែនាំឱ្យស្វែងរក',
-    tourismRegions: 'តំបន់ទេសចរណ៍',
-    exploreNearby: 'ស្វែងរកនៅជុំវិញ',
-    allowLocationAccess: 'អនុញ្ញាតឱ្យប្រើទីតាំង',
-    tourismRegion: 'តំបន់ទេសចរណ៍',
-    recentAndPopular: 'ថ្មីៗ និងពេញនិយម',
-    recommendCorridors: 'ផ្លូវទេសចរណ៍ណែនាំ',
-    locationSoon: 'ការស្វែងរកនៅជុំវិញត្រូវការសិទ្ធិទីតាំង ដែលមិនទាន់បានបើក។',
-    yourLocation: 'ទីតាំងរបស់អ្នក',
-    searchEverythingHint: 'ស្វែងរកគោលដៅ កន្លែង ម្ហូប..',
-    quickAttraction: 'ទេសភាព',
-    quickStays: 'ស្នាក់នៅ',
-    quickFood: 'ម្ហូប',
-    quickNature: 'ធម្មជាតិ',
-    quickExperiences: 'បទពិសោធន៍',
-    exploreByRegion: 'ស្វែងរកតាមតំបន់ទេសចរណ៍',
-    exploreByPopular: 'ស្វែងរកតាមប្រជាប្រិយភាព',
-    exploreByCorridors: 'ស្វែងរកតាមផ្លូវទេសចរណ៍',
-    exploreByInterest: 'ស្វែងរកតាមចំណាប់អារម្មណ៍',
-    exploreByProvinces: 'ស្វែងរកតាមខេត្ត',
-    searchRegion: 'ស្វែងរកតំបន់',
-    recommendByAms: 'ណែនាំដោយ AMS Travel',
-    recommendByTraveler: 'អ្នកដំណើរណែនាំ',
-    notifications: 'ការជូនដំណឹង',
-    unreadWord: 'មិនទាន់អាន',
-    today: 'ថ្ងៃនេះ',
-    yesterday: 'ម្សិលមិញ',
-    thisWeek: 'សប្ដាហ៍នេះ',
-    earlier: 'មុននេះ',
-    agoWord: 'មុន',
-    noNotifications: 'មិនទាន់មានការជូនដំណឹង។',
-    loginTitle: 'សូមស្វាគមន៍ត្រឡប់មកវិញ',
-    loginSubtitle2: 'ចូលគណនីដើម្បីមើលកន្លែងដែលអ្នករក្សាទុក និងរៀបចំដំណើរបន្ត',
-    orLoginWith: 'ឬចូលដោយ',
-    noAccountYet: 'មិនទាន់មានគណនី?',
-    createAccountTitle: 'បង្កើតគណនី',
-    createAccountSubtitle: 'បង្កើតគណនីរបស់អ្នក ដើម្បីធ្វើឱ្យវិស្សមកាលរបស់អ្នកកាន់តែងាយស្រួល',
-    registerCta: 'ចុះឈ្មោះ',
-    orRegisterWith: 'ឬចុះឈ្មោះដោយ',
-    signInWithGoogle: 'ចូលដោយ Google',
-    signInWithApple: 'ចូលដោយ Apple',
-    socialSoon: 'នឹងអាចប្រើបាន នៅពេលភ្ជាប់ API រួចរាល់។',
-    login: 'ចូលគណនី',
-    continueJourney: 'បន្តដំណើររបស់អ្នក',
-    readyTitle: 'ដំណើររបស់អ្នករួចរាល់ហើយ',
-    interestsTitle2: 'បង្កើតដំណើររបស់អ្នកតាមចិត្ត',
-    interestsSubtitle: 'តើអ្នកចង់ទទួលបទពិសោធន៍អ្វីខ្លះនៅកម្ពុជា?',
-    interestHistory: 'ប្រវត្តិសាស្ត្រ និងវប្បធម៌',
-    interestFood: 'ម្ហូប និងជីវិតក្នុងស្រុក',
-    interestNature: 'ធម្មជាតិ និងផ្សងព្រេង',
-    interestWellness: 'សុខភាព និងការសម្រាក',
-    interestBeaches: 'ឆ្នេរ និងកោះ',
-    interestArts: 'សិល្បៈ និងសិប្បកម្ម',
-    interestExperience: 'ដំណើរបទពិសោធន៍',
-    interestFamily: 'សកម្មភាពគ្រួសារ',
-    startJourney: 'ចាប់ផ្ដើមដំណើររបស់អ្នក',
-    exploreAsGuest: 'ស្វែងរកជាភ្ញៀវ',
-    welcomeEyebrow1: 'ព្រះរាជាណាចក្រនៃអច្ឆរិយភាព',
-    welcomeTitleA1: 'ស្វែងយល់ពី',
-    welcomeTitleB1: 'ព្រះរាជាណាចក្រនៃអច្ឆរិយភាព',
-    welcomeBody1: 'ប្រាសាទបុរាណ ម្ហូបក្នុងស្រុក *កន្លែងលាក់កំបាំង* និងដំណើរដែលមិនអាចបំភ្លេចបាន — *នៅកន្លែងតែមួយ*។',
-    welcomeEyebrow2: 'តំបន់ទេសចរណ៍ប្រាំបួន',
-    welcomeTitleA2: 'ស្វែងរកតាម',
-    welcomeTitleB2: 'តំបន់ និងខេត្ត',
-    welcomeBody2:
-        'តំបន់តាមប្រធានបទប្រាំបួន គ្របដណ្ដប់លើ*ខេត្តក្រុងម្ភៃប្រាំ* — ប្រាសាទ ភ្នំ មេគង្គ ឆ្នេរ និងម្ហូបអាហារ។',
-    welcomeEyebrow3: 'រក្សាទុក និងប្រើក្រៅបណ្ដាញ',
-    welcomeTitleA3: 'រក្សាគ្រប់កន្លែង',
-    welcomeTitleB3: 'ក្នុងបញ្ជីតែមួយ',
-    welcomeBody3: 'រក្សាទុកកន្លែង តំបន់ ឬផ្លូវណាមួយ *ប្រមូលត្រា*នៅពេលទៅដល់ ហើយយកផែនទីទៅជាមួយ*ពេលគ្មានសេវា*។',
-    welcomeEyebrow4: 'ទំនាក់ទំនងក្នុងស្រុកដែលទុកចិត្តបាន',
-    welcomeTitleA4: 'រៀបចំផ្លូវធ្វើដំណើរ',
-    welcomeTitleB4: 'ដែលអាចធ្វើបានពិត',
-    welcomeBody4: 'ផ្លូវទេសចរណ៍ជ្រើសរើស ជាមួយ*តម្លៃចូល ម៉ោងបើក និងស្ថានភាពផ្លូវ*ដូចដែលអ្នកនឹងជួបពិតប្រាកដ។',
-    startExploring: 'ចាប់ផ្ដើមស្វែងរក',
-    saves: 'ការរក្សាទុក',
-    emailAddress: 'អាសយដ្ឋានអ៊ីមែល',
-    footerVersion: 'កំណែ 1.0 អភិវឌ្ឍដោយក្រុមរបស់យើង',
-    bestTime: 'ពេលល្អបំផុតដើម្បីទៅ',
-    openNow: 'កំពុងបើក',
-    closedNow: 'បិទ',
-    open24h: 'បើក ២៤ ម៉ោង',
-    exploreRegion: 'ស្វែងរកតំបន់',
-    featured: 'ពិសេស',
-    unesco: 'យូណេស្កូ',
-    verified: 'បានផ្ទៀងផ្ទាត់',
-    exploreTitle: 'ស្វែងយល់កម្ពុជា',
-    tabRegions: 'តំបន់',
-    tabInterests: 'ចំណាប់អារម្មណ៍',
-    tabProvinces: 'ខេត្ត',
-    tabCorridors: 'ផ្លូវទេសចរណ៍',
-    introRegions: 'តំបន់តាមប្រធានបទចំនួនប្រាំបួន គ្របដណ្ដប់លើខេត្តក្រុងទាំងម្ភៃប្រាំ។',
-    introInterests: 'កន្លែងដដែល តែមើលតាមរបៀបផ្សេង។ តាមដានចំណាប់អារម្មណ៍មួយឆ្លងកាត់គ្រប់តំបន់។',
-    introProvinces: 'ខេត្តក្រុងទាំងម្ភៃប្រាំ ជាមួយអ្វីដែលល្បីបំផុតនៃខេត្តនីមួយៗ។',
-    introCorridors: 'ផ្លូវដែលភ្ជាប់ខេត្តជាច្រើនតាមលំដាប់ដែលអាចធ្វើដំណើរបាន ជាមួយរយៈពេលប្រហាក់ប្រហែល។',
-    viewCorridor: 'មើលផ្លូវទេសចរណ៍',
-    searchProvinces: 'ស្វែងរកខេត្ត',
-    destinations: 'គោលដៅ',
-    categories: 'ប្រភេទ',
-    provinces: 'ខេត្ត',
-    regions: 'តំបន់',
-    coreIdentity: 'អត្តសញ្ញាណស្នូល',
-    filters: 'តម្រង',
-    province: 'ខេត្ត',
-    found: 'បានរកឃើញ',
-    map: 'ផែនទី',
-    all: 'ទាំងអស់',
-    noResults: 'គ្មានលទ្ធផលត្រូវនឹងតម្រង',
-    noResultsBody: 'សាកល្បងដកប្រភេទចេញ ឬសម្អាតការស្វែងរក។',
-    allNineRegions: 'តំបន់ទាំងប្រាំបួន',
-    openFullMap: 'បើកផែនទីពេញ',
-    atAGlance: 'ព័ត៌មានសង្ខេប',
-    region: 'តំបន់',
-    category: 'ប្រភេទ',
-    seeOnFullMap: 'មើលលើផែនទីពេញ',
-    nearby: 'នៅជិតក្នុងតំបន់នេះ',
-    kmAway: 'ពីទីនេះ',
-    reviews: 'មតិយោបល់',
-    noReviews: 'មិនទាន់មានមតិយោបល់',
-    beFirst: 'ក្លាយជាអ្នកដំបូងដែលវាយតម្លៃ។',
-    writeReview: 'សរសេរមតិយោបល់',
-    editReview: 'កែមតិយោបល់របស់អ្នក',
-    logInToReview: 'ចូលគណនីដើម្បីសរសេរមតិយោបល់',
-    facilities: 'សេវាកម្ម',
-    share: 'ចែករំលែក',
-    save: 'រក្សាទុក',
-    savedToList: 'បានរក្សាទុកក្នុងបញ្ជីរបស់អ្នក',
-    removedFromList: 'បានដកចេញពីបញ្ជីរបស់អ្នក',
-    location: 'ទីតាំង',
-    onTheMap: 'លើផែនទី',
-    pinnedIn: 'បានសម្គាល់ក្នុង',
-    groupedByRegion: 'ចាត់ក្រុមតាមតំបន់ទេសចរណ៍។',
-    allOfRegion: 'ទាំងអស់ក្នុងតំបន់នេះ',
-    step: 'ជំហាន',
-    ofWord: 'នៃ',
-    next: 'បន្ទាប់',
-    when: 'ពេលវេលា',
-    period: 'សម័យកាល',
-    knownAs: 'ស្គាល់សព្វថ្ងៃថា',
-    photos: 'រូបថត',
-    stops: 'ចំណត',
-    searchMap: 'ស្វែងរកកន្លែងលើផែនទី',
-    rateNote: 'អត្រាថេររហូតដល់ API ផ្ញើអត្រាថ្មី',
-    notificationsNote: 'រក្សាទុកក្នុងឧបករណ៍នេះ។ ការជូនដំណឹងនឹងចាប់ផ្តើមពេលភ្ជាប់រួច។',
-    currency: 'រូបិយប័ណ្ណ',
-    unit: 'ឯកតា',
-    notification: 'ការជូនដំណឹង',
-    onWord: 'បើក',
-    offWord: 'បិទ',
-    firstName: 'នាមខ្លួន',
-    lastName: 'នាមត្រកូល',
-    provinceOrCapital: 'ខេត្ត / រាជធានី',
-    reEnterPassword: 'បញ្ចូលពាក្យសម្ងាត់ម្តងទៀត',
-    passwordsDoNotMatch: 'ពាក្យសម្ងាត់មិនដូចគ្នា',
-    accountSaved: 'បានរក្សាទុក',
-    passwordLater: 'បានរក្សាទុក — ការប្តូរពាក្យសម្ងាត់ត្រូវការ API',
-    dayByDay: 'ថ្ងៃម្តងៗ',
-    dayWord: 'ថ្ងៃទី',
-    daysWord: 'ថ្ងៃ',
-    folders: 'ថត',
-    delete: 'លុប',
-    emptyFolder: 'មិនទាន់មានអ្វីទេ',
-    emptyFolderBody: 'បន្ថែមកន្លែងពីទំព័រកន្លែង។',
-    mostRecent: 'ថ្មីបំផុត',
-    oldest: 'ចាស់បំផុត',
-    highestRated: 'ពិន្ទុខ្ពស់',
-    lowestRated: 'ពិន្ទុទាប',
-    reviewsWritten: 'មតិបានសរសេរ',
-    averageRating: 'ពិន្ទុមធ្យម',
-    sortBy: 'តម្រៀបតាម',
-    allRatings: 'ពិន្ទុទាំងអស់',
-    noReviewsBody: 'កន្លែងដែលអ្នកវាយតម្លៃនឹងបង្ហាញនៅទីនេះ។',
-    shareToFacebook: 'ចែករំលែកទៅ Facebook',
-    achievement: 'សមិទ្ធផល',
-    badgeEarned: 'ទទួលបានស្លាកសញ្ញា!',
-    badgeInProgress: 'កំពុងដំណើរការ',
-    earnedOn: 'ទទួលបាននៅ',
-    badgeSeasonNote: 'ស្លាកសញ្ញានេះសកម្មសម្រាប់រដូវកាល និងបន្តជារៀងរាល់ឆ្នាំ —',
-    viewTerms: 'មើលលក្ខខណ្ឌ',
-    viewBadgeHistory: 'មើលប្រវត្តិស្លាកសញ្ញា',
-    notYet: 'មិនទាន់',
-    reviewNote: 'មតិត្រូវបានរាប់នៅពេលបានផ្សាយ។ ការកែប្រែមិនរាប់បន្ថែមទេ។',
-    stampNote: 'ប្រមូលត្រានៅទំព័រកន្លែងបន្ទាប់ពីទៅដល់។ កន្លែងនីមួយៗរាប់តែម្តង។',
-    digitalStamps: 'ត្រាឌីជីថល',
-    browserBadgeBlurb: 'រុករកទីកន្លែងក្នុងកម្មវិធី',
-    reviewerBadgeBlurb: 'ចែករំលែកមតិរបស់អ្នក',
-    adventureBadgeBlurb: 'ប្រមូលត្រាសម្រាប់កន្លែងនីមួយៗ',
-    browseShort: 'មើល',
-    badgeWord: 'ស្លាកសញ្ញា',
-    browseNote: 'ការបើកទំព័រកន្លែង ស្នាក់នៅ ឬបន្ទប់ រាប់ជាការមើលមួយ។ ទំព័រដដែលក្នុងកន្លះម៉ោង រាប់តែម្តង។',
-    browseUnit: 'កន្លែងបានមើល',
-    badges: 'ស្លាកសញ្ញា',
-    progressLabel: 'វឌ្ឍនភាព',
-    requiredWord: 'ត្រូវការ',
-    completeFirst: 'សម្រេច {tier} ជាមុនសិន',
-    ofTheWayTo: 'ទៅដល់',
-    badgeCategories: 'ប្រភេទស្លាកសញ្ញា',
-    currentStatus: 'ស្ថានភាពបច្ចុប្បន្ន',
-    browserBadge: 'ស្លាកអ្នករុករក',
-    reviewerBadge: 'ស្លាកអ្នកវាយតម្លៃ',
-    adventureBadge: 'ស្លាកផ្សងព្រេង',
-    bronzeTier: 'សំរឹទ្ធ',
-    silverTier: 'ប្រាក់',
-    goldTier: 'មាស',
-    platinumTier: 'ប្លាទីន',
-    topTierReached: 'ឈានដល់កម្រិតខ្ពស់បំផុតហើយ។',
-    accountInfo: 'ព័ត៌មានគណនី',
-    preference: 'ចំណូលចិត្ត',
-    gallery: 'វិចិត្រសាល',
-    routeOverview: 'ទិដ្ឋភាពផ្លូវ',
-    startThisTrip: 'ចាប់ផ្ដើមដំណើរនេះ',
-    corridorsMap: 'ផែនទីច្រករបៀង',
-    exploreThrough: 'ស្វែងរកតាម',
-    whereToStay: 'កន្លែងស្នាក់នៅ',
-    exploreExperiences: 'បទពិសោធន៍',
-    exploreRegions: 'ស្វែងរកតំបន់',
-    popularDestinations: 'គោលដៅពេញនិយម',
-    exploreMoreIn: 'ស្វែងរកបន្ថែមនៅ',
-    searchProvince: 'ស្វែងរកខេត្ត',
-    popularProvinces: 'ខេត្តពេញនិយម',
-    showAllProvinces: 'បង្ហាញខេត្តទាំង {n}',
-    exploreInterest: 'ស្វែងរកចំណាប់អារម្មណ៍',
-    recommendTitle: 'ណែនាំ',
-    helpSupport: 'ជំនួយ',
-    helpIntro: 'ត្រូវការជំនួយ ឬមានសំណួរ? ក្រុមការងាររបស់យើងនៅទីនេះដើម្បីជួយអ្នកគ្រប់ពេល។',
-    socialLinkLater: 'គណនីនេះមិនទាន់ភ្ជាប់នៅឡើយទេ។',
-    termsConditions: 'លក្ខខណ្ឌ',
-    yourBadge: 'ស្លាកសញ្ញារបស់អ្នក',
-    joined: 'ចូលរួម',
-    name: 'ឈ្មោះ',
-    reviewTitle: 'ការវាយតម្លៃ',
-    rateYourExperience: 'វាយតម្លៃបទពិសោធន៍របស់អ្នក',
-    whenDidYouVisit: 'តើអ្នកបានទៅនៅពេលណា?',
-    reviewTitleLabel: 'ចំណងជើង',
-    reviewTitleHint: 'សង្ខេបបទពិសោធន៍របស់អ្នក...',
-    yourReview: 'ការវាយតម្លៃរបស់អ្នក',
-    yourReviewHint: 'ប្រាប់អ្នកដទៃអំពីបទពិសោធន៍របស់អ្នក...',
-    photoOfYourVisit: 'រូបភាពនៃដំណើររបស់អ្នក',
-    addPhotos: 'បន្ថែមរូប',
-    photosComingSoon: 'ការបញ្ចូលរូបនឹងមកជាមួយ API',
-    submitReview: 'ដាក់ស្នើ',
-    reviewSaved: 'អរគុណ — បានរក្សាទុក',
-    max: 'អតិបរមា',
-    min: 'អប្បបរមា',
-    characters: 'តួអក្សរ',
-    words: 'ពាក្យ',
-    showRoute: 'បង្ហាញផ្លូវ',
-    howToGetThere: 'របៀបទៅដល់',
-    recommendNearby: 'ណែនាំនៅជិត',
-    viewOnMap: 'មើលលើផែនទី',
-    hoursLabel: 'ម៉ោងបើក',
-    goodToKnow: 'គួរដឹង',
-    entryFee: 'ថ្លៃចូល',
-    priceRangeLabel: 'តម្លៃ',
-    howLong: 'រយៈពេល',
-    bestSeason: 'រដូវល្អបំផុត',
-    difficulty: 'កម្រិតលំបាក',
-    groupSize: 'ចំនួនអ្នកចូលរួម',
-    dishesToTry: 'មុខម្ហូបគួរសាកល្បង',
-    thingsToDo: 'សកម្មភាពដែលអាចធ្វើ',
-    highlightsTitle: 'ចំណុចពិសេស',
-    tipsTitle: 'មុនពេលទៅ',
-    bookByContact: 'ដើម្បីកក់ សូមទាក់ទងកន្លែងស្នាក់នៅដោយផ្ទាល់។',
-    available: 'នៅទំនេរ',
-    whatsIncluded: 'អ្វីដែលរួមបញ្ចូល',
-    perNight: 'ក្នុងមួយយប់',
-    maxAdults: 'អតិបរមា',
-    adultsWord: 'នាក់',
-    breakfastIncluded: 'រួមបញ្ចូលអាហារពេលព្រឹក',
-    featuredAmenities: 'សេវាកម្មលេចធ្លោ',
-    nonSmoking: 'មិនជក់បារី',
-    roomDetails: 'ព័ត៌មានបន្ទប់',
-    rooms: 'បន្ទប់',
-    noRooms: 'មិនទាន់មានបន្ទប់',
-    noRoomsBody: 'កន្លែងស្នាក់នេះមិនទាន់បង្ហាញបន្ទប់នៅឡើយ។',
-    guests: 'នាក់',
-    night: 'មួយយប់',
-    soldOut: 'អស់ហើយ',
-    notListedYet: 'មិនទាន់មាន',
-    popularFacilities: 'សេវាកម្មពេញនិយម',
-    nearbyAttractions: 'ទីកន្លែងនៅជិត',
-    stayPolicies: 'លក្ខខណ្ឌស្នាក់នៅ',
-    viewRooms: 'មើលបន្ទប់',
-    earlyCheckInNote: 'ការចូលមុនម៉ោង និងចេញយឺតអាស្រ័យលើភាពទំនេរ។',
-    fromTime: 'ចាប់ពី',
-    beforeTime: 'មុន',
-    policies: 'គោលការណ៍',
-    checkIn: 'ចូលស្នាក់នៅ',
-    checkOut: 'ចាកចេញ',
-    cancellation: 'ការលុបចោល',
-    contactForPolicy: 'សួរម្ចាស់ផ្ទះ',
-    pets: 'សត្វចិញ្ចឹម',
-    description: 'ការពិពណ៌នា',
-    showLess: 'បង្ហាញតិច',
-    contact: 'ទំនាក់ទំនង',
-    directions: 'ទិសដៅ',
-    callWord: 'ហៅទូរស័ព្ទ',
-    website: 'គេហទំព័រ',
-    call: 'ហៅទូរស័ព្ទ',
-    seeAllRooms: 'មើលបន្ទប់ទាំងអស់',
-    back: 'ត្រឡប់',
-    zoomIn: 'ពង្រីក',
-    zoomOut: 'បង្រួម',
-    resetView: 'កំណត់ទិដ្ឋភាពឡើងវិញ',
-    collections: 'បណ្ដុំ',
-    savedTitle: 'កន្លែងដែលបានរក្សាទុក',
-    places: 'កន្លែង',
-    exploreCorridors: 'ស្វែងរកច្រករបៀង',
-    tourismCorridors: 'ច្រករបៀងទេសចរណ៍',
-    corridors: 'ផ្លូវទេសចរណ៍',
-    stamps: 'ត្រា',
-    emptySaved: 'មិនទាន់មានអ្វីរក្សាទុក',
-    emptySavedBody: 'ចុចរូបបេះដូងលើកន្លែង តំបន់ ឬផ្លូវណាមួយដើម្បីរក្សាទុកនៅទីនេះ។',
-    usernameOrEmail: 'ឈ្មោះអ្នកប្រើ ឬអ៊ីមែល',
-    password: 'ពាក្យសម្ងាត់',
-    forgotPassword: 'ភ្លេចពាក្យសម្ងាត់?',
-    logIn: 'ចូលគណនី',
-    username: 'ឈ្មោះអ្នកប្រើ',
-    email: 'អ៊ីមែល',
-    confirmPassword: 'បញ្ជាក់ពាក្យសម្ងាត់',
-    alreadyHaveAccount: 'មានគណនីរួចហើយ?',
-    resetPassword: 'កំណត់ពាក្យសម្ងាត់ឡើងវិញ',
-    resetSubtitle: 'បញ្ចូលអ៊ីមែលគណនីរបស់អ្នក យើងនឹងផ្ញើតំណកំណត់ឡើងវិញ។',
-    sendResetLink: 'ផ្ញើតំណកំណត់ឡើងវិញ',
-    resetSent: 'ប្រសិនបើមានគណនីសម្រាប់អ៊ីមែលនោះ តំណកំណត់ឡើងវិញកំពុងផ្ញើទៅ។',
-    backToLogin: 'ត្រឡប់ទៅចូលគណនី',
-    fieldRequired: 'ត្រូវបំពេញចន្លោះនេះ',
-    invalidEmail: 'សូមបញ្ចូលអ៊ីមែលត្រឹមត្រូវ',
-    weakPassword: 'យ៉ាងតិច ៨ តួ មានអក្សរ និងលេខ',
-    passwordsDontMatch: 'ពាក្យសម្ងាត់មិនដូចគ្នា',
-    guestTitle: 'រក្សាទុកកន្លែងដែលអ្នកចង់ទៅក្នុងបញ្ជីតែមួយ។',
-    guestSubtitle: 'បង្កើតគណនីឥតគិតថ្លៃ ដើម្បីធ្វើសមកាលកម្មបញ្ជី ប្រមូលត្រា និងសរសេរមតិយោបល់។',
-    benefitSave: 'រក្សាទុកកន្លែង តំបន់ ឬផ្លូវណាមួយក្នុងបញ្ជីរបស់អ្នក។',
-    benefitAny: 'ប្រមូលត្រាសម្រាប់គ្រប់កន្លែងដែលអ្នកបានទៅ។',
-    benefitOffline: 'យកផែនទីដែលបានរក្សាទុកទៅជាមួយ ពេលគ្មានសេវាទូរស័ព្ទ។',
-    benefitAlerts: 'ទទួលដំណឹងពេលម៉ោងបើក តម្លៃ ឬផ្លូវផ្លាស់ប្ដូរ។',
-    language: 'ភាសា',
-    editProfile: 'កែប្រែប្រវត្តិរូប',
-    profileCompleted: 'បំពេញប្រវត្តិរូប {n}%',
-    changePhoto: 'ប្ដូររូបភាព',
-    photoLater: 'ការផ្ទុករូបភាពនឹងមកជាមួយ API។',
-    logOut: 'ចាកចេញ',
-    logOutConfirm: 'ចាកចេញពី AMS Travel?',
-    cancel: 'បោះបង់',
-    account: 'គណនី',
-    searchTitle: 'ស្វែងរក',
-    searchScopeAll: 'ទាំងអស់',
-    tryThese: 'សាកល្បងស្វែងរក',
-    retry: 'ព្យាយាមម្ដងទៀត',
-    somethingWentWrong: 'មានបញ្ហាកើតឡើង',
-  );
+  String get tagline => _t('tagline');
+  String get navHome => _t('navHome');
+  String get navExplore => _t('navExplore');
+  String get navMap => _t('navMap');
+  String get navSaved => _t('navSaved');
+  String get navProfile => _t('navProfile');
+  String get whatTravelersSay => _t('whatTravelersSay');
+  String get showMore => _t('showMore');
+  String get showAllReviews => _t('showAllReviews');
+  String get reviewsWord => _t('reviewsWord');
+  String get yourRate => _t('yourRate');
+  String get kindOfVisit => _t('kindOfVisit');
+  String get reviewWord => _t('reviewWord');
+  String get overview => _t('overview');
+  String get readMore => _t('readMore');
+  String get readLess => _t('readLess');
+  String get historicalMap => _t('historicalMap');
+  String get historicalMapSubtitle => _t('historicalMapSubtitle');
+  String get regionMap => _t('regionMap');
+  String get regionMapSubtitle => _t('regionMapSubtitle');
+  String get exploreByCapitals => _t('exploreByCapitals');
+  String get youMayLike => _t('youMayLike');
+  String get relatedTags => _t('relatedTags');
+  String get discoverDestination => _t('discoverDestination');
+  String get tags => _t('tags');
+  String get popularKeywords => _t('popularKeywords');
+  String get viewAll => _t('viewAll');
+  String get reset => _t('reset');
+  String get applyFilters => _t('applyFilters');
+  String get recommendExplore => _t('recommendExplore');
+  String get tourismRegions => _t('tourismRegions');
+  String get exploreNearby => _t('exploreNearby');
+  String get allowLocationAccess => _t('allowLocationAccess');
+  String get tourismRegion => _t('tourismRegion');
+  String get recentAndPopular => _t('recentAndPopular');
+  String get recommendCorridors => _t('recommendCorridors');
+  String get locationSoon => _t('locationSoon');
+  String get yourLocation => _t('yourLocation');
+  String get searchEverythingHint => _t('searchEverythingHint');
+  String get quickAttraction => _t('quickAttraction');
+  String get quickStays => _t('quickStays');
+  String get quickFood => _t('quickFood');
+  String get quickNature => _t('quickNature');
+  String get quickExperiences => _t('quickExperiences');
+  String get exploreByRegion => _t('exploreByRegion');
+  String get exploreByPopular => _t('exploreByPopular');
+  String get exploreByCorridors => _t('exploreByCorridors');
+  String get exploreByInterest => _t('exploreByInterest');
+  String get exploreByProvinces => _t('exploreByProvinces');
+  String get searchRegion => _t('searchRegion');
+  String get recommendByAms => _t('recommendByAms');
+  String get recommendByTraveler => _t('recommendByTraveler');
+  String get notifications => _t('notifications');
+  String get unreadWord => _t('unreadWord');
+  String get today => _t('today');
+  String get yesterday => _t('yesterday');
+  String get thisWeek => _t('thisWeek');
+  String get earlier => _t('earlier');
+  String get agoWord => _t('agoWord');
+  String get noNotifications => _t('noNotifications');
+  String get loginTitle => _t('loginTitle');
+  String get loginSubtitle2 => _t('loginSubtitle2');
+  String get orLoginWith => _t('orLoginWith');
+  String get noAccountYet => _t('noAccountYet');
+  String get createAccountTitle => _t('createAccountTitle');
+  String get createAccountSubtitle => _t('createAccountSubtitle');
+  String get registerCta => _t('registerCta');
+  String get orRegisterWith => _t('orRegisterWith');
+  String get signInWithGoogle => _t('signInWithGoogle');
+  String get signInWithApple => _t('signInWithApple');
+  String get socialSoon => _t('socialSoon');
+  String get login => _t('login');
+  String get continueJourney => _t('continueJourney');
+  String get readyTitle => _t('readyTitle');
+  String get interestsTitle2 => _t('interestsTitle2');
+  String get interestsSubtitle => _t('interestsSubtitle');
+  String get interestHistory => _t('interestHistory');
+  String get interestFood => _t('interestFood');
+  String get interestNature => _t('interestNature');
+  String get interestWellness => _t('interestWellness');
+  String get interestBeaches => _t('interestBeaches');
+  String get interestArts => _t('interestArts');
+  String get interestExperience => _t('interestExperience');
+  String get interestFamily => _t('interestFamily');
+  String get startJourney => _t('startJourney');
+  String get exploreAsGuest => _t('exploreAsGuest');
+  String get welcomeEyebrow1 => _t('welcomeEyebrow1');
+  String get welcomeTitleA1 => _t('welcomeTitleA1');
+  String get welcomeTitleB1 => _t('welcomeTitleB1');
+  String get welcomeBody1 => _t('welcomeBody1');
+  String get welcomeEyebrow2 => _t('welcomeEyebrow2');
+  String get welcomeTitleA2 => _t('welcomeTitleA2');
+  String get welcomeTitleB2 => _t('welcomeTitleB2');
+  String get welcomeBody2 => _t('welcomeBody2');
+  String get welcomeEyebrow3 => _t('welcomeEyebrow3');
+  String get welcomeTitleA3 => _t('welcomeTitleA3');
+  String get welcomeTitleB3 => _t('welcomeTitleB3');
+  String get welcomeBody3 => _t('welcomeBody3');
+  String get welcomeEyebrow4 => _t('welcomeEyebrow4');
+  String get welcomeTitleA4 => _t('welcomeTitleA4');
+  String get welcomeTitleB4 => _t('welcomeTitleB4');
+  String get welcomeBody4 => _t('welcomeBody4');
+  String get startExploring => _t('startExploring');
+  String get saves => _t('saves');
+  String get emailAddress => _t('emailAddress');
+  String get footerVersion => _t('footerVersion');
+  String get bestTime => _t('bestTime');
+  String get openNow => _t('openNow');
+  String get closedNow => _t('closedNow');
+  String get open24h => _t('open24h');
+  String get exploreRegion => _t('exploreRegion');
+  String get featured => _t('featured');
+  String get unesco => _t('unesco');
+  String get verified => _t('verified');
+  String get exploreTitle => _t('exploreTitle');
+  String get tabRegions => _t('tabRegions');
+  String get tabInterests => _t('tabInterests');
+  String get tabProvinces => _t('tabProvinces');
+  String get tabCorridors => _t('tabCorridors');
+  String get introRegions => _t('introRegions');
+  String get introInterests => _t('introInterests');
+  String get introProvinces => _t('introProvinces');
+  String get introCorridors => _t('introCorridors');
+  String get viewCorridor => _t('viewCorridor');
+  String get searchProvinces => _t('searchProvinces');
+  String get destinations => _t('destinations');
+  String get categories => _t('categories');
+  String get provinces => _t('provinces');
+  String get regions => _t('regions');
+  String get coreIdentity => _t('coreIdentity');
+  String get filters => _t('filters');
+  String get province => _t('province');
+  String get found => _t('found');
+  String get map => _t('map');
+  String get all => _t('all');
+  String get noResults => _t('noResults');
+  String get noResultsBody => _t('noResultsBody');
+  String get allNineRegions => _t('allNineRegions');
+  String get openFullMap => _t('openFullMap');
+  String get atAGlance => _t('atAGlance');
+  String get region => _t('region');
+  String get category => _t('category');
+  String get seeOnFullMap => _t('seeOnFullMap');
+  String get nearby => _t('nearby');
+  String get kmAway => _t('kmAway');
+  String get reviews => _t('reviews');
+  String get noReviews => _t('noReviews');
+  String get beFirst => _t('beFirst');
+  String get writeReview => _t('writeReview');
+  String get editReview => _t('editReview');
+  String get logInToReview => _t('logInToReview');
+  String get facilities => _t('facilities');
+  String get share => _t('share');
+  String get save => _t('save');
+  String get savedToList => _t('savedToList');
+  String get removedFromList => _t('removedFromList');
+  String get location => _t('location');
+  String get onTheMap => _t('onTheMap');
+  String get pinnedIn => _t('pinnedIn');
+  String get groupedByRegion => _t('groupedByRegion');
+  String get allOfRegion => _t('allOfRegion');
+  String get step => _t('step');
+  String get ofWord => _t('ofWord');
+  String get next => _t('next');
+  String get when => _t('when');
+  String get period => _t('period');
+  String get knownAs => _t('knownAs');
+  String get photos => _t('photos');
+  String get stops => _t('stops');
+  String get searchMap => _t('searchMap');
+  String get rateNote => _t('rateNote');
+  String get notificationsNote => _t('notificationsNote');
+  String get currency => _t('currency');
+  String get unit => _t('unit');
+  String get notification => _t('notification');
+  String get onWord => _t('onWord');
+  String get offWord => _t('offWord');
+  String get firstName => _t('firstName');
+  String get lastName => _t('lastName');
+  String get provinceOrCapital => _t('provinceOrCapital');
+  String get reEnterPassword => _t('reEnterPassword');
+  String get passwordsDoNotMatch => _t('passwordsDoNotMatch');
+  String get accountSaved => _t('accountSaved');
+  String get passwordLater => _t('passwordLater');
+  String get dayByDay => _t('dayByDay');
+  String get dayWord => _t('dayWord');
+  String get daysWord => _t('daysWord');
+  String get folders => _t('folders');
+  String get delete => _t('delete');
+  String get emptyFolder => _t('emptyFolder');
+  String get emptyFolderBody => _t('emptyFolderBody');
+  String get mostRecent => _t('mostRecent');
+  String get oldest => _t('oldest');
+  String get highestRated => _t('highestRated');
+  String get lowestRated => _t('lowestRated');
+  String get reviewsWritten => _t('reviewsWritten');
+  String get averageRating => _t('averageRating');
+  String get sortBy => _t('sortBy');
+  String get allRatings => _t('allRatings');
+  String get noReviewsBody => _t('noReviewsBody');
+  String get shareToFacebook => _t('shareToFacebook');
+  String get achievement => _t('achievement');
+  String get badgeEarned => _t('badgeEarned');
+  String get badgeInProgress => _t('badgeInProgress');
+  String get earnedOn => _t('earnedOn');
+  String get badgeSeasonNote => _t('badgeSeasonNote');
+  String get viewTerms => _t('viewTerms');
+  String get viewBadgeHistory => _t('viewBadgeHistory');
+  String get notYet => _t('notYet');
+  String get reviewNote => _t('reviewNote');
+  String get stampNote => _t('stampNote');
+  String get digitalStamps => _t('digitalStamps');
+  String get browserBadgeBlurb => _t('browserBadgeBlurb');
+  String get reviewerBadgeBlurb => _t('reviewerBadgeBlurb');
+  String get adventureBadgeBlurb => _t('adventureBadgeBlurb');
+  String get browseShort => _t('browseShort');
+  String get badgeWord => _t('badgeWord');
+  String get browseNote => _t('browseNote');
+  String get browseUnit => _t('browseUnit');
+  String get badges => _t('badges');
+  String get progressLabel => _t('progressLabel');
+  String get requiredWord => _t('requiredWord');
+  String get completeFirst => _t('completeFirst');
+  String get ofTheWayTo => _t('ofTheWayTo');
+  String get badgeCategories => _t('badgeCategories');
+  String get currentStatus => _t('currentStatus');
+  String get browserBadge => _t('browserBadge');
+  String get reviewerBadge => _t('reviewerBadge');
+  String get adventureBadge => _t('adventureBadge');
+  String get bronzeTier => _t('bronzeTier');
+  String get silverTier => _t('silverTier');
+  String get goldTier => _t('goldTier');
+  String get platinumTier => _t('platinumTier');
+  String get topTierReached => _t('topTierReached');
+  String get accountInfo => _t('accountInfo');
+  String get preference => _t('preference');
+  String get gallery => _t('gallery');
+  String get routeOverview => _t('routeOverview');
+  String get startThisTrip => _t('startThisTrip');
+  String get corridorsMap => _t('corridorsMap');
+  String get exploreThrough => _t('exploreThrough');
+  String get whereToStay => _t('whereToStay');
+  String get exploreExperiences => _t('exploreExperiences');
+  String get exploreRegions => _t('exploreRegions');
+  String get popularDestinations => _t('popularDestinations');
+  String get exploreMoreIn => _t('exploreMoreIn');
+  String get searchProvince => _t('searchProvince');
+  String get popularProvinces => _t('popularProvinces');
+  String get showAllProvinces => _t('showAllProvinces');
+  String get exploreInterest => _t('exploreInterest');
+  String get recommendTitle => _t('recommendTitle');
+  String get helpSupport => _t('helpSupport');
+  String get helpIntro => _t('helpIntro');
+  String get socialLinkLater => _t('socialLinkLater');
+  String get termsConditions => _t('termsConditions');
+  String get yourBadge => _t('yourBadge');
+  String get joined => _t('joined');
+  String get name => _t('name');
+  String get reviewTitle => _t('reviewTitle');
+  String get helpful => _t('helpful');
+  String get reportReview => _t('reportReview');
+  String get reportLater => _t('reportLater');
+  String get rateYourExperience => _t('rateYourExperience');
+  String get whenDidYouVisit => _t('whenDidYouVisit');
+  String get reviewTitleLabel => _t('reviewTitleLabel');
+  String get reviewTitleHint => _t('reviewTitleHint');
+  String get yourReview => _t('yourReview');
+  String get yourReviewHint => _t('yourReviewHint');
+  String get photoOfYourVisit => _t('photoOfYourVisit');
+  String get addPhotos => _t('addPhotos');
+  String get photosComingSoon => _t('photosComingSoon');
+  String get submitReview => _t('submitReview');
+  String get reviewSaved => _t('reviewSaved');
+  String get max => _t('max');
+  String get min => _t('min');
+  String get characters => _t('characters');
+  String get words => _t('words');
+  String get showRoute => _t('showRoute');
+  String get howToGetThere => _t('howToGetThere');
+  String get recommendNearby => _t('recommendNearby');
+  String get viewOnMap => _t('viewOnMap');
+  String get hoursLabel => _t('hoursLabel');
+  String get goodToKnow => _t('goodToKnow');
+  String get entryFee => _t('entryFee');
+  String get priceRangeLabel => _t('priceRangeLabel');
+  String get howLong => _t('howLong');
+  String get bestSeason => _t('bestSeason');
+  String get difficulty => _t('difficulty');
+  String get groupSize => _t('groupSize');
+  String get dishesToTry => _t('dishesToTry');
+  String get thingsToDo => _t('thingsToDo');
+  String get highlightsTitle => _t('highlightsTitle');
+  String get tipsTitle => _t('tipsTitle');
+  String get bookByContact => _t('bookByContact');
+  String get available => _t('available');
+  String get whatsIncluded => _t('whatsIncluded');
+  String get perNight => _t('perNight');
+  String get maxAdults => _t('maxAdults');
+  String get adultsWord => _t('adultsWord');
+  String get breakfastIncluded => _t('breakfastIncluded');
+  String get featuredAmenities => _t('featuredAmenities');
+  String get nonSmoking => _t('nonSmoking');
+  String get roomDetails => _t('roomDetails');
+  String get rooms => _t('rooms');
+  String get noRooms => _t('noRooms');
+  String get noRoomsBody => _t('noRoomsBody');
+  String get guests => _t('guests');
+  String get night => _t('night');
+  String get soldOut => _t('soldOut');
+  String get notListedYet => _t('notListedYet');
+  String get popularFacilities => _t('popularFacilities');
+  String get nearbyAttractions => _t('nearbyAttractions');
+  String get stayPolicies => _t('stayPolicies');
+  String get viewRooms => _t('viewRooms');
+  String get earlyCheckInNote => _t('earlyCheckInNote');
+  String get fromTime => _t('fromTime');
+  String get beforeTime => _t('beforeTime');
+  String get policies => _t('policies');
+  String get checkIn => _t('checkIn');
+  String get checkOut => _t('checkOut');
+  String get cancellation => _t('cancellation');
+  String get contactForPolicy => _t('contactForPolicy');
+  String get pets => _t('pets');
+  String get description => _t('description');
+  String get showLess => _t('showLess');
+  String get contact => _t('contact');
+  String get directions => _t('directions');
+  String get callWord => _t('callWord');
+  String get website => _t('website');
+  String get call => _t('call');
+  String get seeAllRooms => _t('seeAllRooms');
+  String get back => _t('back');
+  String get zoomIn => _t('zoomIn');
+  String get zoomOut => _t('zoomOut');
+  String get resetView => _t('resetView');
+  String get collections => _t('collections');
+  String get savedTitle => _t('savedTitle');
+  String get places => _t('places');
+  String get exploreCorridors => _t('exploreCorridors');
+  String get tourismCorridors => _t('tourismCorridors');
+  String get corridors => _t('corridors');
+  String get stamps => _t('stamps');
+  String get emptySaved => _t('emptySaved');
+  String get emptySavedBody => _t('emptySavedBody');
+  String get usernameOrEmail => _t('usernameOrEmail');
+  String get password => _t('password');
+  String get forgotPassword => _t('forgotPassword');
+  String get logIn => _t('logIn');
+  String get username => _t('username');
+  String get email => _t('email');
+  String get confirmPassword => _t('confirmPassword');
+  String get alreadyHaveAccount => _t('alreadyHaveAccount');
+  String get resetPassword => _t('resetPassword');
+  String get resetSubtitle => _t('resetSubtitle');
+  String get sendResetLink => _t('sendResetLink');
+  String get resetSent => _t('resetSent');
+  String get backToLogin => _t('backToLogin');
+  String get fieldRequired => _t('fieldRequired');
+  String get invalidEmail => _t('invalidEmail');
+  String get weakPassword => _t('weakPassword');
+  String get passwordsDontMatch => _t('passwordsDontMatch');
+  String get guestTitle => _t('guestTitle');
+  String get guestSubtitle => _t('guestSubtitle');
+  String get benefitSave => _t('benefitSave');
+  String get benefitAny => _t('benefitAny');
+  String get benefitOffline => _t('benefitOffline');
+  String get benefitAlerts => _t('benefitAlerts');
+  String get language => _t('language');
+  String get editProfile => _t('editProfile');
+  String get profileCompleted => _t('profileCompleted');
+  String get changePhoto => _t('changePhoto');
+  String get photoLater => _t('photoLater');
+  String get logOut => _t('logOut');
+  String get logOutConfirm => _t('logOutConfirm');
+  String get cancel => _t('cancel');
+  String get account => _t('account');
+  String get searchTitle => _t('searchTitle');
+  String get searchScopeAll => _t('searchScopeAll');
+  String get tryThese => _t('tryThese');
+  String get retry => _t('retry');
+  String get somethingWentWrong => _t('somethingWentWrong');
+  String get menu => _t('menu');
+  String get showAllMenu => _t('showAllMenu');
+  String get aboutPlace => _t('aboutPlace');
+  String get cuisines => _t('cuisines');
+  String get serving => _t('serving');
+  String get opensAt => _t('opensAt');
+  String get closesAt => _t('closesAt');
+  String get closeNow => _t('closeNow');
+  String get openNowPill => _t('openNowPill');
+  String get noMenu => _t('noMenu');
+  String get noMenuBody => _t('noMenuBody');
+  String get popularDish => _t('popularDish');
+  String get vegetarian => _t('vegetarian');
+  String get spicy => _t('spicy');
+  String get pricesGuide => _t('pricesGuide');
 }

@@ -42,6 +42,7 @@ flutter:
     - assets/images/
     - assets/mock/
     - assets/google_fonts/
+    - lib/l10n/                 # English and Khmer UI text
 
 # App icon generated from the AMS Travel logo: `dart run flutter_launcher_icons`
 flutter_launcher_icons:

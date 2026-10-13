@@ -1,7 +1,9 @@
+import 'package:go_router/go_router.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/l10n/app_strings.dart';
+import '../../core/router/routes.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/utils/geo.dart';
@@ -22,27 +24,6 @@ class ReviewsSection extends StatefulWidget {
 
 class _ReviewsSectionState extends State<ReviewsSection> {
   final int _version = 0;
-
-  /// Every review on this place, in a sheet.
-  void _showAll(BuildContext context, List<Review> reviews, String? username) {
-    showModalBottomSheet<void>(
-      context: context,
-      useSafeArea: true,
-      isScrollControlled: true,
-      backgroundColor: Colors.white,
-      builder: (_) => DraggableScrollableSheet(
-        expand: false,
-        initialChildSize: 0.85,
-        builder: (context, controller) => ListView.separated(
-          controller: controller,
-          padding: const EdgeInsets.fromLTRB(20, 20, 20, 28),
-          itemCount: reviews.length,
-          separatorBuilder: (_, _) => const SizedBox(height: 12),
-          itemBuilder: (_, i) => _ReviewCard(review: reviews[i], own: reviews[i].author == username),
-        ),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +87,9 @@ class _ReviewsSectionState extends State<ReviewsSection> {
                     side: BorderSide(color: AppColors.violet.withValues(alpha: 0.5)),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                   ),
-                  onPressed: () => _showAll(context, reviews, username),
+                  onPressed: () => context.push(
+                    Routes.reviews(widget.destination.region, widget.destination.slug),
+                  ),
                   child: Text(
                     '${s.showAllReviews} ${thousands(widget.destination.reviewCount ?? reviews.length)} '
                     '${s.reviewsWord.toLowerCase()}',

@@ -41,6 +41,10 @@ abstract class TravelRepository {
 
   /// Bookable rooms in a stay. Empty for places you cannot sleep in.
   Future<List<Room>> getRooms(DestinationRef ref);
+
+  /// What a place serves, section by section. Empty when there is no menu —
+  /// the "Show all menu" button is hidden then.
+  Future<List<MenuSection>> getMenu(DestinationRef ref);
   Future<Review> submitReview(
     DestinationRef ref, {
     required int rating,
