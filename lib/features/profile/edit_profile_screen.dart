@@ -1,171 +1,154 @@
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/l10n/app_strings.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_theme.dart';
-import '../../data/models/models.dart';
-import '../../data/repositories/travel_repository.dart';
+import '../../data/api/ams_api.dart';
 import '../../state/auth_provider.dart';
-import '../../widgets/async_view.dart';
 import '../../widgets/common.dart';
+import 'account_info_screen.dart';
+import 'profile_screen.dart';
 
-/// The short form behind the pencil on the profile: photo, name and where
-/// the traveller is.
+/// The short form behind the pencil on the profile: the photo
+/// (`POST /media/files` type avatar, then `PUT /users/me` with its key) and
+/// the name.
+///
+/// One "Full name" input (the first/last split was declined 2026-10-14,
+/// R-060); the phone and the home province are on the account form.
 class EditProfileScreen extends StatefulWidget {
-  const EditProfileScreen({super.key});
+  const EditProfileScreen({super.key, this.pickPhoto = false});
+
+  /// Opens the photo picker at once, from the profile completion popup.
+  final bool pickPhoto;
 
   @override
   State<EditProfileScreen> createState() => _EditProfileScreenState();
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
-  final _first = TextEditingController();
-  String? _province;
-  bool _filled = false;
+  final _name = TextEditingController();
+  String? _filledFor;
+  bool _uploading = false;
+  bool _saving = false;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.pickPhoto) WidgetsBinding.instance.addPostFrameCallback((_) => _changePhoto());
+  }
 
   @override
   void dispose() {
-    _first.dispose();
+    _name.dispose();
     super.dispose();
   }
 
-  void _fillOnce(AppUser? user) {
-    if (_filled || user == null) return;
-    _filled = true;
-    _first.text = user.firstName ?? user.username.split(RegExp(r'[ .]')).first;
-    _province = user.location?.split(',').first.trim();
+  void _fill(UserProfile? user) {
+    if (user == null || _filledFor == user.id) return;
+    _filledFor = user.id;
+    _name.text = user.fullName ?? '';
+  }
+
+  Future<void> _changePhoto() async {
+    final s = S.read(context);
+    final api = context.read<AmsApi>();
+    final authState = context.read<AuthProvider>();
+    final picked = await ImagePicker().pickImage(source: ImageSource.gallery, maxWidth: 1024, imageQuality: 85);
+    if (picked == null || !mounted) return;
+    setState(() => _uploading = true);
+    try {
+      final file = await api.uploadFile(picked.path, type: 'avatar');
+      await authState.updateProfile(avatarKey: file.key);
+      if (mounted) showToast(context, s.photoUpdated);
+    } catch (_) {
+      if (mounted) showToast(context, s.saveFailed);
+    } finally {
+      if (mounted) setState(() => _uploading = false);
+    }
   }
 
   Future<void> _save() async {
     final s = S.read(context);
-    final auth = context.read<AuthProvider>();
-    final user = auth.user;
-    if (user == null) return;
-    await auth.updateUser(
-      user.copyWith(
-        firstName: _first.text.trim(),
-        location: _province == null ? null : '$_province, Cambodia',
-      ),
-    );
-    if (!mounted) return;
-    showToast(context, s.accountSaved);
-    context.pop();
+    setState(() => _saving = true);
+    try {
+      await context.read<AuthProvider>().updateProfile(fullName: _name.text.trim());
+      if (!mounted) return;
+      showToast(context, s.accountSaved);
+      context.pop();
+    } catch (_) {
+      if (mounted) showToast(context, s.saveFailed);
+    } finally {
+      if (mounted) setState(() => _saving = false);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final s = S.of(context);
     final user = context.watch<AuthProvider>().user;
-    _fillOnce(user);
+    _fill(user);
 
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text(s.navProfile, style: AppText.display(20)),
+        title: Text(s.editProfile, style: AppText.display(20)),
         centerTitle: true,
       ),
-      body: AsyncView<List<Province>>(
-        load: context.read<TravelRepository>().getProvinces,
-        builder: (context, provinces, _) => ListView(
-          padding: EdgeInsets.fromLTRB(24, 12, 24, 24 + MediaQuery.paddingOf(context).bottom),
-          children: [
-            Center(
-              child: Column(
-                children: [
-                  CircleAvatar(
-                    radius: 38,
-                    backgroundColor: AppColors.sand200,
-                    backgroundImage: user?.avatarUrl == null ? null : NetworkImage(user!.avatarUrl!),
-                    child: user?.avatarUrl != null
-                        ? null
-                        : const Icon(Icons.photo_camera_outlined, size: 26, color: AppColors.sand600),
+      body: user == null
+          ? const SizedBox.shrink()
+          : ListView(
+              padding: EdgeInsets.fromLTRB(24, 12, 24, 24 + MediaQuery.paddingOf(context).bottom),
+              children: [
+                Center(
+                  child: Column(
+                    children: [
+                      Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          ProfileAvatar(user: user, radius: 42),
+                          if (_uploading)
+                            const SizedBox(
+                              width: 32,
+                              height: 32,
+                              child: CircularProgressIndicator(strokeWidth: 2.6, color: AppColors.violet),
+                            ),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      TextButton.icon(
+                        onPressed: _uploading ? null : _changePhoto,
+                        icon: const Icon(Icons.photo_camera_outlined, size: 18, color: AppColors.sand700),
+                        label: Text(
+                          s.changePhoto,
+                          style: AppText.sans(13, weight: FontWeight.w600, color: AppColors.sand700),
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 8),
-                  TextButton(
-                    // TODO(api): needs an upload endpoint before a photo can
-                    // be picked and kept.
-                    onPressed: () => showToast(context, s.photoLater),
-                    child: Text(
-                      s.changePhoto,
-                      style: AppText.sans(13, weight: FontWeight.w600, color: AppColors.sand700),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 18),
-
-            _Shell(
-              child: TextField(
-                controller: _first,
-                decoration: _bare(s.firstName),
-              ),
-            ),
-            _Shell(
-              child: DropdownButtonHideUnderline(
-                child: DropdownButton<String>(
-                  value: _province,
-                  isExpanded: true,
-                  hint: Text(s.provinceOrCapital, style: AppText.sans(15, color: AppColors.sand400)),
-                  icon: const Icon(Icons.keyboard_arrow_down_rounded, color: AppColors.sand500),
-                  items: [
-                    for (final p in provinces)
-                      DropdownMenuItem(value: p.name, child: Text(p.name, style: AppText.sans(15))),
-                  ],
-                  onChanged: (v) => setState(() => _province = v),
                 ),
-              ),
+                const SizedBox(height: 18),
+                FieldOutline(
+                  child: TextField(controller: _name, decoration: bareInput(s.fullName)),
+                ),
+                const SizedBox(height: 18),
+                FilledButton(
+                  style: FilledButton.styleFrom(
+                    backgroundColor: AppColors.violet,
+                    minimumSize: const Size(0, 54),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                  ),
+                  onPressed: _saving ? null : _save,
+                  child: Text(
+                    s.save,
+                    style: AppText.sans(16, weight: FontWeight.w700, color: Colors.white),
+                  ),
+                ),
+              ],
             ),
-
-            const SizedBox(height: 18),
-            FilledButton(
-              style: FilledButton.styleFrom(
-                backgroundColor: AppColors.violet,
-                minimumSize: const Size(0, 54),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-              ),
-              onPressed: _save,
-              child: Text(s.save, style: AppText.sans(16, weight: FontWeight.w700, color: Colors.white)),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-/// The app's fields are filled and outlined by default; inside these pills
-/// they have to be plain.
-InputDecoration _bare(String hint) => InputDecoration(
-  hintText: hint,
-  hintStyle: AppText.sans(15, color: AppColors.sand400),
-  filled: false,
-  isDense: true,
-  contentPadding: const EdgeInsets.symmetric(vertical: 12),
-  border: InputBorder.none,
-  enabledBorder: InputBorder.none,
-  focusedBorder: InputBorder.none,
-);
-
-/// The rounded outline every row on this page sits in.
-class _Shell extends StatelessWidget {
-  const _Shell({required this.child});
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 6),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(999),
-        border: Border.all(color: AppColors.sand200),
-      ),
-      child: child,
     );
   }
 }

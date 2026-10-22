@@ -1,0 +1,29 @@
+[
+ {
+  "type": "CORRIDOR",
+  "id": "ef52e705-d9ef-4412-a9c4-b14a4b9bd11a",
+  "name": "Khmer Civilization",
+  "slug": "khmer-civilization-trail",
+  "shortDescription": "The ancient capitals in sequence, from Angkor to the Chaktomuk river junction.",
+  "coverUrl": "/api/v1/media/files/general/00000000-0000-0000-0000-000000000000/angkor-wat-2.jpg",
+  "provinceId": null,
+  "provinceName": null,
+  "latitude": null,
+  "longitude": null,
+  "categoryIds": [],
+  "categoryNames": [],
+  "interestIds": [
+   "5bd87bd2-5c65-4847-975b-79def29c203a"
+  ],
+  "tourismRegionIds": [],
+  "averageRating": null,
+  "ratingCount": 0,
+  "reviewCount": 0,
+  "verified": false,
+  "basis": null,
+  "travelerRecommended": false,
+  "priceFrom": null,
+  "currency": null,
+  "durationDays": 3
+ }
+]

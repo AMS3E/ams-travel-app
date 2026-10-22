@@ -8,498 +8,435 @@ import '../../core/router/routes.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/utils/geo.dart';
-import '../../data/models/models.dart';
-import '../../data/repositories/travel_repository.dart';
+import '../../core/utils/html_text.dart';
+import '../../core/utils/polyline.dart';
+import '../../data/api/ams_api.dart';
 import '../../state/collections_provider.dart';
 import '../../widgets/app_image.dart';
 import '../../widgets/async_view.dart';
 import '../../widgets/common.dart';
+import '../../widgets/overview_card.dart';
 import '../../widgets/destination_card.dart';
+import '../../widgets/hero_app_bar.dart';
 import '../../widgets/map_view.dart';
+import '../destination/place_view.dart' show galleryUrls;
+import '../destination/browse_record.dart';
+import '../destination/reviews_section.dart';
 
-/// The sights a stop is known for, so the route overview shows a temple
-/// rather than the coffee shop that happens to sit next to it.
-const _sightCategories = {
-  'Temples',
-  'Ancient Cities',
-  'Ancient Roads',
-  'Archaeological Sites',
-  'Museums',
-  'Sacred Mountain',
-  'Mountain',
-  'National Park',
-  'Waterfall',
-  'Viewpoint',
-  'Cave',
-  'Bridges',
-  'Village',
-};
+/// What the corridor page reads: the itinerary (which carries the corridor
+/// itself), its card for the rating, and the gallery. The reviews section loads its own.
+class _CorridorData {
+  const _CorridorData({
+    required this.itinerary,
+    required this.card,
+    required this.photos,
+    required this.about,
+    required this.route,
+  });
 
-/// Stay categories, for the "Where to Stay" row.
-const _stayCategories = {'Homestay', 'Eco Lodge', 'Luxury Hotel', 'Private Island'};
+  final CorridorItinerary itinerary;
+  final PlaceCard? card;
 
-/// What a traveller may want along the way, and the categories that answer it.
-/// TODO(api): fuel, groceries and pharmacies need a places-of-interest feed.
-const _experiences = <String, Set<String>>{
-  'Restaurants': {'Traditional Food', 'Fine Dining', 'Seafood', 'Michelin'},
-  'Hotels': _stayCategories,
-  'Street food': {'Street Food', 'Night Market'},
-  'Coffee': {'Coffee'},
-  'Markets': {'Night Market', 'Shopping'},
-  'Hospitals': {'Hospitals'},
-};
+  /// The cover, then the gallery (`GET /media?ownerType=CORRIDOR`).
+  final List<String> photos;
+
+  /// The description as plain text, and the route decoded: worked out once,
+  /// not on every build.
+  final String about;
+  final List<LatLng> route;
+}
 
 class CorridorScreen extends StatelessWidget {
-  const CorridorScreen({super.key, required this.slug});
-  final String slug;
+  const CorridorScreen({super.key, required this.id});
+  final String id;
+
+  Future<_CorridorData> _load(AmsApi api) async {
+    final (itinerary, card, media) = await (
+      api.itinerary(id),
+      api.card(id, type: CardType.corridor),
+      // A gallery that fails to load leaves the cover alone.
+      api.media(CardType.corridor, id).or(const []),
+    ).wait;
+    return _CorridorData(
+      itinerary: itinerary,
+      card: card,
+      photos: galleryUrls(itinerary.corridor.coverUrl, media),
+      about: htmlToText(itinerary.corridor.description ?? itinerary.corridor.shortDescription),
+      route: decodePolyline(itinerary.encodedPolyline),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    final repo = context.read<TravelRepository>();
-    return AsyncView<(Corridor, List<Destination>)>(
-      load: () => (repo.getCorridor(slug), repo.getDestinations()).wait,
-      loading: const Scaffold(body: LoadingView()),
-      builder: (context, data, _) => _CorridorView(corridor: data.$1, all: data.$2),
+    final api = context.read<AmsApi>();
+    return BrowseRecorder(
+      type: CardType.corridor,
+      id: id,
+      child: AsyncView<_CorridorData>(
+        load: () => _load(api),
+        loading: const Scaffold(body: LoadingView()),
+        builder: (context, data, _) => _CorridorView(id: id, data: data),
+      ),
     );
   }
 }
 
-class _CorridorView extends StatefulWidget {
-  const _CorridorView({required this.corridor, required this.all});
-  final Corridor corridor;
-  final List<Destination> all;
-
-  @override
-  State<_CorridorView> createState() => _CorridorViewState();
-}
-
-class _CorridorViewState extends State<_CorridorView> {
-  final _map = MapController();
-  final _photos = PageController();
-  int _photo = 0;
-
-  Corridor get corridor => widget.corridor;
-  List<Destination> get all => widget.all;
-
-  /// Places within 35 km of any stop, nearest to the route first.
-  late final List<Destination> _along = () {
-    final list = <(Destination, double)>[];
-    for (final d in all) {
-      var best = double.infinity;
-      for (final st in corridor.stops) {
-        final km = distanceKm(st.lat, st.lng, d.lat, d.lng);
-        if (km < best) best = km;
-      }
-      if (best <= 35) list.add((d, best));
-    }
-    list.sort((a, b) => a.$2.compareTo(b.$2));
-    return [for (final (d, _) in list) d];
-  }();
-
-  /// The corridor's own photo, then the places it passes.
-  List<String> get _gallery => <String>{
-    corridor.image,
-    for (final d in _along.where((d) => d.featured)) d.image,
-    for (final d in _along) d.image,
-  }.take(6).toList();
-
-  /// A corridor has no score of its own, so it carries the places along it.
-  /// TODO(api): send a rating and review count per corridor.
-  (double?, int) get _score {
-    final rated = _along.where((d) => d.rating != null).toList();
-    if (rated.isEmpty) return (null, 0);
-    final sum = rated.map((d) => d.rating!).reduce((a, b) => a + b);
-    final reviews = _along.fold(0, (n, d) => n + (d.reviewCount ?? 0));
-    return (sum / rated.length, reviews);
-  }
-
-  /// The place that stands for a stop in the route overview: one that carries
-  /// its name if there is one, else the nearest sight, else the nearest place.
-  Destination? _faceOf(CorridorStop stop) {
-    final name = stop.name.toLowerCase();
-    Destination? best;
-    var bestScore = -1e9;
-    for (final d in all) {
-      final km = distanceKm(stop.lat, stop.lng, d.lat, d.lng);
-      if (km > 45) continue;
-      var score = -km;
-      if (d.name.toLowerCase().contains(name) || name.contains(d.name.toLowerCase())) score += 500;
-      if (_sightCategories.contains(d.category)) score += 200;
-      if (d.featured) score += 50;
-      if (score > bestScore) {
-        bestScore = score;
-        best = d;
-      }
-    }
-    return best;
-  }
+class _CorridorView extends StatelessWidget {
+  const _CorridorView({required this.id, required this.data});
+  final String id;
+  final _CorridorData data;
 
   @override
   Widget build(BuildContext context) {
     final s = S.of(context);
-    final c = corridor;
-    final points = [for (final st in c.stops) LatLng(st.lat, st.lng)];
-    final (rating, reviews) = _score;
-    final stays = _along.where((d) => _stayCategories.contains(d.category)).take(6).toList();
-    final categories = _along.map((d) => d.category).toSet();
-    final experiences = [
-      for (final e in _experiences.entries)
-        if (e.value.any(categories.contains)) e.key,
+    final c = data.itinerary.corridor;
+    final stops = data.itinerary.stops;
+    final rating = data.card?.averageRating;
+    final reviewCount = data.card?.reviewCount ?? 0;
+    final about = data.about;
+    final route = data.route;
+    final pinned = [
+      for (final st in stops)
+        if (st.place.latitude != null && st.place.longitude != null) st,
+    ];
+    final facts = [
+      if (c.durationDays != null) (Icons.calendar_month_rounded, s.daysCount(c.durationDays!)),
+      if (stops.isNotEmpty || c.stopCount != null)
+        (Icons.location_on_rounded, s.fill(s.stopsCount, {'n': c.stopCount ?? stops.length})),
+      if (c.totalDistanceKm != null) (Icons.route_rounded, '${formatKm(c.totalDistanceKm!)} $distanceUnit'),
     ];
 
     return Scaffold(
       backgroundColor: Colors.white,
-      body: ListView(
-        padding: EdgeInsets.only(bottom: 28 + MediaQuery.paddingOf(context).bottom),
-        children: [
-          // Photos, with the corridor's own first.
-          SizedBox(
+      body: CustomScrollView(
+        slivers: [
+          HeroAppBar(
             height: 300,
-            child: Stack(
+            actions: [
+              SaveButton(kind: SavedKind.corridor, itemKey: id, size: 44),
+              GlassIconButton(
+                icon: Icons.ios_share_rounded,
+                tooltip: s.share,
+                onPressed: () => SharePlus.instance.share(
+                  ShareParams(
+                    text: stops.isEmpty
+                        ? c.name
+                        : '${c.name}: ${stops.map((e) => e.title ?? e.place.name).join(' → ')}',
+                  ),
+                ),
+              ),
+            ],
+            background: ClipRRect(
+              borderRadius: const BorderRadius.vertical(bottom: Radius.circular(28)),
+              child: _Gallery(photos: data.photos),
+            ),
+          ),
+          SliverPadding(
+            padding: EdgeInsets.only(bottom: bottomInset(context)),
+            sliver: SliverList.list(
               children: [
-                Positioned.fill(
-                  child: ClipRRect(
-                    borderRadius: const BorderRadius.vertical(bottom: Radius.circular(28)),
-                    child: PageView(
-                      controller: _photos,
-                      onPageChanged: (i) => setState(() => _photo = i),
-                      children: [for (final url in _gallery) AppImage(url)],
-                    ),
-                  ),
-                ),
-                Positioned(
-                  left: 10,
-                  right: 10,
-                  top: MediaQuery.paddingOf(context).top + 4,
-                  child: Row(
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(18, 18, 18, 0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      GlassIconButton(
-                        icon: Icons.chevron_left_rounded,
-                        tooltip: s.back,
-                        onPressed: () => context.pop(),
-                      ),
-                      const Spacer(),
-                      SaveButton(kind: SavedKind.corridor, itemKey: c.slug, dark: true, size: 40),
-                      const SizedBox(width: 8),
-                      GlassIconButton(
-                        icon: Icons.ios_share_rounded,
-                        tooltip: s.share,
-                        onPressed: () => SharePlus.instance.share(
-                          ShareParams(
-                            text: '${c.name} (${c.duration}): ${c.stops.map((e) => e.name).join(' → ')}',
-                          ),
+                      Text(c.name, style: AppText.display(26)),
+                      // The Traveler seal belongs to destinations: none here.
+                      if (rating != null) ...[
+                        const SizedBox(height: 8),
+                        Row(
+                          children: [
+                            const Icon(Icons.star_rounded, size: 16, color: AppColors.star),
+                            const SizedBox(width: 3),
+                            Flexible(
+                              child: Text(
+                                '${rating.toStringAsFixed(1)} (${s.reviewCountText(reviewCount)})',
+                                style: AppText.sans(12.5, color: AppColors.sand600),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
+                      ],
+                      if (facts.isNotEmpty) ...[const SizedBox(height: 14), _Facts(facts: facts)],
+                      const SizedBox(height: 18),
+
+                      if (c.expectations.isNotEmpty) ...[
+                        Text(s.whatYouExpect, style: AppText.display(20)),
+                        const SizedBox(height: 10),
+                        Wrap(
+                          spacing: 8,
+                          runSpacing: 8,
+                          children: [for (final e in c.expectations) _ExpectChip(label: e)],
+                        ),
+                        const SizedBox(height: 18),
+                      ],
+
+                      if (about.isNotEmpty) ...[
+                        OverviewCard(title: s.aboutThisCorridor, text: about),
+                        const SizedBox(height: 22),
+                      ],
+                      if (stops.isNotEmpty) Text(s.routeOverview, style: AppText.display(20)),
                     ],
                   ),
                 ),
-                Positioned(
-                  left: 0,
-                  right: 0,
-                  bottom: 18,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                const SizedBox(height: 12),
+
+                // The stops in one panel, their photos joined by the route line.
+                if (stops.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 18),
+                    child: GradientFrame(
+                      padding: const EdgeInsets.all(12),
+                      child: Column(
+                        children: [
+                          for (var i = 0; i < stops.length; i++) _StopCard(stop: stops[i], last: i == stops.length - 1),
+                        ],
+                      ),
+                    ),
+                  ),
+                const SizedBox(height: 18),
+
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 18),
+                  child: Material(
+                    color: AppColors.violet,
+                    shape: const StadiumBorder(),
+                    clipBehavior: Clip.antiAlias,
+                    child: InkWell(
+                      onTap: () => context.go(Routes.mapCorridor(id)),
+                      child: SizedBox(
+                        height: 52,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              s.startThisTrip,
+                              style: AppText.sans(15.5, weight: FontWeight.w600, color: Colors.white),
+                            ),
+                            const SizedBox(width: 10),
+                            const Icon(Icons.arrow_forward_rounded, size: 20, color: Colors.white),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 22),
+
+                // The route as the server drew it, and the stops on it.
+                if (pinned.isNotEmpty || route.isNotEmpty)
+                  _MapPanel(
+                    title: s.corridorsMap,
+                    subtitle: '${s.exploreThrough} ${c.name}',
+                    child: MapPreview(
+                      height: 300,
+                      child: AppMap(
+                        // The server's own route, already on the roads.
+                        routes: [if (route.length > 1) MapRoute(route)],
+                        fitPadding: const EdgeInsets.all(40),
+                        pins: [
+                          for (final st in pinned)
+                            MapPin(
+                              id: '${st.sequence}-${st.place.id}',
+                              point: LatLng(st.place.latitude!, st.place.longitude!),
+                              pillText: st.title ?? st.place.name,
+                              color: AppColors.violet,
+                              onTap: () => context.push(Routes.place(st.place.id)),
+                            ),
+                        ],
+                      ),
+                    ),
+                  ),
+                const SizedBox(height: 18),
+
+                // The same reviews section as every other place's page.
+                ReviewsSection(type: CardType.corridor, id: id, average: rating, count: data.card?.reviewCount),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// The trip at a glance: days, stops and distance side by side in one
+/// slim card, each with its symbol in a small violet circle beside it.
+class _Facts extends StatelessWidget {
+  const _Facts({required this.facts});
+  final List<(IconData, String)> facts;
+
+  @override
+  Widget build(BuildContext context) {
+    return GradientFrame(
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 4),
+      child: IntrinsicHeight(
+        child: Row(
+          children: [
+            for (final (i, (icon, label)) in facts.indexed) ...[
+              if (i > 0) VerticalDivider(width: 1, thickness: 1, color: AppColors.violet.withValues(alpha: 0.15)),
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 26,
+                      height: 26,
+                      decoration: BoxDecoration(color: AppColors.violet.withValues(alpha: 0.1), shape: BoxShape.circle),
+                      child: Icon(icon, size: 14, color: AppColors.violet),
+                    ),
+                    const SizedBox(width: 6),
+                    Flexible(
+                      child: Text(
+                        label,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: AppText.sans(13, weight: FontWeight.w600, color: AppColors.sand900),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// One thing the corridor promises, in a red outlined pill.
+class _ExpectChip extends StatelessWidget {
+  const _ExpectChip({required this.label});
+  final String label;
+
+  static const _red = Color(0xFFE5254B);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(99),
+        border: Border.all(color: _red, width: 1.2),
+      ),
+      child: Text(label, style: AppText.sans(13, weight: FontWeight.w500, color: _red)),
+    );
+  }
+}
+
+/// One stop in the route overview: the place's photo on the route line,
+/// then its name, where it is, and what is there, in a card of its own.
+class _StopCard extends StatelessWidget {
+  const _StopCard({required this.stop, required this.last});
+
+  final ItineraryStop stop;
+
+  /// The last stop has no line running down to a next one.
+  final bool last;
+
+  static const _photo = 76.0;
+
+  @override
+  Widget build(BuildContext context) {
+    final place = stop.place;
+    final title = stop.title ?? place.name;
+    // The stop's own words when the itinerary has them, else the place's.
+    final description = htmlToText(stop.description ?? place.shortDescription);
+    final arrival = stop.arrivalTime;
+    final subtitle = [
+      if (place.name != title) place.name,
+      ?place.provinceName,
+      if (arrival != null && arrival.length >= 5) arrival.substring(0, 5),
+    ].join(' · ');
+
+    return IntrinsicHeight(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          SizedBox(
+            width: _photo,
+            child: Column(
+              children: [
+                // The place's photo in a violet frame, with a pin on it.
+                Container(
+                  width: _photo,
+                  height: _photo,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: AppColors.violet, width: 2),
+                  ),
+                  child: Stack(
+                    fit: StackFit.expand,
                     children: [
-                      for (var i = 0; i < _gallery.length; i++)
-                        Container(
-                          width: i == _photo ? 18 : 6,
-                          height: 6,
-                          margin: const EdgeInsets.symmetric(horizontal: 3),
+                      AppImage(place.coverUrl, radius: BorderRadius.circular(14)),
+                      Positioned(
+                        right: 4,
+                        top: 4,
+                        child: Container(
+                          width: 22,
+                          height: 22,
                           decoration: BoxDecoration(
-                            color: Colors.white.withValues(alpha: i == _photo ? 1 : 0.5),
-                            borderRadius: BorderRadius.circular(99),
+                            color: Colors.white.withValues(alpha: 0.92),
+                            borderRadius: BorderRadius.circular(7),
                           ),
+                          child: const Icon(Icons.location_on_rounded, size: 15, color: AppColors.violet),
                         ),
+                      ),
                     ],
                   ),
                 ),
-                Positioned(
-                  right: 14,
-                  bottom: 14,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 6),
-                    decoration: BoxDecoration(
-                      color: Colors.black.withValues(alpha: 0.45),
-                      borderRadius: BorderRadius.circular(99),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
+                // The route on to the next stop.
+                if (!last) Expanded(child: Container(width: 2, color: AppColors.violet)),
+              ],
+            ),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.only(bottom: last ? 0 : 12),
+              child: GradientFrame(
+                padding: EdgeInsets.zero,
+                radius: 16,
+                color: const Color(0xFFEFEFF1),
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(15),
+                  onTap: () => context.push(Routes.place(place.id)),
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(12, 10, 12, 12),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Icon(Icons.photo_library_outlined, size: 14, color: Colors.white),
-                        const SizedBox(width: 6),
                         Text(
-                          '${s.gallery} ${_gallery.length}',
-                          style: AppText.sans(12, weight: FontWeight.w600, color: Colors.white),
+                          title,
+                          style: AppText.sans(15.5, weight: FontWeight.w600, color: AppColors.sand900),
                         ),
+                        if (subtitle.isNotEmpty) ...[
+                          const SizedBox(height: 2),
+                          Text(
+                            subtitle,
+                            style: AppText.sans(11.5, weight: FontWeight.w600, color: AppColors.sand500),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                        if (description.isNotEmpty) ...[
+                          const SizedBox(height: 6),
+                          Text(
+                            description,
+                            style: AppText.sans(12, color: AppColors.sand500, height: 1.45),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
                       ],
                     ),
                   ),
                 ),
-              ],
-            ),
-          ),
-
-          Padding(
-            padding: const EdgeInsets.fromLTRB(18, 18, 18, 0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(c.name, style: AppText.display(26)),
-                const SizedBox(height: 8),
-                Row(
-                  children: [
-                    const Icon(Icons.verified_rounded, size: 15, color: Color(0xFF34D399)),
-                    const SizedBox(width: 5),
-                    Text(s.recommendByTraveler, style: AppText.sans(12.5, color: AppColors.sand600)),
-                    if (rating != null) ...[
-                      const SizedBox(width: 12),
-                      const Icon(Icons.star_rounded, size: 16, color: AppColors.star),
-                      const SizedBox(width: 3),
-                      Flexible(
-                        child: Text(
-                          '${rating.toStringAsFixed(1)} (${thousands(reviews)} ${s.reviewsWord.toLowerCase()})',
-                          style: AppText.sans(12.5, color: AppColors.sand600),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ],
-                  ],
-                ),
-                const SizedBox(height: 14),
-
-                // Every stop, as a chip.
-                Wrap(
-                  spacing: 8,
-                  runSpacing: 8,
-                  children: [
-                    for (final st in c.stops)
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(99),
-                          border: Border.all(color: AppColors.violet.withValues(alpha: 0.45)),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const Icon(Icons.place_outlined, size: 14, color: AppColors.violet),
-                            const SizedBox(width: 5),
-                            Text(
-                              st.name,
-                              style: AppText.sans(12.5, weight: FontWeight.w600, color: AppColors.violet),
-                            ),
-                          ],
-                        ),
-                      ),
-                  ],
-                ),
-                const SizedBox(height: 22),
-                Text(s.routeOverview, style: AppText.sans(17, weight: FontWeight.w700, color: AppColors.sand900)),
-              ],
-            ),
-          ),
-          const SizedBox(height: 12),
-
-          // The stops in order: a photo each, numbered along a line.
-          SizedBox(
-            height: 112,
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.symmetric(horizontal: 18),
-              itemCount: c.stops.length,
-              separatorBuilder: (_, _) => const SizedBox(width: 8),
-              itemBuilder: (_, i) => _StopStep(
-                index: i + 1,
-                stop: c.stops[i],
-                face: _faceOf(c.stops[i]),
-                isLast: i == c.stops.length - 1,
               ),
             ),
-          ),
-          const SizedBox(height: 18),
-
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 18),
-            child: FilledButton(
-              style: FilledButton.styleFrom(
-                backgroundColor: AppColors.violet,
-                minimumSize: const Size.fromHeight(52),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-              ),
-              onPressed: () => context.go(Routes.mapCorridor(c.slug)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(s.startThisTrip, style: AppText.sans(15.5, weight: FontWeight.w700, color: Colors.white)),
-                  const SizedBox(width: 8),
-                  const Icon(Icons.arrow_forward_rounded, size: 18, color: Colors.white),
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(height: 22),
-
-          // The route on a map, stops named.
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 18),
-            padding: const EdgeInsets.all(14),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(18),
-              border: Border.all(color: AppColors.sand200),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(s.corridorsMap, style: AppText.sans(16, weight: FontWeight.w700, color: AppColors.sand900)),
-                const SizedBox(height: 3),
-                Text(
-                  '${s.exploreThrough} ${c.name}',
-                  style: AppText.sans(12.5, color: AppColors.sand500),
-                ),
-                const SizedBox(height: 12),
-                MapPreview(
-                  height: 300,
-                  child: AppMap(
-                    controller: _map,
-                    routes: [if (c.sequential) MapRoute(points)],
-                    fitPadding: const EdgeInsets.all(40),
-                    pins: [
-                      for (var i = 0; i < c.stops.length; i++)
-                        MapPin(
-                          id: c.stops[i].name,
-                          point: points[i],
-                          pillText: c.stops[i].name,
-                          color: AppColors.violet,
-                        ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          if (stays.isNotEmpty) ...[
-            const SizedBox(height: 24),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(18, 0, 18, 12),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      s.whereToStay,
-                      style: AppText.sans(17, weight: FontWeight.w700, color: AppColors.sand900),
-                    ),
-                  ),
-                  Material(
-                    color: AppColors.violet,
-                    shape: const CircleBorder(),
-                    child: InkWell(
-                      customBorder: const CircleBorder(),
-                      onTap: () => context.push('${Routes.search}?q=${Uri.encodeQueryComponent(c.stops.first.name)}'),
-                      child: const Padding(
-                        padding: EdgeInsets.all(5),
-                        child: Icon(Icons.arrow_forward_rounded, color: Colors.white, size: 16),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 178,
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.symmetric(horizontal: 18),
-                itemCount: stays.length,
-                separatorBuilder: (_, _) => const SizedBox(width: 10),
-                itemBuilder: (_, i) => _StayCard(destination: stays[i]),
-              ),
-            ),
-          ],
-
-          if (experiences.isNotEmpty) ...[
-            const SizedBox(height: 24),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 18),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    s.exploreExperiences,
-                    style: AppText.sans(17, weight: FontWeight.w700, color: AppColors.sand900),
-                  ),
-                  const SizedBox(height: 12),
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: [
-                      for (final label in experiences)
-                        InkWell(
-                          borderRadius: BorderRadius.circular(99),
-                          onTap: () => context.push(
-                            '${Routes.search}?q=${Uri.encodeQueryComponent(_experiences[label]!.first)}',
-                          ),
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(99),
-                              border: Border.all(color: AppColors.sunset300),
-                            ),
-                            child: Text(
-                              label,
-                              style: AppText.sans(13, weight: FontWeight.w500, color: AppColors.sand800),
-                            ),
-                          ),
-                        ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ],
-      ),
-    );
-  }
-}
-
-/// One stop in the route overview: its photo, its number, and the line on to
-/// the next one.
-class _StopStep extends StatelessWidget {
-  const _StopStep({required this.index, required this.stop, required this.face, required this.isLast});
-  final int index;
-  final CorridorStop stop;
-  final Destination? face;
-  final bool isLast;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 66,
-      child: Column(
-        children: [
-          SizedBox(
-            width: 66,
-            height: 66,
-            child: face == null
-                ? const SizedBox()
-                : AppImage(face!.image, radius: BorderRadius.circular(12)),
-          ),
-          const SizedBox(height: 8),
-          Row(
-            children: [
-              Expanded(child: Container(height: 2, color: index == 1 ? Colors.transparent : AppColors.violet)),
-              Container(
-                width: 22,
-                height: 22,
-                alignment: Alignment.center,
-                decoration: const BoxDecoration(color: AppColors.violet, shape: BoxShape.circle),
-                child: Text('$index', style: AppText.sans(11, weight: FontWeight.w700, color: Colors.white)),
-              ),
-              Expanded(child: Container(height: 2, color: isLast ? Colors.transparent : AppColors.violet)),
-            ],
           ),
         ],
       ),
@@ -507,59 +444,60 @@ class _StopStep extends StatelessWidget {
   }
 }
 
-/// A place to sleep along the way.
-class _StayCard extends StatelessWidget {
-  const _StayCard({required this.destination});
-  final Destination destination;
+/// The corridor's map in a [GradientCard], with the page's side margins.
+class _MapPanel extends StatelessWidget {
+  const _MapPanel({required this.title, required this.subtitle, required this.child});
+  final String title;
+  final String subtitle;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) => Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 18),
+    child: GradientCard(title: title, subtitle: subtitle, child: child),
+  );
+}
+
+/// The cover and the gallery, swiped sideways, with "2 / 5" in the corner.
+class _Gallery extends StatefulWidget {
+  const _Gallery({required this.photos});
+  final List<String> photos;
+
+  @override
+  State<_Gallery> createState() => _GalleryState();
+}
+
+class _GalleryState extends State<_Gallery> {
+  int _page = 0;
 
   @override
   Widget build(BuildContext context) {
-    final d = destination;
-    final (title, _) = bilingual(context, d.name, d.nameKh);
-    return GestureDetector(
-      onTap: () => context.push(Routes.destination(d.region, d.slug)),
-      child: SizedBox(
-        width: 146,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 112,
-              width: double.infinity,
-              child: AppImage(d.image, radius: BorderRadius.circular(14)),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              title,
-              style: AppText.sans(13, weight: FontWeight.w700, color: AppColors.sand900),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-            const SizedBox(height: 4),
-            Row(
-              children: [
-                if (d.rating != null) ...[
-                  Text(
-                    d.rating!.toStringAsFixed(1),
-                    style: AppText.sans(12, weight: FontWeight.w700, color: AppColors.sand900),
-                  ),
-                  const SizedBox(width: 4),
-                  Stars(d.rating!.round(), size: 10),
-                  const SizedBox(width: 6),
-                ],
-                Flexible(
-                  child: Text(
-                    d.category,
-                    style: AppText.sans(11.5, color: AppColors.sand500),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              ],
-            ),
-          ],
+    final photos = widget.photos.isEmpty ? const [''] : widget.photos;
+    return Stack(
+      fit: StackFit.expand,
+      children: [
+        PageView.builder(
+          itemCount: photos.length,
+          onPageChanged: (i) => setState(() => _page = i),
+          itemBuilder: (_, i) => AppImage(photos[i]),
         ),
-      ),
+        if (photos.length > 1)
+          Positioned(
+            right: 14,
+            bottom: 14,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              decoration: BoxDecoration(
+                color: Colors.black.withValues(alpha: 0.45),
+                borderRadius: BorderRadius.circular(99),
+              ),
+              child: Text(
+                '${_page + 1} / ${photos.length}',
+                style: AppText.sans(12, weight: FontWeight.w600, color: Colors.white),
+              ),
+            ),
+          ),
+      ],
     );
   }
 }

@@ -1,0 +1,37 @@
+[
+    {
+        "type": "DESTINATION",
+        "id": "6cd2c24d-a1c1-4bbe-9833-31d30e763ee6",
+        "name": "Angkor Wat",
+        "slug": "angkor-wat",
+        "shortDescription": "The world's largest religious monument and Cambodia's national symbol.",
+        "coverUrl": "/api/v1/media/files/general/00000000-0000-0000-0000-000000000000/angkor-wat.jpg",
+        "provinceId": "97fca9bd-d44b-459e-994a-ad8437de81a5",
+        "provinceName": "Siem Reap",
+        "latitude": 13.4125,
+        "longitude": 103.867,
+        "categoryIds": [
+            "b89409d1-29d6-4eb5-b573-3305cdab008e",
+            "5518fb01-35f0-408c-850a-22b9db4c82a2"
+        ],
+        "categoryNames": [
+            "Temples",
+            "Ancient Cities"
+        ],
+        "interestIds": [
+            "1c6a8452-1344-4d4e-a071-ceb684824181"
+        ],
+        "tourismRegionIds": [
+            "56c67829-d5c8-427f-b599-0f1d63af2ee4"
+        ],
+        "averageRating": null,
+        "ratingCount": 0,
+        "reviewCount": 0,
+        "verified": false,
+        "basis": null,
+        "travelerRecommended": false,
+        "priceFrom": null,
+        "currency": null,
+        "durationDays": null
+    }
+]

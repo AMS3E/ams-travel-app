@@ -1,0 +1,12 @@
+[
+ {
+  "targetType": "DESTINATION",
+  "targetId": "6cd2c24d-a1c1-4bbe-9833-31d30e763ee6",
+  "createdAt": "2026-10-14T02:00:00Z"
+ },
+ {
+  "targetType": "CORRIDOR",
+  "targetId": "ef52e705-d9ef-4412-a9c4-b14a4b9bd11a",
+  "createdAt": "2026-10-13T02:00:00Z"
+ }
+]

@@ -1,37 +1,46 @@
+import 'dart:io';
+
 import 'package:go_router/go_router.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/l10n/app_strings.dart';
-import '../../core/router/routes.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_theme.dart';
-import '../../data/models/models.dart';
-import '../../data/repositories/travel_repository.dart';
-import '../../state/auth_provider.dart';
+import '../../core/utils/dates.dart';
+import '../../data/api/ams_api.dart';
 import '../../widgets/common.dart';
+import '../auth/sign_in.dart';
+import 'reviews_screen.dart' show visitTypeLabel;
 
-/// Writing a review: the score, who you went with, when, a title, the review
-/// itself and photos.
+/// Writing a review of a place, stay, food place or corridor: the score, who
+/// you went with, the month, a title, the review and photos. The photos go
+/// up first (`POST /media/files`, type `review`), then the review is one
+/// `POST /reviews`. Signed in only; pops with true once sent.
 class ReviewScreen extends StatefulWidget {
-  const ReviewScreen({super.key, required this.region, required this.slug});
-  final String region;
-  final String slug;
+  const ReviewScreen({super.key, required this.type, required this.id, this.picker});
+  final CardType type;
+  final String id;
+
+  /// For tests; the device's picker otherwise.
+  final Future<List<String>> Function()? picker;
 
   @override
   State<ReviewScreen> createState() => _ReviewScreenState();
 }
 
 class _ReviewScreenState extends State<ReviewScreen> {
-  static const _tripTypes = ['Business', 'Couples', 'Family', 'Friends', 'Solo'];
-  static const _titleLimit = 120;
-  static const _minWords = 25;
+  static const _maxPhotos = 6;
 
   final _title = TextEditingController();
   final _body = TextEditingController();
   int _rating = 0;
-  String? _tripType;
+  VisitType? _visitType;
   late DateTime _visited = DateTime.now();
+
+  /// Files picked on the device, uploaded when the review is sent.
+  final _photos = <String>[];
   bool _saving = false;
 
   @override
@@ -41,8 +50,9 @@ class _ReviewScreenState extends State<ReviewScreen> {
     super.dispose();
   }
 
-  int get _words => _body.text.trim().isEmpty ? 0 : _body.text.trim().split(RegExp(r'\s+')).length;
-  bool get _canSubmit => _rating > 0 && _words >= _minWords && !_saving;
+  /// A rating is the whole point of a review; the words are the traveller's
+  /// own business, however few.
+  bool get _canSubmit => _rating > 0 && !_saving;
 
   Future<void> _pickMonth() async {
     final now = DateTime.now();
@@ -56,29 +66,53 @@ class _ReviewScreenState extends State<ReviewScreen> {
     if (picked != null && mounted) setState(() => _visited = picked);
   }
 
-  Future<void> _submit() async {
-    final s = S.read(context);
-    final auth = context.read<AuthProvider>();
-    if (!auth.isSignedIn) {
-      showToast(context, s.logInToReview, actionLabel: s.logIn, onAction: () => context.push(Routes.login));
-      return;
+  Future<void> _addPhotos() async {
+    final left = _maxPhotos - _photos.length;
+    if (left <= 0) return;
+    try {
+      final paths =
+          await (widget.picker?.call() ??
+              ImagePicker()
+                  .pickMultiImage(imageQuality: 85, maxWidth: 2048, limit: left > 1 ? left : null)
+                  .then((files) => [for (final f in files) f.path]));
+      if (mounted && paths.isNotEmpty) setState(() => _photos.addAll(paths.take(left)));
+    } catch (e) {
+      if (mounted) showToast(context, e.toString());
     }
+  }
+
+  void _submit() => whenSignedIn(context, S.read(context).logInToReview, _send);
+
+  Future<void> _send() async {
+    final s = S.read(context);
+    final api = context.read<AmsApi>();
     setState(() => _saving = true);
     try {
-      await context.read<TravelRepository>().submitReview(
-        DestinationRef(widget.region, widget.slug),
-        rating: _rating,
-        title: _title.text.trim().isEmpty ? null : _title.text.trim(),
-        text: _body.text.trim(),
-        tripType: _tripType,
-        visitedOn: _visited,
-        author: auth.user!.username,
+      final List<String> keys;
+      try {
+        final uploads = await [for (final path in _photos) api.uploadFile(path, type: 'review')].wait;
+        keys = [for (final u in uploads) u.key];
+      } on ParallelWaitError {
+        if (mounted) showToast(context, s.photoUploadFailed);
+        return;
+      }
+      final review = await api.createReview(
+        widget.type,
+        widget.id,
+        ReviewDraft(
+          rating: _rating,
+          title: _title.text.trim(),
+          content: _body.text.trim(),
+          visitType: _visitType,
+          visitedOn: _visited,
+          photoKeys: keys,
+        ),
       );
       if (!mounted) return;
-      showToast(context, s.reviewSaved);
+      showToast(context, review.isPending ? s.reviewSentForApproval : s.reviewSaved);
       context.pop(true);
-    } on Object {
-      if (mounted) showToast(context, s.somethingWentWrong);
+    } catch (e) {
+      if (mounted) showToast(context, e.toString());
     } finally {
       if (mounted) setState(() => _saving = false);
     }
@@ -99,22 +133,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
         children: [
           _Label(s.rateYourExperience),
           const SizedBox(height: 8),
-          Row(
-            children: [
-              for (var i = 1; i <= 5; i++)
-                GestureDetector(
-                  onTap: () => setState(() => _rating = i),
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child: Icon(
-                      Icons.star_rounded,
-                      size: 34,
-                      color: i <= _rating ? AppColors.star : AppColors.sand200,
-                    ),
-                  ),
-                ),
-            ],
-          ),
+          Stars(_rating, size: 34, onChanged: (v) => setState(() => _rating = v)),
           const SizedBox(height: 22),
 
           _Label(s.kindOfVisit),
@@ -123,11 +142,11 @@ class _ReviewScreenState extends State<ReviewScreen> {
             spacing: 8,
             runSpacing: 8,
             children: [
-              for (final t in _tripTypes)
+              for (final t in VisitType.values)
                 _Choice(
-                  label: t,
-                  selected: _tripType == t,
-                  onTap: () => setState(() => _tripType = _tripType == t ? null : t),
+                  label: visitTypeLabel(s, t),
+                  selected: _visitType == t,
+                  onTap: () => setState(() => _visitType = _visitType == t ? null : t),
                 ),
             ],
           ),
@@ -147,7 +166,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
               child: Row(
                 children: [
                   Expanded(
-                    child: Text(_monthYear(_visited), style: AppText.sans(15, color: AppColors.sand900)),
+                    child: Text(Dates.monthYear(_visited), style: AppText.sans(15, color: AppColors.sand900)),
                   ),
                   const Icon(Icons.calendar_today_rounded, size: 18, color: AppColors.sand500),
                 ],
@@ -160,8 +179,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
           const SizedBox(height: 8),
           TextField(
             controller: _title,
-            maxLength: _titleLimit,
-            onChanged: (_) => setState(() {}),
+            maxLength: ReviewDraft.titleMax,
             decoration: InputDecoration(
               hintText: s.reviewTitleHint,
               counterText: '',
@@ -172,7 +190,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
             ),
           ),
           const SizedBox(height: 4),
-          _Hint('${s.max} $_titleLimit ${s.characters}'),
+          _Hint('${s.max} ${ReviewDraft.titleMax} ${s.characters}'),
           const SizedBox(height: 18),
 
           _Label(s.yourReview),
@@ -181,57 +199,86 @@ class _ReviewScreenState extends State<ReviewScreen> {
             controller: _body,
             minLines: 5,
             maxLines: 8,
-            onChanged: (_) => setState(() {}),
+            maxLength: ReviewDraft.contentMax,
             decoration: InputDecoration(
               hintText: s.yourReviewHint,
+              counterText: '',
               border: _border,
               enabledBorder: _border,
               focusedBorder: _border,
               contentPadding: const EdgeInsets.all(16),
             ),
           ),
-          const SizedBox(height: 4),
-          _Hint('${s.min} $_minWords ${s.words}  ·  $_words'),
           const SizedBox(height: 18),
 
           _Label(s.photoOfYourVisit),
           const SizedBox(height: 8),
-          Row(
-            children: [
-              InkWell(
-                // TODO(api): pick and upload photos once the backend stores them.
-                onTap: () => showToast(context, s.photosComingSoon),
-                borderRadius: BorderRadius.circular(14),
-                child: Container(
-                  width: 78,
-                  height: 78,
-                  decoration: BoxDecoration(
+          SizedBox(
+            height: 78,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: [
+                if (_photos.length < _maxPhotos)
+                  InkWell(
+                    onTap: _saving ? null : _addPhotos,
                     borderRadius: BorderRadius.circular(14),
-                    border: Border.all(color: AppColors.sand300, style: BorderStyle.solid),
+                    child: Container(
+                      width: 78,
+                      height: 78,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(14),
+                        border: Border.all(color: AppColors.sand300),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(Icons.photo_camera_outlined, size: 22, color: AppColors.sand600),
+                          const SizedBox(height: 4),
+                          Text(s.addPhotos, style: AppText.sans(10.5, color: AppColors.sand500)),
+                        ],
+                      ),
+                    ),
                   ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                for (var i = 0; i < _photos.length; i++) ...[
+                  const SizedBox(width: 10),
+                  Stack(
                     children: [
-                      const Icon(Icons.photo_camera_outlined, size: 22, color: AppColors.sand600),
-                      const SizedBox(height: 4),
-                      Text(s.addPhotos, style: AppText.sans(10.5, color: AppColors.sand500)),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(14),
+                        child: Image.file(
+                          File(_photos[i]),
+                          width: 78,
+                          height: 78,
+                          fit: BoxFit.cover,
+                          errorBuilder: (_, _, _) => Container(
+                            width: 78,
+                            height: 78,
+                            color: AppColors.sand100,
+                            child: const Icon(Icons.image_outlined, color: AppColors.sand300),
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        right: 2,
+                        top: 2,
+                        child: InkWell(
+                          onTap: _saving ? null : () => setState(() => _photos.removeAt(i)),
+                          customBorder: const CircleBorder(),
+                          child: Container(
+                            padding: const EdgeInsets.all(3),
+                            decoration: BoxDecoration(
+                              color: Colors.black.withValues(alpha: 0.55),
+                              shape: BoxShape.circle,
+                            ),
+                            child: Icon(Icons.close_rounded, size: 14, color: Colors.white, semanticLabel: s.delete),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
-                ),
-              ),
-              for (var i = 0; i < 3; i++) ...[
-                const SizedBox(width: 10),
-                Container(
-                  width: 78,
-                  height: 78,
-                  decoration: BoxDecoration(
-                    color: AppColors.sand100,
-                    borderRadius: BorderRadius.circular(14),
-                  ),
-                  child: const Icon(Icons.image_outlined, color: AppColors.sand300),
-                ),
+                ],
               ],
-            ],
+            ),
           ),
           const SizedBox(height: 26),
 
@@ -247,7 +294,10 @@ class _ReviewScreenState extends State<ReviewScreen> {
                     dimension: 20,
                     child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
                   )
-                : Text(s.submitReview, style: AppText.sans(16, weight: FontWeight.w700, color: Colors.white)),
+                : Text(
+                    s.submitReview,
+                    style: AppText.sans(16, weight: FontWeight.w700, color: Colors.white),
+                  ),
           ),
         ],
       ),
@@ -258,24 +308,6 @@ class _ReviewScreenState extends State<ReviewScreen> {
     borderRadius: BorderRadius.circular(14),
     borderSide: const BorderSide(color: AppColors.sand200),
   );
-
-  static String _monthYear(DateTime d) {
-    const months = [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December',
-    ];
-    return '${months[d.month - 1]} ${d.year}';
-  }
 }
 
 class _Label extends StatelessWidget {
@@ -283,8 +315,10 @@ class _Label extends StatelessWidget {
   final String text;
 
   @override
-  Widget build(BuildContext context) =>
-      Text(text, style: AppText.sans(15, weight: FontWeight.w700, color: AppColors.sand900));
+  Widget build(BuildContext context) => Text(
+    text,
+    style: AppText.sans(15, weight: FontWeight.w700, color: AppColors.sand900),
+  );
 }
 
 class _Hint extends StatelessWidget {
@@ -315,11 +349,7 @@ class _Choice extends StatelessWidget {
         ),
         child: Text(
           label,
-          style: AppText.sans(
-            13.5,
-            weight: FontWeight.w600,
-            color: selected ? Colors.white : AppColors.sand800,
-          ),
+          style: AppText.sans(13.5, weight: FontWeight.w600, color: selected ? Colors.white : AppColors.sand800),
         ),
       ),
     );

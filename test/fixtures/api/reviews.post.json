@@ -1,0 +1,19 @@
+{
+ "id": "5e5e5e5e-1111-4222-8333-444455556666",
+ "userId": "0b8c1f3e-2a4d-4c6b-9e1f-7a5d3c2b1a00",
+ "authorName": "Dara Chan",
+ "authorAvatarUrl": null,
+ "targetType": "DESTINATION",
+ "targetId": "6cd2c24d-a1c1-4bbe-9833-31d30e763ee6",
+ "rating": 5,
+ "title": "Sunrise worth the alarm",
+ "content": "x",
+ "visitType": "COUPLES",
+ "visitedOn": "2026-10",
+ "status": "PENDING",
+ "moderationNote": null,
+ "moderatedAt": null,
+ "photos": [],
+ "createdAt": "2026-10-14T09:00:00Z",
+ "updatedAt": "2026-10-14T09:00:00Z"
+}

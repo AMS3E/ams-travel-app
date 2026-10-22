@@ -1,0 +1,61 @@
+{
+  "seasonId": "0fc0a28b-56a9-48ee-83e7-5dfea45a95cd",
+  "seasonName": "Green season 2026",
+  "browseCounted": false,
+  "tracks": [
+    {
+      "type": "BROWSES",
+      "count": 42,
+      "level": null,
+      "nextLevel": "SILVER",
+      "remaining": 258,
+      "thresholds": {
+        "SILVER": 300,
+        "GOLDEN": 800,
+        "PLATINUM": 1000
+      }
+    },
+    {
+      "type": "REVIEWS",
+      "count": 2,
+      "level": null,
+      "nextLevel": "SILVER",
+      "remaining": 48,
+      "thresholds": {
+        "SILVER": 50,
+        "GOLDEN": 400,
+        "PLATINUM": 1000
+      }
+    },
+    {
+      "type": "STAMPS",
+      "count": 1,
+      "level": null,
+      "nextLevel": "SILVER",
+      "remaining": 49,
+      "thresholds": {
+        "SILVER": 50,
+        "GOLDEN": 200,
+        "PLATINUM": 1000
+      }
+    }
+  ],
+  "badges": [
+    {
+      "id": "c0ffee00-1111-4222-8333-444455556668",
+      "badgeId": "4b4bffb1-4470-4004-9e0e-47987df1daf7",
+      "code": "BROWSER_SILVER",
+      "name": "Silver Browser",
+      "iconKey": "compass",
+      "type": "BROWSES",
+      "level": "SILVER",
+      "progress": 42,
+      "threshold": 300,
+      "seasonId": "0fc0a28b-56a9-48ee-83e7-5dfea45a95cd",
+      "seasonName": "Green season 2026",
+      "holderName": "Dara Chan",
+      "earnedAt": null
+    }
+  ],
+  "earned": []
+}

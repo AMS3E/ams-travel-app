@@ -1,20 +1,19 @@
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 import 'package:material_ui/material_ui.dart';
+import 'package:provider/provider.dart';
 
-import '../../data/models/models.dart';
-import '../../features/auth/forgot_password_screen.dart';
-import '../../features/auth/login_screen.dart';
-import '../../features/auth/register_screen.dart';
+import '../../data/api/ams_api.dart';
 import '../../features/corridor/corridor_screen.dart';
 import '../../features/corridor/corridors_explore_screen.dart';
+import '../../features/destination/activity_screen.dart';
+import '../../features/destination/check_in_screen.dart';
 import '../../features/destination/destination_screen.dart';
+import '../../features/destination/food_screen.dart';
+import '../../features/destination/stay_screen.dart';
 import '../../features/destination/review_screen.dart';
 import '../../features/destination/reviews_screen.dart';
 import '../../features/destination/room_screen.dart';
-import '../../features/destination/menu_screen.dart';
 import '../../features/destination/rooms_screen.dart';
-import '../../features/explore/explore_screen.dart';
 import '../../features/home/home_screen.dart';
 import '../../features/interest/interest_screen.dart';
 import '../../features/map/map_screen.dart';
@@ -22,6 +21,7 @@ import '../../features/profile/account_info_screen.dart';
 import '../../features/profile/achievement_screen.dart';
 import '../../features/profile/badge_tiers_screen.dart';
 import '../../features/profile/badges_screen.dart';
+import '../../features/profile/past_seasons_screen.dart';
 import '../../features/profile/my_reviews_screen.dart';
 import '../../features/profile/review_detail_screen.dart';
 import '../../features/home/popular_screen.dart';
@@ -45,30 +45,39 @@ import '../../features/search/filter_sheet.dart';
 import '../../features/search/search_screen.dart';
 import '../../features/shell/main_shell.dart';
 import '../../features/welcome/welcome_screen.dart';
-import '../../features/story/story_screen.dart';
-import '../../state/travel_preferences.dart';
+import '../../state/locale_provider.dart';
 import 'routes.dart';
 
 final _rootKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 
+/// Builds the page afresh when the app's language changes, so it reads its
+/// content again: cards come in that language from the server, and the
+/// Khmer of a detail is read in place of the English.
+class _InLanguage extends StatelessWidget {
+  const _InLanguage(this.child);
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) =>
+      KeyedSubtree(key: ValueKey(context.select<LocaleProvider, bool>((l) => l.isKhmer)), child: child);
+}
+
 GoRouter createRouter({bool showWelcome = false}) {
-  GoRoute page(String path, Widget Function(GoRouterState s) build) => GoRoute(
+  /// A page above the tabs, with the bottom bar over it unless [bar] is
+  /// false (the scanner, the review form).
+  GoRoute page(String path, Widget Function(GoRouterState s) build, {bool bar = true}) => GoRoute(
     path: path,
     parentNavigatorKey: _rootKey,
-    builder: (_, s) => build(s),
+    builder: (_, s) => bar ? WithNavBar(child: _InLanguage(build(s))) : _InLanguage(build(s)),
   );
 
   /// Slides in from [from] and back out the same way, so a push and the matching
   /// back arrow mirror each other on every platform.
-  GoRoute slidePage(
-    String path,
-    Offset from,
-    Widget Function(GoRouterState s) build,
-  ) => GoRoute(
+  GoRoute slidePage(String path, Offset from, Widget Function(GoRouterState s) build) => GoRoute(
     path: path,
     parentNavigatorKey: _rootKey,
     pageBuilder: (_, s) => CustomTransitionPage(
-      child: build(s),
+      child: _InLanguage(build(s)),
       transitionsBuilder: (_, animation, _, child) => SlideTransition(
         position: Tween(
           begin: from,
@@ -93,147 +102,70 @@ GoRouter createRouter({bool showWelcome = false}) {
         builder: (context, state, shell) => MainShell(shell: shell),
         branches: [
           StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: Routes.home,
-                builder: (context, _) => HomeScreen(
-                  pickedCategories: context
-                      .watch<TravelPreferences>()
-                      .categories,
-                ),
-              ),
-            ],
+            routes: [GoRoute(path: Routes.home, builder: (context, _) => const _InLanguage(HomeScreen()))],
           ),
           StatefulShellBranch(
             routes: [
               GoRoute(
                 path: Routes.map,
-                builder: (_, s) => MapScreen(
-                  focusKey: s.uri.queryParameters['place'],
-                  corridorSlug: s.uri.queryParameters['corridor'],
+                builder: (_, s) => _InLanguage(
+                  MapScreen(focusId: s.uri.queryParameters['place'], corridorId: s.uri.queryParameters['corridor']),
                 ),
               ),
             ],
           ),
           StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: Routes.saved,
-                builder: (_, _) => const SavedScreen(),
-              ),
-            ],
+            routes: [GoRoute(path: Routes.saved, builder: (_, _) => const _InLanguage(SavedScreen()))],
           ),
           StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: Routes.profile,
-                builder: (_, _) => const ProfileScreen(),
-              ),
-            ],
+            routes: [GoRoute(path: Routes.profile, builder: (_, _) => const _InLanguage(ProfileScreen()))],
           ),
         ],
       ),
 
       // Full-screen pages pushed above the tabs. Most specific paths first.
       page(
-        '/regions/:region/stories/:story',
-        (s) => StoryScreen(
-          region: s.pathParameters['region']!,
-          slug: s.pathParameters['story']!,
-        ),
+        '/reviews/:type/:id/new',
+        (s) => ReviewScreen(type: CardType.values.byName(s.pathParameters['type']!), id: s.pathParameters['id']!),
+        bar: false,
       ),
       page(
-        '/regions/:region/:dest/reviews',
-        (s) => ReviewsScreen(
-          region: s.pathParameters['region']!,
-          slug: s.pathParameters['dest']!,
-        ),
+        '/reviews/:type/:id',
+        (s) => ReviewsScreen(type: CardType.values.byName(s.pathParameters['type']!), id: s.pathParameters['id']!),
       ),
       page(
-        '/regions/:region/:dest/review',
-        (s) => ReviewScreen(
-          region: s.pathParameters['region']!,
-          slug: s.pathParameters['dest']!,
-        ),
+        '/stays/:stay/rooms/:room',
+        (s) => RoomScreen(stayId: s.pathParameters['stay']!, roomId: s.pathParameters['room']!),
       ),
-      page(
-        '/regions/:region/:dest/menu',
-        (s) => MenuScreen(
-          region: s.pathParameters['region']!,
-          slug: s.pathParameters['dest']!,
-        ),
-      ),
-      page(
-        '/regions/:region/:dest/rooms/:room',
-        (s) => RoomScreen(
-          region: s.pathParameters['region']!,
-          slug: s.pathParameters['dest']!,
-          roomId: s.pathParameters['room']!,
-        ),
-      ),
-      page(
-        '/regions/:region/:dest/rooms',
-        (s) => RoomsScreen(
-          region: s.pathParameters['region']!,
-          slug: s.pathParameters['dest']!,
-        ),
-      ),
-      page(
-        Routes.explore,
-        (s) => ExploreScreen(tab: s.uri.queryParameters['tab']),
-      ),
+      page('/stays/:stay/rooms', (s) => RoomsScreen(stayId: s.pathParameters['stay']!)),
+      page('/stays/:stay', (s) => StayScreen(id: s.pathParameters['stay']!)),
+      page('/foods/:food', (s) => FoodScreen(id: s.pathParameters['food']!)),
+      page('/activities/:activity', (s) => ActivityScreen(id: s.pathParameters['activity']!)),
+      page(Routes.checkIn, (_) => const CheckInScreen(), bar: false),
+      page('/places/:place', (s) => DestinationScreen(id: s.pathParameters['place']!)),
       page(Routes.exploreRegions, (_) => const RegionsExploreScreen()),
-      page(
-        '/regions/:region',
-        (s) => RegionPlacesScreen(slug: s.pathParameters['region']!),
-      ),
-      page(
-        '/regions/:region/:dest',
-        (s) => DestinationScreen(
-          region: s.pathParameters['region']!,
-          slug: s.pathParameters['dest']!,
-        ),
-      ),
+      page('/regions/:region', (s) => RegionPlacesScreen(id: s.pathParameters['region']!)),
       page(Routes.exploreProvinces, (_) => const ProvincesExploreScreen()),
-      page(
-        '/provinces/:province/places',
-        (s) => ProvincePlacesScreen(slug: s.pathParameters['province']!),
-      ),
-      page(
-        '/provinces/:province',
-        (s) => ProvinceScreen(slug: s.pathParameters['province']!),
-      ),
+      page('/provinces/:province/places', (s) => ProvincePlacesScreen(id: s.pathParameters['province']!)),
+      page('/provinces/:province', (s) => ProvinceScreen(id: s.pathParameters['province']!)),
       page(Routes.exploreInterests, (_) => const InterestExploreScreen()),
-      page(
-        '/interests/:interest',
-        (s) => InterestScreen(slug: s.pathParameters['interest']!),
-      ),
+      page('/interests/:interest', (s) => InterestScreen(group: s.pathParameters['interest']!)),
       page(Routes.exploreCorridors, (_) => const CorridorsExploreScreen()),
-      page(
-        '/corridors/:corridor',
-        (s) => CorridorScreen(slug: s.pathParameters['corridor']!),
-      ),
+      page('/corridors/:corridor', (s) => CorridorScreen(id: s.pathParameters['corridor']!)),
       page(
         Routes.search,
         (s) => SearchScreen(
           initialQuery: s.uri.queryParameters['q'],
           // Home hands over the filters already picked in its sheet.
-          initialFilters: s.extra is SearchFilters
-              ? s.extra as SearchFilters
-              : null,
+          initialFilters: s.extra is SearchFilters ? s.extra as SearchFilters : null,
         ),
       ),
-      // Reached by the back arrow on log in / register, so it animates like a
-      // pop: in from the left, while the auth page slides off to the right.
-      slidePage(
-        Routes.welcome,
-        const Offset(-1, 0),
-        (_) => const WelcomeScreen(),
-      ),
+      // Reached after signing out, so it animates like a pop: in from the left.
+      slidePage(Routes.welcome, const Offset(-1, 0), (_) => const WelcomeScreen()),
       page(Routes.badges, (_) => const BadgesScreen()),
-      page(Routes.account, (_) => const AccountInfoScreen()),
+      page(Routes.account, (s) => AccountInfoScreen(field: s.uri.queryParameters['field'])),
       page(Routes.notificationsPage, (_) => const NotificationsScreen()),
-      page(Routes.editProfile, (_) => const EditProfileScreen()),
+      page(Routes.editProfile, (s) => EditProfileScreen(pickPhoto: s.uri.queryParameters['pick'] == 'photo')),
       page(Routes.popular, (_) => const PopularScreen()),
       page(Routes.popularSearch, (_) => const PopularSearchScreen()),
       page(Routes.help, (_) => const HelpSupportScreen()),
@@ -247,31 +179,19 @@ GoRouter createRouter({bool showWelcome = false}) {
         '/my-reviews/:id',
         (s) => ReviewDetailScreen(
           id: s.pathParameters['id']!,
-          review: s.extra is Review ? s.extra as Review : null,
+          review: s.extra is TravelReview ? s.extra as TravelReview : null,
         ),
       ),
       page(Routes.myReviews, (_) => const MyReviewsScreen()),
-      page(
-        '/folders/:folder',
-        (s) => FolderScreen(
-          name: Uri.decodeComponent(s.pathParameters['folder']!),
-        ),
-      ),
+      page('/folders/:folder', (s) => FolderScreen(name: Uri.decodeComponent(s.pathParameters['folder']!))),
+      // Before '/badges/:badge', which would take "seasons" for a track.
+      page(Routes.pastSeasons, (_) => const PastSeasonsScreen()),
+      page('/badges/seasons/:season', (s) => SeasonBadgesScreen(seasonId: s.pathParameters['season']!)),
       page(
         '/badges/:badge/achievement',
-        (s) => AchievementScreen(badgeKey: s.pathParameters['badge']!),
+        (s) => AchievementScreen(badgeKey: s.pathParameters['badge']!, earnedId: s.uri.queryParameters['earned']),
       ),
-      page(
-        '/badges/:badge',
-        (s) => BadgeTiersScreen(badgeKey: s.pathParameters['badge']!),
-      ),
-      slidePage(Routes.login, const Offset(1, 0), (_) => const LoginScreen()),
-      slidePage(
-        Routes.register,
-        const Offset(1, 0),
-        (_) => const RegisterScreen(),
-      ),
-      page(Routes.forgotPassword, (_) => const ForgotPasswordScreen()),
+      page('/badges/:badge', (s) => BadgeTiersScreen(badgeKey: s.pathParameters['badge']!)),
     ],
   );
 }

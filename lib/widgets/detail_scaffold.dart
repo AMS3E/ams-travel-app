@@ -15,10 +15,7 @@ class DetailScaffold extends StatefulWidget {
     required this.image,
     required this.header,
     required this.slivers,
-    this.actions = const [],
     this.expandedHeight = 420,
-    this.heroTag,
-    this.bottomBar,
   });
 
   final String title;
@@ -27,10 +24,7 @@ class DetailScaffold extends StatefulWidget {
   /// Content drawn over the bottom of the photo (title, stats…).
   final Widget header;
   final List<Widget> slivers;
-  final List<Widget> actions;
   final double expandedHeight;
-  final Object? heroTag;
-  final Widget? bottomBar;
 
   @override
   State<DetailScaffold> createState() => _DetailScaffoldState();
@@ -58,11 +52,7 @@ class _DetailScaffoldState extends State<DetailScaffold> {
 
   @override
   Widget build(BuildContext context) {
-    Widget image = AppImage(widget.image);
-    if (widget.heroTag != null) image = Hero(tag: widget.heroTag!, child: image);
-
     return Scaffold(
-      bottomNavigationBar: widget.bottomBar,
       body: CustomScrollView(
         controller: _scroll,
         slivers: [
@@ -86,16 +76,13 @@ class _DetailScaffoldState extends State<DetailScaffold> {
               duration: const Duration(milliseconds: 180),
               child: Text(widget.title, style: AppText.display(19), maxLines: 1, overflow: TextOverflow.ellipsis),
             ),
-            actions: [
-              for (final a in widget.actions) Padding(padding: const EdgeInsets.only(left: 8), child: a),
-              const SizedBox(width: 12),
-            ],
+            actions: const [SizedBox(width: 12)],
             flexibleSpace: FlexibleSpaceBar(
               stretchModes: const [StretchMode.zoomBackground],
               background: Stack(
                 fit: StackFit.expand,
                 children: [
-                  image,
+                  AppImage(widget.image),
                   const DecoratedBox(
                     decoration: BoxDecoration(
                       gradient: LinearGradient(

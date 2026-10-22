@@ -4,6 +4,7 @@ import 'package:material_ui/material_ui.dart';
 import '../core/router/routes.dart';
 import '../core/theme/app_colors.dart';
 import '../core/theme/app_theme.dart';
+import 'app_image.dart';
 
 /// The top of the browse pages: back arrow, the words being looked for, and
 /// the search button. Tapping anywhere opens the type-ahead page.
@@ -73,16 +74,14 @@ class BrowseSearchBar extends StatelessWidget {
 
 /// One category along the top of a browse page.
 class CategoryChip extends StatelessWidget {
-  const CategoryChip({
-    super.key,
-    required this.label,
-    required this.selected,
-    required this.onTap,
-  });
+  const CategoryChip({super.key, required this.label, required this.selected, required this.onTap, this.image = ''});
 
   final String label;
   final bool selected;
   final VoidCallback onTap;
+
+  /// A small round picture before the label; none when empty.
+  final String image;
 
   @override
   Widget build(BuildContext context) {
@@ -90,20 +89,25 @@ class CategoryChip extends StatelessWidget {
       borderRadius: BorderRadius.circular(99),
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: EdgeInsets.only(left: image.isEmpty ? 16 : 4, right: 16),
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: selected ? AppColors.violet : Colors.white,
           borderRadius: BorderRadius.circular(99),
           border: Border.all(color: selected ? AppColors.violet : AppColors.sand200),
         ),
-        child: Text(
-          label,
-          style: AppText.sans(
-            13.5,
-            weight: FontWeight.w600,
-            color: selected ? Colors.white : AppColors.sand800,
-          ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (image.isNotEmpty) ...[
+              ClipOval(child: AppImage(image, width: 24, height: 24)),
+              const SizedBox(width: 7),
+            ],
+            Text(
+              label,
+              style: AppText.sans(13.5, weight: FontWeight.w600, color: selected ? Colors.white : AppColors.sand800),
+            ),
+          ],
         ),
       ),
     );

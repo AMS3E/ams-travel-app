@@ -60,4 +60,3 @@ class _Placeholder extends StatelessWidget {
     child: icon ? const Icon(Icons.landscape_rounded, color: AppColors.brand300, size: 32) : null,
   );
 }
-

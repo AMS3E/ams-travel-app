@@ -6,7 +6,7 @@ import '../../core/theme/app_theme.dart';
 
 /// The app's terms, privacy summary and what the traveller is responsible for.
 ///
-/// TODO(api): placeholder copy from the design — the final wording has to come
+/// TODO(content): placeholder copy from the design — the final wording has to come
 /// from AMS Travel (and be translated into Khmer by a person, not the app).
 class TermsScreen extends StatelessWidget {
   const TermsScreen({super.key});
@@ -67,10 +67,7 @@ class TermsScreen extends StatelessWidget {
                   children: [
                     Text('•  ', style: AppText.sans(14, color: AppColors.sand600)),
                     Expanded(
-                      child: Text(
-                        bullet,
-                        style: AppText.sans(14, color: AppColors.sand600, height: 1.55),
-                      ),
+                      child: Text(bullet, style: AppText.sans(14, color: AppColors.sand600, height: 1.55)),
                     ),
                   ],
                 ),

@@ -1,24 +1,11 @@
-import 'dart:math' as math;
-
 /// "Kratié" → "kratie", "Preah Sihanouk" → "preah-sihanouk".
 /// Matches the website's province URLs.
-String slugify(String s) => s
-    .toLowerCase()
-    .replaceAll(RegExp('[éèê]'), 'e')
-    .replaceAll(RegExp(r'[^a-z0-9]+'), '-')
-    .replaceAll(RegExp(r'^-+|-+$'), '');
+String slugify(String s) =>
+    s.toLowerCase().replaceAll(_accentedE, 'e').replaceAll(_nonSlug, '-').replaceAll(_edgeDashes, '');
 
-/// Great-circle distance in kilometres.
-double distanceKm(double lat1, double lng1, double lat2, double lng2) {
-  const r = 6371.0;
-  double rad(double d) => d * math.pi / 180;
-  final dLat = rad(lat2 - lat1);
-  final dLng = rad(lng2 - lng1);
-  final a =
-      math.sin(dLat / 2) * math.sin(dLat / 2) +
-      math.cos(rad(lat1)) * math.cos(rad(lat2)) * math.sin(dLng / 2) * math.sin(dLng / 2);
-  return 2 * r * math.asin(math.sqrt(a));
-}
+final _accentedE = RegExp('[éèê]');
+final _nonSlug = RegExp(r'[^a-z0-9]+');
+final _edgeDashes = RegExp(r'^-+|-+$');
 
 /// Distances follow the Preference page: kilometres, or miles when this is on.
 bool useMiles = false;
@@ -40,13 +27,4 @@ String thousands(int n) {
     out.write(digits[i]);
   }
   return out.toString();
-}
-
-/// Whether a place sits within [km] of any of [points] — used to tell which
-/// places lie along a corridor.
-bool nearAny(List<(double, double)> points, double lat, double lng, {double km = 35}) {
-  for (final (plat, plng) in points) {
-    if (distanceKm(plat, plng, lat, lng) <= km) return true;
-  }
-  return false;
 }

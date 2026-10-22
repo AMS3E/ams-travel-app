@@ -1,0 +1,31 @@
+[
+  {
+    "type": "FOOD",
+    "id": "8d2f3e4a-5b6c-4d7e-9f0a-1b2c3d4e5f61",
+    "name": "Banteay Kitchen",
+    "slug": null,
+    "shortDescription": null,
+    "coverUrl": "/api/v1/media/files/general/x/food.jpg",
+    "provinceId": "97fca9bd-d44b-459e-994a-ad8437de81a5",
+    "provinceName": "Siem Reap",
+    "latitude": 13.36,
+    "longitude": 103.86,
+    "categoryIds": [],
+    "categoryNames": [],
+    "interestIds": [],
+    "tourismRegionIds": [],
+    "averageRating": 4.5,
+    "ratingCount": 12,
+    "reviewCount": 12,
+    "verified": false,
+    "basis": null,
+    "travelerRecommended": false,
+    "priceFrom": null,
+    "currency": null,
+    "durationDays": null,
+    "openNow": true,
+    "todayHours": "07:00-22:00",
+    "stopNames": [],
+    "encodedPolyline": null
+  }
+]

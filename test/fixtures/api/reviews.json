@@ -1,0 +1,21 @@
+{
+ "content": [
+  {
+   "id": "3f6b2a10-7c1d-4e8a-9b55-0d2e4f6a8c11",
+   "userId": "0b8c1f3e-2a4d-4c6b-9e1f-7a5d3c2b1a00",
+   "authorName": "Dara Chan",
+   "authorAvatarUrl": null,
+   "targetType": "CORRIDOR",
+   "targetId": "ef52e705-d9ef-4412-a9c4-b14a4b9bd11a",
+   "rating": 5,
+   "title": "Three capitals in three days",
+   "content": "Angkor at dawn, then Koh Ker and Sambor Prei Kuk on the way to Phnom Penh.",
+   "visitType": "FRIENDS",
+   "visitedOn": "2026-09",
+   "status": "PUBLISHED",
+   "photos": [],
+   "createdAt": "2026-10-01T09:00:00Z"
+  }
+ ],
+ "page": {"size": 3, "number": 0, "totalElements": 1, "totalPages": 1}
+}

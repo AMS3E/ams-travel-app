@@ -17,6 +17,12 @@
 			</array>
 		</dict>
 	</array>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>AMS Travel uses your location to show places near you and to check you in when you arrive at a place.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>AMS Travel lets you add photos to your reviews and your profile.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>AMS Travel scans the check-in code posted at a place, and lets you take photos for your reviews and your profile.</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>tel</string>

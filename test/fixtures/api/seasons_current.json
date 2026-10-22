@@ -1,0 +1,11 @@
+{
+ "id": "0fc0a28b-56a9-48ee-83e7-5dfea45a95cd",
+ "name": "Green season 2026",
+ "type": "GREEN_SEASON",
+ "startsOn": "2026-05-01",
+ "endsOn": "2026-10-31",
+ "isActive": true,
+ "status": "ACTIVE",
+ "createdAt": "2026-10-13T08:38:58Z",
+ "updatedAt": "2026-10-13T08:38:58Z"
+}

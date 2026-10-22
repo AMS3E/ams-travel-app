@@ -22,14 +22,22 @@ dependencies:
   latlong2: ^0.10.1
 
   cached_network_image: ^4.0.0  # place photos
-  google_fonts: ^8.2.1          # Geist, bundled in assets/google_fonts
+  google_fonts: ^8.2.1          # Inter, bundled in assets/google_fonts
   font_awesome_flutter: ^11.0.0 # social brand icons
 
   url_launcher: ^6.3.2          # call, mail, open a website
   share_plus: ^13.3.0           # share a place
+  flutter_appauth: ^12.1.0
+  flutter_secure_storage: ^11.2.0
+  image_picker: ^1.2.4
+  geolocator: ^14.1.1
+  geocoding: ^5.0.0
+  mobile_scanner: ^7.4.2        # the check-in QR code
 
 dev_dependencies:
   flutter_test:
+    sdk: flutter
+  integration_test:             # walks the screens on a device against the server
     sdk: flutter
 
   flutter_lints: ^6.0.0
@@ -40,7 +48,6 @@ flutter:
 
   assets:
     - assets/images/
-    - assets/mock/
     - assets/google_fonts/
     - lib/l10n/                 # English and Khmer UI text
 

@@ -3,12 +3,12 @@ import 'package:material_ui/material_ui.dart';
 
 import 'app_colors.dart';
 
-/// One family everywhere: Geist, the font in the app header.
+/// One family everywhere: Inter, as on the website.
 class AppText {
   const AppText._();
 
   /// Titles and headings.
-  static TextStyle display(double size, {Color? color, FontWeight weight = FontWeight.w700}) => GoogleFonts.geist(
+  static TextStyle display(double size, {Color? color, FontWeight weight = FontWeight.w700}) => GoogleFonts.inter(
     fontSize: size,
     fontWeight: weight,
     color: color ?? AppColors.sand900,
@@ -17,10 +17,10 @@ class AppText {
   );
 
   static TextStyle sans(double size, {Color? color, FontWeight weight = FontWeight.w400, double? height}) =>
-      GoogleFonts.geist(fontSize: size, fontWeight: weight, color: color ?? AppColors.sand800, height: height);
+      GoogleFonts.inter(fontSize: size, fontWeight: weight, color: color ?? AppColors.sand800, height: height);
 
   /// Small uppercase label above section titles ("HANDPICKED", "TRENDING").
-  static TextStyle eyebrow({Color? color}) => GoogleFonts.geist(
+  static TextStyle eyebrow({Color? color}) => GoogleFonts.inter(
     fontSize: 11,
     fontWeight: FontWeight.w600,
     letterSpacing: 2.2,
@@ -54,7 +54,7 @@ class AppTheme {
     final base = ThemeData(useMaterial3: true, colorScheme: scheme);
     final textTheme = base.textTheme
         .apply(
-          fontFamily: GoogleFonts.geist().fontFamily,
+          fontFamily: GoogleFonts.inter().fontFamily,
           bodyColor: AppColors.sand800,
           displayColor: AppColors.sand900,
         )

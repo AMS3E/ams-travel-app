@@ -1,0 +1,28 @@
+[
+ {
+  "seasonId": "0fc0a28b-56a9-48ee-83e7-5dfea45a95cd",
+  "seasonName": "Green season 2026",
+  "seasonType": "GREEN_SEASON",
+  "seasonStatus": "ACTIVE",
+  "points": 36,
+  "ratingCount": 2,
+  "reviewCount": 2,
+  "uniqueRatedTargetCount": 2,
+  "uniqueReviewedTargetCount": 2,
+  "startedAt": "2026-10-01T09:00:00Z",
+  "updatedAt": "2026-10-12T09:00:00Z"
+ },
+ {
+  "seasonId": "5e1a2b3c-4d5e-4f60-8a7b-9c0d1e2f3a4b",
+  "seasonName": "High season 2025/26",
+  "seasonType": "HIGH_SEASON",
+  "seasonStatus": "COMPLETED",
+  "points": 184,
+  "ratingCount": 31,
+  "reviewCount": 12,
+  "uniqueRatedTargetCount": 27,
+  "uniqueReviewedTargetCount": 11,
+  "startedAt": "2025-11-03T02:10:00Z",
+  "updatedAt": "2026-04-28T11:40:00Z"
+ }
+]

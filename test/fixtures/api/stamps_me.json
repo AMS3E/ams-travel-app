@@ -1,0 +1,24 @@
+[
+  {
+    "id": "aa11bb22-cc33-4d44-8e55-ff6677889900",
+    "targetType": "DESTINATION",
+    "destinationId": "6cd2c24d-a1c1-4bbe-9833-31d30e763ee6",
+    "collectedAt": "2026-10-10T23:30:00Z",
+    "source": "QR",
+    "outcome": null,
+    "distanceMeters": null,
+    "radiusMeters": null,
+    "badgesEarned": []
+  },
+  {
+    "id": "aa11bb22-cc33-4d44-8e55-ff6677889901",
+    "targetType": "FOOD",
+    "destinationId": "8d2f3e4a-5b6c-4d7e-9f0a-1b2c3d4e5f61",
+    "collectedAt": "2026-10-20T05:10:00Z",
+    "source": "QR",
+    "outcome": null,
+    "distanceMeters": null,
+    "radiusMeters": null,
+    "badgesEarned": []
+  }
+]

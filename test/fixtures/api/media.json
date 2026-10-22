@@ -1,0 +1,26 @@
+[
+ {
+  "id": "2a831c96-05b5-4d2c-8de1-8114aad9e01c",
+  "ownerType": "DESTINATION",
+  "ownerId": "6cd2c24d-a1c1-4bbe-9833-31d30e763ee6",
+  "mediaKey": "general/00000000-0000-0000-0000-000000000000/angkor-wat-2.jpg",
+  "mediaUrl": "/api/v1/media/files/general/00000000-0000-0000-0000-000000000000/angkor-wat-2.jpg",
+  "status": "ACTIVE",
+  "caption": "The central towers of Angkor Wat seen from the causeway",
+  "sortOrder": 1,
+  "isCover": false,
+  "createdAt": "2026-10-13T08:39:42.953513Z"
+ },
+ {
+  "id": "fca4fb87-0b60-4b6a-a6d7-c10aafa18110",
+  "ownerType": "DESTINATION",
+  "ownerId": "6cd2c24d-a1c1-4bbe-9833-31d30e763ee6",
+  "mediaKey": "general/00000000-0000-0000-0000-000000000000/angkor-wat.jpg",
+  "mediaUrl": "/api/v1/media/files/general/00000000-0000-0000-0000-000000000000/angkor-wat.jpg",
+  "status": "ACTIVE",
+  "caption": "Angkor Wat catching first light across the moat",
+  "sortOrder": 2,
+  "isCover": true,
+  "createdAt": "2026-10-13T08:39:42.957348Z"
+ }
+]

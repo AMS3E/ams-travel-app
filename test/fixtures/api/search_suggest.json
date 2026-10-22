@@ -1,0 +1,50 @@
+[
+ {
+  "kind": "DESTINATION",
+  "id": "fd8f70e7-55e2-40a0-882a-a4742ca6d468",
+  "name": "Angkor Golf Resort",
+  "slug": "angkor-golf-resort"
+ },
+ {
+  "kind": "DESTINATION",
+  "id": "6cd2c24d-a1c1-4bbe-9833-31d30e763ee6",
+  "name": "Angkor Wat",
+  "slug": "angkor-wat"
+ },
+ {
+  "kind": "DESTINATION",
+  "id": "6d1d9832-ec70-47e6-ae3a-63b5a1c96e04",
+  "name": "Angkorian Royal Road",
+  "slug": "angkorian-royal-road"
+ },
+ {
+  "kind": "PROVINCE",
+  "id": "8f0f4fed-2ccc-458d-9391-972f5870deca",
+  "name": "Battambang",
+  "slug": "battambang"
+ },
+ {
+  "kind": "DESTINATION",
+  "id": "4db8f286-72a1-4fa2-89ac-f8333ed5bde5",
+  "name": "Battambang Art Quarter",
+  "slug": "battambang-art-quarter"
+ },
+ {
+  "kind": "PROVINCE",
+  "id": "a2365575-5857-4123-8fe6-2b1404d014b7",
+  "name": "Kampong Chhnang",
+  "slug": "kampong-chhnang"
+ },
+ {
+  "kind": "DESTINATION",
+  "id": "40087a4d-d393-4164-a046-d29e28c8b667",
+  "name": "Kampong Khleang",
+  "slug": "kampong-khleang"
+ },
+ {
+  "kind": "DESTINATION",
+  "id": "b0e9c049-2265-4ac4-84cb-41aa564c5d1b",
+  "name": "Koh Tang",
+  "slug": "koh-tang"
+ }
+]

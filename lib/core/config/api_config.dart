@@ -1,62 +1,32 @@
-/// Central switch between mock data and the real backend.
+/// Where the AMS Travel API lives. See `assets/docs/mobile/README.md`.
 ///
-/// While the API is being built the app runs entirely on the JSON files in
-/// `assets/mock/`. When the backend is ready:
-///   1. set [useMockData] to `false`
-///   2. set [baseUrl] to the API host
-///   3. check the paths in [ApiEndpoints] match the backend routes
-///
-/// Both values can also be passed at build time without editing code:
-///   flutter run --dart-define=USE_MOCK=false --dart-define=API_BASE_URL=https://api.example.com
+/// Both values can be overridden at build time:
+///   flutter run --dart-define=API_ORIGIN=https://staging.example.com
 class ApiConfig {
   const ApiConfig._();
 
-  static const bool useMockData = bool.fromEnvironment('USE_MOCK', defaultValue: true);
+  /// The server origin. Picture links are paths and go after this.
+  static const String origin = String.fromEnvironment('API_ORIGIN', defaultValue: 'https://api.travel.ams.com.kh');
 
-  static const String baseUrl = String.fromEnvironment(
-    'API_BASE_URL',
-    defaultValue: 'https://api.ams-travel.example.com/v1',
+  static const String baseUrl = '$origin/api/v1';
+
+  /// Keycloak realm for travellers, signed in through AppAuth.
+  static const String issuer = String.fromEnvironment(
+    'AUTH_ISSUER',
+    defaultValue: 'https://auth.travel.ams.com.kh/realms/amstravel',
   );
+  static const String clientId = 'amstravel-mobile';
+  static const String redirectUri = 'amstravel://callback';
+  static const List<String> scopes = ['openid', 'profile', 'email', 'offline_access'];
 
   static const Duration connectTimeout = Duration(seconds: 15);
   static const Duration receiveTimeout = Duration(seconds: 20);
 
-  /// Artificial latency for mock responses so loading states are visible.
-  static const Duration mockLatency = Duration(milliseconds: 350);
-}
-
-/// Every backend route the app calls, in one place.
-class ApiEndpoints {
-  const ApiEndpoints._();
-
-  // Content
-  static const regions = '/regions';
-  static String region(String slug) => '/regions/$slug';
-  static String regionStories(String region) => '/regions/$region/stories';
-  static String regionReviews(String region) => '/regions/$region/reviews';
-  static const destinations = '/destinations';
-  static String destination(String region, String slug) => '/regions/$region/destinations/$slug';
-  static String destinationReviews(String region, String slug) => '/regions/$region/destinations/$slug/reviews';
-
-  static const myReviews = '/me/reviews';
-
-  static String rooms(String region, String slug) => '/regions/$region/destinations/$slug/rooms';
-  static String menu(String region, String slug) => '/regions/$region/destinations/$slug/menu';
-  static const provinces = '/provinces';
-  static String province(String slug) => '/provinces/$slug';
-  static const interests = '/interests';
-  static const corridors = '/corridors';
-  static String corridor(String slug) => '/corridors/$slug';
-  static const search = '/search';
-
-  // Auth
-  static const login = '/auth/login';
-  static const register = '/auth/register';
-  static const forgotPassword = '/auth/forgot-password';
-  static const logout = '/auth/logout';
-  static const me = '/auth/me';
-
-  // User data
-  static const saved = '/me/saved';
-  static const stamps = '/me/stamps';
+  /// A full link for a picture path such as `/api/v1/media/files/...`.
+  /// Empty when there is no picture, which [AppImage] draws as a placeholder.
+  static String mediaUrl(String? path) {
+    if (path == null || path.isEmpty) return '';
+    if (path.startsWith('http')) return path;
+    return '$origin${path.startsWith('/') ? '' : '/'}$path';
+  }
 }

@@ -1,0 +1,110 @@
+{
+  "seasonId": "5e1a2b3c-4d5e-4f60-8a7b-9c0d1e2f3a4b",
+  "seasonName": "High season 2025/26",
+  "browseCounted": false,
+  "tracks": [
+    {
+      "type": "BROWSES",
+      "count": 512,
+      "level": "SILVER",
+      "nextLevel": "GOLDEN",
+      "remaining": 288,
+      "thresholds": {
+        "SILVER": 300,
+        "GOLDEN": 800,
+        "PLATINUM": 1000
+      }
+    },
+    {
+      "type": "REVIEWS",
+      "count": 12,
+      "level": null,
+      "nextLevel": "SILVER",
+      "remaining": 38,
+      "thresholds": {
+        "SILVER": 50,
+        "GOLDEN": 400,
+        "PLATINUM": 1000
+      }
+    },
+    {
+      "type": "STAMPS",
+      "count": 0,
+      "level": null,
+      "nextLevel": "SILVER",
+      "remaining": 50,
+      "thresholds": {
+        "SILVER": 50,
+        "GOLDEN": 200,
+        "PLATINUM": 1000
+      }
+    }
+  ],
+  "badges": [
+    {
+      "id": "d00dfeed-0000-4000-8000-000000000001",
+      "badgeId": "4b4bffb1-4470-4004-9e0e-47987df1daf7",
+      "code": "BROWSER_SILVER",
+      "name": "Silver Browser",
+      "iconKey": "compass",
+      "type": "BROWSES",
+      "level": "SILVER",
+      "progress": 300,
+      "threshold": 300,
+      "seasonId": "5e1a2b3c-4d5e-4f60-8a7b-9c0d1e2f3a4b",
+      "seasonName": "High season 2025/26",
+      "holderName": "Dara Chan",
+      "earnedAt": "2026-01-18T04:20:00Z",
+      "shareUrl": "https://api.travel.ams.com.kh/api/v1/badges/shared/d00dfeed-0000-4000-8000-000000000001/page"
+    },
+    {
+      "id": "d00dfeed-0000-4000-8000-000000000002",
+      "badgeId": "35d1a086-b3ac-450d-9355-b37d418a03b4",
+      "code": "BROWSER_GOLDEN",
+      "name": "Golden Browser",
+      "iconKey": "compass",
+      "type": "BROWSES",
+      "level": "GOLDEN",
+      "progress": 512,
+      "threshold": 800,
+      "seasonId": "5e1a2b3c-4d5e-4f60-8a7b-9c0d1e2f3a4b",
+      "seasonName": "High season 2025/26",
+      "holderName": "Dara Chan",
+      "earnedAt": null
+    },
+    {
+      "id": "d00dfeed-0000-4000-8000-000000000003",
+      "badgeId": "9f9ea699-d1d5-4b2d-8a8b-68f1593eb849",
+      "code": "REVIEWER_SILVER",
+      "name": "Silver Reviewer",
+      "iconKey": "pen",
+      "type": "REVIEWS",
+      "level": "SILVER",
+      "progress": 12,
+      "threshold": 50,
+      "seasonId": "5e1a2b3c-4d5e-4f60-8a7b-9c0d1e2f3a4b",
+      "seasonName": "High season 2025/26",
+      "holderName": "Dara Chan",
+      "earnedAt": null
+    }
+  ],
+  "earned": [
+    {
+      "id": "d00dfeed-0000-4000-8000-000000000001",
+      "badgeId": "4b4bffb1-4470-4004-9e0e-47987df1daf7",
+      "code": "BROWSER_SILVER",
+      "name": "Silver Browser",
+      "iconKey": "compass",
+      "type": "BROWSES",
+      "level": "SILVER",
+      "progress": 300,
+      "threshold": 300,
+      "seasonId": "5e1a2b3c-4d5e-4f60-8a7b-9c0d1e2f3a4b",
+      "seasonName": "High season 2025/26",
+      "holderName": "Dara Chan",
+      "earnedAt": "2026-01-18T04:20:00Z",
+      "shareUrl": "https://api.travel.ams.com.kh/api/v1/badges/shared/d00dfeed-0000-4000-8000-000000000001/page"
+    }
+  ],
+  "percentile": 12
+}

@@ -1,13 +1,10 @@
 import 'package:ams_travel/app.dart';
 import 'package:ams_travel/core/l10n/app_strings.dart';
-import 'package:ams_travel/data/repositories/auth_repository.dart';
-import 'package:ams_travel/data/repositories/mock_travel_repository.dart';
-import 'package:ams_travel/data/repositories/travel_repository.dart';
-import 'package:ams_travel/state/auth_provider.dart';
+import 'package:ams_travel/data/api/ams_api.dart';
 import 'package:ams_travel/state/collections_provider.dart';
 import 'package:ams_travel/state/locale_provider.dart';
+import 'package:ams_travel/state/notifications_provider.dart';
 import 'package:ams_travel/state/settings_provider.dart';
-import 'package:ams_travel/state/travel_preferences.dart';
 import 'package:ams_travel/widgets/app_image.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -16,18 +13,24 @@ import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'support/fake_api.dart';
+
+/// The app as `main` builds it, for a guest, over the fixtures.
 Future<Widget> _app() async {
   SharedPreferences.setMockInitialValues({});
   final prefs = await SharedPreferences.getInstance();
+  final api = fakeAmsApi();
+  final auth = await fakeAuth(prefs);
   return MultiProvider(
     providers: [
-      Provider<TravelRepository>.value(value: MockTravelRepository()),
-      ChangeNotifierProvider(create: (_) => AuthProvider(MockAuthRepository(), prefs)),
+      Provider<SharedPreferences>.value(value: prefs),
+      Provider<AmsApi>.value(value: api),
+      ChangeNotifierProvider.value(value: auth),
       ChangeNotifierProvider(create: (_) => LocaleProvider(prefs)),
-    ChangeNotifierProvider(create: (_) => SettingsProvider(prefs)),
-      ChangeNotifierProvider(create: (_) => SavedProvider(prefs)),
-      ChangeNotifierProvider(create: (_) => StampsProvider(prefs)),
-      ChangeNotifierProvider(create: (_) => TravelPreferences(prefs)),
+      ChangeNotifierProvider(create: (_) => SettingsProvider(prefs)),
+      ChangeNotifierProvider(create: (_) => SavedProvider(api, auth)),
+      ChangeNotifierProvider(create: (_) => NotificationsProvider(api, auth)),
+      ChangeNotifierProvider(create: (_) => FoldersProvider(prefs)),
     ],
     child: const AmsTravelApp(),
   );
@@ -79,7 +82,7 @@ void main() {
     expect(find.text('ភាសា'), findsWidgets, reason: 'the page is Khmer now');
   });
 
-  testWidgets('home sections: Region → Popular → Corridors → Interest → Provinces', (tester) async {
+  testWidgets('home sections: Region → Popular → Corridors → Provinces', (tester) async {
     // A very tall screen so every home section is built at once.
     await tester.binding.setSurfaceSize(const Size(400, 7000));
     addTearDown(() => tester.binding.setSurfaceSize(null));
@@ -91,17 +94,35 @@ void main() {
       'Explore by Tourism Region',
       'Explore by Popular',
       'Explore by Corridors',
-      'Explore by Interest',
       'Explore by Provinces',
     ];
     for (var i = 1; i < order.length; i++) {
       expect(top(order[i - 1]), lessThan(top(order[i])), reason: '${order[i - 1]} should be above ${order[i]}');
     }
-    // The quick actions and the interest tiles are on the page.
-    for (final label in ['Attraction', 'Stays', 'Food', 'Nature', 'Experiences']) {
+    // The shortcut row above them names every interest in full.
+    for (final label in [
+      'Attraction Sites',
+      'Stays',
+      'Food',
+      'Water',
+      'Activities & Experiences',
+      'Tourism Corridors',
+    ]) {
       expect(find.text(label), findsWidgets, reason: label);
     }
-    expect(find.text('Attraction Sites'), findsWidgets);
-    expect(find.text('Stays'), findsWidgets);
+
+    // A Popular card always says where it stands: the score and how many
+    // rated it, or that nobody has yet.
+    expect(find.text('No reviews yet'), findsWidgets, reason: 'the unrated places');
+
+    // A corridor card carries its score too.
+    expect(find.text('4.5'), findsWidgets, reason: 'Khmer Civilization');
+    expect(find.text('·  2 reviews'), findsWidgets);
+  });
+
+  test('a review count reads as one review or many', () async {
+    await S.load();
+    expect(S.en.reviewCountText(1), '1 review');
+    expect(S.en.reviewCountText(1284), '1,284 reviews');
   });
 }

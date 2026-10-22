@@ -1,0 +1,110 @@
+[
+ {
+  "id": "7eebde0d-f7e8-4e56-80e9-3537aa0b47eb",
+  "name": "Step-free access",
+  "slug": "step-free-access",
+  "groupName": "Accessibility",
+  "iconKey": "accessibility",
+  "level": "PROPERTY",
+  "sortOrder": 0
+ },
+ {
+  "id": "7251289b-080c-4870-800d-ecb611554013",
+  "name": "Lift",
+  "slug": "lift",
+  "groupName": "Accessibility",
+  "iconKey": "arrow-up-down",
+  "level": "PROPERTY",
+  "sortOrder": 1
+ },
+ {
+  "id": "dd84e85a-5164-4a5f-90d3-929bffd01979",
+  "name": "Private bathroom",
+  "slug": "private-bathroom",
+  "groupName": "Bathroom",
+  "iconKey": "bath",
+  "level": "PROPERTY",
+  "sortOrder": 0
+ },
+ {
+  "id": "308df579-53f3-4597-9ed4-38ca812d8c40",
+  "name": "Air conditioning",
+  "slug": "air-conditioning",
+  "groupName": "Comfort",
+  "iconKey": "air-vent",
+  "level": "BOTH",
+  "sortOrder": 0
+ },
+ {
+  "id": "49dce25d-cdd8-496f-a4cd-26f22a4a7dbe",
+  "name": "Breakfast",
+  "slug": "breakfast",
+  "groupName": "Food & drink",
+  "iconKey": "egg-fried",
+  "level": "PROPERTY",
+  "sortOrder": 0
+ },
+ {
+  "id": "21702bfc-5f6f-4ca1-b065-e24d8576463c",
+  "name": "Restaurant",
+  "slug": "restaurant",
+  "groupName": "Food & drink",
+  "iconKey": "utensils",
+  "level": "PROPERTY",
+  "sortOrder": 1
+ },
+ {
+  "id": "769bac95-1d44-4c58-b430-7471a818690a",
+  "name": "Kettle",
+  "slug": "kettle",
+  "groupName": "Food & drink",
+  "iconKey": "coffee",
+  "level": "ROOM",
+  "sortOrder": 5
+ },
+ {
+  "id": "b44027bc-b931-4adb-bf8c-e564d328a42a",
+  "name": "Parking",
+  "slug": "parking",
+  "groupName": "Parking & transport",
+  "iconKey": "square-parking",
+  "level": "PROPERTY",
+  "sortOrder": 0
+ },
+ {
+  "id": "b43155db-6658-4449-af19-a9b4a873be4c",
+  "name": "Safe",
+  "slug": "safe",
+  "groupName": "Safety & access",
+  "iconKey": "vault",
+  "level": "BOTH",
+  "sortOrder": 0
+ },
+ {
+  "id": "bbce67bb-fd93-453c-bae3-d262e4d87a8f",
+  "name": "Wi-Fi",
+  "slug": "wifi",
+  "groupName": "Tech & work",
+  "iconKey": "wifi",
+  "level": "BOTH",
+  "sortOrder": 0
+ },
+ {
+  "id": "747ec2ee-47a7-46f3-8670-e9e8c10c6cba",
+  "name": "TV",
+  "slug": "tv",
+  "groupName": "Tech & work",
+  "iconKey": "tv",
+  "level": "BOTH",
+  "sortOrder": 1
+ },
+ {
+  "id": "7505fa29-9a73-4cc3-aea1-f5c94b2be48d",
+  "name": "Swimming pool",
+  "slug": "pool",
+  "groupName": "Wellbeing",
+  "iconKey": "waves",
+  "level": "PROPERTY",
+  "sortOrder": 0
+ }
+]

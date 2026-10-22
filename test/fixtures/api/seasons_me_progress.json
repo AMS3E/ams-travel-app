@@ -1,0 +1,13 @@
+{
+  "seasonId": "0fc0a28b-56a9-48ee-83e7-5dfea45a95cd",
+  "seasonName": "Green season 2026",
+  "seasonType": "GREEN_SEASON",
+  "seasonStatus": "ACTIVE",
+  "points": 36,
+  "ratingCount": 2,
+  "reviewCount": 2,
+  "uniqueRatedTargetCount": 2,
+  "uniqueReviewedTargetCount": 2,
+  "startedAt": "2026-10-01T09:00:00Z",
+  "updatedAt": "2026-10-12T09:00:00Z"
+}

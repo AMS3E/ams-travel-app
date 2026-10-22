@@ -1,0 +1,154 @@
+{
+  "content": [
+    {
+      "type": "DESTINATION",
+      "id": "6cd2c24d-a1c1-4bbe-9833-31d30e763ee6",
+      "name": "Angkor Wat",
+      "slug": "angkor-wat",
+      "shortDescription": "The world's largest religious monument and Cambodia's national symbol.",
+      "coverUrl": "/api/v1/media/files/general/00000000-0000-0000-0000-000000000000/angkor-wat.jpg",
+      "provinceId": "97fca9bd-d44b-459e-994a-ad8437de81a5",
+      "provinceName": "Siem Reap",
+      "latitude": 13.4125,
+      "longitude": 103.867,
+      "categoryIds": [
+        "b89409d1-29d6-4eb5-b573-3305cdab008e",
+        "5518fb01-35f0-408c-850a-22b9db4c82a2"
+      ],
+      "categoryNames": [
+        "Temples",
+        "Ancient Cities"
+      ],
+      "interestIds": [
+        "1c6a8452-1344-4d4e-a071-ceb684824181"
+      ],
+      "tourismRegionIds": [
+        "56c67829-d5c8-427f-b599-0f1d63af2ee4"
+      ],
+      "averageRating": null,
+      "ratingCount": 0,
+      "reviewCount": 0,
+      "verified": false,
+      "basis": null,
+      "travelerRecommended": false,
+      "priceFrom": null,
+      "currency": null,
+      "durationDays": null,
+      "distanceMeters": null
+    },
+    {
+      "type": "DESTINATION",
+      "id": "0dded266-36c3-4a70-a057-32d45a2c5405",
+      "name": "Bayon Temple",
+      "slug": "bayon-temple",
+      "shortDescription": "Two hundred serene stone faces at the exact center of Angkor Thom.",
+      "coverUrl": "/api/v1/media/files/general/00000000-0000-0000-0000-000000000000/bayon-temple.jpg",
+      "provinceId": "97fca9bd-d44b-459e-994a-ad8437de81a5",
+      "provinceName": "Siem Reap",
+      "latitude": 13.4413,
+      "longitude": 103.859,
+      "categoryIds": [
+        "b89409d1-29d6-4eb5-b573-3305cdab008e",
+        "5518fb01-35f0-408c-850a-22b9db4c82a2"
+      ],
+      "categoryNames": [
+        "Temples",
+        "Ancient Cities"
+      ],
+      "interestIds": [
+        "1c6a8452-1344-4d4e-a071-ceb684824181"
+      ],
+      "tourismRegionIds": [
+        "56c67829-d5c8-427f-b599-0f1d63af2ee4"
+      ],
+      "averageRating": null,
+      "ratingCount": 0,
+      "reviewCount": 0,
+      "verified": false,
+      "basis": null,
+      "travelerRecommended": false,
+      "priceFrom": null,
+      "currency": null,
+      "durationDays": null,
+      "distanceMeters": null
+    },
+    {
+      "type": "DESTINATION",
+      "id": "549df565-e18f-4a02-881c-544e7d047022",
+      "name": "Royal Palace",
+      "slug": "royal-palace",
+      "shortDescription": "The working residence of the monarchy, and the Silver Pagoda beside it.",
+      "coverUrl": "/api/v1/media/files/general/00000000-0000-0000-0000-000000000000/royal-palace.jpg",
+      "provinceId": "d7df85f6-f077-412e-be5d-c32bff21d2e2",
+      "provinceName": "Phnom Penh",
+      "latitude": 11.5637,
+      "longitude": 104.9314,
+      "categoryIds": [
+        "5518fb01-35f0-408c-850a-22b9db4c82a2"
+      ],
+      "categoryNames": [
+        "Ancient Cities"
+      ],
+      "interestIds": [
+        "1c6a8452-1344-4d4e-a071-ceb684824181"
+      ],
+      "tourismRegionIds": [
+        "56c67829-d5c8-427f-b599-0f1d63af2ee4"
+      ],
+      "averageRating": null,
+      "ratingCount": 0,
+      "reviewCount": 0,
+      "verified": false,
+      "basis": null,
+      "travelerRecommended": false,
+      "priceFrom": null,
+      "currency": null,
+      "durationDays": null,
+      "distanceMeters": null
+    },
+    {
+      "type": "DESTINATION",
+      "id": "a8aa68f8-8661-4597-a78f-c62ed89f7e66",
+      "name": "Spean Praptos",
+      "slug": "spean-praptos",
+      "shortDescription": "The longest surviving Angkorian corbel-arch bridge, still carrying traffic after eight hundred years.",
+      "coverUrl": "/api/v1/media/files/general/00000000-0000-0000-0000-000000000000/koh-ker-2.jpg",
+      "provinceId": "97fca9bd-d44b-459e-994a-ad8437de81a5",
+      "provinceName": "Siem Reap",
+      "latitude": 13.1183,
+      "longitude": 104.1019,
+      "categoryIds": [
+        "a0a16789-973d-4cdd-ae1e-e4d0a1badbda",
+        "2079d2ad-e917-4951-8efd-abb388b4b320",
+        "7f6ad7aa-a452-4669-9a43-6a6dfe1455d3"
+      ],
+      "categoryNames": [
+        "Bridges",
+        "Archaeological Sites",
+        "Ancient Roads"
+      ],
+      "interestIds": [
+        "1c6a8452-1344-4d4e-a071-ceb684824181"
+      ],
+      "tourismRegionIds": [
+        "56c67829-d5c8-427f-b599-0f1d63af2ee4"
+      ],
+      "averageRating": null,
+      "ratingCount": 0,
+      "reviewCount": 0,
+      "verified": false,
+      "basis": null,
+      "travelerRecommended": false,
+      "priceFrom": null,
+      "currency": null,
+      "durationDays": null,
+      "distanceMeters": null
+    }
+  ],
+  "page": {
+    "size": 100,
+    "number": 0,
+    "totalElements": 4,
+    "totalPages": 1
+  }
+}

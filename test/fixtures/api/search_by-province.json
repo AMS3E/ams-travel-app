@@ -1,0 +1,307 @@
+[
+ {
+  "provinceId": "105c742e-87c5-4bcb-a7d7-9187581fd3fd",
+  "provinceName": "Banteay Meanchey",
+  "totalElements": 1,
+  "content": [
+   {
+    "type": "DESTINATION",
+    "id": "e606aba4-28ff-4b4f-b305-5a5aad5c4c03",
+    "name": "Banteay Chhmar",
+    "slug": "banteay-chhmar-community",
+    "shortDescription": "A vast Jayavarman VII temple city in the north-west, with a community homestay inside the village beside it.",
+    "coverUrl": "/api/v1/media/files/general/00000000-0000-0000-0000-000000000000/ta-prohm.jpg",
+    "provinceId": "105c742e-87c5-4bcb-a7d7-9187581fd3fd",
+    "provinceName": "Banteay Meanchey",
+    "latitude": 14.0333,
+    "longitude": 103.0833,
+    "categoryIds": [
+     "ad1fe6cb-34d9-4a25-8027-f106e9c18aac",
+     "b89409d1-29d6-4eb5-b573-3305cdab008e",
+     "2079d2ad-e917-4951-8efd-abb388b4b320",
+     "43cf1845-524b-4239-a890-eb5c627e69c2",
+     "5518fb01-35f0-408c-850a-22b9db4c82a2",
+     "6aa83487-89eb-4c34-99f8-50945285c565",
+     "780e3489-fad6-4197-98ba-7e4b7800aac4"
+    ],
+    "categoryNames": [
+     "Local Guide",
+     "Temples",
+     "Archaeological Sites",
+     "Craft",
+     "Ancient Cities",
+     "Village",
+     "Homestay"
+    ],
+    "interestIds": [
+     "0409c6ec-4f39-43aa-adf6-e4904c500875"
+    ],
+    "tourismRegionIds": [
+     "56c67829-d5c8-427f-b599-0f1d63af2ee4",
+     "795e9ba3-0758-4f8a-b82d-ea4c9d371de4"
+    ],
+    "averageRating": null,
+    "ratingCount": 0,
+    "reviewCount": 0,
+    "verified": false,
+    "basis": null,
+    "travelerRecommended": false,
+    "priceFrom": null,
+    "currency": null,
+    "durationDays": null,
+    "openNow": null,
+    "todayHours": null,
+    "stopNames": null,
+    "encodedPolyline": null
+   }
+  ]
+ },
+ {
+  "provinceId": "8f0f4fed-2ccc-458d-9391-972f5870deca",
+  "provinceName": "Battambang",
+  "totalElements": 4,
+  "content": [
+   {
+    "type": "DESTINATION",
+    "id": "7679da83-a520-47d4-8616-6d6e1c0c954b",
+    "name": "Bamboo Train",
+    "slug": "battambang-bamboo-train",
+    "shortDescription": "A bamboo platform on rail wheels, run along a single warped track.",
+    "coverUrl": "/api/v1/media/files/general/00000000-0000-0000-0000-000000000000/battambang-bamboo-train.jpg",
+    "provinceId": "8f0f4fed-2ccc-458d-9391-972f5870deca",
+    "provinceName": "Battambang",
+    "latitude": 13.0957,
+    "longitude": 103.2022,
+    "categoryIds": [
+     "3ae0d316-7268-4b62-b3a6-a9be7703f5bc",
+     "4162471b-7781-44d0-88cc-6b167bdfa4c9"
+    ],
+    "categoryNames": [
+     "Community",
+     "Rice"
+    ],
+    "interestIds": [
+     "20eac571-fdae-4a13-bfbd-1d4d6aee570a"
+    ],
+    "tourismRegionIds": [
+     "44d40208-7aa6-4403-ae4a-f57fb97d72b1"
+    ],
+    "averageRating": null,
+    "ratingCount": 0,
+    "reviewCount": 0,
+    "verified": false,
+    "basis": null,
+    "travelerRecommended": false,
+    "priceFrom": null,
+    "currency": null,
+    "durationDays": null,
+    "openNow": null,
+    "todayHours": null,
+    "stopNames": null,
+    "encodedPolyline": null
+   },
+   {
+    "type": "DESTINATION",
+    "id": "4db8f286-72a1-4fa2-89ac-f8333ed5bde5",
+    "name": "Battambang Art Quarter",
+    "slug": "battambang-art-quarter",
+    "shortDescription": "Cambodia's art capital — galleries, circus school and craft studios in the riverside shophouses.",
+    "coverUrl": "/api/v1/media/files/general/00000000-0000-0000-0000-000000000000/battambang-town.jpg",
+    "provinceId": "8f0f4fed-2ccc-458d-9391-972f5870deca",
+    "provinceName": "Battambang",
+    "latitude": 13.0957,
+    "longitude": 103.2022,
+    "categoryIds": [
+     "cfe7b778-ddc4-4340-8771-301aac9088e3",
+     "e4f7f0d6-b7f9-4258-89bd-ebe7354b7f31",
+     "27f6f730-e32f-4c4d-a7ba-a2e1b8d9910b",
+     "43cf1845-524b-4239-a890-eb5c627e69c2"
+    ],
+    "categoryNames": [
+     "Art Gallery",
+     "City Walk",
+     "Coffee",
+     "Craft"
+    ],
+    "interestIds": [
+     "20eac571-fdae-4a13-bfbd-1d4d6aee570a"
+    ],
+    "tourismRegionIds": [
+     "b5fee28c-eaca-4c0f-bf37-0f27f63dc4a0",
+     "423e5b75-0624-4f58-9fa9-b6ceddcd33ba",
+     "795e9ba3-0758-4f8a-b82d-ea4c9d371de4"
+    ],
+    "averageRating": null,
+    "ratingCount": 0,
+    "reviewCount": 0,
+    "verified": false,
+    "basis": null,
+    "travelerRecommended": false,
+    "priceFrom": null,
+    "currency": null,
+    "durationDays": null,
+    "openNow": null,
+    "todayHours": null,
+    "stopNames": null,
+    "encodedPolyline": null
+   },
+   {
+    "type": "DESTINATION",
+    "id": "4b340ee5-9301-4819-b776-1de0e2ec3372",
+    "name": "Phnom Sampeau",
+    "slug": "phnom-sampeau",
+    "shortDescription": "A limestone hill outside Battambang with caves, a hilltop pagoda, and a bat exodus at dusk.",
+    "coverUrl": "/api/v1/media/files/general/00000000-0000-0000-0000-000000000000/battambang-town.jpg",
+    "provinceId": "8f0f4fed-2ccc-458d-9391-972f5870deca",
+    "provinceName": "Battambang",
+    "latitude": 13.0417,
+    "longitude": 103.1264,
+    "categoryIds": [
+     "a19607d6-de86-4f7d-9b44-f20a7852e193",
+     "e3f59aa8-4555-48bb-8dc4-5824e0169f32",
+     "133e571a-3496-47ae-a674-653dd050a862",
+     "1d79d14a-0ad9-42cc-9c71-c40adde98c9c",
+     "574e971f-b6bb-4b60-b3df-d9cc3b5eaed8"
+    ],
+    "categoryNames": [
+     "Viewpoint",
+     "Photography",
+     "Mountain",
+     "Cave",
+     "Sacred Mountain"
+    ],
+    "interestIds": [
+     "946c76e0-29ed-4eca-82b6-1c1e7fb0793b"
+    ],
+    "tourismRegionIds": [
+     "b5fee28c-eaca-4c0f-bf37-0f27f63dc4a0",
+     "6b028dc5-20d7-45b6-991c-5922c649b5c0"
+    ],
+    "averageRating": null,
+    "ratingCount": 0,
+    "reviewCount": 0,
+    "verified": false,
+    "basis": null,
+    "travelerRecommended": false,
+    "priceFrom": null,
+    "currency": null,
+    "durationDays": null,
+    "openNow": null,
+    "todayHours": null,
+    "stopNames": null,
+    "encodedPolyline": null
+   },
+   {
+    "type": "DESTINATION",
+    "id": "53f4334c-8d3f-401d-bb10-24e0ade8c89b",
+    "name": "Prek Toal Bird Sanctuary",
+    "slug": "prek-toal-bird-sanctuary",
+    "shortDescription": "The core bird reserve of the Tonle Sap biosphere, and the largest waterbird colony in South-East Asia.",
+    "coverUrl": "/api/v1/media/files/general/00000000-0000-0000-0000-000000000000/tonle-sap-floating-village.jpg",
+    "provinceId": "8f0f4fed-2ccc-458d-9391-972f5870deca",
+    "provinceName": "Battambang",
+    "latitude": 13.2167,
+    "longitude": 103.6333,
+    "categoryIds": [
+     "ac4e3d1e-7040-472a-ac35-f2f6b2d032e1",
+     "ad1fe6cb-34d9-4a25-8027-f106e9c18aac",
+     "cbabc341-2ac2-4995-a86d-7789318ac6e9",
+     "038a788c-7794-441d-b2ad-832358123c2f",
+     "1a13e55c-5e41-46e2-8661-c7345d0abfb5",
+     "3ae0d316-7268-4b62-b3a6-a9be7703f5bc"
+    ],
+    "categoryNames": [
+     "Bird Sanctuary",
+     "Local Guide",
+     "Boat Trip",
+     "Floating Village",
+     "Bird Watching",
+     "Community"
+    ],
+    "interestIds": [
+     "4ced133d-9335-4189-90da-19067aee990f"
+    ],
+    "tourismRegionIds": [
+     "44d40208-7aa6-4403-ae4a-f57fb97d72b1",
+     "795e9ba3-0758-4f8a-b82d-ea4c9d371de4"
+    ],
+    "averageRating": null,
+    "ratingCount": 0,
+    "reviewCount": 0,
+    "verified": false,
+    "basis": null,
+    "travelerRecommended": false,
+    "priceFrom": null,
+    "currency": null,
+    "durationDays": null,
+    "openNow": null,
+    "todayHours": null,
+    "stopNames": null,
+    "encodedPolyline": null
+   }
+  ]
+ },
+ {
+  "provinceId": "f367d039-dc10-4c8a-a16a-5ea902afa5be",
+  "provinceName": "Kampong Cham",
+  "totalElements": 1,
+  "content": [
+   {
+    "type": "DESTINATION",
+    "id": "cdfcda10-21f8-40cd-9f0f-09e02ffc235b",
+    "name": "Mekong Discovery Trail",
+    "slug": "mekong-discovery-trail",
+    "shortDescription": "A river-bank cycling route through rubber plantations and island villages.",
+    "coverUrl": "/api/v1/media/files/general/00000000-0000-0000-0000-000000000000/mekong-discovery-trail.jpg",
+    "provinceId": "f367d039-dc10-4c8a-a16a-5ea902afa5be",
+    "provinceName": "Kampong Cham",
+    "latitude": 11.9925,
+    "longitude": 105.4638,
+    "categoryIds": [
+     "ad1fe6cb-34d9-4a25-8027-f106e9c18aac",
+     "af7906ef-babe-430e-bf9a-d690d6f478e0",
+     "bb68878a-ecb4-4136-866c-89d0778cb2a6",
+     "cbabc341-2ac2-4995-a86d-7789318ac6e9",
+     "1a13e55c-5e41-46e2-8661-c7345d0abfb5",
+     "3ae0d316-7268-4b62-b3a6-a9be7703f5bc",
+     "4162471b-7781-44d0-88cc-6b167bdfa4c9",
+     "5264a917-7a70-4634-878d-a8333ecd0ed4",
+     "6aa83487-89eb-4c34-99f8-50945285c565",
+     "780e3489-fad6-4197-98ba-7e4b7800aac4"
+    ],
+    "categoryNames": [
+     "Local Guide",
+     "River Island",
+     "Fishing",
+     "Boat Trip",
+     "Bird Watching",
+     "Community",
+     "Rice",
+     "Agriculture",
+     "Village",
+     "Homestay"
+    ],
+    "interestIds": [
+     "0409c6ec-4f39-43aa-adf6-e4904c500875"
+    ],
+    "tourismRegionIds": [
+     "44d40208-7aa6-4403-ae4a-f57fb97d72b1",
+     "795e9ba3-0758-4f8a-b82d-ea4c9d371de4"
+    ],
+    "averageRating": null,
+    "ratingCount": 0,
+    "reviewCount": 0,
+    "verified": false,
+    "basis": null,
+    "travelerRecommended": false,
+    "priceFrom": null,
+    "currency": null,
+    "durationDays": null,
+    "openNow": null,
+    "todayHours": null,
+    "stopNames": null,
+    "encodedPolyline": null
+   }
+  ]
+ }
+]

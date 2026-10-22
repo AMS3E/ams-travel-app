@@ -1,0 +1,15 @@
+{
+ "id": "0b8c1f3e-2a4d-4c6b-9e1f-7a5d3c2b1a00",
+ "email": "dara.chan+test@gmail.com",
+ "fullName": "Dara Chan Sok",
+ "avatarKey": null,
+ "avatarUrl": null,
+ "phone": "+855 12 345 678",
+ "status": "ACTIVE",
+ "lastLoginAt": "2026-10-14T03:10:00Z",
+ "createdAt": "2026-10-13T09:00:00Z",
+ "updatedAt": "2026-10-14T03:10:00Z",
+ "roles": [
+  "TRAVELLER"
+ ]
+}

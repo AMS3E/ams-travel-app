@@ -1,0 +1,15 @@
+[
+ {
+  "targetType": "STAY",
+  "targetId": "7c1e2d3f-4a5b-4c6d-8e9f-0a1b2c3d4e51",
+  "average": 4.3,
+  "count": 8,
+  "stars": {
+   "1": 0,
+   "2": 0,
+   "3": 1,
+   "4": 3,
+   "5": 4
+  }
+ }
+]

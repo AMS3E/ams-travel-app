@@ -1,0 +1,71 @@
+{
+ "stayId": "7c1e2d3f-4a5b-4c6d-8e9f-0a1b2c3d4e51",
+ "checkIn": "2026-10-16",
+ "checkOut": "2026-10-18",
+ "nights": 2,
+ "rooms": 1,
+ "adults": 2,
+ "children": 0,
+ "currency": "USD",
+ "weekendNights": [
+  "FRIDAY",
+  "SATURDAY"
+ ],
+ "fromTotal": 175,
+ "roomQuotes": [
+  {
+   "roomId": "7c1e2d3f-4a5b-4c6d-8e9f-0a1b2c3d4e52",
+   "name": "Deluxe King Room",
+   "currency": "USD",
+   "pricePerNight": 80,
+   "weekendPrice": 95,
+   "nights": 2,
+   "weekendNightCount": 1,
+   "perNight": [
+    {
+     "date": "2026-10-16",
+     "price": 80
+    },
+    {
+     "date": "2026-10-17",
+     "price": 95
+    }
+   ],
+   "total": 175,
+   "fitsGuests": true,
+   "enoughRooms": true,
+   "meetsMinNights": true,
+   "minNights": 1,
+   "breakfastIncluded": true,
+   "taxesIncluded": true,
+   "bookable": true
+  },
+  {
+   "roomId": "7c1e2d3f-4a5b-4c6d-8e9f-0a1b2c3d4e53",
+   "name": "Family Suite",
+   "currency": "USD",
+   "pricePerNight": 80,
+   "weekendPrice": 95,
+   "nights": 2,
+   "weekendNightCount": 1,
+   "perNight": [
+    {
+     "date": "2026-10-16",
+     "price": 80
+    },
+    {
+     "date": "2026-10-17",
+     "price": 95
+    }
+   ],
+   "total": 320,
+   "fitsGuests": true,
+   "enoughRooms": true,
+   "meetsMinNights": false,
+   "minNights": 3,
+   "breakfastIncluded": true,
+   "taxesIncluded": true,
+   "bookable": false
+  }
+ ]
+}

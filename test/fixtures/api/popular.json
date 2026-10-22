@@ -1,0 +1,42 @@
+{
+ "days": 30,
+ "regionId": null,
+ "type": "DESTINATION",
+ "items": [
+  {
+   "type": "DESTINATION",
+   "id": "6cd2c24d-a1c1-4bbe-9833-31d30e763ee6",
+   "browses": 1,
+   "reason": "MOST_BROWSED"
+  },
+  {
+   "type": "DESTINATION",
+   "id": "6d1d9832-ec70-47e6-ae3a-63b5a1c96e04",
+   "browses": 1,
+   "reason": "MOST_BROWSED"
+  },
+  {
+   "type": "DESTINATION",
+   "id": "97cd24e3-851e-4396-ad20-8ff0e4981e54",
+   "browses": 1,
+   "reason": "MOST_BROWSED"
+  }
+ ],
+ "destinations": [
+  {
+   "destinationId": "6cd2c24d-a1c1-4bbe-9833-31d30e763ee6",
+   "browses": 1,
+   "reason": "MOST_BROWSED"
+  },
+  {
+   "destinationId": "6d1d9832-ec70-47e6-ae3a-63b5a1c96e04",
+   "browses": 1,
+   "reason": "MOST_BROWSED"
+  },
+  {
+   "destinationId": "97cd24e3-851e-4396-ad20-8ff0e4981e54",
+   "browses": 1,
+   "reason": "MOST_BROWSED"
+  }
+ ]
+}

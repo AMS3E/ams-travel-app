@@ -49,25 +49,7 @@ class AppColors {
   static const route = Color(0xFF2B3A8F);
   static const success = Color(0xFF1F8A5B);
 
-  /// Logo gradient (red → indigo), used on hero accents.
-  static const logoGradient = LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-    colors: [Color(0xFFD42027), plum600, Color(0xFF2B3A8F)],
-  );
-
-  /// One marker colour per tourism region, in region order.
-  static const regionColors = <String, Color>{
-    'ancient-capitals': Color(0xFFB7791F),
-    'northeastern-civilization': Color(0xFF2F855A),
-    'mekong-tonle-sap': Color(0xFF2B6CB0),
-    'mountain-waterfall': Color(0xFF276749),
-    'coastal-island': Color(0xFF0987A0),
-    'urban-nightlife': Color(0xFF6B46C1),
-    'khmer-culinary': Color(0xFFC05621),
-    'eco-community': Color(0xFF68803A),
-    'luxury': Color(0xFFB83280),
-  };
-
-  static Color forRegion(String slug) => regionColors[slug] ?? brand600;
+  /// The "recommended" seal tick; the light one sits on photos.
+  static const seal = Color(0xFF22C55E);
+  static const sealOnPhoto = Color(0xFF34D399);
 }

@@ -1,0 +1,42 @@
+{
+ "id": "6cd2c24d-a1c1-4bbe-9833-31d30e763ee6",
+ "name": "Angkor Wat",
+ "slug": "angkor-wat",
+ "provinceId": "97fca9bd-d44b-459e-994a-ad8437de81a5",
+ "regionId": "1b9e82ca-9cf3-493e-a7c0-708fc9095fdd",
+ "shortDescription": "The world's largest religious monument and Cambodia's national symbol.",
+ "description": null,
+ "slogan": null,
+ "sloganBy": null,
+ "latitude": 13.4125,
+ "longitude": 103.867,
+ "address": "Angkor Wat, Siem Reap",
+ "coverKey": "general/00000000-0000-0000-0000-000000000000/angkor-wat.jpg",
+ "coverUrl": "/api/v1/media/files/general/00000000-0000-0000-0000-000000000000/angkor-wat.jpg",
+ "status": "PUBLISHED",
+ "viewCount": 0,
+ "createdBy": null,
+ "publishedAt": "2026-10-13T08:39:39.597043Z",
+ "createdAt": "2026-10-13T08:39:42.592393Z",
+ "updatedAt": "2026-10-13T08:39:42.592489Z",
+ "categoryIds": [
+  "b89409d1-29d6-4eb5-b573-3305cdab008e",
+  "5518fb01-35f0-408c-850a-22b9db4c82a2"
+ ],
+ "tagIds": [
+  "aab060f1-ce03-41a0-8b1e-2c406321931e",
+  "df223b5a-420c-40ad-8456-4b965e441267",
+  "1b375bda-dd08-4b6d-bc67-f70bc72ed3f1",
+  "2c709e75-02f0-4516-ad95-3c7ffb5b9b1d",
+  "443cdfc8-a9b8-4fdc-8a8c-e54cf04e8379",
+  "52007b3e-6a94-4db8-a22d-53c5aee02941"
+ ],
+ "interestIds": [
+  "1c6a8452-1344-4d4e-a071-ceb684824181"
+ ],
+ "tourismRegionIds": [
+  "56c67829-d5c8-427f-b599-0f1d63af2ee4"
+ ],
+ "theme": "ANCIENT-CAPITALS",
+ "specialties": []
+}

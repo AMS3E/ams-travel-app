@@ -1,120 +1,90 @@
+import 'dart:async';
+
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../core/l10n/app_strings.dart';
 import '../../core/router/routes.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_theme.dart';
-import '../../core/utils/geo.dart';
-import '../../data/models/models.dart';
-import '../../data/repositories/travel_repository.dart';
+import '../../core/utils/location.dart';
+import '../../core/utils/polyline.dart';
+import '../../data/api/ams_api.dart';
+import '../../features/auth/sign_in.dart';
 import '../../state/collections_provider.dart';
 import '../../widgets/app_image.dart';
 import '../../widgets/async_view.dart';
 import '../../widgets/destination_card.dart';
-import '../../widgets/interest_card.dart';
+import '../../widgets/interest_filter.dart';
+import '../../widgets/interest_style.dart';
 import '../../widgets/map_view.dart';
+import '../destination/reviews_section.dart' show writeReviewFor;
 
+/// The small reference lists behind the map's chips.
+class _MapLists {
+  const _MapLists({required this.regions, required this.provinces, required this.groups, required this.corridors});
+
+  final List<CatalogRegion> regions;
+  final List<CatalogProvince> provinces;
+  final List<InterestGroup> groups;
+  final List<PlaceCard> corridors;
+}
+
+/// The full map. Pins come from the server only: the places around the
+/// traveller (`GET /destinations/nearby` → `GET /search/cards`), a chip's
+/// places (`GET /search?regionId= | provinceId= | interestIds=&type=&size=100`), a
+/// search (`GET /search?q=`), the saved places, or a corridor's itinerary
+/// (`GET /corridors/{id}/itinerary`, its road line and stops).
 class MapScreen extends StatelessWidget {
-  const MapScreen({super.key, this.focusKey, this.corridorSlug});
+  const MapScreen({super.key, this.focusId, this.corridorId});
 
-  /// Destination key (`region/slug`) to select on open, from `?place=`.
-  final String? focusKey;
+  /// Destination to select on open, from `?place=` ([Routes.mapFocus]).
+  final String? focusId;
 
-  /// Corridor to open on, from `?corridor=` — the map starts on that route.
-  final String? corridorSlug;
+  /// Corridor to open on, from `?corridor=` ([Routes.mapCorridor]).
+  final String? corridorId;
+
+  /// Goes up each time the Map tab is tapped, so the map can go back to the
+  /// traveller's position. The tab keeps its state, so a tap alone would not
+  /// rebuild it.
+  static final tabTaps = ValueNotifier<int>(0);
+
+  static Future<_MapLists> _load(AmsApi api) async {
+    final (regions, provinces, groups, corridors) = await (
+      api.tourismRegions(),
+      api.provinces(),
+      api.interestGroups(),
+      api.search(type: CardType.corridor, size: 100),
+    ).wait;
+    return _MapLists(regions: regions, provinces: provinces, groups: groups, corridors: corridors.content);
+  }
 
   @override
   Widget build(BuildContext context) {
-    final repo = context.read<TravelRepository>();
+    final api = context.read<AmsApi>();
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.dark,
       child: Scaffold(
-        body: AsyncView<(List<Destination>, List<Province>, List<Interest>, List<Corridor>)>(
-          load: () => (
-            repo.getDestinations(),
-            repo.getProvinces(),
-            repo.getInterests(),
-            repo.getCorridors(),
-          ).wait,
-          builder: (context, data, _) => _FullMap(
-            destinations: data.$1,
-            provinces: data.$2,
-            interests: data.$3,
-            corridors: data.$4,
-            focusKey: focusKey,
-            corridorSlug: corridorSlug,
-          ),
+        body: AsyncView<_MapLists>(
+          load: () => _load(api),
+          builder: (context, lists, _) => _FullMap(lists: lists, focusId: focusId, corridorId: corridorId),
         ),
       ),
     );
   }
 }
 
-/// What the map draws: every place, or one marker per region / province /
-/// interest, or the corridor routes.
-enum _Layer { places, provinces, interests, corridors }
-
-/// A named marker standing for a whole region, province, interest or corridor.
-class _Group {
-  const _Group({
-    required this.slug,
-    required this.name,
-    required this.subtitle,
-    required this.image,
-    required this.count,
-    required this.point,
-    required this.color,
-    required this.route,
-    required this.onOpen,
-  });
-
-  final String slug;
-  final String name;
-
-  /// One line under the name — the region tagline, province headline, etc.
-  final String subtitle;
-  final String image;
-  final int count;
-  final LatLng point;
-  final Color color;
-
-  /// Stops of a corridor, empty for the other layers.
-  final List<LatLng> route;
-  final String onOpen;
-
-  _Group at(LatLng moved) => _Group(
-    slug: slug,
-    name: name,
-    subtitle: subtitle,
-    image: image,
-    count: count,
-    point: moved,
-    color: color,
-    route: route,
-    onOpen: onOpen,
-  );
-}
+/// Where the pins come from: around the traveller, or one of the four chips.
+enum _Layer { nearby, regions, provinces, interests, corridors }
 
 class _FullMap extends StatefulWidget {
-  const _FullMap({
-    required this.destinations,
-    required this.provinces,
-    required this.interests,
-    required this.corridors,
-    this.focusKey,
-    this.corridorSlug,
-  });
+  const _FullMap({required this.lists, this.focusId, this.corridorId});
 
-  final List<Destination> destinations;
-  final List<Province> provinces;
-  final List<Interest> interests;
-  final List<Corridor> corridors;
-  final String? focusKey;
-  final String? corridorSlug;
+  final _MapLists lists;
+  final String? focusId;
+  final String? corridorId;
 
   @override
   State<_FullMap> createState() => _FullMapState();
@@ -122,283 +92,496 @@ class _FullMap extends StatefulWidget {
 
 class _FullMapState extends State<_FullMap> {
   final _controller = MapController();
-  late _Layer _layer = widget.corridorSlug == null ? _Layer.places : _Layer.corridors;
-  bool _savedOnly = false;
+  final _searchField = TextEditingController();
+  Timer? _debounce;
+
+  late _Layer _layer = widget.corridorId != null ? _Layer.corridors : _Layer.nearby;
+
+  /// The region or province picked in the chip row.
+  String? _pick;
+  late String? _corridorId = widget.corridorId;
+  int _groupIndex = 0;
+  Set<String> _picked = {};
   String _query = '';
-  late String? _selected = widget.focusKey;
+  bool _savedOnly = false;
 
   /// Opened from a place page: the map shows that one place until the
-  /// traveller searches, switches layer, recentres or taps the map.
-  late bool _onlyFocused = widget.focusKey != null;
-  late String? _selectedGroup = widget.corridorSlug;
+  /// traveller searches, switches chip or asks for what is near.
+  late String? _focusId = widget.focusId;
+
+  List<PlaceCard> _cards = const [];
+  CorridorItinerary? _itinerary;
+  PlaceCard? _selected;
+  DeviceLocation? _location;
+  LatLng? _me;
+
+  /// Live updates of the traveller's position, started after the first fix.
+  /// Paused while another tab is showing.
+  StreamSubscription<DeviceLocation>? _watch;
+  bool _loading = false;
+  Object? _error;
+
+  /// Answers to an older request are dropped.
+  int _request = 0;
+
   double _zoom = 6.4;
-
-  /// Below this zoom the group markers are counted dots; above it they show
-  /// their names, which are too wide to fit side by side when zoomed out.
-  static const _labelZoom = 8.5;
-
-  bool get _showNames => _zoom >= _labelZoom;
-
-  /// What the markers of the open layer stand for.
-  IconData get _layerIcon => switch (_layer) {
-    _Layer.provinces => Icons.location_city_rounded,
-    _Layer.interests => Icons.interests_rounded,
-    _Layer.corridors => Icons.route_rounded,
-    _Layer.places => Icons.place_rounded,
-  };
 
   /// Place names and their ratings only fit once you are well zoomed in.
   static const _placeLabelZoom = 10.5;
   bool get _showPlaceLabels => _zoom >= _placeLabelZoom;
 
   void _onZoomChanged(double zoom) {
-    final wasNames = _showNames;
-    final wasPlaces = _showPlaceLabels;
+    final was = _showPlaceLabels;
     _zoom = zoom;
-    if (wasNames != _showNames || wasPlaces != _showPlaceLabels) setState(() {});
+    if (was != _showPlaceLabels) setState(() {});
   }
 
-  /// Nudges markers that would sit on top of each other onto a coarse grid, so
-  /// every region or province stays readable at country zoom.
-  List<_Group> _spread(List<_Group> groups) {
-    const stepLat = 0.42;
-    const stepLng = 0.52;
-    final taken = <(int, int)>{};
-    return [
-      for (final g in groups)
-        () {
-          var row = (g.point.latitude / stepLat).round();
-          var col = (g.point.longitude / stepLng).round();
-          // Walk outwards in a square spiral until a free cell turns up.
-          for (var ring = 0; ring < 8 && taken.contains((row, col)); ring++) {
-            for (var dRow = -ring; dRow <= ring; dRow++) {
-              for (var dCol = -ring; dCol <= ring; dCol++) {
-                final cell = (
-                  (g.point.latitude / stepLat).round() + dRow,
-                  (g.point.longitude / stepLng).round() + dCol,
-                );
-                if (!taken.contains(cell)) {
-                  row = cell.$1;
-                  col = cell.$2;
-                  break;
-                }
-              }
-              if (!taken.contains((row, col))) break;
-            }
-          }
-          taken.add((row, col));
-          return g.at(LatLng(row * stepLat, col * stepLng));
-        }(),
-    ];
+  @override
+  void initState() {
+    super.initState();
+    MapScreen.tabTaps.addListener(_onTabTap);
+    WidgetsBinding.instance.addPostFrameCallback((_) => _reload());
   }
 
-  Destination? get _selectedDestination => widget.destinations.where((d) => d.key == _selected).firstOrNull;
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // The shell turns tickers off for the tabs it hides.
+    final visible = TickerMode.valuesOf(context).enabled;
+    if (visible && (_watch?.isPaused ?? false)) _watch!.resume();
+    if (!visible && _watch != null && !_watch!.isPaused) _watch!.pause();
+  }
+
+  /// Follows the phone as it moves: the "me" pin goes with it.
+  void _followMe() {
+    _watch ??= watchLocation().listen((location) {
+      if (!mounted || !location.ok) return;
+      setState(() => _me = LatLng(location.latitude!, location.longitude!));
+    }, onError: (_) {});
+  }
+
+  /// The Map tab was tapped: around the traveller, the position is read again
+  /// and the camera goes back to it. A chip, search or opened place is kept.
+  void _onTabTap() {
+    if (!mounted || !_isAroundMe) return;
+    _reload();
+  }
+
+  bool get _isAroundMe => _layer == _Layer.nearby && _focusId == null && !_savedOnly && _query.isEmpty;
 
   @override
   void didUpdateWidget(_FullMap old) {
     super.didUpdateWidget(old);
-    if (widget.focusKey != null && widget.focusKey != old.focusKey) {
-      setState(() {
-        _selected = widget.focusKey;
-        _layer = _Layer.places;
-        _savedOnly = false;
-        _onlyFocused = true;
-      });
-      final d = _selectedDestination;
-      if (d != null) _moveTo(d);
+    if (widget.focusId != null && widget.focusId != old.focusId) {
+      _clearFilters();
+      _focusId = widget.focusId;
+      _reload();
+    } else if (widget.corridorId != null && widget.corridorId != old.corridorId) {
+      _clearFilters();
+      _layer = _Layer.corridors;
+      _corridorId = widget.corridorId;
+      _reload();
     }
   }
 
-  void _moveTo(Destination d, {double zoom = 12}) {
+  @override
+  void dispose() {
+    MapScreen.tabTaps.removeListener(_onTabTap);
+    _watch?.cancel();
+    _debounce?.cancel();
+    _searchField.dispose();
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _clearFilters() {
+    _layer = _Layer.nearby;
+    _pick = null;
+    _corridorId = null;
+    _picked = {};
+    _savedOnly = false;
+    _focusId = null;
+    _selected = null;
+    _itinerary = null;
+    _query = '';
+    _searchField.clear();
+  }
+
+  /// The filters of the open chip, as `GET /search` parameters. Null when the
+  /// chip has nothing picked yet. An interest group of stays, food places or
+  /// activities asks for that kind: without a type the server answers
+  /// attractions only.
+  ({String? regionId, String? provinceId, List<String> interestIds, CardType? type})? get _filters => switch (_layer) {
+    _Layer.regions when _pick != null => (regionId: _pick, provinceId: null, interestIds: const <String>[], type: null),
+    _Layer.provinces when _pick != null => (
+      regionId: null,
+      provinceId: _pick,
+      interestIds: const <String>[],
+      type: null,
+    ),
+    _Layer.interests => (
+      regionId: null,
+      provinceId: null,
+      interestIds: InterestFilter.idsFor(widget.lists.groups, _groupIndex, _picked),
+      type: widget.lists.groups.elementAtOrNull(_groupIndex)?.cardType,
+    ),
+    _ => null,
+  };
+
+  Future<void> _reload() async {
+    final ticket = ++_request;
+    final api = context.read<AmsApi>();
+    final saved = context.read<SavedProvider>();
+    setState(() {
+      _loading = true;
+      _error = null;
+    });
     try {
-      _controller.move(LatLng(d.lat, d.lng), zoom);
-    } catch (_) {
-      // The map hasn't laid out yet; its initial camera already targets `d`.
+      var cards = <PlaceCard>[];
+      CorridorItinerary? itinerary;
+      PlaceCard? selected;
+      LatLng? me;
+      final filters = _filters;
+
+      if (_focusId != null) {
+        final card = await api.card(_focusId!);
+        if (card != null) cards = [card];
+        selected = card;
+      } else if (_savedOnly) {
+        // Saved places with a pin: attractions, stays, food places and
+        // activities.
+        final found = await [
+          for (final kind in const [SavedKind.destination, SavedKind.stay, SavedKind.food, SavedKind.activity])
+            api.cards(saved.idsOf(kind), type: kind.type.cardType),
+        ].wait;
+        cards = [for (final list in found) ...list];
+      } else if (_query.isNotEmpty || filters != null) {
+        final page = await api.search(
+          q: _query.isEmpty ? null : _query,
+          regionId: filters?.regionId,
+          provinceId: filters?.provinceId,
+          interestIds: filters?.interestIds ?? const [],
+          type: filters?.type,
+          size: 100,
+        );
+        cards = page.content;
+      } else if (_layer == _Layer.corridors) {
+        if (_corridorId != null) itinerary = await api.itinerary(_corridorId!);
+      } else if (_layer == _Layer.nearby) {
+        // Jump to the last known position straight away; a fresh fix can take
+        // several seconds.
+        final fresh = currentLocation();
+        final last = await lastKnownLocation();
+        if (!mounted || ticket != _request) return;
+        if (last != null) {
+          setState(() => _me = LatLng(last.latitude!, last.longitude!));
+          _centerOnMe();
+        }
+        final location = await fresh;
+        if (!mounted || ticket != _request) return;
+        setState(() => _location = location);
+        if (location.ok) {
+          me = LatLng(location.latitude!, location.longitude!);
+          _followMe();
+          cards = await api.nearbyCards(
+            latitude: location.latitude!,
+            longitude: location.longitude!,
+            radiusKm: 50,
+            limit: 100,
+          );
+        }
+      }
+      if (!mounted || ticket != _request) return;
+      setState(() {
+        _cards = [
+          for (final c in cards)
+            if (c.hasPin) c,
+        ];
+        _itinerary = itinerary;
+        _selected = selected;
+        if (me != null) _me = me;
+        _loading = false;
+      });
+      _frame();
+    } catch (e) {
+      if (!mounted || ticket != _request) return;
+      setState(() {
+        _loading = false;
+        _error = e;
+      });
     }
+  }
+
+  /// The corridor's road line: the whole route, or its legs joined. Decoded
+  /// once per itinerary, not on every build.
+  List<LatLng> get _route {
+    final it = _itinerary;
+    if (it == null) return const [];
+    if (!identical(it, _routeOf)) {
+      _routeOf = it;
+      final whole = decodePolyline(it.encodedPolyline);
+      _routePoints = whole.length > 1 ? whole : [for (final stop in it.stops) ...decodePolyline(stop.routePolyline)];
+    }
+    return _routePoints;
+  }
+
+  CorridorItinerary? _routeOf;
+  List<LatLng> _routePoints = const [];
+
+  /// Every corridor card's line, decoded once per list.
+  List<List<LatLng>> get _corridorLines {
+    final corridors = widget.lists.corridors;
+    if (!identical(corridors, _linesOf)) {
+      _linesOf = corridors;
+      _lines = [for (final c in corridors) decodePolyline(c.encodedPolyline)];
+    }
+    return _lines;
+  }
+
+  List<PlaceCard>? _linesOf;
+  List<List<LatLng>> _lines = const [];
+
+  /// Colours for the corridor lines drawn together.
+  static const _lineColors = [
+    AppColors.route,
+    AppColors.violet,
+    AppColors.sunset500,
+    Color(0xFF0987A0),
+    Color(0xFF2F855A),
+  ];
+
+  /// Every corridor's line at once, from the cards' `encodedPolyline`, while
+  /// the Corridors chip is open and none is picked.
+  List<MapRoute> get _allLines {
+    if (_layer != _Layer.corridors || _corridorId != null || _query.isNotEmpty) return const [];
+    final lines = _corridorLines;
+    return [
+      for (var i = 0; i < lines.length; i++)
+        if (lines[i].length > 1) MapRoute(lines[i], color: _lineColors[i % _lineColors.length]),
+    ];
+  }
+
+  /// A marker per region or province, at its centre, while their chip is
+  /// open and none is picked. Tapping one picks it.
+  List<MapPin> get _areaPins {
+    if (_pick != null || _query.isNotEmpty) return const [];
+    final lists = widget.lists;
+    return switch (_layer) {
+      _Layer.regions => [
+        for (final r in lists.regions)
+          if (r.hasPin)
+            MapPin(
+              id: 'region-${r.id}',
+              point: LatLng(r.latitude!, r.longitude!),
+              color: AppColors.violet,
+              pillText: r.name,
+              onTap: () => _pickChip(r.id),
+            ),
+      ],
+      _Layer.provinces => [
+        for (final p in lists.provinces)
+          if (p.hasPin)
+            MapPin(
+              id: 'province-${p.id}',
+              point: LatLng(p.latitude!, p.longitude!),
+              color: AppColors.violet,
+              pillText: p.name,
+              subtitle: S.read(context).placeCountText(p.placeCount),
+              onTap: () => _pickChip(p.id),
+            ),
+      ],
+      _ => const [],
+    };
+  }
+
+  List<ItineraryStop> get _stops => [
+    for (final stop in _itinerary?.stops ?? const <ItineraryStop>[])
+      if (stop.place.latitude != null && stop.place.longitude != null) stop,
+  ];
+
+  /// Zoom for the traveller's own position: a few streets around them.
+  static const _meZoom = 14.0;
+
+  /// Moves the camera, unless the map has not laid out yet.
+  void _camera(void Function(MapController c) move) {
+    try {
+      move(_controller);
+    } catch (_) {}
+  }
+
+  void _centerOnMe() {
+    if (_me == null) return;
+    _camera((c) => c.move(_me!, _meZoom));
+  }
+
+  /// Frames what was just loaded, clear of the chips above and the card below.
+  /// Around the traveller, the camera centres on them; the nearby pins are a
+  /// zoom-out away.
+  void _frame() {
+    if (_me != null && _isAroundMe) return _centerOnMe();
+    final points = <LatLng>[
+      for (final c in _cards) LatLng(c.latitude!, c.longitude!),
+      ..._route,
+      for (final line in _allLines) ...line.points,
+      for (final pin in _areaPins) pin.point,
+      for (final s in _stops) LatLng(s.place.latitude!, s.place.longitude!),
+    ];
+    _camera((c) {
+      if (points.length > 1) {
+        c.fitCamera(
+          CameraFit.bounds(
+            bounds: LatLngBounds.fromPoints(points),
+            padding: const EdgeInsets.fromLTRB(44, 200, 44, 240),
+            maxZoom: 14,
+          ),
+        );
+      } else if (points.length == 1) {
+        c.move(points.first, 12);
+      }
+    });
   }
 
   void _resetView() {
-    setState(() {
-      _selected = null;
-      _selectedGroup = null;
-      _onlyFocused = false;
-    });
-    try {
-      _controller.move(cambodiaCenter, 6.4);
-    } catch (_) {}
+    setState(() => _selected = null);
+    _camera((c) => c.move(cambodiaCenter, 6.4));
   }
 
   /// Steps the camera in or out — pinching works too, but a button is easier
   /// one-handed (and on the simulator).
   void _zoomBy(double delta) {
-    try {
-      final camera = _controller.camera;
-      _controller.move(camera.center, (camera.zoom + delta).clamp(5.0, 18.0));
-    } catch (_) {}
+    _camera((c) => c.move(c.camera.center, (c.camera.zoom + delta).clamp(5.0, 18.0)));
   }
 
-  /// Centres the map on one marker and shows its card.
-  void _focusGroup(_Group g) {
-    setState(() => _selectedGroup = g.slug);
-    try {
-      if (g.route.length > 1) {
-        // Frame the whole route, clear of the chips above and the card below.
-        _controller.fitCamera(
-          CameraFit.bounds(
-            bounds: LatLngBounds.fromPoints(g.route),
-            padding: const EdgeInsets.fromLTRB(44, 190, 44, 230),
-            maxZoom: 12,
-          ),
-        );
-      } else {
-        _controller.move(g.point, 9);
-      }
-    } catch (_) {}
+  /// Back to the places around the traveller, asking for location if needed.
+  void _nearMe() {
+    setState(_clearFilters);
+    _reload();
   }
 
   void _showLayer(_Layer layer) {
     setState(() {
-      _onlyFocused = false;
-      // Tapping the active chip goes back to showing every place.
-      _layer = _layer == layer ? _Layer.places : layer;
-      _selected = null;
-      _selectedGroup = null;
-      if (_layer != _Layer.places) _savedOnly = false;
+      final next = _layer == layer ? _Layer.nearby : layer;
+      _clearFilters();
+      _layer = next;
     });
-    try {
-      _controller.move(cambodiaCenter, 6.4);
-    } catch (_) {}
+    _reload();
   }
 
-  /// Middle of a set of places, used to position a group marker.
-  LatLng _centre(Iterable<Destination> places, {LatLng? fallback}) {
-    if (places.isEmpty) return fallback ?? cambodiaCenter;
-    final lat = places.map((d) => d.lat).reduce((a, b) => a + b) / places.length;
-    final lng = places.map((d) => d.lng).reduce((a, b) => a + b) / places.length;
-    return LatLng(lat, lng);
+  void _pickChip(String id) {
+    setState(() {
+      _focusId = null;
+      _selected = null;
+      if (_layer == _Layer.corridors) {
+        _corridorId = _corridorId == id ? null : id;
+        if (_corridorId == null) _itinerary = null;
+      } else {
+        _pick = _pick == id ? null : id;
+      }
+    });
+    _reload();
   }
 
-  List<_Group> get _groups {
-    switch (_layer) {
-      case _Layer.places:
-        return const [];
-      case _Layer.provinces:
-        return [
-          for (final p in widget.provinces)
-            () {
-              final places = widget.destinations.where((d) => slugify(d.province) == p.slug);
-              return _Group(
-                slug: p.slug,
-                name: bilingual(context, p.name, p.nameKh).$1,
-                subtitle: p.tagline,
-                image: p.image,
-                count: places.length,
-                point: _centre(places, fallback: LatLng(p.lat, p.lng)),
-                color: AppColors.brand600,
-                route: const [],
-                onOpen: Routes.province(p.slug),
-              );
-            }(),
-        ];
-      case _Layer.interests:
-        return [
-          for (final i in widget.interests)
-            () {
-              final places = widget.destinations.where((d) => i.categories.contains(d.category));
-              final (_, color) = interestStyle(i);
-              return _Group(
-                slug: i.slug,
-                name: bilingual(context, i.name, i.nameKh).$1,
-                subtitle: i.description,
-                image: i.image,
-                count: i.isCorridors ? widget.corridors.length : places.length,
-                point: _centre(places),
-                color: color,
-                route: const [],
-                onOpen: Routes.interest(i.slug),
-              );
-            }(),
-        ];
-      case _Layer.corridors:
-        return [
-          for (var i = 0; i < widget.corridors.length; i++)
-            () {
-              final c = widget.corridors[i];
-              final points = [for (final st in c.stops) LatLng(st.lat, st.lng)];
-              return _Group(
-                slug: c.slug,
-                name: c.name,
-                subtitle: '${c.duration}  ·  ${c.description}',
-                image: c.image,
-                count: c.stops.length,
-                point: points.isEmpty ? cambodiaCenter : points[points.length ~/ 2],
-                color: _corridorColors[i % _corridorColors.length],
-                route: c.sequential ? points : const [],
-                onOpen: Routes.corridor(c.slug),
-              );
-            }(),
-        ];
+  void _onSearch(String text) {
+    _debounce?.cancel();
+    _debounce = Timer(const Duration(milliseconds: 400), () {
+      if (!mounted) return;
+      final q = text.trim();
+      if (q == _query) return;
+      setState(() {
+        _query = q;
+        _focusId = null;
+        _savedOnly = false;
+        _selected = null;
+      });
+      _reload();
+    });
+  }
+
+  void _toggleSaved() {
+    whenSignedIn(context, S.read(context).logInToSeeSaved, () {
+      setState(() {
+        final on = !_savedOnly;
+        _clearFilters();
+        _savedOnly = on;
+      });
+      _reload();
+    });
+  }
+
+  /// A stop on the corridor line: its card, for the info sheet.
+  Future<void> _openStop(ItineraryStop stop) async {
+    final card = await context.read<AmsApi>().card(stop.place.id, type: CardType.destination).orNull;
+    if (mounted && card != null) setState(() => _selected = card);
+  }
+
+  Future<void> _allowLocation() async {
+    final problem = _location?.problem;
+    if (problem.needsSettings) {
+      await openLocationSettings(problem);
+    } else {
+      await _reload();
     }
   }
 
-  static const _corridorColors = [
-    AppColors.brand600,
-    Color(0xFF0987A0),
-    Color(0xFFC05621),
-    Color(0xFF2F855A),
-    AppColors.plum600,
-  ];
+  static (IconData?, Color) _kindStyle(CardType type) => switch (type) {
+    CardType.stay => groupStyle(InterestGroup.stays),
+    CardType.food => groupStyle(InterestGroup.food),
+    CardType.activity => groupStyle(InterestGroup.activities),
+    _ => (null, AppColors.brand600),
+  };
 
   @override
   Widget build(BuildContext context) {
     final s = S.of(context);
-    final saved = context.watch<SavedProvider>();
-    final savedKeys = saved.keysOf(SavedKind.destination).toSet();
-    final q = _query.toLowerCase();
-
-    // Searching always looks through the places, whichever layer is on.
-    final searching = q.isNotEmpty;
-    // Choosing an interest or a province swaps its single marker for the
-    // places it covers.
-    final openInterest = _layer == _Layer.interests && _selectedGroup != null
-        ? widget.interests.where((i) => i.slug == _selectedGroup).firstOrNull
-        : null;
-    final interestCategories = openInterest?.categories.toSet();
-    final openProvince = _layer == _Layer.provinces ? _selectedGroup : null;
-    final opened = openInterest != null || openProvince != null;
-    final showPlaces = _layer == _Layer.places || searching || opened;
-
-    final visible = widget.destinations.where((d) {
-      if (_onlyFocused) return d.key == widget.focusKey;
-      if (interestCategories != null && !interestCategories.contains(d.category)) return false;
-      if (openProvince != null && slugify(d.province) != openProvince) return false;
-      if (_savedOnly && !savedKeys.contains(d.key)) return false;
-      if (searching &&
-          !(d.name.toLowerCase().contains(q) ||
-              d.province.toLowerCase().contains(q) ||
-              d.category.toLowerCase().contains(q) ||
-              (d.nameKh?.contains(q) ?? false))) {
-        return false;
-      }
-      return true;
-    }).toList();
-
-    final allGroups = (showPlaces && !opened) ? const <_Group>[] : (_showNames ? _groups : _spread(_groups));
-    final selectedGroup = allGroups.where((g) => g.slug == _selectedGroup).firstOrNull;
-    // Picking one corridor shows that route by itself; the chips below still
-    // list them all, so another one is a tap away.
-    final groups = switch (_layer) {
-      _Layer.corridors when selectedGroup != null => [selectedGroup],
-      // The interest's or province's own marker steps aside for its places.
-      _Layer.interests when openInterest != null => const <_Group>[],
-      _Layer.provinces when openProvince != null => const <_Group>[],
-      _ => allGroups,
-    };
-    final selected = _selectedDestination;
-    final focus = widget.focusKey == null
+    final lists = widget.lists;
+    final itinerary = _itinerary;
+    final corridorCard = itinerary == null
         ? null
-        : widget.destinations.where((d) => d.key == widget.focusKey).firstOrNull;
-    final pinCount = showPlaces ? visible.length : groups.length;
+        : lists.corridors.where((c) => c.id == itinerary.corridor.id).firstOrNull;
+    final stops = _stops;
+    final showMe = _me != null && _isAroundMe;
+    final pinCount = _cards.length + stops.length;
+
+    // The one card at the bottom, if any.
+    Widget? bottom;
+    if (_selected != null) {
+      bottom = _SelectedCard(card: _selected!, onClose: () => setState(() => _selected = null));
+    } else if (itinerary != null) {
+      bottom = _CorridorCard(
+        itinerary: itinerary,
+        card: corridorCard,
+        onClose: () => setState(() {
+          _corridorId = null;
+          _itinerary = null;
+        }),
+      );
+    } else if (_error != null && !_loading) {
+      bottom = _Notice(icon: Icons.cloud_off_rounded, text: s.somethingWentWrong, action: s.retry, onAction: _reload);
+    } else if (_loading) {
+      bottom = null;
+    } else if (_isAroundMe && _location != null && !_location!.ok) {
+      bottom = _Notice(
+        icon: Icons.location_off_rounded,
+        text: s.mapLocationOff,
+        action: s.allowLocationAccess,
+        onAction: _allowLocation,
+      );
+    } else if (_layer == _Layer.corridors && _corridorId == null && _query.isEmpty) {
+      bottom = _Notice(icon: Icons.route_rounded, text: s.mapPickCorridor);
+    } else if (_savedOnly && _cards.isEmpty) {
+      bottom = _Notice(icon: Icons.favorite_border_rounded, text: s.emptySaved);
+    } else if ((_query.isNotEmpty || _filters != null) && _cards.isEmpty) {
+      bottom = _Notice(icon: Icons.search_off_rounded, text: s.noResults);
+    }
+
+    final route = _route;
+    final legend = switch (_layer) {
+      _Layer.regions => [for (final r in lists.regions) (r.id, r.name)],
+      _Layer.provinces => [for (final p in lists.provinces) (p.id, '${p.name} · ${p.placeCount}')],
+      _Layer.corridors => [for (final c in lists.corridors) (c.id, c.name)],
+      _ => const <(String, String)>[],
+    };
+    final legendPick = _layer == _Layer.corridors ? _corridorId : _pick;
 
     return Stack(
       children: [
@@ -406,58 +589,43 @@ class _FullMapState extends State<_FullMap> {
           child: AppMap(
             controller: _controller,
             fitToPins: false,
-            initialCenter: focus != null ? LatLng(focus.lat, focus.lng) : cambodiaCenter,
-            initialZoom: focus != null ? 12 : 6.4,
             onZoomChanged: _onZoomChanged,
-            onTapMap: () => setState(() {
-              _selected = null;
-              _selectedGroup = null;
-              _onlyFocused = false;
-            }),
-            routes: [for (final g in groups) MapRoute(g.route, color: g.color)],
+            onTapMap: () => setState(() => _selected = null),
+            routes: [if (route.length > 1) MapRoute(route), ..._allLines],
             pins: [
-              if (showPlaces)
-                for (final d in visible)
-                  MapPin(
-                    id: d.key,
-                    point: LatLng(d.lat, d.lng),
-                    color: AppColors.forRegion(d.region),
+              ..._areaPins,
+              if (showMe) MapPin(id: 'me', point: _me!, color: AppColors.route, icon: Icons.person_rounded),
+              for (final c in _cards)
+                () {
+                  final (icon, color) = _kindStyle(c.type);
+                  final labelled = _showPlaceLabels && c.averageRating != null;
+                  return MapPin(
+                    id: c.id,
+                    point: LatLng(c.latitude!, c.longitude!),
+                    color: color,
+                    icon: icon,
                     // Zoomed in, a place shows its score and name instead of a
                     // bare pin.
-                    pillText: _showPlaceLabels && d.rating != null ? '★ ${d.rating!.toStringAsFixed(1)}' : null,
-                    subtitle: _showPlaceLabels && d.rating != null ? bilingual(context, d.name, d.nameKh).$1 : null,
-                    highlighted: d.key == _selected,
-                    onTap: () => setState(() => _selected = d.key),
-                  )
-              else ...[
-                // Stops along each corridor, drawn under the name pills.
-                for (final g in groups)
-                  for (var i = 0; i < g.route.length; i++)
-                    MapPin(
-                      id: '${g.slug}-stop-$i',
-                      point: g.route[i],
-                      label: '${i + 1}',
-                      color: g.color,
-                      onTap: () => setState(() => _selectedGroup = g.slug),
-                    ),
-                for (final g in groups)
-                  MapPin(
-                    id: g.slug,
-                    point: g.point,
-                    color: g.color,
-                    // Zoomed out the pins say what they are; the name pill
-                    // carries the count once there is room for it.
-                    icon: _showNames ? null : _layerIcon,
-                    pillText: _showNames ? '${g.name}  ·  ${g.count}' : null,
-                    highlighted: g.slug == _selectedGroup,
-                    onTap: () => setState(() => _selectedGroup = g.slug),
-                  ),
-              ],
+                    pillText: labelled ? '★ ${c.averageRating!.toStringAsFixed(1)}' : null,
+                    subtitle: labelled ? c.name : null,
+                    highlighted: c.id == _selected?.id,
+                    onTap: () => setState(() => _selected = c),
+                  );
+                }(),
+              for (var i = 0; i < stops.length; i++)
+                MapPin(
+                  id: 'stop-${stops[i].sequence}',
+                  point: LatLng(stops[i].place.latitude!, stops[i].place.longitude!),
+                  label: '${i + 1}',
+                  color: AppColors.route,
+                  highlighted: stops[i].place.id == _selected?.id,
+                  onTap: () => _openStop(stops[i]),
+                ),
             ],
           ),
         ),
 
-        // Search + layer chips
+        // Search, saved toggle and the chips
         SafeArea(
           child: Padding(
             padding: const EdgeInsets.only(top: 10),
@@ -473,21 +641,25 @@ class _FullMapState extends State<_FullMap> {
                           shadowColor: const Color(0x331C1935),
                           borderRadius: BorderRadius.circular(16),
                           child: TextField(
-                            onChanged: (v) => setState(() {
-                              _query = v.trim();
-                              if (_query.isNotEmpty) _onlyFocused = false;
-                            }),
+                            controller: _searchField,
+                            onChanged: _onSearch,
+                            textInputAction: TextInputAction.search,
                             decoration: InputDecoration(
                               hintText: s.searchMap,
-                              prefixIcon: const Icon(Icons.search_rounded),
+                              prefixIcon: const Icon(Icons.search_rounded, color: AppColors.violet),
                               suffixIcon: Padding(
                                 padding: const EdgeInsets.only(right: 8),
                                 child: Center(
                                   widthFactor: 1,
-                                  child: Text(
-                                    '$pinCount',
-                                    style: AppText.sans(13, weight: FontWeight.w700, color: AppColors.brand600),
-                                  ),
+                                  child: _loading
+                                      ? const SizedBox.square(
+                                          dimension: 16,
+                                          child: CircularProgressIndicator(strokeWidth: 2, color: AppColors.brand600),
+                                        )
+                                      : Text(
+                                          '$pinCount',
+                                          style: AppText.sans(13, weight: FontWeight.w700, color: AppColors.brand600),
+                                        ),
                                 ),
                               ),
                               border: OutlineInputBorder(
@@ -503,7 +675,6 @@ class _FullMapState extends State<_FullMap> {
                         ),
                       ),
                       const SizedBox(width: 10),
-                      // Saved-only toggle; showing saved places means the places layer.
                       Material(
                         color: _savedOnly ? AppColors.sunset500 : Colors.white,
                         elevation: 3,
@@ -511,16 +682,16 @@ class _FullMapState extends State<_FullMap> {
                         borderRadius: BorderRadius.circular(16),
                         child: InkWell(
                           borderRadius: BorderRadius.circular(16),
-                          onTap: () => setState(() {
-                            _savedOnly = !_savedOnly;
-                            if (_savedOnly) _layer = _Layer.places;
-                          }),
-                          child: SizedBox(
-                            width: 54,
-                            height: 54,
-                            child: Icon(
-                              _savedOnly ? Icons.favorite_rounded : Icons.favorite_border_rounded,
-                              color: _savedOnly ? Colors.white : AppColors.sand600,
+                          onTap: _toggleSaved,
+                          child: Tooltip(
+                            message: s.savedTitle,
+                            child: SizedBox(
+                              width: 54,
+                              height: 54,
+                              child: Icon(
+                                _savedOnly ? Icons.favorite_rounded : Icons.favorite_border_rounded,
+                                color: _savedOnly ? Colors.white : AppColors.sand600,
+                              ),
                             ),
                           ),
                         ),
@@ -534,33 +705,56 @@ class _FullMapState extends State<_FullMap> {
                     scrollDirection: Axis.horizontal,
                     padding: const EdgeInsets.fromLTRB(16, 10, 16, 2),
                     children: [
-                      _MapChip(
-                        label: s.tabProvinces,
-                        selected: _layer == _Layer.provinces,
-                        onTap: () => _showLayer(_Layer.provinces),
-                      ),
-                      _MapChip(
-                        label: s.tabInterests,
-                        selected: _layer == _Layer.interests,
-                        onTap: () => _showLayer(_Layer.interests),
-                      ),
-                      _MapChip(
-                        label: s.tabCorridors,
-                        selected: _layer == _Layer.corridors,
-                        onTap: () => _showLayer(_Layer.corridors),
-                      ),
+                      for (final (layer, label) in [
+                        (_Layer.regions, s.tabRegions),
+                        (_Layer.provinces, s.tabProvinces),
+                        (_Layer.interests, s.tabInterests),
+                        (_Layer.corridors, s.tabCorridors),
+                      ])
+                        _MapChip(label: label, selected: _layer == layer, onTap: () => _showLayer(layer)),
                     ],
                   ),
                 ),
-                if (allGroups.isNotEmpty)
+                if (_layer == _Layer.interests)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 4),
+                    child: InterestFilter(
+                      groups: lists.groups,
+                      index: _groupIndex,
+                      showAll: false,
+                      onIndex: (i) {
+                        setState(() {
+                          _groupIndex = i ?? 0;
+                          _picked = {};
+                          _selected = null;
+                        });
+                        _reload();
+                      },
+                      picked: _picked,
+                      onPicked: (id) {
+                        setState(() {
+                          _picked = {..._picked};
+                          if (!_picked.remove(id)) _picked.add(id);
+                          _selected = null;
+                        });
+                        _reload();
+                      },
+                    ),
+                  )
+                else if (legend.isNotEmpty)
                   SizedBox(
                     height: 42,
                     child: ListView(
                       scrollDirection: Axis.horizontal,
                       padding: const EdgeInsets.fromLTRB(16, 4, 16, 4),
                       children: [
-                        for (final g in allGroups)
-                          _LegendChip(group: g, selected: g.slug == _selectedGroup, onTap: () => _focusGroup(g)),
+                        for (final (id, name) in legend)
+                          _LegendChip(
+                            name: name,
+                            color: _layer == _Layer.corridors ? AppColors.route : AppColors.brand600,
+                            selected: id == legendPick,
+                            onTap: () => _pickChip(id),
+                          ),
                       ],
                     ),
                   ),
@@ -571,38 +765,28 @@ class _FullMapState extends State<_FullMap> {
 
         Positioned(
           right: 16,
-          bottom: (selected == null && selectedGroup == null ? 16 : 176) + MediaQuery.paddingOf(context).bottom,
+          bottom: (bottom == null ? 16 : 176) + MediaQuery.paddingOf(context).bottom,
           child: Column(
             children: [
               _MapButton(icon: Icons.add_rounded, tooltip: s.zoomIn, onTap: () => _zoomBy(1)),
               const SizedBox(height: 8),
               _MapButton(icon: Icons.remove_rounded, tooltip: s.zoomOut, onTap: () => _zoomBy(-1)),
               const SizedBox(height: 8),
+              _MapButton(icon: Icons.my_location_rounded, tooltip: s.nearMe, onTap: _nearMe),
+              const SizedBox(height: 8),
               _MapButton(icon: Icons.center_focus_strong_rounded, tooltip: s.resetView, onTap: _resetView),
             ],
           ),
         ),
 
-        if (selected != null)
-          Positioned(
-            left: 16,
-            right: 16,
-            bottom: 16 + MediaQuery.paddingOf(context).bottom,
-            child: _SelectedCard(destination: selected, onClose: () => setState(() => _selected = null)),
-          )
-        else if (selectedGroup != null)
-          Positioned(
-            left: 16,
-            right: 16,
-            bottom: 16 + MediaQuery.paddingOf(context).bottom,
-            child: _GroupCard(group: selectedGroup, unit: _layer == _Layer.corridors ? s.stops : s.places),
-          ),
+        if (bottom != null)
+          Positioned(left: 16, right: 16, bottom: 16 + MediaQuery.paddingOf(context).bottom, child: bottom),
       ],
     );
   }
 }
 
-/// Round white control on top of the map (zoom in, zoom out, recentre).
+/// Round white control on top of the map (zoom in, zoom out, near me, recentre).
 class _MapButton extends StatelessWidget {
   const _MapButton({required this.icon, required this.tooltip, required this.onTap});
 
@@ -629,11 +813,12 @@ class _MapButton extends StatelessWidget {
   }
 }
 
-/// Small legend entry naming one marker on the map.
+/// One region, province or corridor in the chip row under the layer chips.
 class _LegendChip extends StatelessWidget {
-  const _LegendChip({required this.group, required this.selected, required this.onTap});
+  const _LegendChip({required this.name, required this.color, required this.selected, required this.onTap});
 
-  final _Group group;
+  final String name;
+  final Color color;
   final bool selected;
   final VoidCallback onTap;
 
@@ -642,7 +827,7 @@ class _LegendChip extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(right: 8),
       child: Material(
-        color: selected ? group.color : Colors.white,
+        color: selected ? color : Colors.white,
         elevation: 2,
         shadowColor: const Color(0x331C1935),
         borderRadius: BorderRadius.circular(99),
@@ -657,13 +842,13 @@ class _LegendChip extends StatelessWidget {
                 Container(
                   width: 9,
                   height: 9,
-                  decoration: BoxDecoration(color: selected ? Colors.white : group.color, shape: BoxShape.circle),
+                  decoration: BoxDecoration(color: selected ? Colors.white : color, shape: BoxShape.circle),
                 ),
                 const SizedBox(width: 6),
                 ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 170),
                   child: Text(
-                    group.name,
+                    name,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: AppText.sans(
@@ -671,15 +856,6 @@ class _LegendChip extends StatelessWidget {
                       weight: FontWeight.w600,
                       color: selected ? Colors.white : AppColors.sand800,
                     ),
-                  ),
-                ),
-                const SizedBox(width: 5),
-                Text(
-                  '${group.count}',
-                  style: AppText.sans(
-                    12,
-                    weight: FontWeight.w700,
-                    color: selected ? Colors.white70 : AppColors.sand400,
                   ),
                 ),
               ],
@@ -691,7 +867,7 @@ class _LegendChip extends StatelessWidget {
   }
 }
 
-/// Chip that switches the map between places and one of the four lists.
+/// Chip that switches the map to one of the four lists.
 class _MapChip extends StatelessWidget {
   const _MapChip({required this.label, required this.selected, required this.onTap});
 
@@ -737,13 +913,14 @@ class _MapChip extends StatelessWidget {
   }
 }
 
-/// Row card for the tapped region / province / interest / corridor: photo,
-/// name, how many places it holds, and a chevron into its page.
-class _GroupCard extends StatelessWidget {
-  const _GroupCard({required this.group, required this.unit});
+/// A one-line message at the bottom of the map, with an optional button.
+class _Notice extends StatelessWidget {
+  const _Notice({required this.icon, required this.text, this.action, this.onAction});
 
-  final _Group group;
-  final String unit;
+  final IconData icon;
+  final String text;
+  final String? action;
+  final VoidCallback? onAction;
 
   @override
   Widget build(BuildContext context) {
@@ -752,14 +929,62 @@ class _GroupCard extends StatelessWidget {
       elevation: 8,
       shadowColor: const Color(0x401C1935),
       borderRadius: BorderRadius.circular(AppTheme.radius),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 14, 12, 14),
+        child: Row(
+          children: [
+            Icon(icon, color: AppColors.brand600),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(text, style: AppText.sans(13.5, color: AppColors.sand800, height: 1.35)),
+                  if (action != null)
+                    TextButton(
+                      style: TextButton.styleFrom(padding: EdgeInsets.zero, minimumSize: const Size(0, 36)),
+                      onPressed: onAction,
+                      child: Text(action!),
+                    ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// The picked corridor: cover, name, days and stops, into its page.
+class _CorridorCard extends StatelessWidget {
+  const _CorridorCard({required this.itinerary, required this.card, required this.onClose});
+
+  final CorridorItinerary itinerary;
+  final PlaceCard? card;
+  final VoidCallback onClose;
+
+  @override
+  Widget build(BuildContext context) {
+    final s = S.of(context);
+    final c = itinerary.corridor;
+    final days = c.durationDays ?? card?.durationDays;
+    final stops = c.stopCount ?? itinerary.stops.length;
+    final cover = c.coverUrl.isNotEmpty ? c.coverUrl : (card?.coverUrl ?? '');
+    return Material(
+      color: Colors.white,
+      elevation: 8,
+      shadowColor: const Color(0x401C1935),
+      borderRadius: BorderRadius.circular(AppTheme.radius),
       clipBehavior: Clip.antiAlias,
       child: InkWell(
-        onTap: () => context.push(group.onOpen),
+        onTap: () => context.push(Routes.corridor(c.id)),
         child: Padding(
           padding: const EdgeInsets.all(12),
           child: Row(
             children: [
-              AppImage(group.image, width: 76, height: 76, radius: BorderRadius.circular(12)),
+              AppImage(cover, width: 76, height: 76, radius: BorderRadius.circular(12)),
               const SizedBox(width: 14),
               Expanded(
                 child: Column(
@@ -767,37 +992,29 @@ class _GroupCard extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      group.name,
+                      c.name,
                       style: AppText.sans(16.5, weight: FontWeight.w700, color: AppColors.sand900),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 4),
-                    Row(
-                      children: [
-                        Container(
-                          width: 8,
-                          height: 8,
-                          decoration: BoxDecoration(color: group.color, shape: BoxShape.circle),
-                        ),
-                        const SizedBox(width: 6),
-                        Text(
-                          '${group.count} ${unit.toLowerCase()}',
-                          style: AppText.sans(13, weight: FontWeight.w600, color: group.color),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 4),
                     Text(
-                      group.subtitle,
-                      style: AppText.sans(13, color: AppColors.sand500, height: 1.35),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+                      [if (days != null) s.daysCount(days), '$stops ${s.stops.toLowerCase()}'].join('  ·  '),
+                      style: AppText.sans(13, weight: FontWeight.w600, color: AppColors.route),
                     ),
+                    if ((c.shortDescription ?? '').isNotEmpty) ...[
+                      const SizedBox(height: 4),
+                      Text(
+                        c.shortDescription!,
+                        style: AppText.sans(13, color: AppColors.sand500, height: 1.35),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
                   ],
                 ),
               ),
-              const Icon(Icons.chevron_right_rounded, color: AppColors.sand400),
+              IconButton(onPressed: onClose, icon: const Icon(Icons.close_rounded, size: 20)),
             ],
           ),
         ),
@@ -806,16 +1023,16 @@ class _GroupCard extends StatelessWidget {
   }
 }
 
+/// The tapped pin: cover, name, rating or category, province, into its page.
 class _SelectedCard extends StatelessWidget {
-  const _SelectedCard({required this.destination, required this.onClose});
-  final Destination destination;
+  const _SelectedCard({required this.card, required this.onClose});
+  final PlaceCard card;
   final VoidCallback onClose;
 
   @override
   Widget build(BuildContext context) {
     final s = S.of(context);
-    final d = destination;
-    final (title, _) = bilingual(context, d.name, d.nameKh);
+    final d = card;
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -827,12 +1044,12 @@ class _SelectedCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(AppTheme.radius),
           clipBehavior: Clip.antiAlias,
           child: InkWell(
-            onTap: () => context.push(Routes.destination(d.region, d.slug)),
+            onTap: () => context.push(Routes.card(d)),
             child: SizedBox(
               height: 104,
               child: Row(
                 children: [
-                  AppImage(d.image, width: 104, height: 104),
+                  AppImage(d.coverUrl, width: 104, height: 104),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(14, 12, 6, 12),
@@ -840,41 +1057,50 @@ class _SelectedCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(title, style: AppText.display(17), maxLines: 1, overflow: TextOverflow.ellipsis),
+                          Text(d.name, style: AppText.display(17), maxLines: 1, overflow: TextOverflow.ellipsis),
                           const SizedBox(height: 6),
                           Row(
                             children: [
-                              if (d.rating != null) ...[
+                              if (d.averageRating != null) ...[
                                 const Icon(Icons.star_rounded, size: 16, color: AppColors.star),
                                 const SizedBox(width: 3),
                                 Text(
-                                  d.rating!.toStringAsFixed(1),
+                                  d.averageRating!.toStringAsFixed(1),
                                   style: AppText.sans(13, weight: FontWeight.w700, color: AppColors.sand900),
                                 ),
-                                if (d.reviewCount != null)
+                                if (d.reviewCount > 0)
                                   Text(
-                                    ' (${thousands(d.reviewCount!)} ${s.reviewsWord})',
+                                    ' (${s.reviewCountText(d.reviewCount)})',
                                     style: AppText.sans(12.5, color: AppColors.sand500),
                                   ),
-                              ] else
-                                Text(d.category, style: AppText.sans(12.5, color: AppColors.sand500)),
-                            ],
-                          ),
-                          const SizedBox(height: 5),
-                          Row(
-                            children: [
-                              const Icon(Icons.place_outlined, size: 14, color: AppColors.brand600),
-                              const SizedBox(width: 4),
-                              Expanded(
-                                child: Text(
-                                  d.province,
-                                  style: AppText.sans(12.5, color: AppColors.sand600),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
+                              ] else if (d.categoryNames.isNotEmpty)
+                                Expanded(
+                                  child: Text(
+                                    d.categoryNames.join(' · '),
+                                    style: AppText.sans(12.5, color: AppColors.sand500),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
                                 ),
-                              ),
                             ],
                           ),
+                          if ((d.provinceName ?? '').isNotEmpty) ...[
+                            const SizedBox(height: 5),
+                            Row(
+                              children: [
+                                const Icon(Icons.place_outlined, size: 14, color: AppColors.brand600),
+                                const SizedBox(width: 4),
+                                Expanded(
+                                  child: Text(
+                                    d.provinceName!,
+                                    style: AppText.sans(12.5, color: AppColors.sand600),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ],
                       ),
                     ),
@@ -882,7 +1108,7 @@ class _SelectedCard extends StatelessWidget {
                   Column(
                     children: [
                       IconButton(onPressed: onClose, icon: const Icon(Icons.close_rounded, size: 20)),
-                      SaveButton(kind: SavedKind.destination, itemKey: d.key, onImage: false),
+                      SaveButton(kind: SavedKind.of(d.type), itemKey: d.id, onImage: false),
                     ],
                   ),
                 ],
@@ -902,7 +1128,7 @@ class _SelectedCard extends StatelessWidget {
                   elevation: 6,
                   shadowColor: const Color(0x331C1935),
                 ),
-                onPressed: () => context.push(Routes.review(d.region, d.slug)),
+                onPressed: () => writeReviewFor(context, d.type, d.id),
                 icon: const Icon(Icons.rate_review_outlined, size: 18),
                 label: FittedBox(child: Text(s.writeReview)),
               ),
@@ -916,11 +1142,11 @@ class _SelectedCard extends StatelessWidget {
                   elevation: 6,
                   shadowColor: const Color(0x331C1935),
                 ),
-                // Hands the walk or drive over to the maps app.
-                onPressed: () => launchUrl(
-                  Uri.parse('https://www.google.com/maps/dir/?api=1&destination=${d.lat},${d.lng}'),
-                  mode: LaunchMode.externalApplication,
-                ),
+                // The route itself is the device's maps app, from where the
+                // traveller is to the pin.
+                onPressed: d.latitude == null || d.longitude == null
+                    ? null
+                    : () => openDirections(d.latitude!, d.longitude!),
                 icon: const Icon(Icons.navigation_rounded, size: 18),
                 label: FittedBox(child: Text(s.showRoute)),
               ),

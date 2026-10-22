@@ -1,0 +1,56 @@
+[
+ {
+  "id": "6cd2c24d-a1c1-4bbe-9833-31d30e763ee6",
+  "name": "Angkor Wat",
+  "slug": "angkor-wat",
+  "provinceId": "97fca9bd-d44b-459e-994a-ad8437de81a5",
+  "shortDescription": "The world's largest religious monument and Cambodia's national symbol.",
+  "latitude": 13.4125,
+  "longitude": 103.867,
+  "address": "Angkor Wat, Siem Reap",
+  "coverUrl": "/api/v1/media/files/general/00000000-0000-0000-0000-000000000000/angkor-wat.jpg",
+  "categoryIds": [
+   "b89409d1-29d6-4eb5-b573-3305cdab008e",
+   "5518fb01-35f0-408c-850a-22b9db4c82a2"
+  ],
+  "interestIds": [
+   "1c6a8452-1344-4d4e-a071-ceb684824181"
+  ]
+ },
+ {
+  "id": "0dded266-36c3-4a70-a057-32d45a2c5405",
+  "name": "Bayon Temple",
+  "slug": "bayon-temple",
+  "provinceId": "97fca9bd-d44b-459e-994a-ad8437de81a5",
+  "shortDescription": "Two hundred serene stone faces at the exact center of Angkor Thom.",
+  "latitude": 13.4413,
+  "longitude": 103.859,
+  "address": "Angkor Thom, Siem Reap",
+  "coverUrl": "/api/v1/media/files/general/00000000-0000-0000-0000-000000000000/bayon-temple.jpg",
+  "categoryIds": [
+   "b89409d1-29d6-4eb5-b573-3305cdab008e",
+   "5518fb01-35f0-408c-850a-22b9db4c82a2"
+  ],
+  "interestIds": [
+   "1c6a8452-1344-4d4e-a071-ceb684824181"
+  ]
+ },
+ {
+  "id": "500eb6f0-2f17-49ce-a10e-6174d200df57",
+  "name": "Ta Prohm",
+  "slug": "ta-prohm",
+  "provinceId": "97fca9bd-d44b-459e-994a-ad8437de81a5",
+  "shortDescription": "A monastery left in the grip of silk-cotton roots, deliberately unrestored.",
+  "latitude": 13.4348,
+  "longitude": 103.8891,
+  "address": "Ta Prohm, Angkor Archaeological Park, Siem Reap",
+  "coverUrl": "/api/v1/media/files/general/00000000-0000-0000-0000-000000000000/ta-prohm.jpg",
+  "categoryIds": [
+   "b89409d1-29d6-4eb5-b573-3305cdab008e",
+   "2079d2ad-e917-4951-8efd-abb388b4b320"
+  ],
+  "interestIds": [
+   "1c6a8452-1344-4d4e-a071-ceb684824181"
+  ]
+ }
+]

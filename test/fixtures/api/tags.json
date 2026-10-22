@@ -1,0 +1,56 @@
+[
+ {
+  "id": "443cdfc8-a9b8-4fdc-8a8c-e54cf04e8379",
+  "name": "Architecture Style",
+  "slug": "architecture-style",
+  "description": null,
+  "isActive": true,
+  "createdBy": null,
+  "createdAt": "2026-10-13T08:39:40.468958Z"
+ },
+ {
+  "id": "1b375bda-dd08-4b6d-bc67-f70bc72ed3f1",
+  "name": "Century",
+  "slug": "century",
+  "description": null,
+  "isActive": true,
+  "createdBy": null,
+  "createdAt": "2026-10-13T08:39:40.474374Z"
+ },
+ {
+  "id": "52007b3e-6a94-4db8-a22d-53c5aee02941",
+  "name": "Historical Period",
+  "slug": "historical-period",
+  "description": null,
+  "isActive": true,
+  "createdBy": null,
+  "createdAt": "2026-10-13T08:39:40.490225Z"
+ },
+ {
+  "id": "df223b5a-420c-40ad-8456-4b965e441267",
+  "name": "King",
+  "slug": "king",
+  "description": null,
+  "isActive": true,
+  "createdBy": null,
+  "createdAt": "2026-10-13T08:39:40.496311Z"
+ },
+ {
+  "id": "2c709e75-02f0-4516-ad95-3c7ffb5b9b1d",
+  "name": "Religion",
+  "slug": "religion",
+  "description": null,
+  "isActive": true,
+  "createdBy": null,
+  "createdAt": "2026-10-13T08:39:40.538272Z"
+ },
+ {
+  "id": "aab060f1-ce03-41a0-8b1e-2c406321931e",
+  "name": "UNESCO",
+  "slug": "unesco",
+  "description": null,
+  "isActive": true,
+  "createdBy": null,
+  "createdAt": "2026-10-13T08:39:40.545933Z"
+ }
+]

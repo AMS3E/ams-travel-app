@@ -1,0 +1,39 @@
+{
+  "id": "56c67829-d5c8-427f-b599-0f1d63af2ee4",
+  "name": "Ancient Capitals & Khmer Civilization",
+  "code": "ANCIENT-CAPITALS",
+  "kind": "TOURISM",
+  "parentId": null,
+  "description": "<p>The royal capitals of the <strong>Khmer empire</strong> and what they left behind.</p><ul><li>Temple cities</li><li>Roads &amp; bridges</li></ul>",
+  "coverKey": null,
+  "coverUrl": null,
+  "categoryIds": [
+    "5518fb01-35f0-408c-850a-22b9db4c82a2",
+    "b89409d1-29d6-4eb5-b573-3305cdab008e",
+    "2079d2ad-e917-4951-8efd-abb388b4b320",
+    "7f6ad7aa-a452-4669-9a43-6a6dfe1455d3",
+    "a0a16789-973d-4cdd-ae1e-e4d0a1badbda",
+    "b420f464-68d3-42ed-8490-f04d0b951e2e",
+    "fc282e5f-4395-4bc5-801e-1a3df835c1f3"
+  ],
+  "tagIds": [
+    "1b375bda-dd08-4b6d-bc67-f70bc72ed3f1",
+    "df223b5a-420c-40ad-8456-4b965e441267",
+    "443cdfc8-a9b8-4fdc-8a8c-e54cf04e8379",
+    "aab060f1-ce03-41a0-8b1e-2c406321931e",
+    "2c709e75-02f0-4516-ad95-3c7ffb5b9b1d",
+    "52007b3e-6a94-4db8-a22d-53c5aee02941"
+  ],
+  "interestIds": [
+    "946c76e0-29ed-4eca-82b6-1c1e7fb0793b",
+    "1c6a8452-1344-4d4e-a071-ceb684824181",
+    "20eac571-fdae-4a13-bfbd-1d4d6aee570a",
+    "438a7d3e-e703-4611-9edd-37cf11f07622"
+  ],
+  "isActive": true,
+  "sortOrder": 0,
+  "createdAt": "2026-10-13T08:39:40.558913Z",
+  "mapKey": "general/00000000-0000-0000-0000-000000000000/ancient-capitals-map.jpg",
+  "mapUrl": "/api/v1/media/files/general/00000000-0000-0000-0000-000000000000/ancient-capitals-map.jpg",
+  "amsRecommended": true
+}

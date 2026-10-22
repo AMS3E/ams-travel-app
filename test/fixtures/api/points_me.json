@@ -1,0 +1,32 @@
+{
+ "content": [
+  {
+   "id": "p1",
+   "targetType": "DESTINATION",
+   "targetId": "6cd2c24d-a1c1-4bbe-9833-31d30e763ee6",
+   "sourceType": "REVIEW",
+   "sourceId": "9a1b2c3d-4e5f-4a6b-8c7d-0e1f2a3b4c5d",
+   "seasonId": "0fc0a28b-56a9-48ee-83e7-5dfea45a95cd",
+   "points": 10,
+   "rewardDate": "2026-10-12",
+   "createdAt": "2026-10-12T09:00:00Z"
+  },
+  {
+   "id": "p2",
+   "targetType": "DESTINATION",
+   "targetId": "6cd2c24d-a1c1-4bbe-9833-31d30e763ee6",
+   "sourceType": "RATING",
+   "sourceId": "9a1b2c3d-4e5f-4a6b-8c7d-0e1f2a3b4c5d",
+   "seasonId": "0fc0a28b-56a9-48ee-83e7-5dfea45a95cd",
+   "points": 2,
+   "rewardDate": "2026-10-12",
+   "createdAt": "2026-10-12T09:00:00Z"
+  }
+ ],
+ "page": {
+  "size": 50,
+  "number": 0,
+  "totalElements": 2,
+  "totalPages": 1
+ }
+}

@@ -67,13 +67,13 @@ class _Row extends StatelessWidget {
         borderRadius: BorderRadius.circular(AppTheme.radius),
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-          decoration: BoxDecoration(
-            color: AppColors.sand100,
-            borderRadius: BorderRadius.circular(AppTheme.radius),
-          ),
+          decoration: BoxDecoration(color: AppColors.sand100, borderRadius: BorderRadius.circular(AppTheme.radius)),
           child: Row(
             children: [
-              Text(label, style: AppText.sans(15, weight: FontWeight.w600, color: AppColors.sand900)),
+              Text(
+                label,
+                style: AppText.sans(15, weight: FontWeight.w600, color: AppColors.sand900),
+              ),
               const Spacer(),
               Text(value, style: AppText.sans(14, color: AppColors.sand500)),
               const SizedBox(width: 6),

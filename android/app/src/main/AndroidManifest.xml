@@ -1,16 +1,24 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
     <!-- Images, map tiles and (later) the API all need the network. -->
     <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- Check-in ("I'm here") and Explore by Nearby use the device position. -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <!-- Check-in scans the QR code posted at the place. -->
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
         android:label="AMS Travel"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <!-- No android:taskAffinity="" here: it puts AppAuth's sign-in activity
+             in another task, and on real phones the Keycloak tab then closes
+             at once as "user cancelled" (flutter_appauth issue #503). -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:launchMode="singleTop"
-            android:taskAffinity=""
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
@@ -35,6 +43,20 @@
                 <data android:scheme="amstravel" android:host="app"/>
             </intent-filter>
         </activity>
+        <!-- Keycloak sign-in returns to amstravel://callback. AppAuth's receiver
+             is narrowed to that host so amstravel://app deep links still open
+             the app directly. -->
+        <activity
+            android:name="net.openid.appauth.RedirectUriReceiverActivity"
+            android:exported="true"
+            tools:node="replace">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="amstravel" android:host="callback"/>
+            </intent-filter>
+        </activity>
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data
@@ -55,6 +77,10 @@
         <intent>
             <action android:name="android.intent.action.VIEW"/>
             <data android:scheme="https"/>
+        </intent>
+        <!-- AppAuth opens Keycloak's pages in a browser custom tab. -->
+        <intent>
+            <action android:name="android.support.customtabs.action.CustomTabsService"/>
         </intent>
         <intent>
             <action android:name="android.intent.action.DIAL"/>

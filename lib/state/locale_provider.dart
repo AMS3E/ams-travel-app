@@ -1,6 +1,9 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// The language of the app's own text: English or Khmer. A guest keeps it on
+/// the phone; signed in, the shell applies the account's
+/// `preferredLanguage` here and the Language page saves a change to it.
 class LocaleProvider extends ChangeNotifier {
   LocaleProvider(this._prefs) : _isKhmer = _prefs.getBool(_key) ?? false;
 
@@ -10,6 +13,9 @@ class LocaleProvider extends ChangeNotifier {
 
   bool get isKhmer => _isKhmer;
 
+  /// As `preferredLanguage` spells it: "en" or "km".
+  String get code => _isKhmer ? 'km' : 'en';
+
   void setKhmer(bool value) {
     if (value == _isKhmer) return;
     _isKhmer = value;
@@ -17,6 +23,13 @@ class LocaleProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// Picks the Khmer variant of a content field when Khmer is on and one exists.
-  String pick(String en, String? kh) => _isKhmer && kh != null && kh.isNotEmpty ? kh : en;
+  /// Applies a `preferredLanguage` from the account; ignores anything else.
+  void applyCode(String? code) {
+    switch (code?.toLowerCase()) {
+      case 'km':
+        setKhmer(true);
+      case 'en':
+        setKhmer(false);
+    }
+  }
 }

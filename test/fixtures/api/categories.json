@@ -1,0 +1,79 @@
+[
+ {
+  "id": "5518fb01-35f0-408c-850a-22b9db4c82a2",
+  "name": "Ancient Cities",
+  "slug": "ancient-cities",
+  "description": null,
+  "iconKey": null,
+  "sortOrder": 1,
+  "isActive": true,
+  "createdBy": null,
+  "createdAt": "2026-10-13T08:39:40.162476Z"
+ },
+ {
+  "id": "b89409d1-29d6-4eb5-b573-3305cdab008e",
+  "name": "Temples",
+  "slug": "temples",
+  "description": null,
+  "iconKey": null,
+  "sortOrder": 2,
+  "isActive": true,
+  "createdBy": null,
+  "createdAt": "2026-10-13T08:39:40.290615Z"
+ },
+ {
+  "id": "2079d2ad-e917-4951-8efd-abb388b4b320",
+  "name": "Archaeological Sites",
+  "slug": "archaeological-sites",
+  "description": null,
+  "iconKey": null,
+  "sortOrder": 3,
+  "isActive": true,
+  "createdBy": null,
+  "createdAt": "2026-10-13T08:39:40.300316Z"
+ },
+ {
+  "id": "7f6ad7aa-a452-4669-9a43-6a6dfe1455d3",
+  "name": "Ancient Roads",
+  "slug": "ancient-roads",
+  "description": null,
+  "iconKey": null,
+  "sortOrder": 4,
+  "isActive": true,
+  "createdBy": null,
+  "createdAt": "2026-10-13T08:39:40.305785Z"
+ },
+ {
+  "id": "a0a16789-973d-4cdd-ae1e-e4d0a1badbda",
+  "name": "Bridges",
+  "slug": "bridges",
+  "description": null,
+  "iconKey": null,
+  "sortOrder": 5,
+  "isActive": true,
+  "createdBy": null,
+  "createdAt": "2026-10-13T08:39:40.310776Z"
+ },
+ {
+  "id": "b420f464-68d3-42ed-8490-f04d0b951e2e",
+  "name": "Hospitals",
+  "slug": "hospitals",
+  "description": null,
+  "iconKey": null,
+  "sortOrder": 6,
+  "isActive": true,
+  "createdBy": null,
+  "createdAt": "2026-10-13T08:39:40.318825Z"
+ },
+ {
+  "id": "fc282e5f-4395-4bc5-801e-1a3df835c1f3",
+  "name": "Museums",
+  "slug": "museums",
+  "description": null,
+  "iconKey": null,
+  "sortOrder": 7,
+  "isActive": true,
+  "createdBy": null,
+  "createdAt": "2026-10-13T08:39:40.322116Z"
+ }
+]

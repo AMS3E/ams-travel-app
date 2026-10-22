@@ -1,0 +1,71 @@
+[
+ {
+  "id": "105c742e-87c5-4bcb-a7d7-9187581fd3fd",
+  "regionId": "1b9e82ca-9cf3-493e-a7c0-708fc9095fdd",
+  "name": "Banteay Meanchey",
+  "slug": "banteay-meanchey",
+  "countryCode": "KH",
+  "isActive": true,
+  "coverKey": null,
+  "coverUrl": null,
+  "latitude": 13.5859,
+  "longitude": 102.9737,
+  "bounds": {
+   "north": 14.0333,
+   "south": 14.0333,
+   "east": 103.0833,
+   "west": 103.0833
+  },
+  "placeCount": 1,
+  "averageRating": null,
+  "reviewCount": 0,
+  "createdBy": null,
+  "createdAt": "2026-10-13T08:39:40.589721Z"
+ },
+ {
+  "id": "8f0f4fed-2ccc-458d-9391-972f5870deca",
+  "regionId": "1b9e82ca-9cf3-493e-a7c0-708fc9095fdd",
+  "name": "Battambang",
+  "slug": "battambang",
+  "countryCode": "KH",
+  "isActive": true,
+  "coverKey": null,
+  "coverUrl": null,
+  "latitude": 13.0957,
+  "longitude": 103.2022,
+  "bounds": {
+   "north": 13.2167,
+   "south": 13.0417,
+   "east": 103.6333,
+   "west": 103.1264
+  },
+  "placeCount": 4,
+  "averageRating": null,
+  "reviewCount": 0,
+  "createdBy": null,
+  "createdAt": "2026-10-13T08:39:40.595626Z"
+ },
+ {
+  "id": "f367d039-dc10-4c8a-a16a-5ea902afa5be",
+  "regionId": "f0b8380f-32a2-4bda-a9e0-0a96ee41e929",
+  "name": "Kampong Cham",
+  "slug": "kampong-cham",
+  "countryCode": "KH",
+  "isActive": true,
+  "coverKey": null,
+  "coverUrl": null,
+  "latitude": 11.9934,
+  "longitude": 105.4635,
+  "bounds": {
+   "north": 11.9925,
+   "south": 11.9925,
+   "east": 105.4638,
+   "west": 105.4638
+  },
+  "placeCount": 1,
+  "averageRating": null,
+  "reviewCount": 0,
+  "createdBy": null,
+  "createdAt": "2026-10-13T08:39:40.597874Z"
+ }
+]

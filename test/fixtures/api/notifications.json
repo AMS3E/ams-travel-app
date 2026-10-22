@@ -1,0 +1,22 @@
+[
+ {
+  "id": "5d1e2f3a-4b5c-4d6e-8f70-1a2b3c4d5e6f",
+  "title": "You earned Silver Explorer",
+  "body": "30 points this season. Keep rating places!",
+  "type": "BADGE_EARNED",
+  "data": {
+   "badgeCode": "POINTS_SILVER"
+  },
+  "isRead": false,
+  "createdAt": "2026-10-14T01:00:00Z"
+ },
+ {
+  "id": "6e2f3a4b-5c6d-4e7f-9a81-2b3c4d5e6f70",
+  "title": "Your review is published",
+  "body": "Sunrise worth the alarm is now visible on Angkor Wat.",
+  "type": "PUBLISH_APPROVED",
+  "data": {},
+  "isRead": true,
+  "createdAt": "2026-10-12T10:00:00Z"
+ }
+]

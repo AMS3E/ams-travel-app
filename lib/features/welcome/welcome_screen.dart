@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/l10n/app_strings.dart';
+import '../auth/sign_in.dart' as auth;
 import '../../core/router/routes.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_theme.dart';
@@ -60,19 +61,17 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     super.dispose();
   }
 
-  /// Ends onboarding on Home. With [register], the sign-up page opens on top,
-  /// so closing it lands on Home.
+  /// Ends onboarding on Home. With [register], Keycloak's registration page
+  /// opens over it, so closing that page lands on Home as a guest.
   void _finish({bool register = false}) {
     context.read<SharedPreferences>().setBool(WelcomeScreen.seenKey, true);
-    context.go(Routes.home);
-    if (register) context.push(Routes.register);
+    final router = GoRouter.of(context);
+    if (register) auth.register(context);
+    router.go(Routes.home);
   }
 
-  void _toPage(int page) => _controller.animateToPage(
-    page,
-    duration: const Duration(milliseconds: 350),
-    curve: Curves.easeOut,
-  );
+  void _toPage(int page) =>
+      _controller.animateToPage(page, duration: const Duration(milliseconds: 350), curve: Curves.easeOut);
 
   @override
   Widget build(BuildContext context) {
@@ -128,12 +127,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 padding: const EdgeInsets.fromLTRB(24, 10, 20, 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    _LanguageButton(
-                      isKhmer: locale.isKhmer,
-                      onSelected: (km) => locale.setKhmer(km),
-                    ),
-                  ],
+                  children: [_LanguageButton(isKhmer: locale.isKhmer, onSelected: (km) => locale.setKhmer(km))],
                 ),
               ),
             ),
@@ -156,9 +150,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             width: i == _page ? 11 : 9,
                             height: i == _page ? 11 : 9,
                             decoration: BoxDecoration(
-                              color: i == _page
-                                  ? AppColors.violet
-                                  : Colors.white.withValues(alpha: 0.3),
+                              color: i == _page ? AppColors.violet : Colors.white.withValues(alpha: 0.3),
                               borderRadius: BorderRadius.circular(99),
                             ),
                           ),
@@ -231,13 +223,7 @@ class _SlideView extends StatelessWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               stops: [0, 0.3, 0.55, 0.78, 1],
-              colors: [
-                Color(0x660B1552),
-                Color(0x140B1552),
-                Color(0xB30B1552),
-                _ink,
-                _inkDeep,
-              ],
+              colors: [Color(0x660B1552), Color(0x140B1552), Color(0xB30B1552), _ink, _inkDeep],
             ),
           ),
         ),
@@ -252,10 +238,7 @@ class _SlideView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 14,
-                      vertical: 7,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(99),
                       border: Border.all(color: _gold.withValues(alpha: 0.8)),
@@ -285,21 +268,11 @@ class _SlideView extends StatelessWidget {
                       children: [
                         Text(
                           slide.titleA,
-                          style: AppText.sans(
-                            34,
-                            weight: FontWeight.w800,
-                            color: Colors.white,
-                            height: 1.18,
-                          ),
+                          style: AppText.sans(34, weight: FontWeight.w800, color: Colors.white, height: 1.18),
                         ),
                         Text(
                           slide.titleB,
-                          style: AppText.sans(
-                            34,
-                            weight: FontWeight.w800,
-                            color: Colors.white,
-                            height: 1.18,
-                          ),
+                          style: AppText.sans(34, weight: FontWeight.w800, color: Colors.white, height: 1.18),
                         ),
                       ],
                     ),
@@ -314,9 +287,7 @@ class _SlideView extends StatelessWidget {
                             text: part,
                             style: AppText.sans(
                               15.5,
-                              color: i.isOdd
-                                  ? _gold
-                                  : Colors.white.withValues(alpha: 0.9),
+                              color: i.isOdd ? _gold : Colors.white.withValues(alpha: 0.9),
                               height: 1.55,
                             ),
                           ),
@@ -385,17 +356,9 @@ class _LanguageButton extends StatelessWidget {
             const SizedBox(width: 6),
             Text(
               isKhmer ? 'ខ្មែរ' : 'EN',
-              style: AppText.sans(
-                14,
-                weight: FontWeight.w700,
-                color: Colors.white,
-              ),
+              style: AppText.sans(14, weight: FontWeight.w700, color: Colors.white),
             ),
-            const Icon(
-              Icons.expand_more_rounded,
-              size: 18,
-              color: Colors.white,
-            ),
+            const Icon(Icons.expand_more_rounded, size: 18, color: Colors.white),
           ],
         ),
       ),

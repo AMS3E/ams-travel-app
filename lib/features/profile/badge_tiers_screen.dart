@@ -6,93 +6,91 @@ import '../../core/l10n/app_strings.dart';
 import '../../core/router/routes.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_theme.dart';
-import '../../data/models/models.dart';
-import '../../data/repositories/travel_repository.dart';
+import '../../data/api/ams_api.dart';
 import '../../state/auth_provider.dart';
-import '../../state/collections_provider.dart';
+import '../../widgets/async_view.dart';
+import '../../widgets/common.dart';
 import 'badges_screen.dart';
 
-/// The tiers of one badge, highest first. A tier only opens once the one
-/// below it is complete.
+/// The levels of one track ([badgeKey] is its type, such as BROWSES),
+/// highest first, each with the threshold from `GET /badges`. A level opens
+/// once the one below it is earned.
 class BadgeTiersScreen extends StatelessWidget {
   const BadgeTiersScreen({super.key, required this.badgeKey});
   final String badgeKey;
 
-  /// Bronze is where everyone starts, so the ladder itself is these three.
-  static const ladder = [Tier.platinum, Tier.gold, Tier.silver];
-
   @override
   Widget build(BuildContext context) {
     final s = S.of(context);
-    final browsed = context.watch<BrowseCounter>().count;
-    final stamps = context.watch<StampsProvider>();
-    final author = context.select<AuthProvider, String?>((a) => a.user?.username);
+    final signedIn = context.select<AuthProvider, bool>((a) => a.isSignedIn);
 
     return Scaffold(
       appBar: AppBar(title: Text(s.badges, style: AppText.display(20)), centerTitle: true),
-      body: FutureBuilder<List<Review>>(
-        future: author == null
-            ? Future.value(const <Review>[])
-            : context.read<TravelRepository>().getMyReviews(author),
-        builder: (context, snap) {
-          final badges = buildBadges(
-            s,
-            browsed: browsed,
-            reviews: snap.data?.length ?? 0,
-            stamps: stamps.count,
-          );
-          final badge = badges.firstWhere((b) => b.key == badgeKey, orElse: () => badges.first);
+      body: !signedIn
+          ? const BadgesSignIn()
+          : AsyncView<BadgeBoard>(
+              load: () => BadgeBoard.load(context.read<AmsApi>()),
+              builder: (context, board, _) {
+                final defs = board.byType[badgeKey];
+                if (defs == null || defs.isEmpty) {
+                  return EmptyState(icon: Icons.workspace_premium_outlined, title: s.badges, body: s.noResults);
+                }
+                final track = board.track(badgeKey);
+                final name = trackLabel(s, badgeKey, fallback: board.nameOf(badgeKey));
+                final ladder = defs.reversed.toList();
 
-          return ListView(
-            padding: EdgeInsets.fromLTRB(20, 14, 20, 28 + MediaQuery.paddingOf(context).bottom),
-            children: [
-              Text(badge.name, style: AppText.display(20)),
-              const SizedBox(height: 4),
-              Text(badge.blurb, style: AppText.sans(13, color: AppColors.sand500)),
-              const SizedBox(height: 16),
-              for (final tier in ladder) ...[
-                _TierCard(badge: badge, tier: tier),
-                const SizedBox(height: 12),
-              ],
-              const SizedBox(height: 4),
-              Container(
-                padding: const EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  color: AppColors.sand100,
-                  borderRadius: BorderRadius.circular(14),
-                ),
-                child: Text(badge.note, style: AppText.sans(13, color: AppColors.sand600, height: 1.45)),
-              ),
-            ],
-          );
-        },
-      ),
+                return ListView(
+                  padding: EdgeInsets.fromLTRB(20, 14, 20, bottomInset(context)),
+                  children: [
+                    Row(
+                      children: [
+                        Icon(trackIcon(badgeKey), color: AppColors.violet),
+                        const SizedBox(width: 8),
+                        Expanded(child: Text(name, style: AppText.display(20))),
+                      ],
+                    ),
+                    if (board.season != null) ...[const SizedBox(height: 6), SeasonLine(season: board.season!)],
+                    const SizedBox(height: 16),
+                    for (var i = 0; i < ladder.length; i++) ...[
+                      _TierCard(
+                        definition: ladder[i],
+                        below: i + 1 < ladder.length ? ladder[i + 1] : null,
+                        board: board,
+                        count: track.count,
+                      ),
+                      const SizedBox(height: 12),
+                    ],
+                  ],
+                );
+              },
+            ),
     );
   }
 }
 
-/// One rung of the ladder: what it asks for, whether it is open yet, and how
-/// far along it is.
+/// One level: what it asks for, whether it is open yet, and how far along.
 class _TierCard extends StatelessWidget {
-  const _TierCard({required this.badge, required this.tier});
-  final TravelBadge badge;
-  final Tier tier;
+  const _TierCard({required this.definition, required this.below, required this.board, required this.count});
+  final BadgeDefinition definition;
 
-  /// The tier below this one, which has to be finished first.
-  Tier get _below => Tier.values[tier.index - 1];
+  /// The level under this one, which has to be earned first; null for the first.
+  final BadgeDefinition? below;
+  final BadgeBoard board;
+  final int count;
 
   @override
   Widget build(BuildContext context) {
     final s = S.of(context);
-    final target = badge.stepFor(tier);
-    final earned = badge.count >= target;
-    // Silver opens from the start; the rest wait for the tier below.
-    final open = tier == Tier.silver || badge.count >= badge.stepFor(_below);
-    final progress = (badge.count / target).clamp(0, 1).toDouble();
+    final d = definition;
+    final target = d.threshold;
+    // Earned is the API's word (`earnedAt`), not a count compared here.
+    final earned = board.earned(d);
+    final open = below == null || board.earned(below!);
+    final progress = progressTo(count, target);
 
     return InkWell(
       borderRadius: BorderRadius.circular(16),
-      onTap: earned ? () => context.push(Routes.achievement(badge.key)) : null,
+      onTap: earned ? () => context.push(Routes.achievement(d.code)) : null,
       child: Container(
         padding: const EdgeInsets.fromLTRB(14, 12, 14, 14),
         decoration: BoxDecoration(
@@ -105,14 +103,14 @@ class _TierCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                BadgeMedal(tier: tier, size: 40, muted: !open),
+                BadgeMedal(level: d.level, size: 40, muted: !open),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        tier.label(s),
+                        d.level == null ? d.name : levelLabel(s, d.level),
                         style: AppText.sans(
                           15,
                           weight: FontWeight.w700,
@@ -122,8 +120,8 @@ class _TierCard extends StatelessWidget {
                       const SizedBox(height: 2),
                       Text(
                         open
-                            ? '>$target ${badge.shortUnit} ${s.requiredWord}'
-                            : s.completeFirst.replaceFirst('{tier}', _below.label(s)),
+                            ? '$target ${trackUnit(s, d.type)} ${s.requiredWord}'
+                            : s.completeFirst.replaceFirst('{tier}', levelLabel(s, below!.level)),
                         style: AppText.sans(12, color: AppColors.sand500),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -139,6 +137,10 @@ class _TierCard extends StatelessWidget {
                   const Icon(Icons.lock_outline_rounded, size: 22, color: AppColors.sand300),
               ],
             ),
+            if (d.description != null && d.description!.isNotEmpty) ...[
+              const SizedBox(height: 10),
+              Text(d.description!, style: AppText.sans(12.5, color: AppColors.sand600, height: 1.4)),
+            ],
             const SizedBox(height: 12),
             Text(s.progressLabel, style: AppText.sans(11.5, color: AppColors.sand500)),
             const SizedBox(height: 6),
@@ -157,7 +159,7 @@ class _TierCard extends StatelessWidget {
                 ),
                 const SizedBox(width: 10),
                 Text(
-                  '${badge.count.clamp(0, target)} / $target',
+                  '${count.clamp(0, target)} / $target',
                   style: AppText.sans(11.5, weight: FontWeight.w600, color: AppColors.sand600),
                 ),
               ],

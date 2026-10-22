@@ -1,0 +1,19 @@
+{
+ "id": "9a1b2c3d-4e5f-4a6b-8c7d-0e1f2a3b4c5d",
+ "userId": "0b8c1f3e-2a4d-4c6b-9e1f-7a5d3c2b1a00",
+ "authorName": "Dara Chan",
+ "authorAvatarUrl": null,
+ "targetType": "DESTINATION",
+ "targetId": "6cd2c24d-a1c1-4bbe-9833-31d30e763ee6",
+ "rating": 4,
+ "title": "Sunrise worth the alarm",
+ "content": "Get there by five; the reflection pool fills up fast.",
+ "visitType": "COUPLES",
+ "visitedOn": "2026-08",
+ "status": "PUBLISHED",
+ "moderationNote": null,
+ "moderatedAt": null,
+ "photos": [],
+ "createdAt": "2026-10-12T09:00:00Z",
+ "updatedAt": "2026-10-12T09:00:00Z"
+}

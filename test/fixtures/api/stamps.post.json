@@ -1,0 +1,28 @@
+{
+  "id": "aa11bb22-cc33-4d44-8e55-ff6677889902",
+  "targetType": "FOOD",
+  "destinationId": "8d2f3e4a-5b6c-4d7e-9f0a-1b2c3d4e5f61",
+  "collectedAt": "2026-10-21T08:00:00Z",
+  "source": "QR",
+  "outcome": "COLLECTED",
+  "distanceMeters": 38,
+  "radiusMeters": 200,
+  "badgesEarned": [
+    {
+      "id": "e0e0e0e0-0000-4000-8000-000000000003",
+      "badgeId": "eca2d8f8-83ea-4771-a398-e60b84af99f5",
+      "code": "ADVENTURE_SILVER",
+      "name": "Silver Adventurer",
+      "iconKey": "stamp",
+      "type": "STAMPS",
+      "level": "SILVER",
+      "progress": 50,
+      "threshold": 50,
+      "seasonId": "0fc0a28b-56a9-48ee-83e7-5dfea45a95cd",
+      "seasonName": "Green season 2026",
+      "holderName": "Dara Chan",
+      "earnedAt": "2026-10-21T08:00:00Z",
+      "shareUrl": null
+    }
+  ]
+}

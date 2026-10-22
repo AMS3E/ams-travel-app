@@ -6,176 +6,138 @@ import '../../core/l10n/app_strings.dart';
 import '../../core/router/routes.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_theme.dart';
-import '../../data/models/models.dart';
-import '../../data/repositories/travel_repository.dart';
+import '../../core/utils/geo.dart';
+import '../../data/api/ams_api.dart';
 import '../../widgets/async_view.dart';
 import '../../widgets/common.dart';
 import '../../widgets/destination_card.dart';
 import '../../widgets/detail_scaffold.dart';
 import '../../widgets/map_view.dart';
 
+/// One province: where its places are, and the first of them
+/// (`GET /provinces`, `GET /search?provinceId=&size=100`).
 class ProvinceScreen extends StatelessWidget {
-  const ProvinceScreen({super.key, required this.slug});
-  final String slug;
+  const ProvinceScreen({super.key, required this.id});
+  final String id;
 
   @override
   Widget build(BuildContext context) {
-    final repo = context.read<TravelRepository>();
-    return AsyncView<(Province, List<Destination>, List<Region>)>(
-      load: () => (repo.getProvince(slug), repo.getDestinations(province: slug), repo.getRegions()).wait,
+    final api = context.read<AmsApi>();
+    return AsyncView<(CatalogProvince, PageOf<PlaceCard>)>(
+      load: () => (api.province(id), api.search(provinceId: id, size: 100)).wait,
       loading: const Scaffold(body: LoadingView()),
-      builder: (context, data, _) => _ProvinceView(province: data.$1, destinations: data.$2, regions: data.$3),
+      builder: (context, data, _) => _ProvinceView(province: data.$1, places: data.$2),
     );
   }
 }
 
 class _ProvinceView extends StatelessWidget {
-  const _ProvinceView({required this.province, required this.destinations, required this.regions});
-  final Province province;
-  final List<Destination> destinations;
-  final List<Region> regions;
+  const _ProvinceView({required this.province, required this.places});
+  final CatalogProvince province;
+  final PageOf<PlaceCard> places;
 
   @override
   Widget build(BuildContext context) {
     final s = S.of(context);
-    final (title, subtitle) = bilingual(context, province.name, province.nameKh);
-
-    // Group by region, in the regions' own order.
-    final byRegion = <Region, List<Destination>>{
-      for (final r in regions)
-        if (destinations.any((d) => d.region == r.slug)) r: destinations.where((d) => d.region == r.slug).toList(),
-    };
-    final categories = destinations.map((d) => d.category).toSet().length;
+    final cards = places.content;
+    final pinned = [
+      for (final c in cards)
+        if (c.hasPin) c,
+    ];
 
     return DetailScaffold(
-      title: title,
-      image: province.image,
-      expandedHeight: 400,
+      title: province.name,
+      image: province.coverUrl,
+      expandedHeight: 340,
       header: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(s.province.toUpperCase(), style: AppText.eyebrow(color: AppColors.sunset200)),
           const SizedBox(height: 10),
-          Text(title, style: AppText.display(34, color: Colors.white)),
-          if (subtitle != null) KhmerText(subtitle, color: Colors.white70, size: 15),
-          const SizedBox(height: 8),
-          Text(province.tagline, style: AppText.sans(15, color: Colors.white.withValues(alpha: 0.85))),
+          Text(province.name, style: AppText.display(34, color: Colors.white)),
           const SizedBox(height: 18),
           Row(
             children: [
-              StatBlock(value: '${destinations.length}', label: s.destinations, onDark: true),
-              const SizedBox(width: 28),
-              StatBlock(value: '${byRegion.length}', label: s.regions, onDark: true),
-              const SizedBox(width: 28),
-              StatBlock(value: '$categories', label: s.categories, onDark: true),
+              StatBlock(value: thousands(province.placeCount), label: s.places, onDark: true),
+              if (province.averageRating != null) ...[
+                const SizedBox(width: 28),
+                StatBlock(
+                  value: province.averageRating!.toStringAsFixed(1),
+                  suffix: ' ★',
+                  label: s.fill(s.reviewsCountLabel, {'n': thousands(province.reviewCount)}),
+                  onDark: true,
+                ),
+              ],
             ],
           ),
         ],
       ),
       slivers: [
-        SliverToBoxAdapter(
-          child: DetailSection(
-            title: s.onTheMap,
-            subtitle: '${destinations.length} ${s.pinnedIn} ${province.name}.',
-            child: MapPreview(
-              height: 260,
-              expandLabel: s.openFullMap,
-              onExpand: () => context.go(Routes.map),
-              child: AppMap(
-                initialCenter: LatLng(province.lat, province.lng),
-                initialZoom: 9,
-                fitToPins: destinations.length > 1,
-                pins: [
-                  for (final d in destinations)
-                    MapPin(
-                      id: d.key,
-                      point: LatLng(d.lat, d.lng),
-                      color: AppColors.forRegion(d.region),
-                      onTap: () => context.push(Routes.destination(d.region, d.slug)),
-                    ),
-                ],
+        if (pinned.isNotEmpty)
+          SliverToBoxAdapter(
+            child: DetailSection(
+              title: s.onTheMap,
+              subtitle: '${thousands(pinned.length)} ${s.pinnedIn} ${province.name}.',
+              child: MapPreview(
+                height: 260,
+                child: AppMap(
+                  fitToPins: pinned.length > 1,
+                  pins: [
+                    for (final c in pinned)
+                      MapPin(
+                        id: c.id,
+                        point: LatLng(c.latitude!, c.longitude!),
+                        color: AppColors.violet,
+                        onTap: () => context.push(Routes.card(c)),
+                      ),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-        if (destinations.isEmpty)
+        if (cards.isEmpty)
           SliverToBoxAdapter(
             child: EmptyState(
               icon: Icons.travel_explore_rounded,
               title: s.noResults,
-              body: province.tagline,
-              actionLabel: s.allNineRegions,
-              onAction: () => context.push(Routes.explore),
+              body: s.noResultsBody,
+              actionLabel: s.exploreRegions,
+              onAction: () => context.push(Routes.exploreRegions),
             ),
           )
         else ...[
           SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(20, 32, 20, 0),
-              child: SectionHeader(
-                title: '${destinations.length} ${s.destinations.toLowerCase()} · ${province.name}',
-                subtitle: s.groupedByRegion,
-                padding: EdgeInsets.zero,
+              padding: const EdgeInsets.fromLTRB(20, 32, 8, 12),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: SectionHeader(title: '${s.destinations} · ${province.name}', padding: EdgeInsets.zero),
+                  ),
+                  TextButton(onPressed: () => context.push(Routes.provincePlaces(province.id)), child: Text(s.viewAll)),
+                ],
               ),
             ),
           ),
-          for (final entry in byRegion.entries) ...[
-            SliverToBoxAdapter(
-              child: _RegionGroupHeader(region: entry.key, count: entry.value.length),
-            ),
-            SliverToBoxAdapter(
-              child: SizedBox(
-                height: 322,
-                child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  itemCount: entry.value.length,
-                  separatorBuilder: (_, _) => const SizedBox(width: 12),
-                  itemBuilder: (_, i) => Align(
-                    alignment: Alignment.topCenter,
-                    child: DestinationCard(destination: entry.value[i], width: 280),
-                  ),
+          SliverToBoxAdapter(
+            child: SizedBox(
+              height: 322,
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                itemCount: cards.length,
+                separatorBuilder: (_, _) => const SizedBox(width: 12),
+                itemBuilder: (_, i) => Align(
+                  alignment: Alignment.topCenter,
+                  child: DestinationCard(card: cards[i], width: 280),
                 ),
               ),
             ),
-          ],
+          ),
         ],
+        SliverToBoxAdapter(child: SizedBox(height: bottomInset(context))),
       ],
-    );
-  }
-}
-
-class _RegionGroupHeader extends StatelessWidget {
-  const _RegionGroupHeader({required this.region, required this.count});
-  final Region region;
-  final int count;
-
-  @override
-  Widget build(BuildContext context) {
-    final s = S.of(context);
-    final (name, _) = bilingual(context, region.name, region.nameKh);
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 24, 8, 12),
-      child: Row(
-        children: [
-          Container(
-            width: 10,
-            height: 10,
-            decoration: BoxDecoration(color: AppColors.forRegion(region.slug), shape: BoxShape.circle),
-          ),
-          const SizedBox(width: 10),
-          Expanded(
-            child: Text(
-              '$name  ($count)',
-              style: AppText.sans(15.5, weight: FontWeight.w600, color: AppColors.sand900),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-          TextButton(onPressed: () => context.push(Routes.region(region.slug)), child: Text(s.allOfRegion)),
-        ],
-      ),
     );
   }
 }

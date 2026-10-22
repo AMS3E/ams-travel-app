@@ -1,154 +1,151 @@
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../core/l10n/app_strings.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_theme.dart';
-import '../../data/models/models.dart';
+import '../../widgets/overview_card.dart';
 
-/// Ways to reach a place — one line per channel. Used by the stay page and by
-/// each of its rooms, so a guest can ask about a room without going back.
-class ContactCard extends StatelessWidget {
-  const ContactCard({super.key, required this.destination, this.price});
-  final Destination destination;
+/// The ways to reach a place, as pills: a number to ring and the page to
+/// read, and for an activity's organiser also an e-mail, Telegram, WhatsApp
+/// and Facebook. Stays, rooms, food places and activities show these; the
+/// app takes no bookings, so asking the place is the way to one.
+class ContactButtons extends StatelessWidget {
+  const ContactButtons({
+    super.key,
+    this.phone,
+    this.website,
+    this.email,
+    this.telegram,
+    this.whatsapp,
+    this.facebookUrl,
+    this.column = true,
+  });
 
-  /// Nightly rate shown above the contacts — the app does not take bookings,
-  /// so the price sits next to the ways of asking for one.
-  final String? price;
+  final String? phone;
+  final String? website;
+  final String? email;
+
+  /// A handle ("@kampicruise") or a t.me link.
+  final String? telegram;
+
+  /// A phone number.
+  final String? whatsapp;
+  final String? facebookUrl;
+
+  /// One under the other (stay pages) or side by side (food places).
+  final bool column;
+
+  static Future<void> _open(String url) => launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
 
   @override
   Widget build(BuildContext context) {
-    final s = S.of(context);
-    final d = destination;
-    Future<void> open(String url) => launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
-
-    // Every place has a page on the website, so there is always a link.
-    final website = d.website ?? 'https://ams-travel.netlify.app/regions/${d.region}/${d.slug}';
-    final telegram = d.telegram == null ? null : '@${d.telegram!.replaceAll('@', '')}';
+    final phone = this.phone?.trim() ?? '';
+    final website = this.website?.trim() ?? '';
+    final email = this.email?.trim() ?? '';
+    final telegram = this.telegram?.trim() ?? '';
+    final whatsapp = this.whatsapp?.trim() ?? '';
+    final facebook = facebookUrl?.trim() ?? '';
+    final pills = <Widget>[
+      if (phone.isNotEmpty)
+        ContactPill(
+          icon: const Icon(Icons.phone_in_talk_rounded),
+          label: phone,
+          onTap: () => _open('tel:${phone.replaceAll(' ', '')}'),
+        ),
+      if (website.isNotEmpty)
+        ContactPill(
+          icon: const Icon(Icons.public_rounded),
+          label: website.replaceFirst(_scheme, '').split('/').first,
+          onTap: () => _open(_link(website)),
+        ),
+      if (email.isNotEmpty)
+        ContactPill(icon: const Icon(Icons.mail_outline_rounded), label: email, onTap: () => _open('mailto:$email')),
+      if (telegram.isNotEmpty)
+        ContactPill(
+          icon: const FaIcon(FontAwesomeIcons.telegram),
+          label: telegram.startsWith('@') ? telegram : '@${telegram.split('/').last}',
+          onTap: () =>
+              _open(telegram.contains('t.me') ? _link(telegram) : 'https://t.me/${telegram.replaceFirst('@', '')}'),
+        ),
+      if (whatsapp.isNotEmpty)
+        ContactPill(
+          icon: const FaIcon(FontAwesomeIcons.whatsapp),
+          label: whatsapp,
+          onTap: () => _open('https://wa.me/${whatsapp.replaceAll(_notDigit, '')}'),
+        ),
+      if (facebook.isNotEmpty)
+        ContactPill(
+          icon: const FaIcon(FontAwesomeIcons.facebook),
+          label: 'Facebook',
+          onTap: () => _open(_link(facebook)),
+        ),
+    ];
+    if (pills.isEmpty) return const SizedBox.shrink();
 
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 18, 20, 0),
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(AppTheme.radius),
-          border: Border.all(color: AppColors.sand200),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(s.contact, style: AppText.display(17)),
-            if (price != null) ...[
-              const SizedBox(height: 12),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-                decoration: BoxDecoration(
-                  color: AppColors.brand50,
-                  borderRadius: BorderRadius.circular(14),
-                ),
-                child: Row(
-                  children: [
-                    Text.rich(
-                      TextSpan(
-                        children: [
-                          TextSpan(text: price, style: AppText.display(20, color: AppColors.brand700)),
-                          TextSpan(
-                            text: ' / ${s.night}',
-                            style: AppText.sans(13, color: AppColors.brand600),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 8),
-              Text(s.bookByContact, style: AppText.sans(13, color: AppColors.sand500, height: 1.45)),
-            ],
-            const SizedBox(height: 10),
-            _ContactRow(
-              icon: Icons.language_rounded,
-              label: s.website,
-              value: website.replaceFirst(RegExp('^https?://'), ''),
-              onTap: () => open(website),
-            ),
-            _ContactRow(
-              icon: Icons.call_rounded,
-              label: s.call,
-              value: d.phone,
-              onTap: d.phone == null ? null : () => open('tel:${d.phone}'),
-            ),
-            _ContactRow(
-              icon: Icons.mail_outline_rounded,
-              label: s.email,
-              value: d.email,
-              onTap: d.email == null ? null : () => open('mailto:${d.email}'),
-            ),
-            _ContactRow(
-              icon: Icons.send_rounded,
-              label: 'Telegram',
-              value: telegram,
-              onTap: telegram == null ? null : () => open('https://t.me/${telegram.substring(1)}'),
-            ),
-            _ContactRow(
-              icon: Icons.directions_rounded,
-              label: s.directions,
-              value: '${d.lat.toStringAsFixed(3)}, ${d.lng.toStringAsFixed(3)}',
-              onTap: () => open('https://www.google.com/maps/search/?api=1&query=${d.lat},${d.lng}'),
-            ),
-          ],
-        ),
-      ),
+      padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
+      child: column
+          ? Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                for (var i = 0; i < pills.length; i++) ...[if (i > 0) const SizedBox(height: 10), pills[i]],
+              ],
+            )
+          : Wrap(spacing: 10, runSpacing: 10, children: pills),
     );
   }
 }
 
-/// One contact line. Without a [value] it stays greyed out and does nothing —
-/// that detail has not reached the app yet.
-class _ContactRow extends StatelessWidget {
-  const _ContactRow({required this.icon, required this.label, required this.value, this.onTap});
+/// One way of getting in touch, as a pill: the stay pages, the rooms and
+/// the places to eat all use this.
+class ContactPill extends StatelessWidget {
+  const ContactPill({super.key, required this.icon, required this.label, required this.onTap});
 
-  final IconData icon;
+  /// An [Icon] or a brand's [FaIcon]; sized and coloured here.
+  final Widget icon;
   final String label;
-  final String? value;
-  final VoidCallback? onTap;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    final s = S.of(context);
-    final missing = value == null;
-    return InkWell(
-      onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 9),
-        child: Row(
-          children: [
-            Icon(icon, size: 19, color: missing ? AppColors.sand300 : AppColors.brand600),
-            const SizedBox(width: 12),
-            Text(label, style: AppText.sans(14.5, color: AppColors.sand800)),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                value ?? s.notListedYet,
-                textAlign: TextAlign.right,
-                style: AppText.sans(
-                  13.5,
-                  weight: missing ? FontWeight.w400 : FontWeight.w600,
-                  color: missing ? AppColors.sand400 : AppColors.sand700,
-                ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
+    // The orange-to-violet border of the cards around it.
+    return GradientFrame(
+      radius: 99,
+      expand: false,
+      padding: EdgeInsets.zero,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(99),
+        onTap: onTap,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 9),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              IconTheme.merge(
+                data: const IconThemeData(size: 16, color: AppColors.violet),
+                child: icon,
               ),
-            ),
-            if (!missing) ...[
-              const SizedBox(width: 4),
-              const Icon(Icons.chevron_right_rounded, size: 18, color: AppColors.sand400),
+              const SizedBox(width: 7),
+              // A long domain or number shortens rather than running over.
+              Flexible(
+                child: Text(
+                  label,
+                  style: AppText.sans(13, weight: FontWeight.w600, color: AppColors.sand900),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
             ],
-          ],
+          ),
         ),
       ),
     );
   }
 }
+
+final _scheme = RegExp('^https?://');
+final _notDigit = RegExp(r'\D');
+
+/// [url] with a scheme, for a website typed without one.
+String _link(String url) => url.startsWith('http') ? url : 'https://$url';

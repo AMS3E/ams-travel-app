@@ -140,19 +140,8 @@ class Stars extends StatelessWidget {
   }
 }
 
-/// Secondary Khmer line under an English title, as on the website.
-class KhmerText extends StatelessWidget {
-  const KhmerText(this.text, {super.key, this.color = AppColors.sand500, this.size = 14});
-  final String? text;
-  final Color color;
-  final double size;
-
-  @override
-  Widget build(BuildContext context) {
-    if (text == null || text!.isEmpty) return const SizedBox.shrink();
-    return Text(text!, style: AppText.sans(size, color: color, height: 1.6));
-  }
-}
+/// The space a page leaves under its last item: 28 plus the home-bar inset.
+double bottomInset(BuildContext context) => 28 + MediaQuery.paddingOf(context).bottom;
 
 class EmptyState extends StatelessWidget {
   const EmptyState({
@@ -248,31 +237,94 @@ class StatBlock extends StatelessWidget {
   }
 }
 
-/// Round translucent button used on top of hero images.
+/// How the glass buttons below it look. Over a photo (the default) the
+/// glass is see-through white with white icons; [onLight] (a white bar) it
+/// turns faintly dark with dark icons. Inside a [GlassGroup] each button
+/// drops its own circle and shares the group's pill.
+class GlassScope extends InheritedWidget {
+  const GlassScope({super.key, this.onLight = false, this.grouped = false, required super.child});
+
+  final bool onLight;
+  final bool grouped;
+
+  static GlassScope? maybeOf(BuildContext context) => context.dependOnInheritedWidgetOfExactType<GlassScope>();
+
+  /// The colour of an idle icon on glass here.
+  static Color iconColor(BuildContext context) =>
+      (maybeOf(context)?.onLight ?? false) ? AppColors.sand900 : Colors.white;
+
+  @override
+  bool updateShouldNotify(GlassScope old) => old.onLight != onLight || old.grouped != grouped;
+}
+
+/// Frosted glass behind [child]: a circle, or a pill when not [circle].
+class Glass extends StatelessWidget {
+  const Glass({super.key, required this.child, this.circle = true});
+  final Widget child;
+  final bool circle;
+
+  @override
+  Widget build(BuildContext context) {
+    final onLight = GlassScope.maybeOf(context)?.onLight ?? false;
+    final body = BackdropFilter(
+      filter: ImageFilter.blur(sigmaX: 14, sigmaY: 14),
+      child: Material(color: onLight ? const Color(0x0F1C1935) : Colors.white.withValues(alpha: 0.28), child: child),
+    );
+    return circle ? ClipOval(child: body) : ClipRRect(borderRadius: BorderRadius.circular(999), child: body);
+  }
+}
+
+/// Buttons side by side in one glass pill (save and share on a photo).
+class GlassGroup extends StatelessWidget {
+  const GlassGroup({super.key, required this.children});
+  final List<Widget> children;
+
+  @override
+  Widget build(BuildContext context) {
+    return Glass(
+      circle: false,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 4),
+        child: GlassScope(
+          onLight: GlassScope.maybeOf(context)?.onLight ?? false,
+          grouped: true,
+          child: Row(mainAxisSize: MainAxisSize.min, children: children),
+        ),
+      ),
+    );
+  }
+}
+
+/// Round glass button used on top of hero images.
 class GlassIconButton extends StatelessWidget {
-  const GlassIconButton({super.key, required this.icon, required this.onPressed, this.color, this.tooltip});
+  const GlassIconButton({
+    super.key,
+    required this.icon,
+    required this.onPressed,
+    this.color,
+    this.tooltip,
+    this.size = 44,
+  });
   final IconData icon;
   final VoidCallback? onPressed;
   final Color? color;
   final String? tooltip;
 
+  /// Diameter of the circle; the heart beside it in a header is the same.
+  final double size;
+
   @override
   Widget build(BuildContext context) {
-    return ClipOval(
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-        child: Material(
-          color: Colors.white.withValues(alpha: 0.85),
-          child: IconButton(
-            constraints: const BoxConstraints.tightFor(width: 44, height: 44),
-            padding: EdgeInsets.zero,
-            tooltip: tooltip,
-            onPressed: onPressed,
-            icon: Icon(icon, size: 21, color: color ?? AppColors.sand900),
-          ),
-        ),
-      ),
+    final button = IconButton(
+      constraints: BoxConstraints.tightFor(width: size, height: size),
+      padding: EdgeInsets.zero,
+      // Exactly [size]: no larger tap-target padding around the circle.
+      style: IconButton.styleFrom(tapTargetSize: MaterialTapTargetSize.shrinkWrap),
+      tooltip: tooltip,
+      onPressed: onPressed,
+      icon: Icon(icon, size: 22, color: color ?? GlassScope.iconColor(context)),
     );
+    return (GlassScope.maybeOf(context)?.grouped ?? false) ? button : Glass(child: button);
   }
 }
 
@@ -306,10 +358,36 @@ void showToast(BuildContext context, String message, {String? actionLabel, VoidC
   messenger.showSnackBar(
     SnackBar(
       content: Text(message),
-      duration: const Duration(seconds: 2),
+      // A toast with a button stays a little longer, then goes on its own
+      // (Flutter would otherwise keep it until the button is tapped).
+      duration: Duration(seconds: actionLabel == null ? 2 : 3),
+      persist: false,
       action: actionLabel == null
           ? null
           : SnackBarAction(label: actionLabel, textColor: AppColors.sunset200, onPressed: onAction ?? () {}),
+    ),
+  );
+}
+
+/// A titled list in a bottom sheet that drags up to nearly full height.
+void showListSheet(BuildContext context, {required String title, required Widget child}) {
+  showModalBottomSheet<void>(
+    context: context,
+    useSafeArea: true,
+    isScrollControlled: true,
+    builder: (_) => DraggableScrollableSheet(
+      expand: false,
+      initialChildSize: 0.6,
+      maxChildSize: 0.92,
+      builder: (context, controller) => ListView(
+        controller: controller,
+        padding: const EdgeInsets.fromLTRB(20, 18, 20, 24),
+        children: [
+          Text(title, style: AppText.display(20)),
+          const SizedBox(height: 8),
+          child,
+        ],
+      ),
     ),
   );
 }

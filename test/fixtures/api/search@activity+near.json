@@ -1,0 +1,43 @@
+{
+  "content": [
+    {
+      "type": "ACTIVITY",
+      "id": "078303f6-baa1-4104-b549-927b6fd80716",
+      "name": "Kampi Dolphin Sunset Cruise",
+      "slug": "kampi-dolphin-sunset-cruise",
+      "shortDescription": "A two-hour evening cruise on a wooden longboat from the Kampi landing to the dolphin pool and the rapids beyond, with the engine cut while the Irrawaddy dolphins surface.",
+      "coverUrl": "/api/v1/media/files/general/00000000-0000-0000-0000-000000000000/kampi-dolphin-pool-3.jpg",
+      "provinceId": "808a3ae8-0cd6-4e2b-8d50-ba937591e7da",
+      "provinceName": "Kratie",
+      "latitude": 12.556,
+      "longitude": 106.033,
+      "categoryIds": [],
+      "categoryNames": [],
+      "interestIds": [
+        "1365416a-01f3-4f80-822a-c33342062d51"
+      ],
+      "tourismRegionIds": [],
+      "averageRating": 4.5,
+      "ratingCount": 2,
+      "reviewCount": 2,
+      "verified": false,
+      "basis": null,
+      "travelerRecommended": false,
+      "priceFrom": null,
+      "currency": null,
+      "durationDays": null,
+      "openNow": null,
+      "todayHours": null,
+      "stopNames": null,
+      "encodedPolyline": null,
+      "distanceMeters": null,
+      "untranslated": []
+    }
+  ],
+  "page": {
+    "size": 20,
+    "number": 0,
+    "totalElements": 1,
+    "totalPages": 1
+  }
+}

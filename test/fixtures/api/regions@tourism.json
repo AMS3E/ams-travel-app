@@ -1,0 +1,133 @@
+[
+  {
+    "id": "56c67829-d5c8-427f-b599-0f1d63af2ee4",
+    "name": "Ancient Capitals & Khmer Civilization",
+    "code": "ANCIENT-CAPITALS",
+    "kind": "TOURISM",
+    "parentId": null,
+    "description": "The royal capitals of the Khmer empire and what they left behind: temple cities, the roads and bridges that joined them, the hospitals that served them, and the museums that keep them.",
+    "coverKey": null,
+    "coverUrl": null,
+    "categoryIds": [
+      "5518fb01-35f0-408c-850a-22b9db4c82a2",
+      "b89409d1-29d6-4eb5-b573-3305cdab008e",
+      "2079d2ad-e917-4951-8efd-abb388b4b320",
+      "7f6ad7aa-a452-4669-9a43-6a6dfe1455d3",
+      "a0a16789-973d-4cdd-ae1e-e4d0a1badbda",
+      "b420f464-68d3-42ed-8490-f04d0b951e2e",
+      "fc282e5f-4395-4bc5-801e-1a3df835c1f3"
+    ],
+    "tagIds": [
+      "1b375bda-dd08-4b6d-bc67-f70bc72ed3f1",
+      "df223b5a-420c-40ad-8456-4b965e441267",
+      "443cdfc8-a9b8-4fdc-8a8c-e54cf04e8379",
+      "aab060f1-ce03-41a0-8b1e-2c406321931e",
+      "2c709e75-02f0-4516-ad95-3c7ffb5b9b1d",
+      "52007b3e-6a94-4db8-a22d-53c5aee02941"
+    ],
+    "interestIds": [
+      "946c76e0-29ed-4eca-82b6-1c1e7fb0793b",
+      "1c6a8452-1344-4d4e-a071-ceb684824181",
+      "20eac571-fdae-4a13-bfbd-1d4d6aee570a",
+      "438a7d3e-e703-4611-9edd-37cf11f07622"
+    ],
+    "isActive": true,
+    "sortOrder": 0,
+    "createdAt": "2026-10-13T08:39:40.558913Z",
+    "mapKey": "general/00000000-0000-0000-0000-000000000000/ancient-capitals-map.jpg",
+    "mapUrl": "/api/v1/media/files/general/00000000-0000-0000-0000-000000000000/ancient-capitals-map.jpg",
+    "amsRecommended": true
+  },
+  {
+    "id": "b5fee28c-eaca-4c0f-bf37-0f27f63dc4a0",
+    "name": "Northeastern Civilization",
+    "code": "NORTHEASTERN",
+    "kind": "TOURISM",
+    "parentId": null,
+    "description": "The highlands of Ratanakiri, Mondulkiri and Stung Treng: indigenous villages, a volcano lake, elephant forests and the waterfalls of the Sesan and Srepok.",
+    "coverKey": null,
+    "coverUrl": null,
+    "categoryIds": [
+      "ae5d797f-9bee-4779-8f8a-c5a4f9eda3dc",
+      "8acfe58a-bae0-41a0-8490-f9938d7f0eec",
+      "b7184618-23b9-4ad8-aacb-8a4da4cf9998",
+      "40c52c75-c59b-4ca9-803b-0288ac9b0348",
+      "363feea5-556e-47dc-8aaf-2e1b850b7d73",
+      "574e971f-b6bb-4b60-b3df-d9cc3b5eaed8",
+      "b7ddf7e0-d850-4557-a5fc-1152b1500024",
+      "27f6f730-e32f-4c4d-a7ba-a2e1b8d9910b"
+    ],
+    "tagIds": [
+      "53be9174-13a1-40fa-9ae7-b95f80c71640",
+      "5741e84f-f4d2-45e8-b5c4-ccf0bb26f8e6",
+      "376c4b66-ff0f-4460-92f5-ef0804812e2b",
+      "059c516e-176f-40d6-98a0-b09aa12472c9",
+      "32cbb72e-22e3-4371-ab09-4744c021f5ef",
+      "9539c3a6-8f83-4e9b-8466-f77c0143d131",
+      "5c9e6331-9e67-41f5-861f-b78a88c82a61"
+    ],
+    "interestIds": [
+      "8df00afa-1fa9-4ae9-b2ff-97d921539d6f",
+      "e283ecc4-499b-4eac-ba24-a9c09560127a",
+      "fc77caa3-f10f-4d2e-9a66-2d7e8877dc76",
+      "02a4e8c9-f993-46a6-ab95-7d49d47b25af",
+      "20eac571-fdae-4a13-bfbd-1d4d6aee570a",
+      "438a7d3e-e703-4611-9edd-37cf11f07622",
+      "4ced133d-9335-4189-90da-19067aee990f",
+      "4d9a7010-cbc3-44f6-99cb-cd80c28e6f5a",
+      "774e4e86-8b9a-4a4a-a260-e422b195ea56"
+    ],
+    "isActive": true,
+    "sortOrder": 1,
+    "createdAt": "2026-10-13T08:39:40.560309Z",
+    "mapKey": null,
+    "mapUrl": null,
+    "amsRecommended": false
+  },
+  {
+    "id": "44d40208-7aa6-4403-ae4a-f57fb97d72b1",
+    "name": "Mekong & Tonle Sap Civilization",
+    "code": "MEKONG-TONLE-SAP",
+    "kind": "TOURISM",
+    "parentId": null,
+    "description": "Life on the water: floating villages, fishing grounds, bird sanctuaries, river islands and the rice country the flood feeds.",
+    "coverKey": null,
+    "coverUrl": null,
+    "categoryIds": [
+      "038a788c-7794-441d-b2ad-832358123c2f",
+      "bb68878a-ecb4-4136-866c-89d0778cb2a6",
+      "ac4e3d1e-7040-472a-ac35-f2f6b2d032e1",
+      "af7906ef-babe-430e-bf9a-d690d6f478e0",
+      "4162471b-7781-44d0-88cc-6b167bdfa4c9",
+      "3ae0d316-7268-4b62-b3a6-a9be7703f5bc",
+      "cbabc341-2ac2-4995-a86d-7789318ac6e9",
+      "88d2ee79-2d9d-4ef2-9c60-7e100d058d8c"
+    ],
+    "tagIds": [
+      "82a1fd9a-ae70-4a46-b751-dd9391253b43",
+      "d37fc65f-d583-4333-90c2-accafda68002",
+      "6d047a15-5306-406d-ac34-97af9edd7a10",
+      "b68f02bd-423f-489f-b119-6138473142d9",
+      "dc2313c8-3041-4957-be88-d5f5d1a0dd68",
+      "7e3bb87f-cb4c-45fa-a394-6823c77d94d4",
+      "aa8509bf-bd89-4130-942d-e4a157cf6535",
+      "e4d48b14-3f7f-4b37-8755-000286c98bd6"
+    ],
+    "interestIds": [
+      "8df00afa-1fa9-4ae9-b2ff-97d921539d6f",
+      "9ee0031a-8009-4a91-b2b4-64edcef6174c",
+      "bf86b6aa-d090-4860-8a0e-653df623a72c",
+      "fc77caa3-f10f-4d2e-9a66-2d7e8877dc76",
+      "1365416a-01f3-4f80-822a-c33342062d51",
+      "20eac571-fdae-4a13-bfbd-1d4d6aee570a",
+      "438a7d3e-e703-4611-9edd-37cf11f07622",
+      "4ced133d-9335-4189-90da-19067aee990f"
+    ],
+    "isActive": true,
+    "sortOrder": 2,
+    "createdAt": "2026-10-13T08:39:40.562127Z",
+    "mapKey": null,
+    "mapUrl": null,
+    "amsRecommended": false
+  }
+]

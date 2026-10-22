@@ -27,6 +27,8 @@ android {
         // flag during build.
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+        // Keycloak sign-in redirects to amstravel://callback (flutter_appauth).
+        manifestPlaceholders["appAuthRedirectScheme"] = "amstravel"
     }
 
     buildTypes {

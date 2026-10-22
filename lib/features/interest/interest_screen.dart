@@ -1,341 +1,181 @@
-import 'package:go_router/go_router.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/l10n/app_strings.dart';
-import '../../core/router/routes.dart';
-import '../../core/theme/app_colors.dart';
-import '../../core/theme/app_theme.dart';
-import '../../data/models/models.dart';
-import '../../data/repositories/travel_repository.dart';
-import '../../state/collections_provider.dart';
-import '../../widgets/app_image.dart';
+import '../../core/utils/geo.dart';
+import '../../data/api/ams_api.dart';
+import '../../widgets/place_list_row.dart';
 import '../../widgets/async_view.dart';
+import '../../widgets/browse_bar.dart';
 import '../../widgets/common.dart';
-import '../../widgets/destination_card.dart';
-import '../../widgets/detail_scaffold.dart';
-import '../../widgets/interest_card.dart';
-import '../explore/explore_screen.dart';
+import '../../widgets/corridor_row.dart';
+import '../../widgets/interest_filter.dart';
+import '../../widgets/overview_card.dart';
+import '../destination/place_view.dart' show LazySection;
+import 'browse_helpers.dart';
 
-/// One interest followed across every region and province, with the other
-/// interests as tabs along the top. The `corridors` interest (Tourism
-/// Corridors) lists corridors instead of places.
+/// One interest group followed across the country: the groups in one row,
+/// the interests of the chosen one in a second, and the places the server
+/// finds for them in two columns (`GET /interests`, `GET /search?interestIds=&type=`).
+/// The Tourism Corridors group lists corridors instead.
 class InterestScreen extends StatelessWidget {
-  const InterestScreen({super.key, required this.slug});
+  const InterestScreen({super.key, required this.group});
 
-  /// Which category the page opens on.
-  final String slug;
-
-  @override
-  Widget build(BuildContext context) {
-    final repo = context.read<TravelRepository>();
-    // Everything is loaded once so the tabs switch without another round trip.
-    // TODO(api): if the places endpoint is slow, fetch per tab instead.
-    return AsyncView<(List<Interest>, List<Region>, List<Destination>, List<Corridor>)>(
-      load: () => (repo.getInterests(), repo.getRegions(), repo.getDestinations(), repo.getCorridors()).wait,
-      loading: const Scaffold(body: LoadingView()),
-      builder: (context, data, _) => _InterestView(
-        slug: slug,
-        interests: data.$1,
-        regions: data.$2,
-        destinations: data.$3,
-        corridors: data.$4,
-      ),
-    );
-  }
-}
-
-class _InterestView extends StatefulWidget {
-  const _InterestView({
-    required this.slug,
-    required this.interests,
-    required this.regions,
-    required this.destinations,
-    required this.corridors,
-  });
-
-  final String slug;
-  final List<Interest> interests;
-  final List<Region> regions;
-  final List<Destination> destinations;
-  final List<Corridor> corridors;
-
-  @override
-  State<_InterestView> createState() => _InterestViewState();
-}
-
-class _InterestViewState extends State<_InterestView> {
-  late String _slug = widget.slug;
-
-  Interest get _interest =>
-      widget.interests.firstWhere((i) => i.slug == _slug, orElse: () => widget.interests.first);
-
-  /// Every place in the open interest.
-  List<Destination> get _places {
-    final categories = _interest.categories.toSet();
-    return widget.destinations.where((d) => categories.contains(d.category)).toList();
-  }
-
-  void _openInterest(String slug) => setState(() => _slug = slug);
+  /// The group the page opens on, as its slugified name ("attraction-sites").
+  final String group;
 
   @override
   Widget build(BuildContext context) {
-    final s = S.of(context);
-    final interest = _interest;
-    final (title, _) = bilingual(context, interest.name, interest.nameKh);
-    final (icon, color) = interestStyle(interest);
-
-    final list = _places;
-
-    return DetailScaffold(
-      title: title,
-      image: interest.image,
-      expandedHeight: 320,
-      header: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            children: [
-              Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(12)),
-                child: Icon(icon, color: color, size: 22),
-              ),
-              const SizedBox(width: 10),
-              Text(s.tabInterests.toUpperCase(), style: AppText.eyebrow(color: AppColors.sunset200)),
-            ],
-          ),
-          const SizedBox(height: 12),
-          Text(title, style: AppText.display(32, color: Colors.white)),
-          const SizedBox(height: 8),
-          Text(
-            interest.description,
-            style: AppText.sans(14.5, color: Colors.white.withValues(alpha: 0.85), height: 1.45),
-          ),
-        ],
-      ),
-      slivers: [
-        SliverToBoxAdapter(
-          child: _CategoryTabs(
-            interests: widget.interests,
-            selected: _slug,
-            onSelect: _openInterest,
-          ),
-        ),
-        if (interest.isCorridors) ..._corridorSlivers(s) else ..._destinationSlivers(s, list),
-      ],
-    );
-  }
-
-  List<Widget> _corridorSlivers(S s) => [
-    SliverToBoxAdapter(
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 22, 20, 12),
-        child: Text.rich(
-          TextSpan(
-            children: [
-              TextSpan(text: '${widget.corridors.length} ', style: AppText.display(20)),
-              TextSpan(
-                text: s.corridors.toLowerCase(),
-                style: AppText.sans(14, color: AppColors.sand500),
-              ),
-            ],
-          ),
-        ),
-      ),
-    ),
-    SliverPadding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      sliver: SliverList.separated(
-        itemCount: widget.corridors.length,
-        separatorBuilder: (_, _) => const SizedBox(height: 14),
-        itemBuilder: (_, i) => CorridorListCard(corridor: widget.corridors[i]),
-      ),
-    ),
-  ];
-
-  List<Widget> _destinationSlivers(S s, List<Destination> list) => [
-    SliverToBoxAdapter(
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 10, 20, 12),
-        child: Text.rich(
-          TextSpan(
-            children: [
-              TextSpan(text: '${list.length} ', style: AppText.display(20)),
-              TextSpan(
-                text: '${s.destinations.toLowerCase()} ${s.found}',
-                style: AppText.sans(14, color: AppColors.sand500),
-              ),
-            ],
-          ),
-        ),
-      ),
-    ),
-    if (list.isEmpty)
-      SliverToBoxAdapter(
-        child: EmptyState(icon: Icons.search_off_rounded, title: s.noResults, body: s.noResultsBody),
-      )
-    else
-      SliverPadding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        sliver: SliverGrid.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            mainAxisSpacing: 18,
-            crossAxisSpacing: 14,
-            mainAxisExtent: 288,
-          ),
-          itemCount: list.length,
-          itemBuilder: (_, i) => _PlaceGridCard(
-            destination: list[i],
-            regionName: _regionName(list[i].region),
-          ),
-        ),
-      ),
-  ];
-
-  String? _regionName(String slug) {
-    final region = widget.regions.where((r) => r.slug == slug).firstOrNull;
-    return region == null ? null : bilingual(context, region.name, region.nameKh).$1;
-  }
-}
-
-/// Two-up card: square photo with the heart (and a tick for verified places),
-/// then the name, its province and the region it belongs to.
-class _PlaceGridCard extends StatelessWidget {
-  const _PlaceGridCard({required this.destination, this.regionName});
-
-  final Destination destination;
-  final String? regionName;
-
-  @override
-  Widget build(BuildContext context) {
-    final d = destination;
-    final (title, _) = bilingual(context, d.name, d.nameKh);
-    return GestureDetector(
-      onTap: () => context.push(Routes.destination(d.region, d.slug)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          AspectRatio(
-            aspectRatio: 1,
-            child: Stack(
-              children: [
-                Positioned.fill(child: AppImage(d.image, radius: BorderRadius.circular(18))),
-                Positioned(
-                  top: 8,
-                  left: 8,
-                  child: SaveButton(kind: SavedKind.destination, itemKey: d.key, size: 34),
-                ),
-                if (d.verified)
-                  Positioned(
-                    top: 50,
-                    left: 12,
-                    child: Container(
-                      width: 26,
-                      height: 26,
-                      decoration: const BoxDecoration(color: Color(0xFFD7F5EC), shape: BoxShape.circle),
-                      child: const Icon(Icons.verified_user_rounded, size: 15, color: AppColors.success),
-                    ),
-                  ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 10),
-          Text(
-            title,
-            style: AppText.sans(15, weight: FontWeight.w700, color: AppColors.sand900),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-          const SizedBox(height: 4),
-          Row(
-            children: [
-              const Icon(Icons.location_on_outlined, size: 14, color: AppColors.sand500),
-              const SizedBox(width: 3),
-              Expanded(
-                child: Text(
-                  d.province,
-                  style: AppText.sans(12.5, color: AppColors.sand500),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-            ],
-          ),
-          if (regionName != null) ...[
-            const SizedBox(height: 8),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 6),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: AppColors.sand200),
-              ),
-              child: Text(
-                regionName!,
-                style: AppText.sans(11.5, color: AppColors.sand700, height: 1.3),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-          ],
-        ],
-      ),
-    );
-  }
-}
-
-/// The interests as underlined tabs, the open one in black.
-class _CategoryTabs extends StatelessWidget {
-  const _CategoryTabs({required this.interests, required this.selected, required this.onSelect});
-
-  final List<Interest> interests;
-  final String selected;
-  final ValueChanged<String> onSelect;
-
-  @override
-  Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: const BoxDecoration(
-        border: Border(bottom: BorderSide(color: AppColors.sand200)),
-      ),
-      child: SizedBox(
-        height: 46,
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          padding: const EdgeInsets.symmetric(horizontal: 14),
-          itemCount: interests.length,
-          itemBuilder: (context, i) {
-            final interest = interests[i];
-            final isSelected = interest.slug == selected;
-            return InkWell(
-              onTap: () => onSelect(interest.slug),
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      color: isSelected ? AppColors.sand900 : Colors.transparent,
-                      width: 2.5,
-                    ),
-                  ),
-                ),
-                child: Text(
-                  bilingual(context, interest.name, interest.nameKh).$1,
-                  style: AppText.sans(
-                    14,
-                    weight: isSelected ? FontWeight.w700 : FontWeight.w500,
-                    color: isSelected ? AppColors.sand900 : AppColors.sand500,
-                  ),
-                ),
-              ),
-            );
+    final api = context.read<AmsApi>();
+    return Scaffold(
+      body: SafeArea(
+        bottom: false,
+        child: AsyncView<List<InterestGroup>>(
+          load: api.interestGroups,
+          builder: (context, groups, _) {
+            final at = groups.indexWhere((g) => slugify(g.name) == group);
+            return InterestBrowser(groups: groups, initialIndex: at < 0 ? 0 : at);
           },
         ),
       ),
+    );
+  }
+}
+
+/// The body of the interest pages: the two chip rows and the server's
+/// answer for them.
+class InterestBrowser extends StatefulWidget {
+  const InterestBrowser({super.key, required this.groups, required this.initialIndex, this.hint});
+
+  final List<InterestGroup> groups;
+  final int initialIndex;
+
+  /// The search bar's words; by default "Search" and the group's name.
+  final String? hint;
+
+  @override
+  State<InterestBrowser> createState() => _InterestBrowserState();
+}
+
+class _InterestBrowserState extends State<InterestBrowser> {
+  late int _index = widget.initialIndex;
+
+  /// Interest ids picked in the second row. Empty means the whole group.
+  final _picked = <String>{};
+
+  @override
+  Widget build(BuildContext context) {
+    final api = context.read<AmsApi>();
+    final s = S.of(context);
+    final groups = widget.groups;
+    if (groups.isEmpty) {
+      return EmptyState(icon: Icons.search_off_rounded, title: s.noResults, body: s.noResultsBody);
+    }
+    final group = groups[_index];
+    final type = group.cardType;
+    final ids = InterestFilter.idsFor(groups, _index, _picked);
+    final bottom = 24 + MediaQuery.paddingOf(context).bottom;
+
+    return Column(
+      children: [
+        BrowseSearchBar(hint: widget.hint ?? '${s.searchIn} ${s.interestGroup(group.name).toLowerCase()}'),
+        const SizedBox(height: 12),
+        InterestFilter(
+          groups: groups,
+          index: _index,
+          onIndex: (i) => setState(() {
+            _index = i ?? 0;
+            _picked.clear();
+          }),
+          picked: _picked,
+          onPicked: (id) => setState(() => _picked.remove(id) ? null : _picked.add(id)),
+          showAll: false,
+        ),
+        const SizedBox(height: 16),
+        Expanded(
+          child: PagedCards(
+            key: ValueKey('${type?.code}|${(ids.toList()..sort()).join(',')}'),
+            load: (page) => api.search(interestIds: ids, type: type, page: page),
+            empty: EmptyState(icon: Icons.search_off_rounded, title: s.noResults, body: s.noResultsBody),
+            builder: (context, cards, _, more) => ListView(
+              padding: EdgeInsets.only(bottom: bottom),
+              children: [
+                _Outline(
+                  child: type == CardType.corridor
+                      // Corridors are routes, not places: one row each.
+                      ? Column(
+                          children: [
+                            for (final c in cards) CorridorRow(corridor: c),
+                            ?more,
+                          ],
+                        )
+                      : Column(
+                          children: [
+                            GridView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              padding: EdgeInsets.zero,
+                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 10,
+                                mainAxisSpacing: 14,
+                                mainAxisExtent: 66,
+                              ),
+                              itemCount: cards.length,
+                              itemBuilder: (_, i) => PlaceTile(card: cards[i]),
+                            ),
+                            ?more,
+                          ],
+                        ),
+                ),
+                // The Traveler seal holders of these interests; hidden while
+                // no place has the seal.
+                if (type == null || type == CardType.destination)
+                  _RecommendPanel(key: ValueKey(ids.join(',')), interestIds: ids),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+/// "Recommend by Traveler": `GET /search?interestIds=&travelerRecommended=true&size=5`,
+/// shown only when the server has some.
+class _RecommendPanel extends StatelessWidget {
+  const _RecommendPanel({super.key, required this.interestIds});
+  final List<String> interestIds;
+
+  @override
+  Widget build(BuildContext context) {
+    return LazySection<PageOf<PlaceCard>>(
+      load: () => context.read<AmsApi>().search(interestIds: interestIds, travelerRecommended: true, size: 5),
+      builder: (context, page) {
+        if (page.content.isEmpty) return const SizedBox.shrink();
+        return Padding(
+          padding: const EdgeInsets.only(top: 16),
+          child: BrowsePanel(
+            title: S.of(context).recommendByTraveler,
+            child: Column(children: [for (final c in page.content) PlaceListRow(card: c)]),
+          ),
+        );
+      },
+    );
+  }
+}
+
+/// The card the list sits in, places or corridors: the orange-to-violet
+/// border of the place pages' cards.
+class _Outline extends StatelessWidget {
+  const _Outline({required this.child});
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: GradientFrame(padding: const EdgeInsets.fromLTRB(12, 14, 12, 14), child: child),
     );
   }
 }

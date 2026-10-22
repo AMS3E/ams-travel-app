@@ -1,53 +1,57 @@
 /// Small helpers so `fromJson` factories tolerate slightly different backend
-/// shapes (ints vs doubles, missing lists, snake_case vs camelCase).
+/// shapes (ints vs doubles, numbers sent as strings, missing lists).
 typedef Json = Map<String, dynamic>;
 
-T? pick<T>(Json json, List<String> keys) {
-  for (final k in keys) {
-    final v = json[k];
-    if (v != null) return v as T;
-  }
-  return null;
+String str(Json json, String key, {String fallback = ''}) => json[key]?.toString() ?? fallback;
+
+/// Null when missing or blank, so callers' `??` fallbacks also cover "".
+String? strOrNull(Json json, String key) {
+  final s = json[key]?.toString();
+  return s == null || s.trim().isEmpty ? null : s;
 }
 
-String str(Json json, String key, {List<String> alt = const [], String fallback = ''}) {
-  final v = pick<Object>(json, [key, ...alt]);
-  return v?.toString() ?? fallback;
-}
-
-String? strOrNull(Json json, String key, {List<String> alt = const []}) =>
-    pick<Object>(json, [key, ...alt])?.toString();
-
-double? dbl(Json json, String key, {List<String> alt = const []}) {
-  final v = pick<Object>(json, [key, ...alt]);
+double? dbl(Json json, String key) {
+  final v = json[key];
   if (v is num) return v.toDouble();
   if (v is String) return double.tryParse(v);
   return null;
 }
 
-int integer(Json json, String key, {List<String> alt = const [], int fallback = 0}) {
-  final v = pick<Object>(json, [key, ...alt]);
+int integer(Json json, String key, {int fallback = 0}) {
+  final v = json[key];
   if (v is num) return v.toInt();
   if (v is String) return int.tryParse(v) ?? fallback;
   return fallback;
 }
 
-bool boolean(Json json, String key, {List<String> alt = const []}) {
-  final v = pick<Object>(json, [key, ...alt]);
+int? intOrNull(Json json, String key) => json[key] == null ? null : integer(json, key);
+
+bool boolean(Json json, String key) {
+  final v = json[key];
   if (v is bool) return v;
   if (v is num) return v != 0;
   if (v is String) return v == 'true' || v == '1';
   return false;
 }
 
-List<String> strList(Json json, String key, {List<String> alt = const []}) {
-  final v = pick<Object>(json, [key, ...alt]);
+bool? boolOrNull(Json json, String key) => json[key] == null ? null : boolean(json, key);
+
+DateTime? dateOrNull(Json json, String key) => DateTime.tryParse(strOrNull(json, key) ?? '');
+
+List<String> strList(Json json, String key) {
+  final v = json[key];
   if (v is List) return v.map((e) => e.toString()).toList();
   return const [];
 }
 
-List<T> objList<T>(Json json, String key, T Function(Json) fromJson, {List<String> alt = const []}) {
-  final v = pick<Object>(json, [key, ...alt]);
+/// The nested object at [key], or an empty one when missing.
+Json obj(Json json, String key) {
+  final v = json[key];
+  return v is Map ? Json.from(v) : {};
+}
+
+List<T> objList<T>(Json json, String key, T Function(Json) fromJson) {
+  final v = json[key];
   if (v is List) return v.whereType<Map>().map((e) => fromJson(Json.from(e))).toList();
   return const [];
 }

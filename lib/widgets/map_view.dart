@@ -2,7 +2,6 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:material_ui/material_ui.dart';
 
-import '../core/network/routing_service.dart';
 import '../core/theme/app_colors.dart';
 import '../core/theme/app_theme.dart';
 
@@ -35,7 +34,7 @@ class MapPin {
   /// Symbol inside the pin head — what kind of thing it marks.
   final IconData? icon;
 
-  /// Short text inside the pin (step numbers on corridors and stories).
+  /// Short text inside the pin (the numbered stops along a corridor).
   final String? label;
 
   /// Draws the pin as a named pill instead of a dot — used for whole regions,
@@ -55,13 +54,16 @@ class MapPin {
   final VoidCallback? onTap;
 }
 
-/// flutter_map with the app's tile style, pins and optional route line.
+/// flutter_map with the app's tile style, pins and optional route lines.
+///
+/// Route lines are drawn as given: the API sends road geometry for corridors
+/// (`encodedPolyline`, decoded with `decodePolyline`).
 ///
 /// Tiles: the public OpenStreetMap server — fine for development and testing.
 /// OSM's usage policy does not allow heavy production traffic, so before
 /// release switch [tileUrl] to a tile plan (MapTiler, Stadia, Mapbox, CARTO…)
 /// with its API key.
-class AppMap extends StatefulWidget {
+class AppMap extends StatelessWidget {
   const AppMap({
     super.key,
     this.pins = const [],
@@ -74,7 +76,6 @@ class AppMap extends StatefulWidget {
     this.onTapMap,
     this.onZoomChanged,
     this.fitPadding = const EdgeInsets.all(48),
-    this.followRoads = true,
   });
 
   final List<MapPin> pins;
@@ -90,66 +91,12 @@ class AppMap extends StatefulWidget {
   final ValueChanged<double>? onZoomChanged;
   final EdgeInsets fitPadding;
 
-  /// Bends route lines onto real roads (see [RoutingService]). Off for maps
-  /// where the straight line is the point, like story hops.
-  final bool followRoads;
-
   /// Widget tests have no cache-directory plugin; they turn tile caching off.
   @visibleForTesting
   static bool useTileCache = true;
 
-  /// Widget tests have no network; they keep routes straight.
-  @visibleForTesting
-  static bool useRoadRouting = true;
-
-  @override
-  State<AppMap> createState() => _AppMapState();
-}
-
-class _AppMapState extends State<AppMap> {
-  /// Straight lines to begin with, replaced by road geometry once it arrives.
-  late List<MapRoute> _routes = widget.routes;
-
-  @override
-  void initState() {
-    super.initState();
-    _snapToRoads();
-  }
-
-  @override
-  void didUpdateWidget(AppMap old) {
-    super.didUpdateWidget(old);
-    if (_routeKey(old.routes) != _routeKey(widget.routes)) {
-      _routes = widget.routes;
-      _snapToRoads();
-    }
-  }
-
-  static String _routeKey(List<MapRoute> routes) =>
-      routes.map((r) => r.points.map((p) => '${p.latitude},${p.longitude}').join(';')).join('|');
-
-  Future<void> _snapToRoads() async {
-    if (!widget.followRoads || !AppMap.useRoadRouting) return;
-    final wanted = _routeKey(widget.routes);
-    final snapped = [
-      for (final r in widget.routes) MapRoute(await RoutingService.road(r.points), color: r.color),
-    ];
-    // The screen may have moved on while the routes were being fetched.
-    if (mounted && _routeKey(widget.routes) == wanted) setState(() => _routes = snapped);
-  }
-
   @override
   Widget build(BuildContext context) {
-    final pins = widget.pins;
-    final routes = _routes;
-    final fitToPins = widget.fitToPins;
-    final fitPadding = widget.fitPadding;
-    final initialCenter = widget.initialCenter;
-    final initialZoom = widget.initialZoom;
-    final controller = widget.controller;
-    final interactive = widget.interactive;
-    final onTapMap = widget.onTapMap;
-    final onZoomChanged = widget.onZoomChanged;
     final fit = fitToPins && pins.length > 1
         ? CameraFit.bounds(
             bounds: LatLngBounds.fromPoints(pins.map((p) => p.point).toList()),
@@ -179,15 +126,15 @@ class _AppMapState extends State<AppMap> {
           interactionOptions: InteractionOptions(
             flags: interactive ? InteractiveFlag.all & ~InteractiveFlag.rotate : InteractiveFlag.none,
           ),
-          onTap: onTapMap == null ? null : (_, _) => onTapMap(),
-          onPositionChanged: onZoomChanged == null ? null : (camera, _) => onZoomChanged(camera.zoom),
+          onTap: onTapMap == null ? null : (_, _) => onTapMap!(),
+          onPositionChanged: onZoomChanged == null ? null : (camera, _) => onZoomChanged!(camera.zoom),
         ),
         children: [
           TileLayer(
             urlTemplate: tileUrl,
             userAgentPackageName: 'com.amstravel.ams_travel',
             tileProvider: NetworkTileProvider(
-              cachingProvider: AppMap.useTileCache ? null : const DisabledMapCachingProvider(),
+              cachingProvider: useTileCache ? null : const DisabledMapCachingProvider(),
             ),
           ),
           if (routes.any((r) => r.points.length > 1))
@@ -321,9 +268,11 @@ class _LabelLayer extends StatelessWidget {
       final at = camera.latLngToScreenOffset(pin.point);
       if (!area.inflate(80).contains(at)) continue;
       // A label with a name under its pill needs the room for both lines.
-      final h = pin.subtitle == null ? 28.0 : 48.0;
-      final w = [MapPin.pillWidth(pin.pillText!), if (pin.subtitle != null) MapPin.pillWidth(pin.subtitle!)]
-          .reduce((a, b) => a > b ? a : b);
+      final h = pin.subtitle == null ? 28.0 : 52.0;
+      final w = [
+        MapPin.pillWidth(pin.pillText!),
+        if (pin.subtitle != null) MapPin.pillWidth(pin.subtitle!),
+      ].reduce((a, b) => a > b ? a : b);
       Rect? chosen;
       for (final dy in const [0.0, -1.0, 1.0, -2.0, 2.0, -3.0, 3.0, -4.0, 4.0]) {
         for (final dx in const [0.0, 0.5, -0.5, 1.0, -1.0]) {
@@ -369,7 +318,7 @@ class _LabelLayer extends StatelessWidget {
   }
 }
 
-/// A line drawn on the map (a corridor route, a story trail).
+/// A line drawn on the map (a corridor route).
 class MapRoute {
   const MapRoute(this.points, {this.color = AppColors.route});
   final List<LatLng> points;
@@ -433,9 +382,11 @@ class _PinPill extends StatelessWidget {
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
-            style: AppText.sans(11, weight: FontWeight.w700, color: AppColors.sand900).copyWith(
-              shadows: const [Shadow(color: Colors.white, blurRadius: 4)],
-            ),
+            style: AppText.sans(
+              11,
+              weight: FontWeight.w700,
+              color: AppColors.sand900,
+            ).copyWith(shadows: const [Shadow(color: Colors.white, blurRadius: 4)]),
           ),
         ],
       ),

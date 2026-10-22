@@ -1,79 +1,106 @@
-import 'dart:convert';
-
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:material_ui/material_ui.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-/// One thing the app has to tell the traveller.
-class AppNotification {
-  const AppNotification({
-    required this.id,
-    required this.kind,
-    required this.title,
-    required this.body,
-    required this.minutesAgo,
-  });
+import '../data/api/ams_api.dart';
+import 'auth_provider.dart';
 
-  final String id;
-
-  /// place, profile, info, review or badge — it picks the symbol.
-  final String kind;
-  final String title;
-  final String body;
-
-  /// How long ago it arrived, in minutes.
-  final int minutesAgo;
-
-  factory AppNotification.fromJson(Map<String, dynamic> j) => AppNotification(
-    id: j['id'].toString(),
-    kind: j['kind']?.toString() ?? 'info',
-    title: j['title']?.toString() ?? '',
-    body: j['body']?.toString() ?? '',
-    minutesAgo: (j['minutesAgo'] as num?)?.toInt() ?? 0,
-  );
-}
-
-/// The notifications and which of them have been read.
+/// The signed-in traveller's notifications (`GET /notifications`). A guest
+/// has none.
 ///
-/// TODO(api): swap the seed for `GET /me/notifications` and send reads back.
+/// The design's own kinds ("New places added in Siem Reap",
+/// "Complete your profile") have nothing producing them on the API yet:
+/// parked in screens-to-api.md.
 class NotificationsProvider extends ChangeNotifier {
-  NotificationsProvider(this._prefs) {
-    _read = (_prefs.getStringList(_key) ?? const []).toSet();
+  NotificationsProvider(this._api, this._auth) {
+    _auth.addListener(_onAuth);
+    _onAuth();
   }
 
-  static const _key = 'ams-travel:notifications-read';
-  final SharedPreferences _prefs;
+  final AmsApi _api;
+  final AuthProvider _auth;
+  bool _signedIn = false;
 
-  List<AppNotification> _items = [];
-  Set<String> _read = {};
+  List<InboxNotification> _items = [];
   bool _loaded = false;
+  Object? _error;
 
-  List<AppNotification> get all => List.unmodifiable(_items);
-  List<AppNotification> get unread => _items.where((n) => !_read.contains(n.id)).toList();
-  bool isRead(String id) => _read.contains(id);
-  int get unreadCount => unread.length;
+  List<InboxNotification> get all => List.unmodifiable(_items);
+  List<InboxNotification> get unread => _items.where((n) => !n.isRead).toList();
+  int get unreadCount => _items.where((n) => !n.isRead).length;
+  bool get isLoaded => _loaded;
 
-  Future<void> load() async {
-    if (_loaded) return;
-    _loaded = true;
-    try {
-      final raw = jsonDecode(await rootBundle.loadString('assets/mock/notifications.json')) as List;
-      _items = [for (final e in raw) AppNotification.fromJson(Map<String, dynamic>.from(e as Map))];
-    } catch (_) {
+  /// Why the last load failed, if it did.
+  Object? get error => _error;
+
+  void _onAuth() {
+    final signedIn = _auth.isSignedIn;
+    if (signedIn == _signedIn) return;
+    _signedIn = signedIn;
+    if (signedIn) {
+      load();
+    } else {
       _items = [];
+      _loaded = false;
+      notifyListeners();
     }
+  }
+
+  /// Reads the list again.
+  Future<void> load() async {
+    if (!_auth.isSignedIn) return;
+    try {
+      _items = await _api.notifications(limit: 50);
+      _error = null;
+    } catch (e) {
+      _error = e;
+    }
+    _loaded = true;
     notifyListeners();
   }
 
-  void markRead(String id) {
-    if (!_read.add(id)) return;
-    _prefs.setStringList(_key, _read.toList());
+  Future<void> markRead(String id) async {
+    final i = _items.indexWhere((n) => n.id == id);
+    if (i < 0 || _items[i].isRead) return;
+    final before = _items;
+    _items = [..._items]..[i] = _items[i].read();
     notifyListeners();
+    try {
+      await _api.markNotificationRead(id);
+    } catch (_) {
+      _items = before;
+      notifyListeners();
+    }
   }
 
-  void markAllRead() {
-    _read = {for (final n in _items) n.id};
-    _prefs.setStringList(_key, _read.toList());
+  Future<void> markAllRead() async {
+    final before = _items;
+    _items = [for (final n in _items) n.read()];
     notifyListeners();
+    try {
+      await _api.markAllNotificationsRead();
+    } catch (_) {
+      _items = before;
+      notifyListeners();
+    }
+  }
+
+  Future<void> remove(String id) async {
+    final before = _items;
+    _items = [
+      for (final n in _items)
+        if (n.id != id) n,
+    ];
+    notifyListeners();
+    try {
+      await _api.deleteNotification(id);
+    } catch (_) {
+      _items = before;
+      notifyListeners();
+    }
+  }
+
+  @override
+  void dispose() {
+    _auth.removeListener(_onAuth);
+    super.dispose();
   }
 }

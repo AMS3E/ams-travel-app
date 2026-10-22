@@ -77,7 +77,13 @@ const categoryIcons = <String, IconData>{
 };
 
 class SectionBar extends StatelessWidget {
-  const SectionBar({super.key, required this.title, required this.subtitle, required this.open, required this.onToggle});
+  const SectionBar({
+    super.key,
+    required this.title,
+    required this.subtitle,
+    required this.open,
+    required this.onToggle,
+  });
   final String title;
   final String subtitle;
   final bool open;
@@ -166,7 +172,13 @@ class PickChip extends StatelessWidget {
 }
 
 class ViewAllChip extends StatelessWidget {
-  const ViewAllChip({super.key, required this.label, required this.expanded, required this.onTap, this.color = AppColors.violet});
+  const ViewAllChip({
+    super.key,
+    required this.label,
+    required this.expanded,
+    required this.onTap,
+    this.color = AppColors.violet,
+  });
   final String label;
   final bool expanded;
   final VoidCallback onTap;
@@ -178,10 +190,7 @@ class ViewAllChip extends StatelessWidget {
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.fromLTRB(14, 8, 10, 8),
-        decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(99),
-        ),
+        decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(99)),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -190,11 +199,7 @@ class ViewAllChip extends StatelessWidget {
               style: AppText.sans(13, weight: FontWeight.w600, color: Colors.white),
             ),
             const SizedBox(width: 6),
-            Icon(
-              expanded ? Icons.remove_circle_rounded : Icons.add_circle_rounded,
-              size: 17,
-              color: Colors.white,
-            ),
+            Icon(expanded ? Icons.remove_circle_rounded : Icons.add_circle_rounded, size: 17, color: Colors.white),
           ],
         ),
       ),

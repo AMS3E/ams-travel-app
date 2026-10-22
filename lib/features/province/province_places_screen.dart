@@ -2,52 +2,29 @@ import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/l10n/app_strings.dart';
-import '../../core/theme/app_colors.dart';
-import '../../core/theme/app_theme.dart';
-import '../../data/models/models.dart';
-import '../../data/repositories/travel_repository.dart';
+import '../../data/api/ams_api.dart';
 import '../../widgets/async_view.dart';
 import '../../widgets/browse_bar.dart';
+import '../../widgets/common.dart';
 import '../../widgets/interest_filter.dart';
-import '../../widgets/corridor_row.dart';
-import '../../widgets/destination_card.dart';
 import '../../widgets/place_list_row.dart';
+import '../interest/browse_helpers.dart';
 
-/// Everything in one province, a category at a time.
+/// Everything in one province, a kind and an interest at a time
+/// (`GET /search?provinceId=&interestIds=&type=`).
 class ProvincePlacesScreen extends StatelessWidget {
-  const ProvincePlacesScreen({super.key, required this.slug});
-  final String slug;
+  const ProvincePlacesScreen({super.key, required this.id});
+  final String id;
 
   @override
   Widget build(BuildContext context) {
-    final repo = context.read<TravelRepository>();
+    final api = context.read<AmsApi>();
     return Scaffold(
       body: SafeArea(
         bottom: false,
-        child: AsyncView<(Province, List<Destination>, List<Interest>, List<Corridor>)>(
-          load: () async {
-            final (province, places, interests, corridors) = await (
-              repo.getProvince(slug),
-              repo.getDestinations(province: slug),
-              repo.getInterests(),
-              repo.getCorridors(),
-            ).wait;
-            places.sort((a, b) {
-              final byFeatured = (b.featured ? 1 : 0).compareTo(a.featured ? 1 : 0);
-              if (byFeatured != 0) return byFeatured;
-              return (b.rating ?? 0).compareTo(a.rating ?? 0);
-            });
-            return (province, places, interests, corridors);
-          },
-          builder: (context, data, _) {
-            final (province, places, interests, corridors) = data;
-            return _Body(
-              province: province,
-              places: places,
-              interests: interests,
-              corridors: corridors,
-            );
-          },
+        child: AsyncView<(CatalogProvince, List<InterestGroup>)>(
+          load: () => (api.province(id), api.interestGroups()).wait,
+          builder: (context, data, _) => _Body(province: data.$1, groups: data.$2),
         ),
       ),
     );
@@ -55,133 +32,65 @@ class ProvincePlacesScreen extends StatelessWidget {
 }
 
 class _Body extends StatefulWidget {
-  const _Body({
-    required this.province,
-    required this.places,
-    required this.interests,
-    required this.corridors,
-  });
-
-  final Province province;
-  final List<Destination> places;
-  final List<Interest> interests;
-
-  /// What the Tourism Corridors chip is made of.
-  final List<Corridor> corridors;
+  const _Body({required this.province, required this.groups});
+  final CatalogProvince province;
+  final List<InterestGroup> groups;
 
   @override
   State<_Body> createState() => _BodyState();
 }
 
 class _BodyState extends State<_Body> {
-  /// Which category is being looked at; null is "All".
+  /// Which group is chosen; null is "All".
   int? _index;
 
-  /// A finer filter inside that category, once one is chosen.
+  /// Interest ids picked in the second row.
   final _picked = <String>{};
-
-  /// The groups of the chosen interest — AMS Travel's own names. Tourism
-  /// Corridors is made of the corridors themselves.
-  List<String> get _subCategories {
-    if (_index == null) return const [];
-    final interest = widget.interests[_index!];
-    if (interest.isCorridors) return [for (final c in widget.corridors) c.name];
-    return interest.groups.keys.toList();
-  }
 
   @override
   Widget build(BuildContext context) {
+    final api = context.read<AmsApi>();
     final s = S.of(context);
-    final name = bilingual(context, widget.province.name, widget.province.nameKh).$1;
-    final interest = _index == null ? null : widget.interests[_index!];
-    final onCorridors = interest?.isCorridors ?? false;
-    final categories = interest == null || onCorridors
-        ? null
-        : (_picked.isEmpty
-              ? interest.categories.toSet()
-              : {for (final g in _picked) ...?interest.groups[g]});
-    // Every corridor shows, as the taxonomy lists them.
-    final shownCorridors = _picked.isEmpty
-        ? widget.corridors
-        : widget.corridors.where((c) => _picked.contains(c.name)).toList();
-
-    final places = onCorridors
-        ? const <Destination>[]
-        : categories == null
-        ? widget.places
-        : widget.places.where((d) => categories.contains(d.category)).toList();
+    final groups = widget.groups;
+    final name = widget.province.name;
+    final ids = InterestFilter.idsFor(groups, _index, _picked);
+    final type = _index == null ? null : groups[_index!].cardType;
 
     return Column(
       children: [
         BrowseSearchBar(hint: '${s.exploreMoreIn} $name'),
         const SizedBox(height: 12),
         InterestFilter(
-          interests: widget.interests,
+          groups: groups,
           index: _index,
           onIndex: (i) => setState(() {
             _index = i;
             _picked.clear();
           }),
-          groups: _subCategories,
           picked: _picked,
-          onPicked: (g) => setState(() {
-            _picked.contains(g) ? _picked.remove(g) : _picked.add(g);
-          }),
+          onPicked: (id) => setState(() => _picked.remove(id) ? null : _picked.add(id)),
         ),
         const SizedBox(height: 14),
         Expanded(
-          child: onCorridors
-              // The corridors are not places; they are the list.
-              ? ListView(
-                  padding: EdgeInsets.fromLTRB(16, 0, 16, 20 + MediaQuery.paddingOf(context).bottom),
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.fromLTRB(14, 14, 14, 6),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(18),
-                        border: Border.all(color: AppColors.sand200),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            s.tourismCorridors,
-                            style: AppText.sans(16, weight: FontWeight.w700, color: AppColors.sand900),
-                          ),
-                          const SizedBox(height: 6),
-                          for (final c in shownCorridors) CorridorRow(corridor: c),
-                        ],
-                      ),
-                    ),
-                  ],
-                )
-              : places.isEmpty
-              ? Center(child: Text(s.noResults, style: AppText.sans(14.5, color: AppColors.sand500)))
-              : ListView(
-                  padding: EdgeInsets.fromLTRB(16, 0, 16, 20 + MediaQuery.paddingOf(context).bottom),
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.fromLTRB(14, 14, 14, 6),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(18),
-                        border: Border.all(color: AppColors.sand200),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            name,
-                            style: AppText.sans(16, weight: FontWeight.w700, color: AppColors.sand900),
-                          ),
-                          const SizedBox(height: 6),
-                          for (final d in places) PlaceListRow(destination: d),
-                        ],
-                      ),
-                    ),
-                  ],
+          child: PagedCards(
+            key: ValueKey('${type?.code}|${(ids.toList()..sort()).join(',')}'),
+            load: (page) => api.search(provinceId: widget.province.id, interestIds: ids, type: type, page: page),
+            empty: EmptyState(icon: Icons.search_off_rounded, title: s.noResults, body: s.noResultsBody),
+            builder: (context, cards, _, more) => ListView(
+              padding: EdgeInsets.only(bottom: 20 + MediaQuery.paddingOf(context).bottom),
+              children: [
+                BrowsePanel(
+                  title: name,
+                  child: Column(
+                    children: [
+                      for (final c in cards) PlaceListRow(card: c),
+                      ?more,
+                    ],
+                  ),
                 ),
+              ],
+            ),
+          ),
         ),
       ],
     );

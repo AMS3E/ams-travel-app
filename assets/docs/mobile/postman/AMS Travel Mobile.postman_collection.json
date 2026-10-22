@@ -1,0 +1,4079 @@
+{
+  "info": {
+    "_postman_id": "b5909745-3f1d-4c63-93fc-eae24e3a55c2",
+    "name": "AMS Travel Mobile",
+    "description": "The AMS Travel API as the mobile app uses it, one folder per screen. Built by docs/mobile/postman/build-collection.py from the API's OpenAPI description on 2026-10-14. Reads marked public need no token; the rest send the traveller's bearer token from {{token}}. See docs/mobile/screens-to-api.md for what each screen needs.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.travel.ams.com.kh/api/v1"
+    }
+  ],
+  "item": [
+    {
+      "name": "0 · Sign in (Keycloak)",
+      "item": [
+        {
+          "name": "Get a traveller token (password grant, testing shortcut)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "if (body.access_token) { pm.environment.set('token', body.access_token); pm.test('token stored in the environment', () => true); }",
+                  "else { pm.test('no token: ' + JSON.stringify(body), () => false); }"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "auth": {
+              "type": "noauth"
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "url": {
+              "raw": "{{keycloakUrl}}/realms/amstravel/protocol/openid-connect/token",
+              "host": [
+                "{{keycloakUrl}}"
+              ],
+              "path": [
+                "realms",
+                "amstravel",
+                "protocol",
+                "openid-connect",
+                "token"
+              ]
+            },
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "grant_type",
+                  "value": "password"
+                },
+                {
+                  "key": "client_id",
+                  "value": "local-cli"
+                },
+                {
+                  "key": "username",
+                  "value": "{{username}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}"
+                }
+              ]
+            },
+            "description": "Testing shortcut only: the app itself signs in through Keycloak's pages with the public client amstravel-mobile (PKCE). Fill username and password in the environment; the test script stores the token for every other request."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "1 · Explore",
+      "item": [
+        {
+          "name": "Interest chips (the six groups)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/interests",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "interests"
+              ],
+              "query": []
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Tourism region cards",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/regions?kind=TOURISM",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "regions"
+              ],
+              "query": [
+                {
+                  "key": "kind",
+                  "value": "TOURISM",
+                  "disabled": false,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Explore by Popular (ids)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/popular?limit=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "popular"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "type",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "regionId",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "regionIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "provinceId",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "provinceIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "interestIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cards for ids (rows)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/search/cards?type=DESTINATION&ids={{destinationId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "search",
+                "cards"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "DESTINATION",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "ids",
+                  "value": "{{destinationId}}",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "lang",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Record a browse",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/popular/events",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "popular",
+                "events"
+              ],
+              "query": []
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"destinationId\": \"{{destinationId}}\",\n  \"eventType\": \"VIEW\",\n  \"sessionId\": \"device-session-1\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Unread count for the bell",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/notifications?unreadOnly=true&limit=1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "notifications"
+              ],
+              "query": [
+                {
+                  "key": "unreadOnly",
+                  "value": "true",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "limit",
+                  "value": "1",
+                  "disabled": false,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nNeeds the traveller's token."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "2 · Search",
+      "item": [
+        {
+          "name": "Search places",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/search?type=DESTINATION&q=angkor&page=0&size=20",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "DESTINATION",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "q",
+                  "value": "angkor",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "page",
+                  "value": "0",
+                  "disabled": false,
+                  "description": "Zero-based page index (0..N)"
+                },
+                {
+                  "key": "size",
+                  "value": "20",
+                  "disabled": false,
+                  "description": "The size of the page to be returned"
+                },
+                {
+                  "key": "regionId",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "provinceId",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "regionIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "provinceIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "categoryIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "tagIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "interestIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "travelerRecommended",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "near",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "radiusKm",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "lang",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Filter by regions, provinces, category, tag, interest (several ids comma-separated)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/search?regionIds={{regionId}}&size=20",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "regionIds",
+                  "value": "{{regionId}}",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "provinceIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "categoryIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "tagIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "interestIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "size",
+                  "value": "20",
+                  "disabled": false,
+                  "description": "The size of the page to be returned"
+                },
+                {
+                  "key": "type",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "q",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "regionId",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "provinceId",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "travelerRecommended",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "near",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "radiusKm",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "lang",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Only the Traveler seal holders",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/search?travelerRecommended=true&size=20",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "travelerRecommended",
+                  "value": "true",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "size",
+                  "value": "20",
+                  "disabled": false,
+                  "description": "The size of the page to be returned"
+                },
+                {
+                  "key": "type",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "q",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "regionId",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "provinceId",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "regionIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "provinceIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "categoryIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "tagIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "interestIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "near",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "radiusKm",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "lang",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Suggestions while typing",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/search/suggest?q=ang&limit=8",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "search",
+                "suggest"
+              ],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "ang",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "limit",
+                  "value": "8",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "lang",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "The same in Khmer: cards in Khmer where written, `untranslated` names the rest (also on by-province, suggest, cards)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/search?type=DESTINATION&q=អង្គរ&lang=km&size=20",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "DESTINATION",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "q",
+                  "value": "អង្គរ",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "lang",
+                  "value": "km",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "size",
+                  "value": "20",
+                  "disabled": false,
+                  "description": "The size of the page to be returned"
+                },
+                {
+                  "key": "regionId",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "provinceId",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "regionIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "provinceIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "categoryIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "tagIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "interestIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "travelerRecommended",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "near",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "radiusKm",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Suggestions in Khmer",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/search/suggest?q=អង្គ&limit=8&lang=km",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "search",
+                "suggest"
+              ],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "អង្គ",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "limit",
+                  "value": "8",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "lang",
+                  "value": "km",
+                  "disabled": false,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Explore by Nearby",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/destinations/nearby?latitude=13.4125&longitude=103.8670&radiusKm=25&limit=20",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "destinations",
+                "nearby"
+              ],
+              "query": [
+                {
+                  "key": "latitude",
+                  "value": "13.4125",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "longitude",
+                  "value": "103.8670",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "radiusKm",
+                  "value": "25",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "limit",
+                  "value": "20",
+                  "disabled": false,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Category chips",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/categories",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "categories"
+              ],
+              "query": []
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Tag chips",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/tags",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tags"
+              ],
+              "query": []
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Province chips",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/provinces",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "provinces"
+              ],
+              "query": []
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "3 · Tourism Regions",
+      "item": [
+        {
+          "name": "A region: cover, overview, categories, tags",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/regions/{{id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "regions",
+                "{{id}}"
+              ],
+              "query": []
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "The region's places",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/search?regionId={{regionId}}&size=100",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "regionId",
+                  "value": "{{regionId}}",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "size",
+                  "value": "100",
+                  "disabled": false,
+                  "description": "The size of the page to be returned"
+                },
+                {
+                  "key": "type",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "q",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "provinceId",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "regionIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "provinceIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "categoryIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "tagIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "interestIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "travelerRecommended",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "near",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "radiusKm",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "lang",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "4 · Destination detail",
+      "item": [
+        {
+          "name": "The place",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/destinations/{{id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "destinations",
+                "{{id}}"
+              ],
+              "query": []
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Its gallery",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/media?ownerType=DESTINATION&ownerId={{destinationId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "media"
+              ],
+              "query": [
+                {
+                  "key": "ownerType",
+                  "value": "DESTINATION",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "ownerId",
+                  "value": "{{destinationId}}",
+                  "disabled": false,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Rating, review count and seal in one call",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/search/cards?ids={{destinationId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "search",
+                "cards"
+              ],
+              "query": [
+                {
+                  "key": "ids",
+                  "value": "{{destinationId}}",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "type",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "lang",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Verified standing",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/destination-verifications/status?destinationId={{destinationId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "destination-verifications",
+                "status"
+              ],
+              "query": [
+                {
+                  "key": "destinationId",
+                  "value": "{{destinationId}}",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "destinationIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "What travellers say (rating= narrows by stars)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/reviews?targetType=DESTINATION&targetId={{destinationId}}&page=0&size=20",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reviews"
+              ],
+              "query": [
+                {
+                  "key": "targetType",
+                  "value": "DESTINATION",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "targetId",
+                  "value": "{{destinationId}}",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "page",
+                  "value": "0",
+                  "disabled": false,
+                  "description": "Zero-based page index (0..N)"
+                },
+                {
+                  "key": "size",
+                  "value": "20",
+                  "disabled": false,
+                  "description": "The size of the page to be returned"
+                },
+                {
+                  "key": "rating",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "status",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "userId",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Save (heart)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/favorites",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "favorites"
+              ],
+              "query": []
+            },
+            "description": "\n\nNeeds the traveller's token.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"targetType\": \"DESTINATION\",\n  \"targetId\": \"{{destinationId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Unsave",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/favorites/DESTINATION/{{{destinationId}}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "favorites",
+                "DESTINATION",
+                "{{{destinationId}}}"
+              ],
+              "query": []
+            },
+            "description": "\n\nNeeds the traveller's token."
+          },
+          "response": []
+        },
+        {
+          "name": "Upload a review photo (multipart, type=review)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/media/files?type=review",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "media",
+                "files"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "review",
+                  "disabled": false,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nNeeds the traveller's token.",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Write a review",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/reviews",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reviews"
+              ],
+              "query": []
+            },
+            "description": "\n\nNeeds the traveller's token.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"targetType\": \"DESTINATION\",\n  \"targetId\": \"{{destinationId}}\",\n  \"rating\": 5,\n  \"title\": \"Breathtaking sunrise\",\n  \"content\": \"Arrive before five and walk the west causeway.\",\n  \"visitType\": \"FAMILY\",\n  \"visitedOn\": \"2026-08\",\n  \"photoKeys\": []\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Opened it (Browser badge + Popular)",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/badges/me/explorations/{{destinationId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "badges",
+                "me",
+                "explorations",
+                "{{destinationId}}"
+              ],
+              "query": []
+            },
+            "description": "\n\nNeeds the traveller's token."
+          },
+          "response": []
+        },
+        {
+          "name": "Check in (scanned QR code + position, Adventure badge)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/stamps",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "stamps"
+              ],
+              "query": []
+            },
+            "description": "\n\nNeeds the traveller's token.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"code\": \"ABCD-EFGH-JKLM\",\n  \"latitude\": 13.4125,\n  \"longitude\": 103.867\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "5 · Popular page",
+      "item": [
+        {
+          "name": "Popular with province and interest chips (filled up to limit; items[].reason)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/popular?type=DESTINATION&limit=50",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "popular"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "DESTINATION",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "provinceIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "interestIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "limit",
+                  "value": "50",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "regionId",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "regionIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "provinceId",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Popular stays (type=STAY, FOOD or CORRIDOR)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/popular?type=STAY&limit=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "popular"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "STAY",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "regionId",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "regionIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "provinceId",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "provinceIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "interestIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Report a stay, food or corridor page opened",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/popular/events",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "popular",
+                "events"
+              ],
+              "query": []
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"targetType\": \"STAY\",\n  \"targetId\": \"{{stayId}}\",\n  \"eventType\": \"STAY_VIEW\",\n  \"sessionId\": \"device-session\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "6 · Stays, Food and Activities",
+      "item": [
+        {
+          "name": "A stay",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/stays/{{id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "stays",
+                "{{id}}"
+              ],
+              "query": []
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Stays near a destination, as cards nearest first",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/search?type=STAY&near={{destinationId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "STAY",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "near",
+                  "value": "{{destinationId}}",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "q",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "regionId",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "provinceId",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "regionIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "provinceIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "categoryIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "tagIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "interestIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "travelerRecommended",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "radiusKm",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "lang",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Stays near a destination (full details)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/stays?near={{destinationId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "stays"
+              ],
+              "query": [
+                {
+                  "key": "near",
+                  "value": "{{destinationId}}",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "destinationId",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Its rooms",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/stay-rooms?stayId={{stayId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "stay-rooms"
+              ],
+              "query": [
+                {
+                  "key": "stayId",
+                  "value": "{{stayId}}",
+                  "disabled": false,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Price preview: one total for the nights",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/stay-rooms/quote?stayId={{stayId}}&checkIn=2026-10-16&checkOut=2026-10-18&rooms=1&adults=2&children=0",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "stay-rooms",
+                "quote"
+              ],
+              "query": [
+                {
+                  "key": "stayId",
+                  "value": "{{stayId}}",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "checkIn",
+                  "value": "2026-10-16",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "checkOut",
+                  "value": "2026-10-18",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "rooms",
+                  "value": "1",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "adults",
+                  "value": "2",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "children",
+                  "value": "0",
+                  "disabled": false,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Price preview for one room",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/stay-rooms/{{id}}/quote?checkIn=2026-10-16&checkOut=2026-10-18&rooms=1&adults=2&children=0",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "stay-rooms",
+                "{{id}}",
+                "quote"
+              ],
+              "query": [
+                {
+                  "key": "checkIn",
+                  "value": "2026-10-16",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "checkOut",
+                  "value": "2026-10-18",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "rooms",
+                  "value": "1",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "adults",
+                  "value": "2",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "children",
+                  "value": "0",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "stayId",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Amenity labels, icons and groups",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/amenities",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "amenities"
+              ],
+              "query": [
+                {
+                  "key": "level",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "A food place",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/foods/{{id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "foods",
+                "{{id}}"
+              ],
+              "query": []
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Food near a destination, as cards nearest first (openNow, todayHours)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/search?type=FOOD&near={{destinationId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "FOOD",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "near",
+                  "value": "{{destinationId}}",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "q",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "regionId",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "provinceId",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "regionIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "provinceIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "categoryIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "tagIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "interestIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "travelerRecommended",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "radiusKm",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "lang",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Food near a destination (full details)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/foods?near={{destinationId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "foods"
+              ],
+              "query": [
+                {
+                  "key": "near",
+                  "value": "{{destinationId}}",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "destinationId",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "slug",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Activities & Experiences list (type=ACTIVITY; a chip is interestIds=)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/search?type=ACTIVITY&size=20",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "ACTIVITY",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "size",
+                  "value": "20",
+                  "disabled": false,
+                  "description": "The size of the page to be returned"
+                },
+                {
+                  "key": "q",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "regionId",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "provinceId",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "regionIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "provinceIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "categoryIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "tagIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "interestIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "travelerRecommended",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "near",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "radiusKm",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "lang",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "An activity (type, contact, Khmer)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/activities/{{id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "activities",
+                "{{id}}"
+              ],
+              "query": []
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Activities near a destination, as cards nearest first",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/search?type=ACTIVITY&near={{destinationId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "ACTIVITY",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "near",
+                  "value": "{{destinationId}}",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "q",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "regionId",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "provinceId",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "regionIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "provinceIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "categoryIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "tagIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "interestIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "travelerRecommended",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "radiusKm",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "lang",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "An activity's gallery",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/media?ownerType=ACTIVITY&ownerId={{activityId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "media"
+              ],
+              "query": [
+                {
+                  "key": "ownerType",
+                  "value": "ACTIVITY",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "ownerId",
+                  "value": "{{activityId}}",
+                  "disabled": false,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Recommend panel: the interest's Traveler seal holders",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/search?travelerRecommended=true&size=5",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "interestIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "travelerRecommended",
+                  "value": "true",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "size",
+                  "value": "5",
+                  "disabled": false,
+                  "description": "The size of the page to be returned"
+                },
+                {
+                  "key": "type",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "q",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "regionId",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "provinceId",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "regionIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "provinceIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "categoryIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "tagIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "near",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "radiusKm",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "lang",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "A stay's gallery",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/media?ownerType=STAY&ownerId={{stayId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "media"
+              ],
+              "query": [
+                {
+                  "key": "ownerType",
+                  "value": "STAY",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "ownerId",
+                  "value": "{{stayId}}",
+                  "disabled": false,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "7 · Provinces",
+      "item": [
+        {
+          "name": "All 25 provinces (cover, centre, bounds, counts)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/provinces",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "provinces"
+              ],
+              "query": []
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "The Provinces page in one answer",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/search/by-province?type=DESTINATION&perProvince=8",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "search",
+                "by-province"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "DESTINATION",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "interestIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "perProvince",
+                  "value": "8",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "q",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "regionId",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "provinceId",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "regionIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "provinceIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "categoryIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "tagIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "travelerRecommended",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "near",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "radiusKm",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "lang",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Places in a province",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/search?provinceId={{provinceId}}&size=20",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "provinceId",
+                  "value": "{{provinceId}}",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "size",
+                  "value": "20",
+                  "disabled": false,
+                  "description": "The size of the page to be returned"
+                },
+                {
+                  "key": "type",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "q",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "regionId",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "regionIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "provinceIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "categoryIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "tagIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "interestIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "travelerRecommended",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "near",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "radiusKm",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "lang",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Corridors through a province",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/search?type=CORRIDOR&provinceId={{provinceId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "CORRIDOR",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "provinceId",
+                  "value": "{{provinceId}}",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "q",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "regionId",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "regionIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "provinceIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "categoryIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "tagIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "interestIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "travelerRecommended",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "near",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "radiusKm",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "lang",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Save a province (heart)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/favorites",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "favorites"
+              ],
+              "query": []
+            },
+            "description": "\n\nNeeds the traveller's token.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"targetType\": \"PROVINCE\",\n  \"targetId\": \"{{provinceId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "8 · Map",
+      "item": [
+        {
+          "name": "Pins around the user",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/destinations/nearby?latitude=11.5564&longitude=104.9282&radiusKm=10&limit=50",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "destinations",
+                "nearby"
+              ],
+              "query": [
+                {
+                  "key": "latitude",
+                  "value": "11.5564",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "longitude",
+                  "value": "104.9282",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "radiusKm",
+                  "value": "10",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "limit",
+                  "value": "50",
+                  "disabled": false,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Every corridor route at once (encodedPolyline per card)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/search?type=CORRIDOR&size=20",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "CORRIDOR",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "size",
+                  "value": "20",
+                  "disabled": false,
+                  "description": "The size of the page to be returned"
+                },
+                {
+                  "key": "q",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "regionId",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "provinceId",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "regionIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "provinceIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "categoryIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "tagIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "interestIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "travelerRecommended",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "near",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "radiusKm",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "lang",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "A marker per tourism region (latitude, longitude, bounds)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/regions?kind=TOURISM",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "regions"
+              ],
+              "query": [
+                {
+                  "key": "kind",
+                  "value": "TOURISM",
+                  "disabled": false,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "A corridor's stops and polylines",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/corridors/{{id}}/itinerary",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "corridors",
+                "{{id}}",
+                "itinerary"
+              ],
+              "query": []
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "9 · Corridors",
+      "item": [
+        {
+          "name": "Corridor list",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/search?type=CORRIDOR",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "CORRIDOR",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "q",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "regionId",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "provinceId",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "regionIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "provinceIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "categoryIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "tagIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "interestIds",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "travelerRecommended",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "near",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "radiusKm",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "lang",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "A corridor",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/corridors/{{id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "corridors",
+                "{{id}}"
+              ],
+              "query": []
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Route overview",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/corridors/{{id}}/itinerary",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "corridors",
+                "{{id}}",
+                "itinerary"
+              ],
+              "query": []
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Its gallery",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/media?ownerType=CORRIDOR&ownerId={{corridorId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "media"
+              ],
+              "query": [
+                {
+                  "key": "ownerType",
+                  "value": "CORRIDOR",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "ownerId",
+                  "value": "{{corridorId}}",
+                  "disabled": false,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Its reviews",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/reviews?targetType=CORRIDOR&targetId={{corridorId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reviews"
+              ],
+              "query": [
+                {
+                  "key": "targetType",
+                  "value": "CORRIDOR",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "targetId",
+                  "value": "{{corridorId}}",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "status",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "userId",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "rating",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Save a corridor",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/favorites",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "favorites"
+              ],
+              "query": []
+            },
+            "description": "\n\nNeeds the traveller's token.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"targetType\": \"CORRIDOR\",\n  \"targetId\": \"{{corridorId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "10 · Saves",
+      "item": [
+        {
+          "name": "Everything saved (type + id)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/favorites",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "favorites"
+              ],
+              "query": []
+            },
+            "description": "\n\nNeeds the traveller's token."
+          },
+          "response": []
+        },
+        {
+          "name": "Rows for the saved ids",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/search/cards?type=DESTINATION&ids={{destinationId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "search",
+                "cards"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "DESTINATION",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "ids",
+                  "value": "{{destinationId}}",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "lang",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "11 · Notifications",
+      "item": [
+        {
+          "name": "List",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/notifications?unreadOnly=false&limit=50",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "notifications"
+              ],
+              "query": [
+                {
+                  "key": "unreadOnly",
+                  "value": "false",
+                  "disabled": false,
+                  "description": ""
+                },
+                {
+                  "key": "limit",
+                  "value": "50",
+                  "disabled": false,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nNeeds the traveller's token."
+          },
+          "response": []
+        },
+        {
+          "name": "Mark one read",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/notifications/{{id}}/read",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "notifications",
+                "{{id}}",
+                "read"
+              ],
+              "query": []
+            },
+            "description": "\n\nNeeds the traveller's token."
+          },
+          "response": []
+        },
+        {
+          "name": "Mark all read",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/notifications/read-all",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "notifications",
+                "read-all"
+              ],
+              "query": []
+            },
+            "description": "\n\nNeeds the traveller's token."
+          },
+          "response": []
+        },
+        {
+          "name": "Delete one",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/notifications/{{id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "notifications",
+                "{{id}}"
+              ],
+              "query": []
+            },
+            "description": "\n\nNeeds the traveller's token."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "12 · Profile and Account",
+      "item": [
+        {
+          "name": "Me",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "me"
+              ],
+              "query": []
+            },
+            "description": "\n\nNeeds the traveller's token."
+          },
+          "response": []
+        },
+        {
+          "name": "Edit profile (the whole profile each time)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "me"
+              ],
+              "query": []
+            },
+            "description": "\n\nNeeds the traveller's token.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fullName\": \"Dara Sok\",\n  \"phone\": \"+855 12 345 678\",\n  \"avatarKey\": \"\",\n  \"homeProvinceId\": \"{{provinceId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Upload a profile photo (multipart, type=avatar)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/media/files?type=avatar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "media",
+                "files"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "avatar",
+                  "disabled": false,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nNeeds the traveller's token.",
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "My reviews (rating= narrows by stars)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/reviews/me?page=0&size=20",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reviews",
+                "me"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "0",
+                  "disabled": false,
+                  "description": "Zero-based page index (0..N)"
+                },
+                {
+                  "key": "size",
+                  "value": "20",
+                  "disabled": false,
+                  "description": "The size of the page to be returned"
+                },
+                {
+                  "key": "rating",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nNeeds the traveller's token."
+          },
+          "response": []
+        },
+        {
+          "name": "My check-ins",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/stamps/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "stamps",
+                "me"
+              ],
+              "query": []
+            },
+            "description": "\n\nNeeds the traveller's token."
+          },
+          "response": []
+        },
+        {
+          "name": "My points",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/points/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "points",
+                "me"
+              ],
+              "query": [
+                {
+                  "key": "seasonId",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nNeeds the traveller's token."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "13 · Badges",
+      "item": [
+        {
+          "name": "Badge definitions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/badges",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "badges"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                },
+                {
+                  "key": "status",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "My progress this season",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/badges/me/progress",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "badges",
+                "me",
+                "progress"
+              ],
+              "query": [
+                {
+                  "key": "seasonId",
+                  "value": "",
+                  "disabled": true,
+                  "description": ""
+                }
+              ]
+            },
+            "description": "\n\nNeeds the traveller's token."
+          },
+          "response": []
+        },
+        {
+          "name": "My earned badges",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/badges/me/earned",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "badges",
+                "me",
+                "earned"
+              ],
+              "query": []
+            },
+            "description": "\n\nNeeds the traveller's token."
+          },
+          "response": []
+        },
+        {
+          "name": "A shared badge (public page)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/badges/shared/{{userBadgeId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "badges",
+                "shared",
+                "{{userBadgeId}}"
+              ],
+              "query": []
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "The current season",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/seasons/current",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "seasons",
+                "current"
+              ],
+              "query": []
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "My seasons",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/seasons/me/history",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "seasons",
+                "me",
+                "history"
+              ],
+              "query": []
+            },
+            "description": "\n\nNeeds the traveller's token."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "14 · Reviews (mine)",
+      "item": [
+        {
+          "name": "One review",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/reviews/{{id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reviews",
+                "{{id}}"
+              ],
+              "query": []
+            },
+            "description": "\n\nPublic: no token needed.",
+            "auth": {
+              "type": "noauth"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Edit",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/reviews/{{id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reviews",
+                "{{id}}"
+              ],
+              "query": []
+            },
+            "description": "\n\nNeeds the traveller's token.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rating\": 4,\n  \"title\": \"Still breathtaking\",\n  \"content\": \"Second visit, just as good.\",\n  \"visitType\": \"COUPLES\",\n  \"visitedOn\": \"2026-09\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/reviews/{{id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reviews",
+                "{{id}}"
+              ],
+              "query": []
+            },
+            "description": "\n\nNeeds the traveller's token."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "15 · Preferences",
+      "item": [
+        {
+          "name": "My preferences",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/preferences/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "preferences",
+                "me"
+              ],
+              "query": []
+            },
+            "description": "\n\nNeeds the traveller's token."
+          },
+          "response": []
+        },
+        {
+          "name": "Save preferences",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/preferences/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "preferences",
+                "me"
+              ],
+              "query": []
+            },
+            "description": "\n\nNeeds the traveller's token.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"preferredLanguage\": \"en\",\n  \"preferredCurrency\": \"USD\",\n  \"preferredRegionId\": null,\n  \"notificationEmail\": true,\n  \"notificationPush\": true,\n  \"theme\": \"SYSTEM\",\n  \"distanceUnit\": \"KM\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

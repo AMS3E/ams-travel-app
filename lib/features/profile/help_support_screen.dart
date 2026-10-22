@@ -10,7 +10,7 @@ import '../../widgets/common.dart';
 /// How to reach the team: a line of copy, three ways to get in touch, and
 /// the social accounts.
 ///
-/// TODO(api): these details are the ones from the design. Swap them for the
+/// TODO(content): these details are the ones from the design. Swap them for the
 /// real support address, number and site once the backend can serve them.
 class HelpSupportScreen extends StatelessWidget {
   const HelpSupportScreen({super.key});
@@ -33,10 +33,7 @@ class HelpSupportScreen extends StatelessWidget {
       body: ListView(
         padding: EdgeInsets.fromLTRB(20, 8, 20, 24 + MediaQuery.paddingOf(context).bottom),
         children: [
-          Text(
-            s.helpIntro,
-            style: AppText.sans(14.5, color: AppColors.sand600, height: 1.5),
-          ),
+          Text(s.helpIntro, style: AppText.sans(14.5, color: AppColors.sand600, height: 1.5)),
           const SizedBox(height: 20),
 
           _ContactRow(
@@ -52,17 +49,14 @@ class HelpSupportScreen extends StatelessWidget {
           _ContactRow(
             icon: Icons.language_rounded,
             label: _site,
-            onTap: () => launchUrl(
-              Uri.parse('https://ams-travel.netlify.app/'),
-              mode: LaunchMode.externalApplication,
-            ),
+            onTap: () => launchUrl(Uri.parse('https://ams-travel.netlify.app/'), mode: LaunchMode.externalApplication),
           ),
 
           const SizedBox(height: 22),
           Divider(color: AppColors.sand200, height: 1),
           const SizedBox(height: 22),
 
-          // TODO(api): the app has no social accounts to open yet.
+          // TODO(content): the app has no social accounts to open yet.
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

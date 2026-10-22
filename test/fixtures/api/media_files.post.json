@@ -1,0 +1,9 @@
+{
+ "key": "review/0b8c1f3e/photo-1.jpg",
+ "uri": "/api/v1/media/files/review/0b8c1f3e/photo-1.jpg",
+ "name": "photo-1.jpg",
+ "extension": "jpg",
+ "mimeTypeFile": "image/jpeg",
+ "size": 120034,
+ "category": "review"
+}

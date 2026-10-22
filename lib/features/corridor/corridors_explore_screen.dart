@@ -2,60 +2,49 @@ import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/l10n/app_strings.dart';
-import '../../core/theme/app_colors.dart';
-import '../../core/theme/app_theme.dart';
-import '../../data/models/models.dart';
-import '../../data/repositories/travel_repository.dart';
-import '../../widgets/async_view.dart';
+import '../../data/api/ams_api.dart';
 import '../../widgets/browse_bar.dart';
+import '../../widgets/common.dart';
 import '../../widgets/corridor_row.dart';
+import '../interest/browse_helpers.dart';
 
-/// The tourism corridors, with the stops each one takes in.
+/// The tourism corridors (`GET /search?type=CORRIDOR`).
 class CorridorsExploreScreen extends StatelessWidget {
   const CorridorsExploreScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final repo = context.read<TravelRepository>();
+    final api = context.read<AmsApi>();
     final s = S.of(context);
 
     return Scaffold(
       body: SafeArea(
         bottom: false,
-        child: AsyncView<List<Corridor>>(
-          load: repo.getCorridors,
-          builder: (context, corridors, _) => Column(
-            children: [
-              BrowseSearchBar(hint: s.exploreCorridors),
-              const SizedBox(height: 14),
-              Expanded(
-                child: ListView(
-                  padding: EdgeInsets.fromLTRB(16, 0, 16, 20 + MediaQuery.paddingOf(context).bottom),
+        child: Column(
+          children: [
+            BrowseSearchBar(hint: s.exploreCorridors),
+            const SizedBox(height: 14),
+            Expanded(
+              child: PagedCards(
+                load: (page) => api.search(type: CardType.corridor, page: page),
+                empty: EmptyState(icon: Icons.route_rounded, title: s.noResults, body: s.noResultsBody),
+                builder: (context, corridors, _, more) => ListView(
+                  padding: EdgeInsets.only(bottom: 20 + MediaQuery.paddingOf(context).bottom),
                   children: [
-                    Container(
-                      padding: const EdgeInsets.fromLTRB(14, 14, 14, 6),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(18),
-                        border: Border.all(color: AppColors.sand200),
-                      ),
+                    BrowsePanel(
+                      title: s.tourismCorridors,
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            s.tourismCorridors,
-                            style: AppText.sans(16, weight: FontWeight.w700, color: AppColors.sand900),
-                          ),
-                          const SizedBox(height: 6),
                           for (final c in corridors) CorridorRow(corridor: c),
+                          ?more,
                         ],
                       ),
                     ),
                   ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

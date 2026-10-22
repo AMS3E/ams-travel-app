@@ -5,13 +5,14 @@ import '../core/l10n/app_strings.dart';
 import '../core/router/routes.dart';
 import '../core/theme/app_colors.dart';
 import '../core/theme/app_theme.dart';
-import '../data/models/models.dart';
+import '../data/api/catalog.dart';
 import 'app_image.dart';
 
-/// One corridor: photo, name, the stops along it, and a way in.
+/// One corridor card: photo, name, days and the stops along it. The whole row
+/// opens it.
 class CorridorRow extends StatelessWidget {
   const CorridorRow({super.key, required this.corridor});
-  final Corridor corridor;
+  final PlaceCard corridor;
 
   @override
   Widget build(BuildContext context) {
@@ -19,13 +20,13 @@ class CorridorRow extends StatelessWidget {
     final c = corridor;
 
     return InkWell(
-      onTap: () => context.push(Routes.corridor(c.slug)),
+      onTap: () => context.push(Routes.corridor(c.id)),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(width: 54, height: 54, child: AppImage(c.image, radius: BorderRadius.circular(12))),
+            SizedBox(width: 54, height: 54, child: AppImage(c.coverUrl, radius: BorderRadius.circular(12))),
             const SizedBox(width: 12),
             Expanded(
               child: Column(
@@ -38,34 +39,18 @@ class CorridorRow extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 2),
+                  // The stops along it, else what it is.
                   Text(
-                    c.stops.map((e) => e.name).join(', '),
+                    [
+                      if (c.durationDays != null) s.daysCount(c.durationDays!),
+                      if (c.stopNames.isNotEmpty) c.stopNames.join(', ') else ?c.shortDescription,
+                    ].join(' · '),
                     style: AppText.sans(11, color: AppColors.sand500, height: 1.35),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  const SizedBox(height: 4),
-                  Row(
-                    children: [
-                      const Icon(Icons.verified_rounded, size: 12, color: Color(0xFF34D399)),
-                      const SizedBox(width: 4),
-                      Text(
-                        s.recommendByTraveler,
-                        style: AppText.sans(10.5, color: AppColors.sand500),
-                      ),
-                    ],
-                  ),
                 ],
               ),
-            ),
-            const SizedBox(width: 10),
-            Container(
-              padding: const EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                color: AppColors.violet.withValues(alpha: 0.10),
-                shape: BoxShape.circle,
-              ),
-              child: const Icon(Icons.arrow_forward_rounded, size: 15, color: AppColors.violet),
             ),
           ],
         ),
